@@ -67,6 +67,10 @@ export default class Sieve extends React.Component {
 
     sieve(start,end){
         if( start && end && start >= 2 && start <= end){
+            if( (start-end) >= 1000001 || end > 1000000000){
+                alert("Too big rage not supported yet");
+                return ;
+            }
             let {numbers,primes} = this.init(start,end);
             for( const prime of primes){
                 let s = start % prime;
