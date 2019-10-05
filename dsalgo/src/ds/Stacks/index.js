@@ -176,11 +176,7 @@ export default class Stack extends React.Component {
                                 highlight = true;
                             }
                             return (
-                                <Row>
-                                    <Col sm={12}>
-                                        <Element highlight = {highlight} key={value+"-"+index} data={{value,index}} type="stack" />
-                                    </Col>
-                                </Row>
+                                <Element highlight = {highlight} key={value+"-"+index} data={{value,index}} type="stack" />
                             )
                         })
                     }

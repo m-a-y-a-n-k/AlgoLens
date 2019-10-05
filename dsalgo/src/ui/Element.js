@@ -4,14 +4,17 @@ import Link from "./Link";
 export default class Element extends React.Component{
 
     render(){
-        let elStyles,indexStyles,valStyles,attachLink = null, next = this.props.next;
+        let elStyles,indexStyles,valStyles,element = null;
 
         switch(this.props.type.toLowerCase()){
             case 'stack':
+                element = [];
                 if( this.props.data.index === 0){
-                    attachLink = 'right';
-                    next = 'Top';    
+                    element.push(<span style={{margin: 'auto 0'}}>Top</span>);
                 }
+                element.push(<span>
+                    <Link direction='right'/>                            
+                </span>);
                 elStyles = {
                     border: '1px solid white',
                     padding: '2.4%',
@@ -34,6 +37,12 @@ export default class Element extends React.Component{
                     fontSize: '12px',
                     textAlign: 'center'
                 }
+                element.push(<div style={elStyles}>
+                                <div style={valStyles}>
+                                    {this.props.data.value}
+                                </div>
+                                <div style={indexStyles}>{this.props.data.index}</div>
+                            </div>);
                 break;
             case 'array':
                 elStyles = {
@@ -58,6 +67,12 @@ export default class Element extends React.Component{
                     fontSize: '12px',
                     textAlign: 'center'
                 }
+                element = <span style={elStyles}>
+                            <div style={valStyles}>
+                                {this.props.data.value}
+                            </div>
+                            <div style={indexStyles}>{this.props.data.index}</div>
+                        </span>
                 break;
             case 'linkedlist':
                     elStyles = {
@@ -75,44 +90,25 @@ export default class Element extends React.Component{
                         fontSize: '18px',
                         textAlign: 'center'
                     }
-                    attachLink = 'right';
+                    element = [<span style={elStyles}>
+                                <div style={valStyles}>
+                                    {this.props.data.value}
+                                </div>
+                                <div style={indexStyles}>{this.props.data.index}</div>
+                    </span>];
+
+                    if(this.props.next)
+                    element.push(                           <span>
+                        <Link direction='right'/>                            
+                    </span>
+); 
                 break;
             default:
         }
 
         return (
                 this.props.data &&
-                (
-                    <React.Fragment>
-                        <span style={elStyles}>
-                            <div style={valStyles}>
-                                {this.props.data.value}
-                            </div>
-                            {
-                                (
-                                    this.props.type.toLowerCase() === 'array' 
-                                    ||
-                                    this.props.type.toLowerCase() === 'stack'                                 
-                                ) 
-                                &&
-                                <div style={indexStyles}>{this.props.data.index}</div>
-                            }
-                        </span>
-                        {
-                            attachLink && next &&
-                            <span>
-                                <Link direction={attachLink}/>                            
-                            </span>
-                        }
-                        {
-                            (this.props.type.toLowerCase() === 'stack' && next)
-                            &&
-                            <span>Top</span>
-
-                        }
-                    </React.Fragment>
-                    
-                )
+                element
             );
     }
 
