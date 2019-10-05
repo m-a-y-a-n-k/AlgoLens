@@ -5,7 +5,7 @@ import LL from './ds/LinkedList';
 import Stack from './ds/Stacks';
 import Sieve from './algo/Sieve';
 import BinSearch from './algo/BinarySearch';
-import Factorial from './algo/Factorial'; 
+import Factorial from './algo/Factorial';
 import './App.css';
 
 function App() {
