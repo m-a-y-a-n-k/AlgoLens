@@ -63,9 +63,7 @@ class Get extends React.Component{
     
         this.toggleDropDown = this.toggleDropDown.bind(this);
         this.state = {
-          dropdownOpen: false,
-          where: 'Top',
-          result: null
+          dropdownOpen: false
         };
     }
 
@@ -90,21 +88,21 @@ class Get extends React.Component{
                                 <InputGroup>
                                     <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
                                         <DropdownToggle caret>
-                                            {this.state.where}
+                                            {this.props.parent.state.where}
                                         </DropdownToggle>
                                         <DropdownMenu>
-                                        <DropdownItem onClick={()=>{this.setState({where: 'Top'})}}>Top</DropdownItem>
+                                        <DropdownItem onClick={()=>{this.props.parent.setState({where: 'Top'})}}>Top</DropdownItem>
                                         <DropdownItem divider />
-                                        <DropdownItem onClick={()=>{this.setState({where: 'Bottom'})}}>Bottom</DropdownItem>
+                                        <DropdownItem onClick={()=>{this.props.parent.setState({where: 'Bottom'})}}>Bottom</DropdownItem>
                                         </DropdownMenu>
                                     </InputGroupButtonDropdown>
                                     {
-                                        this.state.result &&
-                                        <Input disabled value={this.state.result}/>
+                                        this.props.parent.state.result &&
+                                        <Input disabled value={this.props.parent.state.result}/>
                                     }
                                 </InputGroup>    
                                 <br />
-                                <Button onClick={()=>{let result = this.props.parent.peek(this.state.where); this.setState({result})}}>Submit</Button>
+                                <Button onClick={()=>{this.props.parent.peek();}}>Submit</Button>
                             </React.Fragment>  
                         )
                         :
@@ -122,14 +120,16 @@ export default class Stack extends React.Component {
 
     state = {
         array: [],
-        highlights: []
+        highlights: [],
+        where: 'Top',
+        result: null
     }
 
     push(data){
         if(data){
             let arr = this.state.array;
             arr.splice(0,0,data);
-            this.setState({array: arr, highlights: [0]});    
+            this.setState({array: arr, highlights: [0], result: null});    
         } else {
             alert('Nothing to Push');
         }
@@ -138,18 +138,18 @@ export default class Stack extends React.Component {
     pop(){
         let arr = this.state.array;
         arr.splice(0,1);
-        this.setState({array: arr, highlights: []});
+        this.setState({array: arr, highlights: [], result: null});
     }
 
-    peek(where){
+    peek(){
         let arr = this.state.array;
-        switch(where.toLowerCase()){
+        switch(this.state.where.toLowerCase()){
             case 'top':
-                this.setState({highlights: [0]});
-                return arr[0];
+                this.setState({highlights: [0],result: arr[0]});
+                return ;
             case 'bottom':
-                this.setState({highlights: [arr.length-1]});
-                return arr[arr.length-1];
+                this.setState({highlights: [arr.length-1], result: arr[arr.length-1]});
+                return ;
             default: 
         }
     }

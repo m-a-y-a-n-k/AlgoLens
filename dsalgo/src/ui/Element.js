@@ -10,9 +10,9 @@ export default class Element extends React.Component{
             case 'stack':
                 element = [];
                 if( this.props.data.index === 0){
-                    element.push(<span style={{margin: 'auto 0'}}>Top</span>);
+                    element.push(<span key="Top" style={{margin: 'auto 0'}}>Top</span>);
                 }
-                element.push(<span>
+                element.push(<span key="link">
                     <Link direction='right'/>                            
                 </span>);
                 elStyles = {
@@ -37,7 +37,7 @@ export default class Element extends React.Component{
                     fontSize: '12px',
                     textAlign: 'center'
                 }
-                element.push(<div style={elStyles}>
+                element.push(<div key="element" style={elStyles}>
                                 <div style={valStyles}>
                                     {this.props.data.value}
                                 </div>
