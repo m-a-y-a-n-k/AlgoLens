@@ -6,12 +6,13 @@ import Stack from './ds/Stacks';
 import Sieve from './algo/Sieve';
 import BinSearch from './algo/BinarySearch';
 import Factorial from './algo/Factorial';
+import NQueens from './algo/NQueens';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Factorial />
+      <NQueens />
     </div>
   );
 }
