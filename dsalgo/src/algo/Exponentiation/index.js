@@ -53,9 +53,12 @@ export default class Exponent extends React.Component {
     power(power) {
         if (power > 0)
             this.setState((prevState => {
-                let ans, result = [...prevState.result], disabled;
-                for (let p = 0; p < power - 1; p += 2) {
+                let ans, result = [...prevState.result], disabled,p;
+                for (p = 0; p < power - 1; p += 2) {
                     result[p / 2] = result[p] * result[p + 1];
+                }
+                if(power % 2 === 1){
+                    result[p/2]=result[power-1];
                 }
                 if (result.length === 1) {
                     ans = result[0];
