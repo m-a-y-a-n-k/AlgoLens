@@ -8,12 +8,13 @@ import BinSearch from './algo/BinarySearch';
 import Factorial from './algo/Factorial';
 import NQueens from './algo/NQueens';
 import Exponentiation from './algo/Exponentiation';
+import FloodFill from './algo/FloodFill';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Exponentiation />
+      <FloodFill />
     </div>
   );
 }
