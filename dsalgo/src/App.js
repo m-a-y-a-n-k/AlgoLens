@@ -9,12 +9,14 @@ import Factorial from './algo/Factorial';
 import NQueens from './algo/NQueens';
 import Exponentiation from './algo/Exponentiation';
 import FloodFill from './algo/FloodFill';
+// import AllPeaks from './algo/Peak/allPeaks';
+import Peak from './algo/Peak';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <FloodFill />
+      <Peak />
     </div>
   );
 }
