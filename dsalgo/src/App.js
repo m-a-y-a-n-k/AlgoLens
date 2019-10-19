@@ -11,12 +11,13 @@ import Exponentiation from './algo/Exponentiation';
 import FloodFill from './algo/FloodFill';
 // import AllPeaks from './algo/Peak/allPeaks';
 import Peak from './algo/Peak';
+import Shuffle from './algo/KnuthShuffle';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Peak />
+      <Shuffle />
     </div>
   );
 }
