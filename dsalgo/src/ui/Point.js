@@ -1,6 +1,8 @@
 export default class Point {
 
     constructor(canvas) {
+        this.x = 0;
+        this.y = 0;
         this.size = 3;
         this.canvas = canvas;
         this.rect = this.canvas.getBoundingClientRect();
@@ -13,6 +15,8 @@ export default class Point {
     }
 
     drawCoordinates(x, y) {
+        this.x = x;
+        this.y = y;
         let ctx = this.canvas.getContext("2d");
         ctx.fillStyle = "#ff2626"; // Red color
         ctx.beginPath(); //Start path
