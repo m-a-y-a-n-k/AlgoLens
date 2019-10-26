@@ -19,6 +19,6 @@ export default class Point {
         ctx.arc(x, y, this.size, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.font = "15px Arial";
-        ctx.fillText(`( ${x} , ${y} ) `, x, y + this.size + 1);
+        ctx.fillText(`( ${x} , ${y} ) `, x + 2 * this.size, y + 2 * this.size);
     }
 }
