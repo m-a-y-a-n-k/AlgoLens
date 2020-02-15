@@ -3,9 +3,13 @@
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
+import{Row,Col,Container}from 'reactstrap';
 import Typography from '@material-ui/core/Typography';
 import { Input } from '@material-ui/core';
+
+import Element from '../ui/Element';
+
+
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -19,9 +23,7 @@ import SendIcon from '@material-ui/icons/Send';
 
 
 import {
-  fade,
-  
-  
+  fade,  
   makeStyles
  
 } from '@material-ui/core/styles';
@@ -30,12 +32,11 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-
 //import Element from '../../ui/Element';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 75,
+    minWidth: 3,
   },
   bullet: {
     display: 'inline-block',
@@ -46,8 +47,9 @@ const useStyles = makeStyles({
     fontSize: 14,
   },
   pos: {
-    marginBottom: 12,
-  },
+    marginBottom: 17,
+    marginTop:33    
+},
 });
 
 
@@ -126,14 +128,18 @@ const StyledMenu = withStyles({
 
 
 
- export default function SimpleCard() {
+ function Insert(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-const[btntext,setBtntext]=React.useState("start")
+  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
+
+  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
+
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
-    alert(event.currentTarget.id);
+    
   };
 
   const handleClose = () => {
@@ -143,15 +149,9 @@ const[btntext,setBtntext]=React.useState("start")
 
 let head = "naman";
 
-    return (
+    return ( 
 
-        
-
-    <div>   
-
-
-
-        <Card className={classes.root}>
+        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
        
         <CardContent>
         <Typography variant="h5" component="h2">
@@ -161,6 +161,11 @@ let head = "naman";
        <RedditTextField
         label="Element"
         className={classes.margin}
+        onChange={(event)=> {setData(event.target.value)
+                
+                    console.log(event.target.value);
+        }}
+        value={data ? data : ''}
         
         variant="filled"
         id="reddit-input"
@@ -178,7 +183,15 @@ let head = "naman";
       >
         { btntext }
       </Button>
-
+      <Button 
+      onClick={()=>{
+        this.props.parent.insert(data,btntext);    // calling the insert function of the LinkList compoent  
+        setData(null);
+    
+    }}
+      variant="outlined" color="primary">
+        Submit
+      </Button>
       
       <StyledMenu
         id="customized-menu"
@@ -223,10 +236,405 @@ let head = "naman";
 
 
 
-    </div>
         );
 }
 
+function Delete(props){
+
+  
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
+
+  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
+
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+
+  const [position,setPosition]=React.useState(null); //position    
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+    
+  };
+
+  const handleClose = () => {
+
+    setAnchorEl(null);
+  };
+
+let head = "naman";
+
+    return ( 
+
+        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+       
+        <CardContent>
+        <Typography variant="h5" component="h2">
+         Delete
+       </Typography>
+       <Typography variant="h5" component="h2">
+         POSITION OR value
+       </Typography>
+       
+       
+       
+       
+       <RedditTextField
+        label="pOSITiON"
+        className={classes.margin}
+        onChange={(event)=> {setPosition(event.target.value)
+                
+                    console.log(event.target.value);
+        }}
+        value={position ? position : ''}
+        
+        variant="filled"
+        id="reddit-input"
+      />
+
+       
+<RedditTextField
+        label="Value"
+        className={classes.margin}
+        onChange={(event)=> {setData(event.target.value)
+                
+                    console.log(event.target.value);
+        }}
+        value={data ? data : ''}
+        
+        variant="filled"
+        id="reddit-input"
+      />   
+
+
+
+
+        </CardContent>
+    
+    <CardActions>
+    <Button
+        aria-controls="customized-menu"
+        aria-haspopup="true"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+      >
+        { btntext }
+      </Button>
+      <Button 
+      onClick={()=>{
+        this.props.parent.delete1(data,btntext,parseInt(position));    // calling the insert function of the LinkList compoent  
+        setData(null);
+        setPosition(null);
+    
+    }}
+      variant="outlined" color="primary">
+        Submit
+      </Button>
+      
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <StyledMenuItem onClick={()=>{ 
+                handleClose();
+                setBtntext("START")}} >
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText  primary="Start" />
+        </StyledMenuItem>
+        <StyledMenuItem
+         onClick={()=>{
+            handleClose();
+            setBtntext("END")}}
+        
+        >
+          <ListItemIcon>
+            <DraftsIcon 
+             primary="End" 
+            fontSize="small" />
+          </ListItemIcon>
+          <ListItemText  primary="End" />
+        </StyledMenuItem>
+      
+      </StyledMenu>
+    
+  );
+}
+   
+        
+     </CardActions>
+     
+   </Card> 
+   
+
+
+
+
+        );
+
+}
+
+function Update (props){
+
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
+
+  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
+
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+
+  const [position,setPosition]=React.useState(null); //position    
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+    
+  };
+
+  const handleClose = () => {
+
+    setAnchorEl(null);
+  };
+
+let head = "naman";
+
+    return ( 
+
+        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+       
+        <CardContent>
+        <Typography variant="h5" component="h2">
+        Update
+       </Typography>
+       <Typography variant="h5" component="h2">
+         POSITION OR value
+       </Typography>
+       
+       
+       
+       
+       <RedditTextField
+        label="pOSITiON"
+        className={classes.margin}
+        onChange={(event)=> {setPosition(event.target.value)
+                
+                    console.log(event.target.value);
+        }}
+        value={position ? position : ''}
+        
+        variant="filled"
+        id="reddit-input"
+      />
+
+       
+<RedditTextField
+        label="Value"
+        className={classes.margin}
+        onChange={(event)=> {setData(event.target.value)
+                
+                    console.log(event.target.value);
+        }}
+        value={data ? data : ''}
+        
+        variant="filled"
+        id="reddit-input"
+      />   
+
+
+
+
+        </CardContent>
+    
+    <CardActions>
+    <Button
+        aria-controls="customized-menu"
+        aria-haspopup="true"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+      >
+        { btntext }
+      </Button>
+      <Button 
+      onClick={()=>{
+        this.props.parent.update(position,data);    // calling the insert function of the LinkList compoent  
+        setData(null);
+        setPosition(null);
+    
+    }}
+      variant="outlined" color="primary">
+        Submit
+      </Button>
+      
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <StyledMenuItem onClick={()=>{ 
+                handleClose();
+                setBtntext("START")}} >
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText  primary="Start" />
+        </StyledMenuItem>
+        <StyledMenuItem
+         onClick={()=>{
+            handleClose();
+            setBtntext("END")}}
+        
+        >
+          <ListItemIcon>
+            <DraftsIcon 
+             primary="End" 
+            fontSize="small" />
+          </ListItemIcon>
+          <ListItemText  primary="End" />
+        </StyledMenuItem>
+      
+      </StyledMenu>
+    
+  );
+}
+   
+        
+     </CardActions>
+     
+   </Card> 
+   
+
+
+
+
+        );
+
+
+}
+
+function Search (props){
+
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
+
+  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
+
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+
+  const [position,setPosition]=React.useState(null);    
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+    
+  };
+
+  const handleClose = () => {
+
+    setAnchorEl(null);
+  };
+
+let head = "naman";
+
+    return ( 
+
+        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+       
+        <CardContent>
+        <Typography variant="h5" component="h2">
+        Search 
+       </Typography>
+       
+       
+<RedditTextField
+        label="Value"
+        className={classes.margin}
+        onChange={(event)=> {setData(event.target.value)
+                
+                    console.log(event.target.value);
+        }}
+        value={data ? data : ''}
+        
+        variant="filled"
+        id="reddit-input"
+      />   
+
+
+
+
+        </CardContent>
+    
+    <CardActions>
+    <Button
+        aria-controls="customized-menu"
+        aria-haspopup="true"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+      >
+        { btntext }
+      </Button>
+      <Button 
+      onClick={()=>{
+       this.props.parent.search(position,data);    // calling the insert function of the LinkList compoent  
+        setData(null);
+       
+    }}
+      variant="outlined" color="primary">
+        Submit
+      </Button>
+      
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <StyledMenuItem onClick={()=>{ 
+                handleClose();
+                setBtntext("START")}} >
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText  primary="Start" />
+        </StyledMenuItem>
+        <StyledMenuItem
+         onClick={()=>{
+            handleClose();
+            setBtntext("END")}}
+        
+        >
+          <ListItemIcon>
+            <DraftsIcon 
+             primary="End" 
+            fontSize="small" />
+          </ListItemIcon>
+          <ListItemText  primary="End" />
+        </StyledMenuItem>
+      
+      </StyledMenu>
+    
+  );
+}
+   
+        
+     </CardActions>
+     
+   </Card> 
+   
+
+
+
+
+        );
+  
+
+}
 
  
 
@@ -234,14 +642,14 @@ let head = "naman";
 
   
 
- {/* 
+ 
 
 
-export default function  LinkedList {
+export default function LinkedList () {
     const [head,setHead]=useState(null);
 
     // clear function 
-    clear= ()=>{
+   let clear= ()=>{
         let head = head,curr = {...head};
         while(curr){
             curr.highlight = false;
@@ -250,7 +658,7 @@ export default function  LinkedList {
         setHead(head);
     }
     
-     insert=(data,where)=>{
+   let  insert=(data,where)=>{
         if(data){
         
             clear();    
@@ -278,7 +686,7 @@ export default function  LinkedList {
         }
     }
     
-     delete =(data,where,position)=>{
+    let delete1 =(data,where,position)=>{
         let head = head,curr = head;
         if(head){
             clear();    
@@ -331,7 +739,7 @@ export default function  LinkedList {
         }
     }
     
-     update=(position,value)=>{
+    let update=(position,value)=>{
         if( position && value && parseInt(position) >= 0){
             clear();
             let head = head, curr = head;
@@ -350,7 +758,7 @@ export default function  LinkedList {
         }
     }
     
-    search=(data)=>{
+  let search=(data)=>{
         if(data){
             clear();
             let head = head, curr = head;
@@ -369,7 +777,7 @@ export default function  LinkedList {
     //-----------------content of render function ------------------------------------
     
     let list = [];
-            if(this.state.head){
+            if(head){
                 let curr = head,key = 0;
                 while(curr){
                     if(curr.next){
@@ -385,16 +793,16 @@ export default function  LinkedList {
             return(<Container>
                 <Row>
                     <Col sm={3}>
-                        <Insert/>
+                        <Insert parent={this}/>
                     </Col>
                     <Col sm={4}>
-                        <Delete/>
+                        <Delete parent={this}/>
                     </Col>
                     <Col sm={3}>
-                        <Update  />
+                        <Update parent={this}  />
                     </Col>
                     <Col sm={2}>
-                        <Search  />
+                        <Search parent={this} />
                     </Col>
                 </Row>
                 <Row className="mt-4 mb-4">
@@ -405,4 +813,4 @@ export default function  LinkedList {
 
             )   ;         
             
-        }  */  }
+        }  
