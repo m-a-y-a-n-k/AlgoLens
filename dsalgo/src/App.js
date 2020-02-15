@@ -14,7 +14,7 @@ import Peak from './algo/Peak';
 import Shuffle from './algo/KnuthShuffle';
 import ClosestPair from './algo/ClosestPair';
 import './App.css';
-import SimpleCard from './algo/Simple.js'
+import SimpleCard from './algo/MateriaUILinkListl'
 function App() {
   return (
     <div className="App">

@@ -1,5 +1,5 @@
  import React,{useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,6 +16,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
+
+
+import {
+  fade,
+  
+  
+  makeStyles
+ 
+} from '@material-ui/core/styles';
+
+import TextField from '@material-ui/core/TextField';
+
+
+
 
 //import Element from '../../ui/Element';
 
@@ -69,6 +83,48 @@ const StyledMenu = withStyles({
   }))(MenuItem);
 
 
+//---------- working on input -----
+  
+  
+  
+  const useStylesReddit = makeStyles(theme => ({
+    root: {
+      border: '1px solid #e2e2e1',
+      overflow: 'hidden',
+      borderRadius: 4,
+      backgroundColor: '#fcfcfb',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      '&:hover': {
+        backgroundColor: '#fff',
+      },
+      '&$focused': {
+        backgroundColor: '#fff',
+        boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+    focused: {},
+  }));
+  
+  function RedditTextField(props) {
+    const classes = useStylesReddit();
+  
+    return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
+  }
+  
+ 
+  
+
+
+
+  //***** styling the input  */
+
+  
+
+
+
+
+
 
  export default function SimpleCard() {
   const classes = useStyles();
@@ -102,7 +158,13 @@ let head = "naman";
          Enter the data
        </Typography>
        
-       
+       <RedditTextField
+        label="Element"
+        className={classes.margin}
+        
+        variant="filled"
+        id="reddit-input"
+      />
 
         </CardContent>
     
@@ -116,6 +178,8 @@ let head = "naman";
       >
         { btntext }
       </Button>
+
+      
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
