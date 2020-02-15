@@ -14,11 +14,11 @@ import Peak from './algo/Peak';
 import Shuffle from './algo/KnuthShuffle';
 import ClosestPair from './algo/ClosestPair';
 import './App.css';
-
+import SimpleCard from './algo/Simple.js'
 function App() {
   return (
     <div className="App">
-      <ClosestPair />
+      <SimpleCard/>
     </div>
   );
 }
