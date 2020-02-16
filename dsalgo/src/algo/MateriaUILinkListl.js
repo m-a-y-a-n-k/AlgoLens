@@ -133,7 +133,7 @@ const StyledMenu = withStyles({
   const bull = <span className={classes.bullet}>•</span>;
   const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
 
-  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
+  const[btntext,setBtntext]=React.useState('start'); // store the where state that signifies start or end
 
   const [data,setData]=React.useState(null);  // stores the data entered in the list 
 
@@ -146,8 +146,6 @@ const StyledMenu = withStyles({
 
     setAnchorEl(null);
   };
-
-let head = "naman";
 
     return ( 
 
@@ -183,15 +181,7 @@ let head = "naman";
       >
         { btntext }
       </Button>
-      <Button 
-      onClick={()=>{
-        this.props.parent.insert(data,btntext);    // calling the insert function of the LinkList compoent  
-        setData(null);
-    
-    }}
-      variant="outlined" color="primary">
-        Submit
-      </Button>
+      
       
       <StyledMenu
         id="customized-menu"
@@ -202,7 +192,7 @@ let head = "naman";
       >
         <StyledMenuItem onClick={()=>{ 
                 handleClose();
-                setBtntext("START")}} >
+                setBtntext('start')}} >
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
@@ -211,7 +201,7 @@ let head = "naman";
         <StyledMenuItem
          onClick={()=>{
             handleClose();
-            setBtntext("END")}}
+            setBtntext('end')}}
         
         >
           <ListItemIcon>
@@ -223,7 +213,15 @@ let head = "naman";
         </StyledMenuItem>
       
       </StyledMenu>
+      <Button 
+      onClick={()=>{
+        props.insert(data,btntext);    // calling the insert function of the LinkList compoent  
+        setData(null);
     
+    }}
+      variant="outlined" color="primary">
+        Submit
+      </Button>
   );
 }
    
@@ -650,35 +648,39 @@ export default function LinkedList () {
 
     // clear function 
    let clear= ()=>{
-        let head = head,curr = {...head};
+        let head1 = head;
+        let curr = {...head};
         while(curr){
             curr.highlight = false;
             curr = curr.next; 
         }
-        setHead(head);
+        setHead(head1);
     }
     
-   let  insert=(data,where)=>{
+   let  insert=(data,btntext)=>{
         if(data){
         
             clear();    
-            let head = head, newNode = {info: data, next: null, highlight: false}, curr;
+            let  newNode = {info: data, next: null, highlight: false}, curr;
             if( !head ){
-                setHead({head: {...newNode}});
+                setHead({...newNode});
             } else {
-                switch(where.toLowerCase()){
+                switch(btntext.toLowerCase()){
                     case 'start':
+                     console.log("i am in start "+ btntext);
                         newNode.next = head;
-                        setHead( ...newNode);      
+                        setHead( {...newNode });      
                         break;
                     case 'end':
+                      console.log("i  am in end "+btntext);
                     default:
+                      console.log("iam in default"+ btntext);
                         curr = head;
                         while(curr.next){
                             curr = curr.next;
                         }
                         curr.next = newNode;
-                        setHead( ...head);
+                        setHead({...head});
                 }    
             }
         } else {
@@ -793,7 +795,7 @@ export default function LinkedList () {
             return(<Container>
                 <Row>
                     <Col sm={3}>
-                        <Insert parent={this}/>
+                        <Insert insert={(params)=>{insert(params)} }/>
                     </Col>
                     <Col sm={4}>
                         <Delete parent={this}/>

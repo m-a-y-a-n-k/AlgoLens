@@ -229,11 +229,16 @@ export default class LinkedList extends React.Component {
             } else {
                 switch(where.toLowerCase()){
                     case 'start':
+                        console.log("i am in start " + where);
                         newNode.next = head;
                         this.setState({head: {...newNode}});      
                         break;
                     case 'end':
+                        console.log("i am in end " + where);
+                     
                     default:
+                        console.log("i am in default" + where);
+                     
                         curr = head;
                         while(curr.next){
                             curr = curr.next;
