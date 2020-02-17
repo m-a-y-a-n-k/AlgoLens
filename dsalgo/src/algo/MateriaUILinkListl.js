@@ -1,40 +1,24 @@
  import React,{useState} from 'react';
-
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import{Row,Col,Container}from 'reactstrap';
 import Typography from '@material-ui/core/Typography';
-import { Input } from '@material-ui/core';
 
 import Element from '../ui/Element';
 
 
-
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-
-
-import {
-  fade,  
-  makeStyles
- 
-} from '@material-ui/core/styles';
-
+import { fade, makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
-
-//import Element from '../../ui/Element';
-
-const useStyles = makeStyles({
+//styling the form and component
+const useStyles = makeStyles(theme=>({
   root: {
     minWidth: 3,
   },
@@ -47,53 +31,27 @@ const useStyles = makeStyles({
     fontSize: 14,
   },
   pos: {
-    marginBottom: 17,
+    marginBottom: 175,
     marginTop:33    
 },
-});
+formControl: {
+  margin: theme.spacing(1),
+  minWidth: 120,
+},
+selectEmpty: {
+  marginTop: theme.spacing(1),
+},
 
+}));
 
-const StyledMenu = withStyles({
-    paper: {
-      border: '1px solid #d3d4d5',
-    },
-  })(props => (
-    <Menu
-      elevation={0}
-      getContentAnchorEl={null}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-      {...props}
-    />
-  ));
-  
-  const StyledMenuItem = withStyles(theme => ({
-    root: {
-      '&:focus': {
-        backgroundColor: theme.palette.primary.main,
-        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-          color: theme.palette.common.white,
-        },
-      },
-    },
-  }))(MenuItem);
-
-
-//---------- working on input -----
-  
-  
-  
+// input field styling 
   const useStylesReddit = makeStyles(theme => ({
     root: {
       border: '1px solid #e2e2e1',
       overflow: 'hidden',
       borderRadius: 4,
+      margin: '4px 0px 0px 0px', 
+      
       backgroundColor: '#fcfcfb',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
       '&:hover': {
@@ -105,548 +63,305 @@ const StyledMenu = withStyles({
         borderColor: theme.palette.primary.main,
       },
     },
+    
     focused: {},
   }));
   
+  // handling input field
   function RedditTextField(props) {
     const classes = useStylesReddit();
-  
     return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
   }
-  
- 
-  
 
-
-
-  //***** styling the input  */
-
-  
-
-
-
-
-
-
+  // Insert component --------------------------------------------------------------------------------------
  function Insert(props) {
+  ///--------- Select the start or end input type ------------
+  const classes1 = useStyles();
+  const [where, setWhere] = React.useState('');
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
+
+  const handleChange = event => {
+    setWhere(event.target.value);
+    alert(where+ "hey see the change");
+  };
+  //-----------------------------------------------------------
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
-
-  const[btntext,setBtntext]=React.useState('start'); // store the where state that signifies start or end
-
   const [data,setData]=React.useState(null);  // stores the data entered in the list 
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-    
-  };
-
-  const handleClose = () => {
-
-    setAnchorEl(null);
-  };
-
     return ( 
-
-        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+     <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
        
-        <CardContent>
-        <Typography variant="h5" component="h2">
-         Enter the data
-       </Typography>
-       
-       <RedditTextField
-        label="Element"
-        className={classes.margin}
-        onChange={(event)=> {setData(event.target.value)
-                
-                    console.log(event.target.value);
-        }}
-        value={data ? data : ''}
-        
-        variant="filled"
-        id="reddit-input"
-      />
-
+        <CardContent className="bg-primary text-white">
+        <Typography variant="h5" component="h2">Insert</Typography>
         </CardContent>
-    
-    <CardActions>
-    <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
-        { btntext }
-      </Button>
-      
-      
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem onClick={()=>{ 
-                handleClose();
-                setBtntext('start')}} >
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="Start" />
-        </StyledMenuItem>
-        <StyledMenuItem
-         onClick={()=>{
-            handleClose();
-            setBtntext('end')}}
+
+        <CardContent className=" text-center pb-0 mt-0">
+        <Typography  variant="h6" component="h2">Enter data</Typography>
+        </CardContent>
+
+
+       <CardActions>
+
+         <FormControl variant="outlined" className={classes1.formControl}>
+                   
+             <InputLabel  ref={inputLabel} id="demo-simple-select-outlined-label">
+                Position
+             </InputLabel>
+                 <Select 
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={where}
+                  onChange={handleChange}
+                  labelWidth={labelWidth}
+                  >
+          
+                      <MenuItem  value={'start'}>Start</MenuItem>
+                      <MenuItem value={'end'}>End</MenuItem>
         
-        >
-          <ListItemIcon>
-            <DraftsIcon 
-             primary="End" 
-            fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="End" />
-        </StyledMenuItem>
-      
-      </StyledMenu>
-      <Button 
-      onClick={()=>{
-        props.insert(data,btntext);    // calling the insert function of the LinkList compoent  
-        setData(null);
-    
-    }}
-      variant="outlined" color="primary">
-        Submit
-      </Button>
-  );
-}
-   
-        
-     </CardActions>
+                  </Select>
+
+
+             <RedditTextField
+                            
+              label="Enter Data"
+              className={classes.margin}
+              onChange={(event)=> {setData(event.target.value) }}
+              value={data ? data : ''}
+              variant="filled"
+              id="reddit-input"
+            />
+
+                 <Button className="mt-2" 
+                 onClick={()=>{ props.insert(data,where);    // calling the insert function of the LinkList compoent  
+                               setData(null); 
+                   }}
+                     variant="outlined" color="primary">
+                   Submit
+                 </Button>
+
+
+      </FormControl>   
+
+  </CardActions>
      
-   </Card> 
-   
-
-
-
-
-        );
+   </Card>  );
 }
 
 function Delete(props){
+  ///--------- Select the start or end input type ------------
+  const classes1 = useStyles();
+  const [where, setWhere] = React.useState('');
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
-  
+  const handleChange = event => {
+    setWhere(event.target.value);
+    alert(where+ "hey see the change");
+  };
+
+//-----------------------------------------------------------------
+
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
-
-  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
 
   const [data,setData]=React.useState(null);  // stores the data entered in the list 
 
   const [position,setPosition]=React.useState(null); //position    
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-    
-  };
-
-  const handleClose = () => {
-
-    setAnchorEl(null);
-  };
-
-let head = "naman";
-
     return ( 
+  <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+          <CardContent className="bg-primary text-white " >
+                    
+                    
+                    <Typography variant="h5" component="h2"> Delete</Typography>
 
-        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
-       
-        <CardContent>
-        <Typography variant="h5" component="h2">
-         Delete
-       </Typography>
-       <Typography variant="h5" component="h2">
-         POSITION OR value
-       </Typography>
-       
-       
-       
-       
-       <RedditTextField
-        label="pOSITiON"
-        className={classes.margin}
-        onChange={(event)=> {setPosition(event.target.value)
-                
-                    console.log(event.target.value);
-        }}
-        value={position ? position : ''}
-        
-        variant="filled"
-        id="reddit-input"
-      />
+         </CardContent>
 
-       
-<RedditTextField
-        label="Value"
-        className={classes.margin}
-        onChange={(event)=> {setData(event.target.value)
-                
-                    console.log(event.target.value);
-        }}
-        value={data ? data : ''}
-        
-        variant="filled"
-        id="reddit-input"
-      />   
+           <CardContent className=" text-center pb-0 mt-0">
+               <Typography  variant="h6" component="h2">Position or value</Typography>
+            </CardContent>
 
-
-
-
-        </CardContent>
     
-    <CardActions>
-    <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
-        { btntext }
-      </Button>
-      <Button 
-      onClick={()=>{
-        this.props.parent.delete1(data,btntext,parseInt(position));    // calling the insert function of the LinkList compoent  
-        setData(null);
-        setPosition(null);
-    
-    }}
-      variant="outlined" color="primary">
-        Submit
-      </Button>
-      
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem onClick={()=>{ 
-                handleClose();
-                setBtntext("START")}} >
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="Start" />
-        </StyledMenuItem>
-        <StyledMenuItem
-         onClick={()=>{
-            handleClose();
-            setBtntext("END")}}
+    <CardActions >
+          <FormControl  variant="outlined" className={classes1.formControl}>
+                   <InputLabel  ref={inputLabel} id="demo-simple-select-outlined-label">
+                      Position
+                   </InputLabel>
+                    
+                       <Select  
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={where}
+                        onChange={handleChange}
+                        labelWidth={labelWidth}
+                        >
+          
+                            <MenuItem  value={'start'}>Start</MenuItem>
+                            <MenuItem value={'end'}>End</MenuItem>
         
-        >
-          <ListItemIcon>
-            <DraftsIcon 
-             primary="End" 
-            fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="End" />
-        </StyledMenuItem>
-      
-      </StyledMenu>
-    
-  );
-}
-   
-        
-     </CardActions>
+                        </Select>
+
+                      <Typography className="text-center" >Or</Typography>
+                          
+                          <RedditTextField
+                          className="w-50"
+                          label="Index"
+                         
+                          className={classes.margin}
+                           onChange={(event)=> {setPosition(event.target.value)}}
+                           value={position ? position : ''}
+                            variant="filled"
+                            id="reddit-input"
+                            />
+
+
+
+                           <Typography className="text-center" variant="h6"> Or </Typography>                        
+                             <RedditTextField
+                               label="Value"
+                               className={classes.margin}
+                              onChange={(event)=> {setData(event.target.value)  }}
+                              value={data ? data : ''}
+                               variant="filled"
+                               id="reddit-input"
+                              />   
+
+
+                          <Button 
+                              className="mt-2"
+                              onClick={()=>{props.delete1(data,where,parseInt(position));    // calling the insert function of the LinkList compoent  
+                              setData(null);
+                              setPosition(null);    }}
+                              variant="outlined" color="primary">
+                             Submit
+                          </Button>
+
+              </FormControl>
+     </CardActions> 
      
-   </Card> 
-   
-
-
-
-
-        );
+   </Card> );
 
 }
 
 function Update (props){
 
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
-
-  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
-
   const [data,setData]=React.useState(null);  // stores the data entered in the list 
-
   const [position,setPosition]=React.useState(null); //position    
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-    
-  };
+  const classes1 = useStyles();
+  
 
-  const handleClose = () => {
-
-    setAnchorEl(null);
-  };
-
-let head = "naman";
-
+ 
     return ( 
-
         <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
        
-        <CardContent>
-        <Typography variant="h5" component="h2">
-        Update
-       </Typography>
-       <Typography variant="h5" component="h2">
-         POSITION OR value
-       </Typography>
-       
-       
-       
-       
-       <RedditTextField
-        label="pOSITiON"
-        className={classes.margin}
-        onChange={(event)=> {setPosition(event.target.value)
-                
-                    console.log(event.target.value);
-        }}
-        value={position ? position : ''}
-        
-        variant="filled"
-        id="reddit-input"
-      />
+                <CardContent className="bg-primary text-white">
+                       <Typography  variant="h5" component="h2">Update</Typography>
+                </CardContent>  
 
-       
-<RedditTextField
-        label="Value"
-        className={classes.margin}
-        onChange={(event)=> {setData(event.target.value)
-                
-                    console.log(event.target.value);
-        }}
-        value={data ? data : ''}
-        
-        variant="filled"
-        id="reddit-input"
-      />   
-
-
-
-
-        </CardContent>
+                <CardContent className=" text-center pb-0 mt-0">
+                     <Typography  variant="h6" component="h2">Value at position</Typography>
+                </CardContent>
+                             
     
-    <CardActions>
-    <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
-        { btntext }
-      </Button>
-      <Button 
-      onClick={()=>{
-        this.props.parent.update(position,data);    // calling the insert function of the LinkList compoent  
-        setData(null);
-        setPosition(null);
-    
-    }}
-      variant="outlined" color="primary">
-        Submit
-      </Button>
+               <CardActions  >
+
+                        <FormControl  variant="outlined" className={classes1.formControl}>
+                        
+                  
+                               <RedditTextField
+                                label="Index"
+                                className={classes.margin}
+                                onChange={(event)=> {setPosition(event.target.value)}}
+                                 value={position ? position : ''}
+                                 variant="filled"
+                                 id="reddit-input"
+                              />
+                      
+                      
+       
+                              <RedditTextField
+                                label="Value"
+                                className={classes.margin}
+                                onChange={(event)=> {setData(event.target.value) }}
+                                value={data ? data : ''}
+                                variant="filled"
+                                id="reddit-input"
+                               />   
+                             
+
+                               <Button onClick={()=>{
+                                   props.update(position,data);    // calling the insert function of the LinkList compoent  
+                                   setData(null);
+                                   setPosition(null); }}
+                                   className="mt-2"
+                                   variant="outlined" color="primary">
+
+                                    Submit
+                               </Button>
       
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem onClick={()=>{ 
-                handleClose();
-                setBtntext("START")}} >
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="Start" />
-        </StyledMenuItem>
-        <StyledMenuItem
-         onClick={()=>{
-            handleClose();
-            setBtntext("END")}}
+               </FormControl>
         
-        >
-          <ListItemIcon>
-            <DraftsIcon 
-             primary="End" 
-            fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="End" />
-        </StyledMenuItem>
-      
-      </StyledMenu>
-    
-  );
-}
-   
-        
-     </CardActions>
-     
-   </Card> 
-   
-
-
-
-
-        );
-
-
+        </CardActions>
+  </Card>);
 }
 
 function Search (props){
 
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const [anchorEl, setAnchorEl] = React.useState(null); //used for menu items 
-
-  const[btntext,setBtntext]=React.useState("start"); // store the where state that signifies start or end
-
+  const classes1 = useStyles(); //style for formcontrol
+  const classes = useStyles(); // style for card component 
   const [data,setData]=React.useState(null);  // stores the data entered in the list 
-
   const [position,setPosition]=React.useState(null);    
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-    
-  };
-
-  const handleClose = () => {
-
-    setAnchorEl(null);
-  };
-
-let head = "naman";
-
+  
     return ( 
 
-        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
-       
-        <CardContent>
-        <Typography variant="h5" component="h2">
-        Search 
-       </Typography>
-       
-       
-<RedditTextField
-        label="Value"
-        className={classes.margin}
-        onChange={(event)=> {setData(event.target.value)
+      <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} > 
+                <CardContent className="  bg-primary text-white">
+                     <Typography variant="h5" component="h2"> Search </Typography>
+                  </CardContent>
+    
+                  <CardContent className="text-center pb-0 mt-0">
+                       <Typography  variant="h6" component="h2">Data</Typography>
+                </CardContent>
+
+               <CardActions>
+                     <FormControl  variant="outlined" className={classes1.formControl}>
+              
+                           <RedditTextField
+                            label="Value"
+                            className={classes.margin}
+                            onChange={(event)=> {setData(event.target.value)}}
+                            value={data ? data : ''}
+                            variant="filled"
+                            id="reddit-input"
+                             />   
+                            
+                      
+                             <Button  onClick={()=>{props.search(position,data);    // calling the insert function of the LinkList compoent  
+                                            setData(null);  }}
+                                variant="outlined" color="primary" 
+                                className="mt-2"
+                                >
+                                 Submit
+                              </Button>
                 
-                    console.log(event.target.value);
-        }}
-        value={data ? data : ''}
-        
-        variant="filled"
-        id="reddit-input"
-      />   
-
-
-
-
-        </CardContent>
-    
-    <CardActions>
-    <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
-        { btntext }
-      </Button>
-      <Button 
-      onClick={()=>{
-       this.props.parent.search(position,data);    // calling the insert function of the LinkList compoent  
-        setData(null);
-       
-    }}
-      variant="outlined" color="primary">
-        Submit
-      </Button>
-      
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem onClick={()=>{ 
-                handleClose();
-                setBtntext("START")}} >
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="Start" />
-        </StyledMenuItem>
-        <StyledMenuItem
-         onClick={()=>{
-            handleClose();
-            setBtntext("END")}}
-        
-        >
-          <ListItemIcon>
-            <DraftsIcon 
-             primary="End" 
-            fontSize="small" />
-          </ListItemIcon>
-          <ListItemText  primary="End" />
-        </StyledMenuItem>
-      
-      </StyledMenu>
-    
-  );
-}
-   
-        
-     </CardActions>
+                           </FormControl>     
+                   </CardActions>
      
-   </Card> 
-   
-
-
-
-
-        );
+   </Card> );
   
 
 }
-
- 
-
-
-
-  
-
- 
-
-
 export default function LinkedList () {
-    const [head,setHead]=useState(null);
+    
+  const [head,setHead]=useState(null); 
 
-    // clear function 
+    // clear function --------------------------------------------
    let clear= ()=>{
         let head1 = head;
         let curr = {...head};
@@ -656,54 +371,56 @@ export default function LinkedList () {
         }
         setHead(head1);
     }
-    
+  // insert--------------------------------------------------------  
    let  insert=(data,btntext)=>{
         if(data){
         
             clear();    
-            let  newNode = {info: data, next: null, highlight: false}, curr;
-            if( !head ){
-                setHead({...newNode});
-            } else {
-                switch(btntext.toLowerCase()){
-                    case 'start':
-                     console.log("i am in start "+ btntext);
-                        newNode.next = head;
-                        setHead( {...newNode });      
-                        break;
-                    case 'end':
-                      console.log("i  am in end "+btntext);
-                    default:
-                      console.log("iam in default"+ btntext);
-                        curr = head;
-                        while(curr.next){
-                            curr = curr.next;
-                        }
-                        curr.next = newNode;
-                        setHead({...head});
-                }    
-            }
-        } else {
+          let  newNode = {info: data, next: null, highlight: false}, curr;
+                     if( !head ){
+                           setHead({...newNode});
+                      } 
+
+                      else {
+              
+                           switch(btntext){ // to lowercase() is not working here 
+                                              // console statements are giving "Undefined object"  
+                                           case 'start':
+                                                        newNode.next = head;
+                                                        setHead( {...newNode });      
+                                                        break;
+                                            case 'end':
+                                                default:
+                                                      curr = head;
+                                                        while(curr.next){
+                                                            curr = curr.next;
+                                                        }
+                                                            curr.next = newNode;
+                                                            setHead({...head});
+                                            }    
+                             }
+        }
+         else {
             alert('Empty Insert');
         }
     }
-    
-    let delete1 =(data,where,position)=>{
-        let head = head,curr = head;
-        if(head){
-            clear();    
-            if(data){
-                while( head && head.info == data){
-                    head = head.next;
-                    curr = head;
-                }
-                while(curr && curr.next){
-                    if( curr.next.info == data){
-                        curr.next = curr.next.next;
-                    }
-                    curr = curr.next;
-                }
-                setHead(head);
+ //----------Using "delet1" instead of delete is some keyword   
+    let delete1=(data,where,position)=>{
+        let head1 = head,curr = head;
+          if(head1){
+              clear();    
+                  if(data){
+                       while( head1 && head1.info == data){
+                                head1 = head1.next;
+                                curr = head1;
+                           }
+                         while(curr && curr.next){
+                            if( curr.next.info == data){
+                              curr.next = curr.next.next;
+                          }
+                       curr = curr.next;
+                  }
+                  setHead(head1);
             } else if(position){
                 if( position === 0){
                     head = head.next;
@@ -717,12 +434,12 @@ export default function LinkedList () {
                         alert("No element to delete");
                     }
                 }
-                setHead(head);
+                setHead(head1);
             }
             else{
-                switch(where.toLowerCase()){
+                switch(where){   //to lower case is not working 
                     case 'start':
-                           head = head.next;
+                           head1 = head1.next;
                         break;
                     case 'end':
                             while(curr && curr.next && curr.next.next){
@@ -734,24 +451,24 @@ export default function LinkedList () {
                         break;
                     default:
                 }
-                setHead(head);
+                setHead(head1);
             }
         } else {
             alert("List is empty");
         }
     }
-    
+    //Update------------------------------------------------------
     let update=(position,value)=>{
         if( position && value && parseInt(position) >= 0){
             clear();
-            let head = head, curr = head;
+            let head1 = head, curr = head;
             while(curr && --position >= 0){
                 curr = curr.next;
             }
             if(curr){
                 curr.info = value;
                 curr.highlight = true;
-                setHead(head);
+                setHead(head1);
             } else {
                 alert('Position out of bounds');
             }
@@ -759,18 +476,21 @@ export default function LinkedList () {
             alert("Cannot update");
         }
     }
-    
-  let search=(data)=>{
+
+
+   // Seacrh---------------------------------------------------- 
+ 
+   let search=(data)=>{
         if(data){
             clear();
-            let head = head, curr = head;
+            let head1 = head, curr = head;
             while(curr){
                 if( curr.info == data){
                     curr.highlight = true;
                 }
                 curr = curr.next;
             }
-            setHead(head);
+            setHead(head1);
         }else{
             alert("Empty Search");
         }
@@ -797,14 +517,14 @@ export default function LinkedList () {
                     <Col sm={3}>
                         <Insert insert={(params)=>{insert(params)} }/>
                     </Col>
-                    <Col sm={4}>
-                        <Delete parent={this}/>
+                    <Col sm={3}>
+                        <Delete delete1={(params)=>{delete1(params)}}/>
                     </Col>
                     <Col sm={3}>
-                        <Update parent={this}  />
+                        <Update  update={(params)=>{update(params)}}  />
                     </Col>
                     <Col sm={2}>
-                        <Search parent={this} />
+                        <Search search={(params)=>{search(params)}} />
                     </Col>
                 </Row>
                 <Row className="mt-4 mb-4">
