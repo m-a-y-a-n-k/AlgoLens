@@ -14,11 +14,10 @@ import Peak from './algo/Peak';
 import Shuffle from './algo/KnuthShuffle';
 import ClosestPair from './algo/ClosestPair';
 import './App.css';
-
 function App() {
   return (
     <div className="App">
-      <FloodFill />
+      <LL/>
     </div>
   );
 }
