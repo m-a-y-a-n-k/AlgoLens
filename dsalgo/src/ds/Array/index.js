@@ -192,6 +192,7 @@ class Search extends React.Component{
             </Card>
         );
     }
+    
 }
 
 
