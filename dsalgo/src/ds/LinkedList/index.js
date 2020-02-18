@@ -1,273 +1,426 @@
-import React from 'react';
+import React,{useState} from 'react';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import{Row,Col,Container}from 'reactstrap';
+import Typography from '@material-ui/core/Typography';
+
 import Element from '../../ui/Element';
-import {Container , Row , Col, Card, CardBody, CardHeader, CardTitle, Button, InputGroup, Input, InputGroupButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, InputGroupAddon, InputGroupText} from 'reactstrap';
 
-class Insert extends React.Component{
 
-    constructor(props) {
-        super(props);
+import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import { fade, makeStyles} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+
+//styling the form and component
+const useStyles = makeStyles(theme=>({
+  root: {
+    minWidth: 3,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 8px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 175,
+    marginTop:33    
+},
+formControl: {
+  margin: theme.spacing(1),
+  minWidth: 120,
+},
+selectEmpty: {
+  marginTop: theme.spacing(1),
+},
+
+}));
+
+// input field styling 
+  const useStylesReddit = makeStyles(theme => ({
+    root: {
+      border: '1px solid #e2e2e1',
+      overflow: 'hidden',
+      borderRadius: 4,
+      margin: '4px 0px 0px 0px', 
+      
+      backgroundColor: '#fcfcfb',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      '&:hover': {
+        backgroundColor: '#fff',
+      },
+      '&$focused': {
+        backgroundColor: '#fff',
+        boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
+        borderColor: theme.palette.primary.main,
+      },
+    },
     
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null,
-          where: 'Start'
-        };
-    }
+    focused: {},
+  }));
+  
+  // handling input field
+  function RedditTextField(props) {
+    const classes = useStylesReddit();
+    return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
+  }
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
+  // Insert component --------------------------------------------------------------------------------------
+ function Insert(props) {
+  ///--------- Select the start or end input type ------------
+  const classes1 = useStyles();
+  const [where, setWhere] = React.useState('');
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Insert</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Enter data</CardTitle>
-                    <br />
-                    <InputGroup>
-                    <Input onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
-                    <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-                        <DropdownToggle caret>
-                            {this.state.where}
-                        </DropdownToggle>
-                        <DropdownMenu>
-                        <DropdownItem onClick={()=>{this.setState({where: 'Start'})}}>Start</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={()=>{this.setState({where: 'End'})}}> End</DropdownItem>
-                        </DropdownMenu>
-                    </InputGroupButtonDropdown>
-                    </InputGroup>
-                    <br />
-                    <Button 
-                        onClick={()=>{
-                            this.props.parent.insert(this.state.data,this.state.where); 
-                            this.setState({data: null})
-                        }}>
-                            Submit
-                    </Button>
-                </CardBody>
-            </Card>
-        );
-    }
+  const handleChange = event => {
+    setWhere(event.target.value);
+    alert(where+ "hey see the change");
+  };
+  //-----------------------------------------------------------
+  const classes = useStyles();
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+
+    return ( 
+     <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+       
+        <CardContent className="bg-primary text-white">
+        <Typography variant="h5" component="h2">Insert</Typography>
+        </CardContent>
+
+        <CardContent className=" text-center pb-0 mt-0">
+        <Typography  variant="h6" component="h2">Enter data</Typography>
+        </CardContent>
+
+
+       <CardActions>
+
+         <FormControl variant="outlined" className={classes1.formControl}>
+                   
+             <InputLabel  ref={inputLabel} id="demo-simple-select-outlined-label">
+                Position
+             </InputLabel>
+                 <Select 
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={where}
+                  onChange={handleChange}
+                  labelWidth={labelWidth}
+                  >
+          
+                      <MenuItem  value={'start'}>Start</MenuItem>
+                      <MenuItem value={'end'}>End</MenuItem>
+        
+                  </Select>
+
+
+             <RedditTextField
+                            
+              label="Enter Data"
+              className={classes.margin}
+              onChange={(event)=> {setData(event.target.value) }}
+              value={data ? data : ''}
+              variant="filled"
+              id="reddit-input"
+            />
+
+                 <Button className="mt-2" 
+                 onClick={()=>{ props.insert(data,where);    // calling the insert function of the LinkList compoent  
+                               setData(null); 
+                   }}
+                     variant="outlined" color="primary">
+                   Submit
+                 </Button>
+
+
+      </FormControl>   
+
+  </CardActions>
+     
+   </Card>  );
 }
 
-class Delete extends React.Component{
+function Delete(props){
+  ///--------- Select the start or end input type ------------
+  const classes1 = useStyles();
+  const [where, setWhere] = React.useState('');
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
-    constructor(props) {
-        super(props);
+  const handleChange = event => {
+    setWhere(event.target.value);
+    alert(where+ "hey see the change");
+  };
+
+//-----------------------------------------------------------------
+
+  const classes = useStyles();
+
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+
+  const [position,setPosition]=React.useState(null); //position    
+    return ( 
+  <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+          <CardContent className="bg-primary text-white " >
+                    
+                    
+                    <Typography variant="h5" component="h2"> Delete</Typography>
+
+         </CardContent>
+
+           <CardContent className=" text-center pb-0 mt-0">
+               <Typography  variant="h6" component="h2">Position or value</Typography>
+            </CardContent>
+
     
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null,
-          where: 'Start',
-          position: null
-        };
-    }
+    <CardActions >
+          <FormControl  variant="outlined" className={classes1.formControl}>
+                   <InputLabel  ref={inputLabel} id="demo-simple-select-outlined-label">
+                      Position
+                   </InputLabel>
+                    
+                       <Select  
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={where}
+                        onChange={handleChange}
+                        labelWidth={labelWidth}
+                        >
+          
+                            <MenuItem  value={'start'}>Start</MenuItem>
+                            <MenuItem value={'end'}>End</MenuItem>
+        
+                        </Select>
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
+                      <Typography className="text-center" >Or</Typography>
+                          
+                          <RedditTextField
+                          className="w-50"
+                          label="Index"
+                         
+                          className={classes.margin}
+                           onChange={(event)=> {setPosition(event.target.value)}}
+                           value={position ? position : ''}
+                            variant="filled"
+                            id="reddit-input"
+                            />
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Delete</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Position or Value</CardTitle>
-                    <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>Position</InputGroupText>
-                    </InputGroupAddon>
-                    <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-                        <DropdownToggle caret>
-                            {this.state.where}
-                        </DropdownToggle>
-                        <DropdownMenu>
-                        <DropdownItem onClick={()=>{this.setState({where: 'Start'})}}>Start</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={()=>{this.setState({where: 'End'})}}> End</DropdownItem>
-                        </DropdownMenu>
-                    </InputGroupButtonDropdown>
-                    <span className="ml-2 mr-2">Or</span>
-                    <Input type="number" placeholder="Position" onChange={(event)=>{this.setState({position: event.target.value})}} value={this.state.position ? this.state.position : ''}/>
-                    </InputGroup>
-                    <br />
-                    <div>Or</div>
-                    <br />
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                        <InputGroupText>Value</InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
-                    </InputGroup>
-                    <br />
-                    <Button onClick={()=>{this.props.parent.delete(this.state.data,this.state.where, parseInt(this.state.position)); this.setState({data: null, position: null})}}>Submit</Button>
-                </CardBody>
-            </Card>
-        );
-    }
+
+
+                           <Typography className="text-center" variant="h6"> Or </Typography>                        
+                             <RedditTextField
+                               label="Value"
+                               className={classes.margin}
+                              onChange={(event)=> {setData(event.target.value)  }}
+                              value={data ? data : ''}
+                               variant="filled"
+                               id="reddit-input"
+                              />   
+
+
+                          <Button 
+                              className="mt-2"
+                              onClick={()=>{props.delete1(data,where,parseInt(position));    // calling the insert function of the LinkList compoent  
+                              setData(null);
+                              setPosition(null);    }}
+                              variant="outlined" color="primary">
+                             Submit
+                          </Button>
+
+              </FormControl>
+     </CardActions> 
+     
+   </Card> );
+
 }
 
-class Update extends React.Component{
+function Update (props){
 
-    constructor(props) {
-        super(props);
+  const classes = useStyles();
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+  const [position,setPosition]=React.useState(null); //position    
+  const classes1 = useStyles();
+  
+
+ 
+    return ( 
+        <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} >
+       
+                <CardContent className="bg-primary text-white">
+                       <Typography  variant="h5" component="h2">Update</Typography>
+                </CardContent>  
+
+                <CardContent className=" text-center pb-0 mt-0">
+                     <Typography  variant="h6" component="h2">Value at position</Typography>
+                </CardContent>
+                             
     
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null,
-          position: null
-        };
-    }
+               <CardActions  >
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
+                        <FormControl  variant="outlined" className={classes1.formControl}>
+                        
+                  
+                               <RedditTextField
+                                label="Index"
+                                className={classes.margin}
+                                onChange={(event)=> {setPosition(event.target.value)}}
+                                 value={position ? position : ''}
+                                 variant="filled"
+                                 id="reddit-input"
+                              />
+                      
+                      
+       
+                              <RedditTextField
+                                label="Value"
+                                className={classes.margin}
+                                onChange={(event)=> {setData(event.target.value) }}
+                                value={data ? data : ''}
+                                variant="filled"
+                                id="reddit-input"
+                               />   
+                             
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Update</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Value at Position</CardTitle>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>Position</InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="number" placeholder="Position" onChange={(event)=>{this.setState({position: event.target.value})}} value = {this.state.position ? this.state.position :''}/>
-                    </InputGroup>
-                    <br />
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>Value</InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
-                    </InputGroup>
-                    <br />
-                    <Button onClick={()=>{this.props.parent.update(this.state.position,this.state.data); this.setState({position: null, data: null})}}>Submit</Button>
-                </CardBody>
-            </Card>
-        );
-    }
+                               <Button onClick={()=>{
+                                   props.update(position,data);    // calling the insert function of the LinkList compoent  
+                                   setData(null);
+                                   setPosition(null); }}
+                                   className="mt-2"
+                                   variant="outlined" color="primary">
+
+                                    Submit
+                               </Button>
+      
+               </FormControl>
+        
+        </CardActions>
+  </Card>);
 }
 
-class Search extends React.Component{
+function Search (props){
 
-    constructor(props) {
-        super(props);
+  const classes1 = useStyles(); //style for formcontrol
+  const classes = useStyles(); // style for card component 
+  const [data,setData]=React.useState(null);  // stores the data entered in the list 
+  const [position,setPosition]=React.useState(null);    
+  
+    return ( 
+
+      <Card className={classes.root} style={{border: '1px solid rgba(22,45,167,0.9)'}} > 
+                <CardContent className="  bg-primary text-white">
+                     <Typography variant="h5" component="h2"> Search </Typography>
+                  </CardContent>
     
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null
-        };
-    }
+                  <CardContent className="text-center pb-0 mt-0">
+                       <Typography  variant="h6" component="h2">Data</Typography>
+                </CardContent>
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
+               <CardActions>
+                     <FormControl  variant="outlined" className={classes1.formControl}>
+              
+                           <RedditTextField
+                            label="Value"
+                            className={classes.margin}
+                            onChange={(event)=> {setData(event.target.value)}}
+                            value={data ? data : ''}
+                            variant="filled"
+                            id="reddit-input"
+                             />   
+                            
+                      
+                             <Button  onClick={()=>{props.search(position,data);    // calling the insert function of the LinkList compoent  
+                                            setData(null);  }}
+                                variant="outlined" color="primary" 
+                                className="mt-2"
+                                >
+                                 Submit
+                              </Button>
+                
+                           </FormControl>     
+                   </CardActions>
+     
+   </Card> );
+  
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Search</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Data</CardTitle>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>Value</InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data: ''}/>
-                    </InputGroup>
-                    <br />
-                    <Button onClick={()=>{this.props.parent.search(this.state.data);this.setState({data: null})}}>Submit</Button>
-                </CardBody>
-            </Card>
-        );
-    }
 }
+export default function LinkedList () {
+    
+  const [head,setHead]=useState(null); 
 
-
-export default class LinkedList extends React.Component {
-
-    state = {
-        head: null
-    }
-
-    clear(){
-        let head = this.state.head,curr = {...head};
+    // clear function --------------------------------------------
+   let clear= ()=>{
+        let head1 = head;
+        let curr = {...head};
         while(curr){
             curr.highlight = false;
             curr = curr.next; 
         }
-        this.setState({head});
+        setHead(head1);
     }
-
-    insert(data,where){
+  // insert--------------------------------------------------------  
+   let  insert=(data,btntext)=>{
         if(data){
         
-            this.clear();    
-            let head = this.state.head, newNode = {info: data, next: null, highlight: false}, curr;
-            if( !head ){
-                this.setState({head: {...newNode}});
-            } else {
-                switch(where.toLowerCase()){
-                    case 'start':
-                        console.log("i am in start " + where);
-                        newNode.next = head;
-                        this.setState({head: {...newNode}});      
-                        break;
-                    case 'end':
-                        console.log("i am in end " + where);
-                     
-                    default:
-                        console.log("i am in default" + where);
-                     
-                        curr = head;
-                        while(curr.next){
-                            curr = curr.next;
-                        }
-                        curr.next = newNode;
-                        this.setState({head: {...head}});
-                }    
-            }
-        } else {
+            clear();    
+          let  newNode = {info: data, next: null, highlight: false}, curr;
+                     if( !head ){
+                           setHead({...newNode});
+                      } 
+
+                      else {
+              
+                           switch(btntext){ // to lowercase() is not working here 
+                                              // console statements are giving "Undefined object"  
+                                           case 'start':
+                                                        newNode.next = head;
+                                                        setHead( {...newNode });      
+                                                        break;
+                                            case 'end':
+                                                default:
+                                                      curr = head;
+                                                        while(curr.next){
+                                                            curr = curr.next;
+                                                        }
+                                                            curr.next = newNode;
+                                                            setHead({...head});
+                                            }    
+                             }
+        }
+         else {
             alert('Empty Insert');
         }
     }
-
-    delete(data,where,position){
-        let head = this.state.head,curr = head;
-        if(head){
-            this.clear();    
-            if(data){
-                while( head && head.info == data){
-                    head = head.next;
-                    curr = head;
-                }
-                while(curr && curr.next){
-                    if( curr.next.info == data){
-                        curr.next = curr.next.next;
-                    }
-                    curr = curr.next;
-                }
-                this.setState({head});
+ //----------Using "delet1" instead of delete is some keyword   
+    let delete1=(data,where,position)=>{
+        let head1 = head,curr = head;
+          if(head1){
+              clear();    
+                  if(data){
+                       while( head1 && head1.info == data){
+                                head1 = head1.next;
+                                curr = head1;
+                           }
+                         while(curr && curr.next){
+                            if( curr.next.info == data){
+                              curr.next = curr.next.next;
+                          }
+                       curr = curr.next;
+                  }
+                  setHead(head1);
             } else if(position){
                 if( position === 0){
                     head = head.next;
@@ -281,12 +434,12 @@ export default class LinkedList extends React.Component {
                         alert("No element to delete");
                     }
                 }
-                this.setState({head});
+                setHead(head1);
             }
             else{
-                switch(where.toLowerCase()){
+                switch(where){   //to lower case is not working 
                     case 'start':
-                           head = head.next;
+                           head1 = head1.next;
                         break;
                     case 'end':
                             while(curr && curr.next && curr.next.next){
@@ -298,24 +451,24 @@ export default class LinkedList extends React.Component {
                         break;
                     default:
                 }
-                this.setState({head});
+                setHead(head1);
             }
         } else {
             alert("List is empty");
         }
     }
-
-    update(position,value){
+    //Update------------------------------------------------------
+    let update=(position,value)=>{
         if( position && value && parseInt(position) >= 0){
-            this.clear();
-            let head = this.state.head, curr = head;
+            clear();
+            let head1 = head, curr = head;
             while(curr && --position >= 0){
                 curr = curr.next;
             }
             if(curr){
                 curr.info = value;
                 curr.highlight = true;
-                this.setState({head});
+                setHead(head1);
             } else {
                 alert('Position out of bounds');
             }
@@ -324,57 +477,62 @@ export default class LinkedList extends React.Component {
         }
     }
 
-    search(data){
+
+   // Seacrh---------------------------------------------------- 
+ 
+   let search=(data)=>{
         if(data){
-            this.clear();
-            let head = this.state.head, curr = head;
+            clear();
+            let head1 = head, curr = head;
             while(curr){
                 if( curr.info == data){
                     curr.highlight = true;
                 }
                 curr = curr.next;
             }
-            this.setState({head});
+            setHead(head1);
         }else{
             alert("Empty Search");
         }
     }
-
-    render(){
-        let list = [];
-        if(this.state.head){
-            let curr = this.state.head,key = 0;
-            while(curr){
-                if(curr.next){
-                    list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={true} highlight={curr.highlight}/>);
-                } else {
-                    list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={false} highlight={curr.highlight}/>);
+    
+    //-----------------content of render function ------------------------------------
+    
+    let list = [];
+            if(head){
+                let curr = head,key = 0;
+                while(curr){
+                    if(curr.next){
+                        list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={true} highlight={curr.highlight}/>);
+                    } else {
+                        list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={false} highlight={curr.highlight}/>);
+                    }
+                    curr = curr.next;
+                    key++;
                 }
-                curr = curr.next;
-                key++;
             }
-        }
 
-        return (
-            <Container>
+            return(<Container>
                 <Row>
                     <Col sm={3}>
-                        <Insert parent={this}/>
-                    </Col>
-                    <Col sm={4}>
-                        <Delete parent={this}/>
+                        <Insert insert={(params)=>{insert(params)} }/>
                     </Col>
                     <Col sm={3}>
-                        <Update parent={this} />
+                        <Delete delete1={(params)=>{delete1(params)}}/>
+                    </Col>
+                    <Col sm={3}>
+                        <Update  update={(params)=>{update(params)}}  />
                     </Col>
                     <Col sm={2}>
-                        <Search parent={this} />
+                        <Search search={(params)=>{search(params)}} />
                     </Col>
                 </Row>
                 <Row className="mt-4 mb-4">
                     {list}
                 </Row>
             </Container>
-        );
-    }
-}
+
+
+            )   ;         
+            
+        }  
