@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from '../../ui/Board';
+import Board from '../../../ui/Board';
 import { Container, Row, Col, Card, CardBody, CardHeader, CardTitle, Button, InputGroup, Input, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 class Inp extends React.Component {

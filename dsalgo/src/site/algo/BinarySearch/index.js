@@ -1,5 +1,5 @@
 import React from 'react';
-import Element from '../../ui/Element';
+import Element from '../../../ui/Element';
 import {Container , Row , Col, Card, CardBody, CardHeader, CardTitle, Button, InputGroup, Input, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 class Insert extends React.Component{

@@ -1,5 +1,5 @@
 import React from 'react';
-import Element from '../../ui/Element';
+import Element from '../../../ui/Element';
 import {Container , Row , Col, Card, CardBody, CardHeader, CardTitle, Button, InputGroup, Input, InputGroupButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 class Insert extends React.Component{
@@ -43,7 +43,13 @@ class Insert extends React.Component{
                     </InputGroupButtonDropdown>
                     </InputGroup>
                     <br />
-                    <Button onClick={()=>{this.props.parent.insert(this.state.data,this.state.where); this.setState({data: null})}}>Submit</Button>
+                    <Button 
+                        onClick={()=>{
+                            this.props.parent.insert(this.state.data,this.state.where); 
+                            this.setState({data: null})
+                        }}>
+                            Submit
+                    </Button>
                 </CardBody>
             </Card>
         );
@@ -59,7 +65,8 @@ class Delete extends React.Component{
         this.state = {
           dropdownOpen: false,
           data: null,
-          where: 'Start'
+          where: 'Start',
+          position: null
         };
     }
 
@@ -90,9 +97,11 @@ class Delete extends React.Component{
                         <DropdownItem onClick={()=>{this.setState({where: 'End'})}}> End</DropdownItem>
                         </DropdownMenu>
                     </InputGroupButtonDropdown>
+                    <span className="ml-2 mr-2">Or</span>
+                    <Input type="number" placeholder="Position" onChange={(event)=>{this.setState({position: event.target.value})}} value={this.state.position ? this.state.position : ''}/>
                     </InputGroup>
                     <br />
-                    <span>Or</span>
+                    <div>Or</div>
                     <br />
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">
@@ -101,7 +110,7 @@ class Delete extends React.Component{
                         <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
                     </InputGroup>
                     <br />
-                    <Button onClick={()=>{this.props.parent.delete(this.state.data,this.state.where); this.setState({data: null})}}>Submit</Button>
+                    <Button onClick={()=>{this.props.parent.delete(this.state.data,this.state.where, parseInt(this.state.position)); this.setState({data: null, position: null})}}>Submit</Button>
                 </CardBody>
             </Card>
         );
@@ -195,59 +204,116 @@ class Search extends React.Component{
 }
 
 
-export default class Array extends React.Component {
+export default class LinkedList extends React.Component {
 
     state = {
-        array: [],
-        highlights: []
+        head: null
+    }
+
+    clear(){
+        let head = this.state.head,curr = {...head};
+        while(curr){
+            curr.highlight = false;
+            curr = curr.next; 
+        }
+        this.setState({head});
     }
 
     insert(data,where){
         if(data){
-            let arr = this.state.array;
-            switch(where.toLowerCase()){
-                case 'start':
-                    arr.splice(0,0,data);
-                    break;
-                case 'end':
-                default:
-                    arr.splice(arr.length,0,data);
+        
+            this.clear();    
+            let head = this.state.head, newNode = {info: data, next: null, highlight: false}, curr;
+            if( !head ){
+                this.setState({head: {...newNode}});
+            } else {
+                switch(where.toLowerCase()){
+                    case 'start':
+                        newNode.next = head;
+                        this.setState({head: {...newNode}});      
+                        break;
+                    case 'end':
+                    default:
+                        curr = head;
+                        while(curr.next){
+                            curr = curr.next;
+                        }
+                        curr.next = newNode;
+                        this.setState({head: {...head}});
+                }    
             }
-            this.setState({array: arr, highlights: []});    
         } else {
-            alert('Submission is empty');
+            alert('Empty Insert');
         }
     }
 
-    delete(data,where){
-        let arr = [];
-        if(data){
-            arr = this.state.array;
-            arr = arr.filter((value)=>{
-                return value != data;
-            });
-            this.setState({array: arr, highlights: []});
-        } else {
-            arr = this.state.array;
-            switch(where.toLowerCase()){
-                case 'start':
-                    arr.splice(0,1);
-                    break;
-                case 'end':
-                    arr.splice(arr.length-1,1);
-                    break;
-                default:
+    delete(data,where,position){
+        let head = this.state.head,curr = head;
+        if(head){
+            this.clear();    
+            if(data){
+                while( head && head.info == data){
+                    head = head.next;
+                    curr = head;
+                }
+                while(curr && curr.next){
+                    if( curr.next.info == data){
+                        curr.next = curr.next.next;
+                    }
+                    curr = curr.next;
+                }
+                this.setState({head});
+            } else if(position){
+                if( position === 0){
+                    head = head.next;
+                } else {
+                    while(--position > 0 && curr){
+                        curr = curr.next;
+                    }
+                    if( curr && curr.next ){
+                        curr.next = curr.next.next;
+                    } else {
+                        alert("No element to delete");
+                    }
+                }
+                this.setState({head});
             }
-            this.setState({array: arr, highlights: []});
+            else{
+                switch(where.toLowerCase()){
+                    case 'start':
+                           head = head.next;
+                        break;
+                    case 'end':
+                            while(curr && curr.next && curr.next.next){
+                                curr = curr.next;
+                            }
+                            if( curr && curr.next ){
+                                curr.next = curr.next.next;
+                            }
+                        break;
+                    default:
+                }
+                this.setState({head});
+            }
+        } else {
+            alert("List is empty");
         }
     }
 
     update(position,value){
-        if( position && value && parseInt(position) <= this.state.array.length - 1 && parseInt(position) >= 0){
-            let arr = this.state.array, highlights = [];
-            arr[position] = value;
-            highlights.push(parseInt(position));
-            this.setState({array: arr, highlights});
+        if( position && value && parseInt(position) >= 0){
+            this.clear();
+            let head = this.state.head, curr = head;
+            while(curr && --position >= 0){
+                curr = curr.next;
+            }
+            if(curr){
+                curr.info = value;
+                curr.highlight = true;
+                this.setState({head});
+            } else {
+                alert('Position out of bounds');
+            }
         } else {
             alert("Cannot update");
         }
@@ -255,46 +321,53 @@ export default class Array extends React.Component {
 
     search(data){
         if(data){
-            let arr = this.state.array,highlights = [];
-            arr.map((value,index)=>{
-                if(value == data){
-                    highlights.push(parseInt(index));
+            this.clear();
+            let head = this.state.head, curr = head;
+            while(curr){
+                if( curr.info == data){
+                    curr.highlight = true;
                 }
-                return value == data;
-            });
-            this.setState({highlights});
+                curr = curr.next;
+            }
+            this.setState({head});
         }else{
             alert("Empty Search");
         }
     }
 
     render(){
+        let list = [];
+        if(this.state.head){
+            let curr = this.state.head,key = 0;
+            while(curr){
+                if(curr.next){
+                    list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={true} highlight={curr.highlight}/>);
+                } else {
+                    list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={false} highlight={curr.highlight}/>);
+                }
+                curr = curr.next;
+                key++;
+            }
+        }
+
         return (
             <Container>
                 <Row>
                     <Col sm={3}>
                         <Insert parent={this}/>
                     </Col>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <Delete parent={this}/>
                     </Col>
                     <Col sm={3}>
                         <Update parent={this} />
                     </Col>
-                    <Col sm={3}>
+                    <Col sm={2}>
                         <Search parent={this} />
                     </Col>
                 </Row>
                 <Row className="mt-4 mb-4">
-                    {
-                        this.state.array.map((value,index)=>{
-                            let highlight = false;
-                            if( this.state.highlights.includes(index)){
-                                highlight = true;
-                            }
-                            return <Element highlight = {highlight} key={value+"-"+index} data={{value,index}} type="array" />
-                        })
-                    }
+                    {list}
                 </Row>
             </Container>
         );
