@@ -77,6 +77,8 @@ export default function Insert(props) {
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = useState(0);
   React.useEffect(() => {
+    if(inputLabel.current==null)
+    return(null);
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
@@ -87,6 +89,8 @@ export default function Insert(props) {
   const classes = useStyles();
   const [data, setData] = React.useState(null); // stores the data entered in the list
 
+if(props.show1==='Insert')
+  
   return (
     <Card
       className={classes.root}
@@ -145,5 +149,7 @@ export default function Insert(props) {
         </FormControl>
       </CardActions>
     </Card>
-  );
+  )
+  else
+  return (<div></div>)
 }

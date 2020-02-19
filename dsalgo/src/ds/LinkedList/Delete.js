@@ -76,7 +76,11 @@ export default function Delete(props) {
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
     React.useEffect(() => {
-      setLabelWidth(inputLabel.current.offsetWidth);
+    
+      if(inputLabel.current==null)
+      return(null);
+        setLabelWidth(inputLabel.current.offsetWidth);
+       
     }, []);
   
     const handleChange = event => {
@@ -90,6 +94,8 @@ export default function Delete(props) {
     const [data, setData] = React.useState(null); // stores the data entered in the list
   
     const [position, setPosition] = React.useState(null); //position
+   
+   if(props.show1==='Delete')
     return (
       <Card
         className={classes.root}
@@ -169,6 +175,8 @@ export default function Delete(props) {
           </FormControl>
         </CardActions>
       </Card>
-    );
+    )
+    else
+    return(<div></div>)
   }
   

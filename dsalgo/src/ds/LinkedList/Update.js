@@ -72,62 +72,73 @@ export default function Update(props) {
     const [position, setPosition] = React.useState(null); //position
     const classes1 = useStyles();
   
+
+if(props.show1==='Update')
+return(
+  
+    <Card
+    className={classes.root}
+    style={{ border: "1px solid rgba(22,45,167,0.9)" }}
+  >
+    <CardContent className="bg-primary text-white">
+      <Typography variant="h5" component="h2">
+        Update
+      </Typography>
+    </CardContent>
+  
+    <CardContent className=" text-center pb-0 mt-0">
+      <Typography variant="h6" component="h2">
+        Value at position
+      </Typography>
+    </CardContent>
+  
+    <CardActions>
+      <FormControl variant="outlined" className={classes1.formControl}>
+        <RedditTextField
+          label="Index"
+          className={classes.margin}
+          onChange={event => {
+            setPosition(event.target.value);
+          }}
+          value={position ? position : ""}
+          variant="filled"
+          id="reddit-input"
+        />
+  
+        <RedditTextField
+          label="Value"
+          className={classes.margin}
+          onChange={event => {
+            setData(event.target.value);
+          }}
+          value={data ? data : ""}
+          variant="filled"
+          id="reddit-input"
+        />
+  
+        <Button
+          onClick={() => {
+            props.update(position, data); // calling the update function of the LinkList compoent
+            setData(null);
+            setPosition(null);
+          }}
+          className="mt-2"
+          variant="outlined"
+          color="primary"
+        >
+          Submit
+        </Button>
+      </FormControl>
+    </CardActions>
+  </Card>
+
+);    
+
+
+
+else
     return (
-      <Card
-        className={classes.root}
-        style={{ border: "1px solid rgba(22,45,167,0.9)" }}
-      >
-        <CardContent className="bg-primary text-white">
-          <Typography variant="h5" component="h2">
-            Update
-          </Typography>
-        </CardContent>
-  
-        <CardContent className=" text-center pb-0 mt-0">
-          <Typography variant="h6" component="h2">
-            Value at position
-          </Typography>
-        </CardContent>
-  
-        <CardActions>
-          <FormControl variant="outlined" className={classes1.formControl}>
-            <RedditTextField
-              label="Index"
-              className={classes.margin}
-              onChange={event => {
-                setPosition(event.target.value);
-              }}
-              value={position ? position : ""}
-              variant="filled"
-              id="reddit-input"
-            />
-  
-            <RedditTextField
-              label="Value"
-              className={classes.margin}
-              onChange={event => {
-                setData(event.target.value);
-              }}
-              value={data ? data : ""}
-              variant="filled"
-              id="reddit-input"
-            />
-  
-            <Button
-              onClick={() => {
-                props.update(position, data); // calling the update function of the LinkList compoent
-                setData(null);
-                setPosition(null);
-              }}
-              className="mt-2"
-              variant="outlined"
-              color="primary"
-            >
-              Submit
-            </Button>
-          </FormControl>
-        </CardActions>
-      </Card>
-    );
+        <div></div>
+);
   }
   

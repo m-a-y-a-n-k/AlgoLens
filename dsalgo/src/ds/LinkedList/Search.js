@@ -70,7 +70,7 @@ export default function Search(props) {
     const classes1 = useStyles(); //style for formcontrol
     const classes = useStyles(); // style for card component
     const [data, setData] = React.useState(null); // stores the data entered in the list
-  
+  if(props.show1==='search')
     return (
       <Card
         className={classes.root}
@@ -117,5 +117,9 @@ export default function Search(props) {
         </CardActions>
       </Card>
     );
+    else
+    return(
+      <div></div>
+    )
   }
   
