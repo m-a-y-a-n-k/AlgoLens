@@ -9,6 +9,11 @@
   margin: 32px 12px;
 }
 
+.content{
+  top: 80px;
+  position: relative;
+}
+
 .ico {
   border: solid black;
   border-width: 0 3px 3px 0;

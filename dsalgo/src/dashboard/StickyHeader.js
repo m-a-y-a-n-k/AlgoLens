@@ -131,7 +131,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
@@ -156,7 +156,6 @@ export default function PrimarySearchAppBar() {
             id="sitemapSugg"
             searchOps={siteSugg}
             updateSelection={(selection) => {
-                console.log(selection);
                 window.location.pathname = selection.path;
             }}
           />
