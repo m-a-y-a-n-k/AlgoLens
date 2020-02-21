@@ -1,18 +1,19 @@
 import React, { useState, Fragment } from "react";
-import { Row, Col, Container, CardHeader } from "reactstrap";
+//import { Row, Col, Container, CardHeader } from "reactstrap";
 
 import Element from "../../ui/Element";
 import Insert from "./Insert";
 import Delete from "./Delete";
 import Update from "./Update";
 import Search from "./Search";
-
+import { Grid } from '@material-ui/core';
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import { CardHeader } from '@material-ui/core';
 
-
+import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
@@ -20,6 +21,25 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+const gridStyle = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    
+  },
+  paper: {
+    padding: theme.spacing(1),
+   
+    color: theme.palette.text.secondary,
+  },
+  control: {
+    padding: theme.spacing(2),
+  }
+
+}));
+
+
+
+
 
 const useStyles = makeStyles({
   root: {
@@ -83,14 +103,15 @@ function StyledRadio(props) {
 
 
 export default function LinkedList() {
+  const gridclass=gridStyle();
   let [head, setHead] = useState(null);
   let [list, setList] = useState(null);
   let [rendered, setRendered] = useState(false);
-  let [compshow,setCompshow] =useState(false);
-  const showcomp=(event)=>{
+  let [compshow, setCompshow] = useState(false);
+  const showcomp = (event) => {
     setCompshow(event.target.value);
     console.log(event.target.value);
-   
+
   }
 
   // clear function --------------------------------------------
@@ -276,47 +297,47 @@ export default function LinkedList() {
 
 
   return (
-    <Container>
+/*     <Container>
       <Row>
         <Col sm={4}>
-        <Card>
-          <CardContent className="pl-0 pr-0 pt-0">
-          
-         <CardHeader className="bg-primary  text-white" ><h1>Operations</h1></CardHeader> 
-          <FormControl className="pl-3" component="fieldset">
-            <FormLabel   component="legend"></FormLabel>
-            <RadioGroup aria-label="gender" name="customized-radios">
-              <FormControlLabel  value="Insert" onChange={showcomp} control= {<StyledRadio />}label="Insert" />
-              <FormControlLabel  value="Delete" onChange={showcomp} control={<StyledRadio />} label="Delete" />
-              <FormControlLabel  value="Update" onChange={showcomp} control={<StyledRadio />} label="Update" />
-              <FormControlLabel  value="search" onChange={showcomp}   control={<StyledRadio />} label="Search" />
-               
-            </RadioGroup>
-          </FormControl>
-        
-          </CardContent>
-         
-         </Card>  
-         
+          <Card>
+            <CardContent className="pl-0 pr-0 pt-0">
+
+              <CardHeader className="bg-primary  text-white" ><h1>Operations</h1></CardHeader>
+              <FormControl className="pl-3" component="fieldset">
+                <FormLabel component="legend"></FormLabel>
+                <RadioGroup aria-label="gender" name="customized-radios">
+                  <FormControlLabel value="Insert" onChange={showcomp} control={<StyledRadio />} label="Insert" />
+                  <FormControlLabel value="Delete" onChange={showcomp} control={<StyledRadio />} label="Delete" />
+                  <FormControlLabel value="Update" onChange={showcomp} control={<StyledRadio />} label="Update" />
+                  <FormControlLabel value="search" onChange={showcomp} control={<StyledRadio />} label="Search" />
+
+                </RadioGroup>
+              </FormControl>
+
+            </CardContent>
+
+          </Card>
+
 
           <Insert
-             show1={compshow}
+            show1={compshow}
             insert={(data, where) => {
               insert(data, where);
             }}
           />
-                   <Search
+          <Search
             show1={compshow}
             search={(data) => {
               search(data);
             }}
           />
-   
-   
+
+
         </Col>
         <Col sm={3}>
-          <Delete  
-          show1={compshow}
+          <Delete
+            show1={compshow}
             del={(data, where, position) => {
               del(data, where, position);
             }}
@@ -331,11 +352,98 @@ export default function LinkedList() {
           />
         </Col>
         <Col sm={2}>
-     
-        
+
+
         </Col>
       </Row>
       <Row className="mt-4 mb-4">{list}</Row>
-    </Container>
-  );
+    </Container> */
+          <div className={gridclass.root} >
+         <Grid
+      container
+        direction="row"
+        justify="flex-end"
+       alignItems="center"
+      
+        >      
+            <Grid  item xs={6} className="mr-5 mt-5" sm={2} spacing={3} >
+            <Paper className={gridclass.paper}>
+               <Card>
+               <h1 className="bg-primary text-center text-white" >Operations</h1>
+            <CardContent className="pl-0 pr-0 pt-0 text-left">
+
+              
+              <FormControl className="pl-3" component="fieldset">
+                <FormLabel component="legend"></FormLabel>
+                <RadioGroup aria-label="gender" name="customized-radios">
+                  <FormControlLabel value="Insert" onChange={showcomp} control={<StyledRadio />} label="Insert" />
+                  <FormControlLabel value="Delete" onChange={showcomp} control={<StyledRadio />} label="Delete" />
+                  <FormControlLabel value="Update" onChange={showcomp} control={<StyledRadio />} label="Update" />
+                  <FormControlLabel value="search" onChange={showcomp} control={<StyledRadio />} label="Search" />
+
+                </RadioGroup>
+              </FormControl>
+
+            </CardContent>
+
+          </Card>
+
+
+            </Paper>
+            </Grid>
+
+
+          <Grid className="mr-5 mt-5 pl-4" item spacing={4} xs={6} sm={2}>
+          <Insert
+            show1={compshow}
+            insert={(data, where) => {
+              insert(data, where);
+            }}
+          />
+          <Search
+            show1={compshow}
+            search={(data) => {
+              search(data);
+            }}
+          />
+
+<Delete
+            show1={compshow}
+            del={(data, where, position) => {
+              del(data, where, position);
+            }}
+          />  
+
+<Update
+            show1={compshow}
+            update={(position, value) => {
+              update(position, value);
+            }}
+          />
+          </Grid>
+ 
+              
+ 
+            </Grid>
+
+            <Grid
+          container
+        direction="row"
+        justify="flex-end"
+       alignItems="center"
+       className="pt-4 mr-4 mt-4"
+        > 
+
+      {list}
+      
+        
+        </Grid>
+
+              </div>
+ 
+ 
+ 
+ 
+ 
+    );
 }
