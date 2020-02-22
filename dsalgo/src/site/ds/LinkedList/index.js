@@ -1,5 +1,11 @@
+<<<<<<< HEAD:dsalgo/src/ds/LinkedList/index.js
 import React, { useState, Fragment } from "react";
 //import { Row, Col, Container, CardHeader } from "reactstrap";
+=======
+import React from 'react';
+import Element from '../../../ui/Element';
+import {Container , Row , Col, Card, CardBody, CardHeader, CardTitle, Button, InputGroup, Input, InputGroupButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, InputGroupAddon, InputGroupText} from 'reactstrap';
+>>>>>>> master:dsalgo/src/site/ds/LinkedList/index.js
 
 import Element from "../../ui/Element";
 import Insert from "./Insert";

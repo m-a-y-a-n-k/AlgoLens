@@ -1,5 +1,5 @@
 import React from 'react';
-import Point from '../../ui/Point';
+import Point from '../../../ui/Point';
 import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, InputGroup, InputGroupButtonDropdown, DropdownToggle, DropdownItem, Button, DropdownMenu } from 'reactstrap';
 
 class Canvas extends React.Component {

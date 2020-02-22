@@ -23,12 +23,13 @@ export default class Board extends React.Component {
                 boards = document.querySelectorAll(".ch-board"), cells = [...this.state.cells], color = '#D3D3D3';
             for (const board of boards) {
                 cells = [];
-                board.style.width = `${this.props.size * 30}px`;
+                board.style.width = `${this.props.size * 30 + 0.01}px`;
                 board.style.height = `${this.props.size * 30}px`;
                 board.style.position = 'relative';
                 board.style.top = '20px';
                 board.style.left = '20px';
                 for (var i = 0; i < totalPieces; i++) {
+                    // i = 0,color = white,size = 6,totalPieces = 36
                     color = (color == '#D3D3D3') ? '#606060' : '#D3D3D3';
                     if (i % this.props.size === 0 && i % 2 === 0 && totalPieces % 2 === 0) {
                         color = (color == '#D3D3D3') ? '#606060' : '#D3D3D3';
