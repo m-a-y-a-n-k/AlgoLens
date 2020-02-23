@@ -1,375 +1,386 @@
-import React from 'react';
+
+import React, { useState, Fragment } from "react";
+
+
 import Element from '../../../ui/Element';
-import {Container , Row , Col, Card, CardBody, CardHeader, CardTitle, Button, InputGroup, Input, InputGroupButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, InputGroupAddon, InputGroupText} from 'reactstrap';
 
-class Insert extends React.Component{
+import Insert from "./Insert";
+import Delete from "./Delete";
+import Update from "./Update";
+import Search from "./Search";
+import { Grid } from '@material-ui/core';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Paper from '@material-ui/core/Paper';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+const gridStyle = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
 
-    constructor(props) {
-        super(props);
-    
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null,
-          where: 'Start'
-        };
-    }
+  },
+  paper: {
+    padding: theme.spacing(1),
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
+    color: theme.palette.text.secondary,
+  },
+  control: {
+    padding: theme.spacing(2),
+  }
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Insert</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Enter data</CardTitle>
-                    <br />
-                    <InputGroup>
-                    <Input onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
-                    <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-                        <DropdownToggle caret>
-                            {this.state.where}
-                        </DropdownToggle>
-                        <DropdownMenu>
-                        <DropdownItem onClick={()=>{this.setState({where: 'Start'})}}>Start</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={()=>{this.setState({where: 'End'})}}> End</DropdownItem>
-                        </DropdownMenu>
-                    </InputGroupButtonDropdown>
-                    </InputGroup>
-                    <br />
-                    <Button 
-                        onClick={()=>{
-                            this.props.parent.insert(this.state.data,this.state.where); 
-                            this.setState({data: null})
-                        }}>
-                            Submit
-                    </Button>
-                </CardBody>
-            </Card>
-        );
-    }
-}
+}));
 
-class Delete extends React.Component{
 
-    constructor(props) {
-        super(props);
-    
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null,
-          where: 'Start',
-          position: null
-        };
-    }
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Delete</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Position or Value</CardTitle>
-                    <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>Position</InputGroupText>
-                    </InputGroupAddon>
-                    <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-                        <DropdownToggle caret>
-                            {this.state.where}
-                        </DropdownToggle>
-                        <DropdownMenu>
-                        <DropdownItem onClick={()=>{this.setState({where: 'Start'})}}>Start</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={()=>{this.setState({where: 'End'})}}> End</DropdownItem>
-                        </DropdownMenu>
-                    </InputGroupButtonDropdown>
-                    <span className="ml-2 mr-2">Or</span>
-                    <Input type="number" placeholder="Position" onChange={(event)=>{this.setState({position: event.target.value})}} value={this.state.position ? this.state.position : ''}/>
-                    </InputGroup>
-                    <br />
-                    <div>Or</div>
-                    <br />
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                        <InputGroupText>Value</InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
-                    </InputGroup>
-                    <br />
-                    <Button onClick={()=>{this.props.parent.delete(this.state.data,this.state.where, parseInt(this.state.position)); this.setState({data: null, position: null})}}>Submit</Button>
-                </CardBody>
-            </Card>
-        );
-    }
-}
 
-class Update extends React.Component{
+const useStyles = makeStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+  },
+  icon: {
+    borderRadius: '50%',
+    width: 16,
+    height: 16,
+    boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+    backgroundColor: '#f5f8fa',
+    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
+    '$root.Mui-focusVisible &': {
+      outline: '2px auto rgba(19,124,189,.6)',
+      outlineOffset: 2,
+    },
+    'input:hover ~ &': {
+      backgroundColor: '#ebf1f5',
+    },
+    'input:disabled ~ &': {
+      boxShadow: 'none',
+      background: 'rgba(206,217,224,.5)',
+    },
+  },
+  checkedIcon: {
+    backgroundColor: '#137cbd',
+    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+    '&:before': {
+      display: 'block',
+      width: 16,
+      height: 16,
+      backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
+      content: '""',
+    },
+    'input:hover ~ &': {
+      backgroundColor: '#106ba3',
+    },
+  },
 
-    constructor(props) {
-        super(props);
-    
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null,
-          position: null
-        };
-    }
+});
 
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
 
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Update</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Value at Position</CardTitle>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>Position</InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="number" placeholder="Position" onChange={(event)=>{this.setState({position: event.target.value})}} value = {this.state.position ? this.state.position :''}/>
-                    </InputGroup>
-                    <br />
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>Value</InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data : ''}/>
-                    </InputGroup>
-                    <br />
-                    <Button onClick={()=>{this.props.parent.update(this.state.position,this.state.data); this.setState({position: null, data: null})}}>Submit</Button>
-                </CardBody>
-            </Card>
-        );
-    }
-}
+function StyledRadio(props) {
+  const classes = useStyles();
 
-class Search extends React.Component{
-
-    constructor(props) {
-        super(props);
-    
-        this.toggleDropDown = this.toggleDropDown.bind(this);
-        this.state = {
-          dropdownOpen: false,
-          data: null
-        };
-    }
-
-    toggleDropDown() {
-        let dropdownOpen = this.state.dropdownOpen;
-        this.setState({
-          dropdownOpen: !dropdownOpen
-        });
-    }    
-
-    render(){
-        return (
-            <Card style={{border: '1px solid rgba(22,45,167,0.9)'}}>
-                <CardHeader>Search</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>Data</CardTitle>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">
-                            <InputGroupText>Value</InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Value" onChange={(event)=>{this.setState({data: event.target.value})}} value={this.state.data ? this.state.data: ''}/>
-                    </InputGroup>
-                    <br />
-                    <Button onClick={()=>{this.props.parent.search(this.state.data);this.setState({data: null})}}>Submit</Button>
-                </CardBody>
-            </Card>
-        );
-    }
+  return (
+    <Radio
+      className={classes.root}
+      disableRipple
+      color="default"
+      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+      icon={<span className={classes.icon} />}
+      {...props}
+    />
+  );
 }
 
 
-export default class LinkedList extends React.Component {
 
-    state = {
-        head: null
+
+export default function LinkedList() {
+  const gridclass = gridStyle();
+  let [head, setHead] = useState(null);
+  let [list, setList] = useState(null);
+  let [rendered, setRendered] = useState(false);
+  let [compshow, setCompshow] = useState(false);
+  const showcomp = (event) => {
+    setCompshow(event.target.value);
+    console.log(event.target.value);
+
+  }
+
+  // clear function --------------------------------------------
+  let clear = () => {
+    let curr = head;
+    while (curr) {
+      curr.highlight = false;
+      curr = curr.next;
     }
-
-    clear(){
-        let head = this.state.head,curr = {...head};
-        while(curr){
-            curr.highlight = false;
-            curr = curr.next; 
-        }
-        this.setState({head});
-    }
-
-    insert(data,where){
-        if(data){
-        
-            this.clear();    
-            let head = this.state.head, newNode = {info: data, next: null, highlight: false}, curr;
-            if( !head ){
-                this.setState({head: {...newNode}});
-            } else {
-                switch(where.toLowerCase()){
-                    case 'start':
-                        newNode.next = head;
-                        this.setState({head: {...newNode}});      
-                        break;
-                    case 'end':
-                    default:
-                        curr = head;
-                        while(curr.next){
-                            curr = curr.next;
-                        }
-                        curr.next = newNode;
-                        this.setState({head: {...head}});
-                }    
+    setHead(head);
+  };
+  // insert--------------------------------------------------------
+  let insert = (data, where) => {
+    if (data) {
+      clear();
+      let newNode = { info: data, next: null, highlight: false },
+        curr;
+      if (!head) {
+        setHead({ ...newNode });
+      } else {
+        switch (where.toLowerCase()) {
+          case "start":
+            newNode.next = head;
+            setHead({ ...newNode });
+            break;
+          case "end":
+          default:
+            curr = head;
+            while (curr.next) {
+              curr = curr.next;
             }
+            curr.next = newNode;
+            setHead({ ...head });
+        }
+      }
+      setRendered(false);
+    } else {
+      alert("Empty Insert");
+    }
+  };
+  //----------Using "delet1" instead of delete is some keyword
+  let del = (data, where, position) => {
+    if (head) {
+      console.log("Original : ", head);
+      clear();
+      if (data) {
+        let head1 = head, curr;
+        while (head1 && head1.info == data) {
+          head1 = head1.next;
+          curr = head1;
+        }
+        while (curr && curr.next) {
+          if (curr.next.info == data) {
+            curr.next = curr.next.next;
+          }
+          curr = curr.next;
+        }
+        setHead(head1);
+      } else if (position) {
+        if (position === 0) {
+          head = head.next;
         } else {
-            alert('Empty Insert');
+          let curr = head;
+          while (--position > 0 && curr) {
+            curr = curr.next;
+          }
+          if (curr && curr.next) {
+            curr.next = curr.next.next;
+          } else {
+            alert("No element to delete");
+          }
         }
+        setHead(head);
+      } else {
+        switch (where) {
+          case "start":
+            head = head.next;
+            break;
+          case "end":
+            let curr = head;
+            while (curr && curr.next && curr.next.next) {
+              curr = curr.next;
+            }
+            if (curr && curr.next) {
+              curr.next = curr.next.next;
+            }
+            break;
+          default:
+        }
+        console.log("Updated : ", head);
+        setHead(head);
+      }
+      setRendered(false);
+    } else {
+      alert("List is empty");
     }
+  };
+  //Update------------------------------------------------------
+  let update = (position, value) => {
+    if (position && value && parseInt(position) >= 0) {
+      clear();
+      let head1 = head,
+        curr = head;
+      while (curr && --position >= 0) {
+        curr = curr.next;
+      }
+      if (curr) {
+        curr.info = value;
+        curr.highlight = true;
+        setHead(head1);
+        setRendered(false);
+      } else {
+        alert("Position out of bounds");
+      }
+    } else {
+      alert("Cannot update");
+    }
+  };
 
-    delete(data,where,position){
-        let head = this.state.head,curr = head;
-        if(head){
-            this.clear();    
-            if(data){
-                while( head && head.info == data){
-                    head = head.next;
-                    curr = head;
-                }
-                while(curr && curr.next){
-                    if( curr.next.info == data){
-                        curr.next = curr.next.next;
-                    }
-                    curr = curr.next;
-                }
-                this.setState({head});
-            } else if(position){
-                if( position === 0){
-                    head = head.next;
-                } else {
-                    while(--position > 0 && curr){
-                        curr = curr.next;
-                    }
-                    if( curr && curr.next ){
-                        curr.next = curr.next.next;
-                    } else {
-                        alert("No element to delete");
-                    }
-                }
-                this.setState({head});
-            }
-            else{
-                switch(where.toLowerCase()){
-                    case 'start':
-                           head = head.next;
-                        break;
-                    case 'end':
-                            while(curr && curr.next && curr.next.next){
-                                curr = curr.next;
-                            }
-                            if( curr && curr.next ){
-                                curr.next = curr.next.next;
-                            }
-                        break;
-                    default:
-                }
-                this.setState({head});
-            }
+  // Seacrh----------------------------------------------------
+
+  let search = data => {
+    if (data) {
+      clear();
+      let head1 = head,
+        curr = head;
+      while (curr) {
+        if (curr.info == data) {
+          curr.highlight = true;
+        }
+        curr = curr.next;
+      }
+      setHead(head1);
+      setRendered(false);
+    } else {
+      alert("Empty Search");
+    }
+  };
+
+  let renderList = () => {
+    let list = [];
+    if (head) {
+      let curr = head,
+        key = 0;
+      while (curr) {
+        if (curr.next) {
+          list.push(
+            <Fragment key={key + "-" + curr.info}>
+              <Element
+                data={{ value: curr.info }}
+                type="LinkedList"
+                next={true}
+                highlight={curr.highlight}
+              />
+            </Fragment>
+          );
         } else {
-            alert("List is empty");
+          list.push(
+            <Fragment key={key + "-" + curr.info}>
+              <Element
+                data={{ value: curr.info }}
+                type="LinkedList"
+                next={false}
+                highlight={curr.highlight}
+              />
+            </Fragment>
+          );
         }
+        curr = curr.next;
+        key++;
+      }
     }
+    setList(list);
+    setRendered(true);
+  }
 
-    update(position,value){
-        if( position && value && parseInt(position) >= 0){
-            this.clear();
-            let head = this.state.head, curr = head;
-            while(curr && --position >= 0){
-                curr = curr.next;
-            }
-            if(curr){
-                curr.info = value;
-                curr.highlight = true;
-                this.setState({head});
-            } else {
-                alert('Position out of bounds');
-            }
-        } else {
-            alert("Cannot update");
-        }
-    }
+  //-----------------content of render function ------------------------------------
+  React.useEffect(() => {
+    if (!rendered)
+      renderList();
+  });
 
-    search(data){
-        if(data){
-            this.clear();
-            let head = this.state.head, curr = head;
-            while(curr){
-                if( curr.info == data){
-                    curr.highlight = true;
-                }
-                curr = curr.next;
-            }
-            this.setState({head});
-        }else{
-            alert("Empty Search");
-        }
-    }
 
-    render(){
-        let list = [];
-        if(this.state.head){
-            let curr = this.state.head,key = 0;
-            while(curr){
-                if(curr.next){
-                    list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={true} highlight={curr.highlight}/>);
-                } else {
-                    list.push(<Element key={key + "-" + curr.info} data={{value: curr.info}} type="LinkedList" next={false} highlight={curr.highlight}/>);
-                }
-                curr = curr.next;
-                key++;
-            }
-        }
 
-        return (
-            <Container>
-                <Row>
-                    <Col sm={3}>
-                        <Insert parent={this}/>
-                    </Col>
-                    <Col sm={4}>
-                        <Delete parent={this}/>
-                    </Col>
-                    <Col sm={3}>
-                        <Update parent={this} />
-                    </Col>
-                    <Col sm={2}>
-                        <Search parent={this} />
-                    </Col>
-                </Row>
-                <Row className="mt-4 mb-4">
-                    {list}
-                </Row>
-            </Container>
-        );
-    }
+  return (
+    <div className={gridclass.root} >
+      <Grid
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+
+      >
+        <Grid item xs={6} className="mr-5 mt-5" sm={2} spacing={3} >
+          <Paper className={gridclass.paper}>
+            <Card>
+              <h1 className="bg-primary text-center text-white" >Operations</h1>
+              <CardContent className="pl-0 pr-0 pt-0 text-left">
+
+
+                <FormControl className="pl-3" component="fieldset">
+                  <FormLabel component="legend"></FormLabel>
+                  <RadioGroup aria-label="gender" name="customized-radios">
+                    <FormControlLabel value="Insert" onChange={showcomp} control={<StyledRadio />} label="Insert" />
+                    <FormControlLabel value="Delete" onChange={showcomp} control={<StyledRadio />} label="Delete" />
+                    <FormControlLabel value="Update" onChange={showcomp} control={<StyledRadio />} label="Update" />
+                    <FormControlLabel value="search" onChange={showcomp} control={<StyledRadio />} label="Search" />
+
+                  </RadioGroup>
+                </FormControl>
+
+              </CardContent>
+
+            </Card>
+
+
+          </Paper>
+        </Grid>
+
+
+        <Grid className="mr-5 mt-5 pl-4" item spacing={4} xs={6} sm={2}>
+          <Insert
+            show1={compshow}
+            insert={(data, where) => {
+              insert(data, where);
+            }}
+          />
+          <Search
+            show1={compshow}
+            search={(data) => {
+              search(data);
+            }}
+          />
+
+          <Delete
+            show1={compshow}
+            del={(data, where, position) => {
+              del(data, where, position);
+            }}
+          />
+
+          <Update
+            show1={compshow}
+            update={(position, value) => {
+              update(position, value);
+            }}
+          />
+        </Grid>
+
+
+
+      </Grid>
+
+      <Grid
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        className="pt-4 mr-4 mt-4"
+      >
+
+        {list}
+
+
+      </Grid>
+
+    </div>
+
+
+
+
+
+  );
 }

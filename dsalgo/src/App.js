@@ -8,9 +8,9 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <SiteHeader />
-      <Routes />
-      <SiteFooter />
+       <SiteHeader /> 
+       <Routes />
+       <SiteFooter />  
     </div>
   );
 }
