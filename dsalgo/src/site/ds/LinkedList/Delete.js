@@ -95,7 +95,8 @@ export default function Delete(props) {
   
     const [position, setPosition] = React.useState(null); //position
    
-   if(props.show1==='Delete')
+   if(props.open)
+   
     return (
       <Card
         className={classes.root}

@@ -73,7 +73,7 @@ export default function Update(props) {
     const classes1 = useStyles();
   
 
-if(props.show1==='Update')
+if(props.open)
 return(
   
     <Card

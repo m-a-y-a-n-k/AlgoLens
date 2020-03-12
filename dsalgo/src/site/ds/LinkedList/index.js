@@ -105,12 +105,14 @@ export default function LinkedList() {
   let [head, setHead] = useState(null);
   let [list, setList] = useState(null);
   let [rendered, setRendered] = useState(false);
-  let [compshow, setCompshow] = useState(false);
-  const showcomp = (event) => {
-    setCompshow(event.target.value);
-    console.log(event.target.value);
-
+  let [radioVal,setRadioVal]=useState(false);
+  let showoperation = (event) => {
+  let operation=event.target.value;
+  setRadioVal(operation);
   }
+ 
+  
+
 
   // clear function --------------------------------------------
   let clear = () => {
@@ -150,7 +152,7 @@ export default function LinkedList() {
       alert("Empty Insert");
     }
   };
-  //----------Using "delet1" instead of delete is some keyword
+  //----------Using "del" instead of delete is some keyword
   let del = (data, where, position) => {
     if (head) {
       console.log("Original : ", head);
@@ -289,7 +291,9 @@ export default function LinkedList() {
   //-----------------content of render function ------------------------------------
   React.useEffect(() => {
     if (!rendered)
+     {  
       renderList();
+     } 
   });
 
 
@@ -313,10 +317,10 @@ export default function LinkedList() {
                 <FormControl className="pl-3" component="fieldset">
                   <FormLabel component="legend"></FormLabel>
                   <RadioGroup aria-label="gender" name="customized-radios">
-                    <FormControlLabel value="Insert" onChange={showcomp} control={<StyledRadio />} label="Insert" />
-                    <FormControlLabel value="Delete" onChange={showcomp} control={<StyledRadio />} label="Delete" />
-                    <FormControlLabel value="Update" onChange={showcomp} control={<StyledRadio />} label="Update" />
-                    <FormControlLabel value="search" onChange={showcomp} control={<StyledRadio />} label="Search" />
+                    <FormControlLabel value="Insert" onChange={showoperation} control={<StyledRadio />} label="Insert" />
+                    <FormControlLabel value="Delete" onChange={showoperation} control={<StyledRadio />} label="Delete" />
+                    <FormControlLabel value="Update" onChange={showoperation} control={<StyledRadio />} label="Update" />
+                    <FormControlLabel value="search" onChange={showoperation} control={<StyledRadio />} label="Search" />
 
                   </RadioGroup>
                 </FormControl>
@@ -332,27 +336,29 @@ export default function LinkedList() {
 
         <Grid className="mr-5 mt-5 pl-4" item spacing={4} xs={6} sm={2}>
           <Insert
-            show1={compshow}
+
+          open={radioVal==='Insert'}
             insert={(data, where) => {
               insert(data, where);
             }}
           />
           <Search
-            show1={compshow}
-            search={(data) => {
+           open={radioVal==='search'}
+          search={(data) => {
               search(data);
             }}
           />
 
           <Delete
-            show1={compshow}
-            del={(data, where, position) => {
+               open={radioVal==='Delete'}
+              del={(data, where, position) => {
               del(data, where, position);
             }}
           />
 
           <Update
-            show1={compshow}
+            open={radioVal==='Update'}
+
             update={(position, value) => {
               update(position, value);
             }}

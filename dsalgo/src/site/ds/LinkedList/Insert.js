@@ -89,9 +89,12 @@ export default function Insert(props) {
   const classes = useStyles();
   const [data, setData] = React.useState(null); // stores the data entered in the list
 
-if(props.show1==='Insert')
-  
+if(props.open)
+{
+
+
   return (
+
     <Card
       className={classes.root}
       style={{ border: "1px solid rgba(22,45,167,0.9)" }}
@@ -150,6 +153,7 @@ if(props.show1==='Insert')
       </CardActions>
     </Card>
   )
+          }
   else
   return (<div></div>)
 }
