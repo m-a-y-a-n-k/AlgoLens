@@ -147,7 +147,7 @@ export default function LinkedList() {
       clear();
       if (data) {
         let head1 = head,
-          curr;
+          curr = head1;
         while (head1 && head1.info === data) {
           head1 = head1.next;
           curr = head1;
@@ -155,11 +155,13 @@ export default function LinkedList() {
         while (curr && curr.next) {
           if (curr.next.info === data) {
             curr.next = curr.next.next;
+          } else {
+            curr = curr.next;
           }
-          curr = curr.next;
         }
         setHead(head1);
-      } else if (position) {
+      } else if (position == parseInt(position)) {
+        position = parseInt(position);
         if (position === 0) {
           head = head.next;
         } else {
@@ -174,23 +176,29 @@ export default function LinkedList() {
           }
         }
         setHead(head);
-      } else {
+      } else if (where) {
         switch (where) {
           case "start":
             head = head.next;
             break;
           case "end":
             let curr = head;
-            while (curr && curr.next && curr.next.next) {
-              curr = curr.next;
-            }
-            if (curr && curr.next) {
-              curr.next = curr.next.next;
+            if(!head.next){
+              head = null;
+            } else {
+              while (curr && curr.next && curr.next.next) {
+                curr = curr.next;
+              }
+              if (curr && curr.next) {
+                curr.next = curr.next.next;
+              }  
             }
             break;
           default:
         }
         setHead(head);
+      } else {
+        alert("Invalid Deletion Exception");
       }
       setRendered(false);
     } else {
@@ -355,7 +363,7 @@ export default function LinkedList() {
           </Paper>
         </Grid>
         <Grid container sm={8}>
-            {list}
+          {list}
         </Grid>
       </Grid>
     </div>

@@ -126,7 +126,7 @@ export default function Delete(props) {
               <MenuItem value={"end"}>End</MenuItem>
             </Select>
 
-            <Typography className="text-center">Or</Typography>
+            <Typography className="text-center">OR</Typography>
 
             <RedditTextField
               className="w-50"
@@ -136,12 +136,12 @@ export default function Delete(props) {
               }}
               value={position ? position : ""}
               variant="filled"
-              id="reddit-input"
+              id="reddit-input-index"
             />
 
-            <Typography className="text-center" variant="h6">
+            <Typography className="text-center">
               {" "}
-              Or{" "}
+              {"OR"}
             </Typography>
             <RedditTextField
               label="Value"
@@ -151,13 +151,13 @@ export default function Delete(props) {
               }}
               value={data ? data : ""}
               variant="filled"
-              id="reddit-input"
+              id="reddit-input-value"
             />
 
             <Button
               className="mt-2"
               onClick={() => {
-                props.del(data, where, parseInt(position)); // calling the del function of the LinkList compoent
+                props.del(data, where,position); // calling the del function of the LinkList compoent
                 setData(null);
                 setPosition(null);
               }}
