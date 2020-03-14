@@ -1,86 +1,80 @@
-
 import React, { useState, Fragment } from "react";
 
-
-import Element from '../../../ui/Element';
+import Element from "../../../ui/Element";
 
 import Insert from "./Insert";
 import Delete from "./Delete";
 import Update from "./Update";
 import Search from "./Search";
-import { Grid } from '@material-ui/core';
+import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Paper from '@material-ui/core/Paper';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import Paper from "@material-ui/core/Paper";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+
 const gridStyle = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-
+    flexGrow: 1
   },
   paper: {
-    padding: theme.spacing(1),
-
+    padding: theme.spacing(2),
     color: theme.palette.text.secondary,
+    margin: theme.spacing(2)
   },
   control: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2)
   }
-
 }));
-
-
-
-
 
 const useStyles = makeStyles({
   root: {
-    '&:hover': {
-      backgroundColor: 'transparent',
-    },
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
   },
   icon: {
-    borderRadius: '50%',
+    borderRadius: "50%",
     width: 16,
     height: 16,
-    boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-    backgroundColor: '#f5f8fa',
-    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
-    '$root.Mui-focusVisible &': {
-      outline: '2px auto rgba(19,124,189,.6)',
-      outlineOffset: 2,
+    boxShadow:
+      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
+    backgroundColor: "#f5f8fa",
+    backgroundImage:
+      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
+    "$root.Mui-focusVisible &": {
+      outline: "2px auto rgba(19,124,189,.6)",
+      outlineOffset: 2
     },
-    'input:hover ~ &': {
-      backgroundColor: '#ebf1f5',
+    "input:hover ~ &": {
+      backgroundColor: "#ebf1f5"
     },
-    'input:disabled ~ &': {
-      boxShadow: 'none',
-      background: 'rgba(206,217,224,.5)',
-    },
+    "input:disabled ~ &": {
+      boxShadow: "none",
+      background: "rgba(206,217,224,.5)"
+    }
   },
   checkedIcon: {
-    backgroundColor: '#137cbd',
-    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
-    '&:before': {
-      display: 'block',
+    backgroundColor: "#137cbd",
+    backgroundImage:
+      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
+    "&:before": {
+      display: "block",
       width: 16,
       height: 16,
-      backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
-      content: '""',
+      backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
+      content: '""'
     },
-    'input:hover ~ &': {
-      backgroundColor: '#106ba3',
-    },
-  },
-
+    "input:hover ~ &": {
+      backgroundColor: "#106ba3"
+    }
+  }
 });
-
 
 function StyledRadio(props) {
   const classes = useStyles();
@@ -97,22 +91,17 @@ function StyledRadio(props) {
   );
 }
 
-
-
-
 export default function LinkedList() {
   const gridclass = gridStyle();
   let [head, setHead] = useState(null);
   let [list, setList] = useState(null);
   let [rendered, setRendered] = useState(false);
-  let [radioVal,setRadioVal]=useState(false);
-  let showoperation = (event) => {
-  let operation=event.target.value;
-  setRadioVal(operation);
-  }
- 
-  
+  let [radioVal, setRadioVal] = useState(false);
 
+  let showoperation = event => {
+    let operation = event.target.value;
+    setRadioVal(operation);
+  };
 
   // clear function --------------------------------------------
   let clear = () => {
@@ -155,16 +144,16 @@ export default function LinkedList() {
   //----------Using "del" instead of delete is some keyword
   let del = (data, where, position) => {
     if (head) {
-      console.log("Original : ", head);
       clear();
       if (data) {
-        let head1 = head, curr;
-        while (head1 && head1.info == data) {
+        let head1 = head,
+          curr;
+        while (head1 && head1.info === data) {
           head1 = head1.next;
           curr = head1;
         }
         while (curr && curr.next) {
-          if (curr.next.info == data) {
+          if (curr.next.info === data) {
             curr.next = curr.next.next;
           }
           curr = curr.next;
@@ -201,7 +190,6 @@ export default function LinkedList() {
             break;
           default:
         }
-        console.log("Updated : ", head);
         setHead(head);
       }
       setRendered(false);
@@ -286,107 +274,90 @@ export default function LinkedList() {
     }
     setList(list);
     setRendered(true);
-  }
+  };
 
   //-----------------content of render function ------------------------------------
   React.useEffect(() => {
-    if (!rendered)
-     {  
+    if (!rendered) {
       renderList();
-     } 
+    }
   });
 
-
-
   return (
-    <div className={gridclass.root} >
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        alignItems="center"
-
-      >
-        <Grid item xs={6} className="mr-5 mt-5" sm={2} spacing={3} >
+    <div className={gridclass.root}>
+      <Grid container direction="row" justify="left" alignItems="center">
+        <Grid container sm={4}>
           <Paper className={gridclass.paper}>
-            <Card>
-              <h1 className="bg-primary text-center text-white" >Operations</h1>
-              <CardContent className="pl-0 pr-0 pt-0 text-left">
-
-
-                <FormControl className="pl-3" component="fieldset">
-                  <FormLabel component="legend"></FormLabel>
-                  <RadioGroup aria-label="gender" name="customized-radios">
-                    <FormControlLabel value="Insert" onChange={showoperation} control={<StyledRadio />} label="Insert" />
-                    <FormControlLabel value="Delete" onChange={showoperation} control={<StyledRadio />} label="Delete" />
-                    <FormControlLabel value="Update" onChange={showoperation} control={<StyledRadio />} label="Update" />
-                    <FormControlLabel value="search" onChange={showoperation} control={<StyledRadio />} label="Search" />
-
-                  </RadioGroup>
-                </FormControl>
-
-              </CardContent>
-
-            </Card>
-
-
+            <Grid item xs={12} sm={12} spacing={3} alignItems="center">
+              <Card>
+                <h6 className="bg-primary text-center text-white p-3">
+                  Operations
+                </h6>
+                <CardContent className="pl-0 pr-0 pt-0 text-left">
+                  <FormControl className="pl-3" component="fieldset">
+                    <FormLabel component="legend"></FormLabel>
+                    <RadioGroup aria-label="gender" name="customized-radios">
+                      <FormControlLabel
+                        value="Insert"
+                        onChange={showoperation}
+                        control={<StyledRadio />}
+                        label="Insert"
+                      />
+                      <FormControlLabel
+                        value="Delete"
+                        onChange={showoperation}
+                        control={<StyledRadio />}
+                        label="Delete"
+                      />
+                      <FormControlLabel
+                        value="Update"
+                        onChange={showoperation}
+                        control={<StyledRadio />}
+                        label="Update"
+                      />
+                      <FormControlLabel
+                        value="Search"
+                        onChange={showoperation}
+                        control={<StyledRadio />}
+                        label="Search"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid className="mt-3" item spacing={4} xs={12} sm={12}>
+              <Insert
+                open={radioVal === "Insert"}
+                insert={(data, where) => {
+                  insert(data, where);
+                }}
+              />
+              <Search
+                open={radioVal === "Search"}
+                search={data => {
+                  search(data);
+                }}
+              />
+              <Delete
+                open={radioVal === "Delete"}
+                del={(data, where, position) => {
+                  del(data, where, position);
+                }}
+              />
+              <Update
+                open={radioVal === "Update"}
+                update={(position, value) => {
+                  update(position, value);
+                }}
+              />
+            </Grid>
           </Paper>
         </Grid>
-
-
-        <Grid className="mr-5 mt-5 pl-4" item spacing={4} xs={6} sm={2}>
-          <Insert
-
-          open={radioVal==='Insert'}
-            insert={(data, where) => {
-              insert(data, where);
-            }}
-          />
-          <Search
-           open={radioVal==='search'}
-          search={(data) => {
-              search(data);
-            }}
-          />
-
-          <Delete
-               open={radioVal==='Delete'}
-              del={(data, where, position) => {
-              del(data, where, position);
-            }}
-          />
-
-          <Update
-            open={radioVal==='Update'}
-
-            update={(position, value) => {
-              update(position, value);
-            }}
-          />
+        <Grid container sm={8}>
+            {list}
         </Grid>
-
-
-
       </Grid>
-
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        alignItems="center"
-        className="pt-4 mr-4 mt-4"
-      >
-
-        {list}
-
-
-      </Grid>
-
     </div>
-
-
-
-
-
   );
 }

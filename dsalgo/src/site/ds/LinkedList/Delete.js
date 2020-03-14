@@ -70,33 +70,27 @@ function RedditTextField(props) {
 }
 
 export default function Delete(props) {
-    ///--------- Select the start or end input type ------------
-    const classes1 = useStyles();
-    const [where, setWhere] = React.useState("");
-    const inputLabel = React.useRef(null);
-    const [labelWidth, setLabelWidth] = React.useState(0);
-    React.useEffect(() => {
-    
-      if(inputLabel.current==null)
-      return(null);
-        setLabelWidth(inputLabel.current.offsetWidth);
-       
-    }, []);
-  
-    const handleChange = event => {
-      setWhere(event.target.value);
-    };
-  
-    //-----------------------------------------------------------------
-  
-    const classes = useStyles();
-  
-    const [data, setData] = React.useState(null); // stores the data entered in the list
-  
-    const [position, setPosition] = React.useState(null); //position
-   
-   if(props.open)
-   
+  ///--------- Select the start or end input type ------------
+  const classes = useStyles();
+  const [where, setWhere] = React.useState("");
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    if (inputLabel.current == null) return null;
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
+
+  const handleChange = event => {
+    setWhere(event.target.value);
+  };
+
+  //-----------------------------------------------------------------
+
+  const [data, setData] = React.useState(null); // stores the data entered in the list
+
+  const [position, setPosition] = React.useState(null); //position
+
+  if (props.open)
     return (
       <Card
         className={classes.root}
@@ -108,19 +102,19 @@ export default function Delete(props) {
             Delete
           </Typography>
         </CardContent>
-  
+
         <CardContent className=" text-center pb-0 mt-0">
           <Typography variant="h6" component="h2">
             Position or value
           </Typography>
         </CardContent>
-  
+
         <CardActions>
-          <FormControl variant="outlined" className={classes1.formControl}>
+          <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
               Position
             </InputLabel>
-  
+
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
@@ -131,13 +125,12 @@ export default function Delete(props) {
               <MenuItem value={"start"}>Start</MenuItem>
               <MenuItem value={"end"}>End</MenuItem>
             </Select>
-  
+
             <Typography className="text-center">Or</Typography>
-  
+
             <RedditTextField
               className="w-50"
               label="Index"
-              className={classes.margin}
               onChange={event => {
                 setPosition(event.target.value);
               }}
@@ -145,7 +138,7 @@ export default function Delete(props) {
               variant="filled"
               id="reddit-input"
             />
-  
+
             <Typography className="text-center" variant="h6">
               {" "}
               Or{" "}
@@ -160,7 +153,7 @@ export default function Delete(props) {
               variant="filled"
               id="reddit-input"
             />
-  
+
             <Button
               className="mt-2"
               onClick={() => {
@@ -176,8 +169,6 @@ export default function Delete(props) {
           </FormControl>
         </CardActions>
       </Card>
-    )
-    else
-    return(<div></div>)
-  }
-  
+    );
+  else return <div></div>;
+}
