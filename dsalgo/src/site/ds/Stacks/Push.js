@@ -11,70 +11,70 @@ import { FormControl } from "@material-ui/core";
 //Card component styling
 const useStyles = makeStyles({
     root: {
-      minWidth: 275,
+        minWidth: 275,
     },
     bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
+        fontSize: 14,
     },
     pos: {
-      marginBottom: 12,
+        marginBottom: 12,
     },
-  });
-  
-  //text input field styling 
-  const useStylesReddit = makeStyles(theme => ({
+});
+
+//text input field styling 
+const useStylesReddit = makeStyles(theme => ({
     root: {
-      border: '1px solid #e2e2e1',
-      overflow: 'hidden',
-      borderRadius: 4,
-      backgroundColor: '#fcfcfb',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      '&:hover': {
-        backgroundColor: '#fff',
-      },
-      '&$focused': {
-        backgroundColor: '#fff',
-        boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-        borderColor: theme.palette.primary.main,
-      },
+        border: '1px solid #e2e2e1',
+        overflow: 'hidden',
+        borderRadius: 4,
+        backgroundColor: '#fcfcfb',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        '&:hover': {
+            backgroundColor: '#fff',
+        },
+        '&$focused': {
+            backgroundColor: '#fff',
+            boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
+            borderColor: theme.palette.primary.main,
+        },
     },
     focused: {},
-  }));
-  function RedditTextField(props) {
+}));
+function RedditTextField(props) {
     const classes = useStylesReddit();
-  
+
     return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
-  }
-  
-  const stylefortext = makeStyles(theme => ({
+}
+
+const stylefortext = makeStyles(theme => ({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
     },
     margin: {
-      margin: theme.spacing(1),
+        margin: theme.spacing(1),
     },
-  }));
-  
-  //******************************************************************** */
-  
-  
-  // button styling ---------------------------------------------------
-  const styleforbutton = makeStyles(theme => ({
+}));
+
+//******************************************************************** */
+
+
+// button styling ---------------------------------------------------
+const styleforbutton = makeStyles(theme => ({
     margin: {
-      margin: theme.spacing(1),
+        margin: theme.spacing(1),
     },
     extendedIcon: {
-      marginRight: theme.spacing(1),
+        marginRight: theme.spacing(1),
     },
-  }));
-  
-  
+}));
+
+
 
 export default function Push(props) {
 
@@ -82,41 +82,45 @@ export default function Push(props) {
     const classes = useStyles();
     const inputstyle = stylefortext();
     const buttonstyle = styleforbutton();
+
+if(props.open)
     return (
-      <Card className={classes.root} className="pr-0" variant="outlined container" >
-        <h2 className="bg-primary text-white  p-2" > Push </h2>
-        <CardActions>
-  
-          <FormControl className="pb-3 pt-1">
-            <RedditTextField
-              className={inputstyle.root} noValidate
-  
-              label="Insert"
-              className={inputstyle.margin}
-              variant="filled"
-              id="reddit-input"
-              onChange={event => {
-                setData(event.target.value);
-              }}
-              value={data ? data : ""}
-            />
-            <Button
-  
-              className="ml-2 mr-2 "
-              onClick={() => {
-                props.push(data); // calling the del function of the LinkList compoent
-                setData(null);
-              }}
-              variant="outlined"
-              color="primary"
-              size="large"
-            >
-              Submit
+        <Card className={classes.root} className="pr-0" variant="outlined container" >
+            <h2 className="bg-primary text-white  p-2" > Push </h2>
+            <CardActions>
+
+                <FormControl className="pb-3 pt-1">
+                    <RedditTextField
+                        className={inputstyle.root} noValidate
+
+                        label="Insert"
+                        className={inputstyle.margin}
+                        variant="filled"
+                        id="reddit-input"
+                        onChange={event => {
+                            setData(event.target.value);
+                        }}
+                        value={data ? data : ""}
+                    />
+                    <Button
+
+                        className="ml-2 mr-2 "
+                        onClick={() => {
+                            props.push(data); // calling the del function of the LinkList compoent
+                            setData(null);
+                        }}
+                        variant="outlined"
+                        color="primary"
+                        size="large"
+                    >
+                        Submit
             </Button>
 
-          </FormControl>
-        </CardActions>
- </Card>
-    );
-  }
-   
+                </FormControl>
+            </CardActions>
+        </Card>
+    )
+
+    else 
+    return(<div></div>)
+}
