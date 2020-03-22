@@ -151,10 +151,9 @@ export default function Stack(props) {
 
   return (
     <div className={gridclass.root}>
-      <Grid container direction="row" justify="left" alignItems="flex-end">
-        <Grid container sm={4}>
-          <Paper className={gridclass.paper}>
-            <Grid item xs={12} sm={12} spacing={3} alignItems="flex-end">
+      <Grid container direction="row" justify="flex-start" alignItems="flex-end" >
+         <Paper className={gridclass.paper}>
+            <Grid item xs={12} sm={12} m={4}  >
               <Card>
                 <h2 className="bg-primary text-white p-3">
                   Operations
@@ -186,7 +185,7 @@ export default function Stack(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid className="mt-3" item spacing={4} xs={12} sm={12}>
+            <Grid item  className="mt-3" xs={12} sm={12}>
               <Push
                 open={radioVal === "Push"}
                 push={(data) => {
@@ -215,8 +214,8 @@ export default function Stack(props) {
               
             </Grid>
           </Paper>
-        </Grid>
-        <Grid container xs={8} sm={6} className="pl-2" >
+        
+        <Grid item xs={8} sm={6}  className="ml-4" >
           
         <Box  
             display="flex"

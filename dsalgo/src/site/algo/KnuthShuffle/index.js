@@ -191,11 +191,11 @@ export default class KnuthShuffle extends React.Component {
         if (data) {
             let length = arr.length;
             arr = arr.filter((value) => {
-                return value != data;
+                return value !== data;
             });
             if (!arr || arr.length === 0)
                 arr = [];
-            if (length != arr.length)
+            if (length !== arr.length)
                 this.setState({ array: arr, highlights: [], original: arr });
             else
                 alert("Data not found to delete");

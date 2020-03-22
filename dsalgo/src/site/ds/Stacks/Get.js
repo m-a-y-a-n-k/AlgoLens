@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { makeStyles, fade } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
@@ -77,7 +77,7 @@ export default function Get(props) {
     };
     //bug ended
 
-        if(props.open==true){ 
+        if(props.open){ 
             return(
                 <Card className={classes.root} variant="outlined">
 
@@ -103,7 +103,7 @@ export default function Get(props) {
                                 >Bottom</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl className={buttonstyle.root} className="p-2" noValidate>
+                        <FormControl className={[buttonstyle.root,"p-2"]}  noValidate>
                             {props.result1 && (
                                 <TextField
                                     disabled id="standard-disabled" label={props.result1} />)}

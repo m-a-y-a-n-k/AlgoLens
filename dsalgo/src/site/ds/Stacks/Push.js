@@ -64,37 +64,24 @@ const stylefortext = makeStyles(theme => ({
 //******************************************************************** */
 
 
-// button styling ---------------------------------------------------
-const styleforbutton = makeStyles(theme => ({
-    margin: {
-        margin: theme.spacing(1),
-    },
-    extendedIcon: {
-        marginRight: theme.spacing(1),
-    },
-}));
-
-
-
 export default function Push(props) {
 
     let [data, setData] = useState(null);
     const classes = useStyles();
     const inputstyle = stylefortext();
-    const buttonstyle = styleforbutton();
+        
 
 if(props.open)
     return (
-        <Card className={classes.root} className="pr-0" variant="outlined container" >
+        <Card className={classes.root}  variant="outlined container" >
             <h2 className="bg-primary text-white  p-2" > Push </h2>
             <CardActions>
 
-                <FormControl className="pb-3 pt-1">
+                <FormControl className="pb-3 pr-0 pl-2 pt-1">
                     <RedditTextField
-                        className={inputstyle.root} noValidate
-
+                        
                         label="Insert"
-                        className={inputstyle.margin}
+                        className={[inputstyle.margin,inputstyle.root]}
                         variant="filled"
                         id="reddit-input"
                         onChange={event => {

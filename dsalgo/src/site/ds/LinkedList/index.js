@@ -160,7 +160,7 @@ export default function LinkedList() {
           }
         }
         setHead(head1);
-      } else if (position == parseInt(position)) {
+      } else if (position === parseInt(position)) {
         position = parseInt(position);
         if (position === 0) {
           head = head.next;
@@ -235,7 +235,7 @@ export default function LinkedList() {
       let head1 = head,
         curr = head;
       while (curr) {
-        if (curr.info == data) {
+        if (curr.info === data) {
           curr.highlight = true;
         }
         curr = curr.next;
