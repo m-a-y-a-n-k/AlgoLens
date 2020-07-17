@@ -91,6 +91,49 @@ export default class Element extends React.Component {
             </Box>
           );
         break;
+
+      case "queues":
+        elStyles = {
+          border: "1px solid white",
+          background: "rgba(40,60,180,0.8)"
+        };
+        if (this.props.highlight) {
+          elStyles.background = "rgba(30,150,40,0.8)";
+        }
+        element = [
+        <div>
+          <Box
+            key={this.props.data.value + this.props.data.index}
+            p={1}
+            style={elStyles}
+          >
+            <Box p={1} color="white" textAlign="center" fontSize={18}>
+              {this.props.data.value} 
+              
+              
+            </Box>
+           
+          </Box>
+         <Box color="white" p={1}  className={this.props.data.index===0||this.props.next===false?"bg-danger":""} textAlign="center" fontSize={12}>
+         {this.props.data.index===0?<typography  >Front <br/> </typography>:<div></div>}
+        {this.props.next===false?<typography>Rear</typography>:<div></div>}
+        </Box>
+        
+        </div>  
+          
+
+        ];
+
+        if (this.props.next)
+          element.push(
+            <Box
+              key={this.props.data.index + this.props.data.value + "-nextLink"}
+              component="span"
+            >
+              <Link direction="right" />
+            </Box>
+          );
+        break;
       default:
     }
 
