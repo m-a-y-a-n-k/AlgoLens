@@ -134,6 +134,42 @@ export default class Element extends React.Component {
             </Box>
           );
         break;
+        case "sets":
+          elStyles = {
+            border: "1px solid black",
+            background: "rgba(40,60,180,0.8)",
+            borderRadius:"50%", 
+            minHeight:"100px",
+            minWidth:"100px",
+            margin: "20px",
+            
+            
+          };
+          if (this.props.highlight) {
+            elStyles.background = "rgba(30,150,40,0.8)";
+          }
+          element = [
+            <Box
+              key={this.props.data.value + this.props.data.index}
+              p={1}
+              style={elStyles}
+            >
+              <Box p={0} color="white"  fontSize={18}>
+               <div style={{position: "relative",top:"45%",textAlign: "center"}}>
+                 {this.props.data.value}
+                 </div> 
+              </Box>
+              <Box color="white" p={1} textAlign="center" fontSize={12}>
+                {this.props.data.index}
+              </Box>
+            </Box>
+          ];
+  
+          break;
+              
+
+
+
       default:
     }
 
