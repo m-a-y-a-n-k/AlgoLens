@@ -105,7 +105,29 @@ export default function Search(props) {
   
             <Button
               onClick={() => {
-                props.search(data); // calling the search function of the LinkList compoent
+                props.search(data,"allg"); // calling the search function of the LinkList compoent
+                setData(null);
+              }}
+              variant="outlined"
+              color="primary"
+              className="mt-2"
+            >
+              All Greater elements
+            </Button>
+            <Button
+              onClick={() => {
+                props.search(data,"alls"); // calling the search function of the LinkList compoent
+                setData(null);
+              }}
+              variant="outlined"
+              color="primary"
+              className="mt-2"
+            >
+              All Smaller element
+            </Button>
+            <Button
+              onClick={() => {
+                props.search(data,"no"); // calling the search function of the LinkList compoent
                 setData(null);
               }}
               variant="outlined"
@@ -113,7 +135,8 @@ export default function Search(props) {
               className="mt-2"
             >
               Submit
-            </Button>
+            </Button>   
+
           </FormControl>
         </CardActions>
       </Card>

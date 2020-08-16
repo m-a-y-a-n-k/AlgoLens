@@ -97,6 +97,7 @@ export default function LinkedList() {
   let [list, setList] = useState(null);
   let [rendered, setRendered] = useState(false);
   let [radioVal, setRadioVal] = useState(false);
+  let [isGreat,setIsGreat]=useState('');
   let [findata,setFindata]=useState(null); 
   let showoperation = event => {
     let operation = event.target.value;
@@ -165,8 +166,12 @@ else{
 // search
 let search =(data,where) =>{
 if(data){
+  
   if(data.length<7&&isNaN(data)==false){
     if(setds.includes(data)){
+     setIsGreat(where);
+     alert("vale "+isGreat);
+     alert("value of where"+where);
       setFindata(data);
       setRendered(false);    
     }
@@ -190,24 +195,31 @@ else{
     let list = [];
         let key = 0;
 
-  if(setds!=null)
-        for(var i=0;i<setds.length;i++){
-            list.push(
-                <Fragment key={key + "-" + setds[i]}>
-                  <Element
-                    data={{ value: setds[i]}}
-                    type="sets"
-                    next={true}
-                    highlight={setds[i]===findata? true:false}
-                  />
-                </Fragment>
-              );
-            
-          key++;       
-        }        
-     setFindata(null);   
+  if(setds!=null){
+    for(var i=0;i<setds.length;i++){
+      list.push(
+          <Fragment key={key + "-" + setds[i]}>
+            <Element
+              data={{ value: setds[i]}}
+              type="sets"
+              next={true}
+              highlight={(isGreat==="no"&&findata!=null&&setds[i]===findata)? true:false}
+              AllGreater={(isGreat==="allg"&&parseInt(setds[i])>parseInt(findata))?true:false}
+              AllSmaller={(isGreat==="alls"&&parseInt(setds[i])<parseInt(findata))?true:false}
+            />
+          </Fragment>
+        );
+      
+    key++;       
+  }
+  
+    setIsGreat(null);       
+    setFindata(null);   
     setList(list);
-    setRendered(true);   
+     setRendered(true);   
+  }
+    
+      
   };
 
   //-----------------content of render function ------------------------------------
@@ -269,8 +281,8 @@ else{
               />
               <Search
                 open={radioVal === "Search"}
-                search={data => {
-                  search(data);
+                search={(data,where) => {
+                  search(data,where);
                 }}
               />
               <Delete
@@ -290,10 +302,7 @@ else{
           </Paper>
         </Grid>
         <Grid container style={{border:"2px solid black",height:"auto" }} sm={8}>
-          
             {list}    
-        
-         
         </Grid>
       </Grid>
     </div>

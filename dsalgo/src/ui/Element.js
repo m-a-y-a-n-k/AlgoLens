@@ -145,12 +145,19 @@ export default class Element extends React.Component {
             
             
           };
+          if(this.props.AllGreater){
+            elStyles.background = "rgba(242,19,23,0.8)";
+          }
+          if(this.props.AllSmaller){
+            elStyles.background = "rgba(250,183,0,0.8)";
+          }
           if (this.props.highlight) {
             elStyles.background = "rgba(30,150,40,0.8)";
           }
+        
           element = [
             <Box
-              key={this.props.data.value + this.props.data.index}
+              key={this.props.data.value }
               p={1}
               style={elStyles}
             >
@@ -159,9 +166,7 @@ export default class Element extends React.Component {
                  {this.props.data.value}
                  </div> 
               </Box>
-              <Box color="white" p={1} textAlign="center" fontSize={12}>
-                {this.props.data.index}
-              </Box>
+              
             </Box>
           ];
   
