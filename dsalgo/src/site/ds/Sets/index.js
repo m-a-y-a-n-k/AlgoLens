@@ -4,7 +4,6 @@ import Element from "../../../ui/Element";
 
 import Insert from "./Insert";
 import Delete from "./Delete";
-import Update from "./Update";
 import Search from "./Search";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
@@ -97,129 +96,128 @@ export default function LinkedList() {
   let [list, setList] = useState(null);
   let [rendered, setRendered] = useState(false);
   let [radioVal, setRadioVal] = useState(false);
-  let [isGreat,setIsGreat]=useState('');
-  let [findata,setFindata]=useState(null); 
+  let [isGreat, setIsGreat] = useState('');
+  let [findata, setFindata] = useState(null);
   let showoperation = event => {
     let operation = event.target.value;
     setRadioVal(operation);
   };
 
-  
+
   // insert--------------------------------------------------------
-  
-  
-  const SortedSet=require('js-sorted-set');
- 
+
+
+  const SortedSet = require('js-sorted-set');
+
   let insert = (data) => {
-   if(data){
-    if(data.length<7&&isNaN(data)==false){
-      const set = new SortedSet();
-      set.insert(data);
-      setds.forEach((value,index)=>{
-          if(!set.contains(value))     
-          set.insert(value);
-          else 
-          alert("already present");
-  
-      })
-      console.log(set.map((x)=>{return x}));
-      let setarr=set.map((x)=>{return x});
-      setRendered(false);      
-        setSetds(setarr);   
-     }
-     else{
-         alert("Invalid input (must contains integers only)");
-     }
-     
-   }
-    
-else{
-    alert("Enter data");
+    if (data) {
+      if (data.length < 7 && isNaN(data) == false) {
+        const set = new SortedSet();
+        set.insert(data);
+        setds.forEach((value, index) => {
+          if (!set.contains(value))
+            set.insert(value);
+          else
+            alert("already present");
+
+        })
+        console.log(set.map((x) => { return x }));
+        let setarr = set.map((x) => { return x });
+        setRendered(false);
+        setSetds(setarr);
+      }
+      else {
+        alert("Invalid input (must contains integers only)");
+      }
+
+    }
+
+    else {
+      alert("Enter data");
     }
   }
 
- //----------Using "del" instead of delete is some keyword
- let del = (data) => {
-     if(data){
-       if(data.length<7&&isNaN(data)==false){
-              let newsetds=setds.filter((value)=>{
-                             if(value!=data){
-                             return value;
-              }})
- 
-      if(newsetds.length!=setds.length){
+  //----------Using "del" instead of delete is some keyword
+  let del = (data) => {
+    if (data) {
+      if (data.length < 6 && isNaN(data) == false) {
+        let newsetds = setds.filter((value) => {
+          if (value != data) {
+            return value;
+          }
+        })
+
+        if (newsetds.length != setds.length) {
           setSetds(newsetds);
           setRendered(false);
         }
-       else{
-             alert("value not exists in the set");
-           } 
+        else {
+          alert("value not exists in the set");
+        }
+      }
+      else {
+        alert("Invalid input (must contains integers only)");
+      }
     }
-    else{
-      alert("Invalid input (must contains integers only)");
+    else {
+      alert("Enter data");
     }
-  }
-     else{
-       alert("Enter data");
-     }
-};
-// search
-let search =(data,where) =>{
-if(data){
-  
-  if(data.length<7&&isNaN(data)==false){
-    if(setds.includes(data)){
-     setIsGreat(where);
-     alert("vale "+isGreat);
-     alert("value of where"+where);
-      setFindata(data);
-      setRendered(false);    
-    }
-    else{
-      alert("element not exits");
-    }
-  }
-  else{
-    alert("Invalid input (must contains integers only)");
-  } 
-  
-}
-else{
-  alert("Enter data");
-}  
-}
+  };
+  // search
+  let search = (data, where) => {
+    if (data) {
 
-// render list 
+      if (data.length < 7 && isNaN(data) == false) {
+        if (setds.includes(data)) {
+          setIsGreat(where);
+          setFindata(data);
+          setRendered(false);
+        }
+        else {
+          alert("element not exits");
+        }
+      }
+      else {
+        alert("Invalid input (must contains integers only)");
+      }
+
+    }
+    else {
+      alert("Enter data");
+    }
+  }
+
+  // render list 
   let renderList = () => {
 
     let list = [];
-        let key = 0;
+    let key = 0;
 
-  if(setds!=null){
-    for(var i=0;i<setds.length;i++){
-      list.push(
+    if (setds != null) {
+      for (var i = 0; i < setds.length; i++) {
+        list.push(
           <Fragment key={key + "-" + setds[i]}>
             <Element
-              data={{ value: setds[i]}}
+              data={{ value: parseInt(setds[i]) }}
               type="sets"
               next={true}
-              highlight={(isGreat==="no"&&findata!=null&&setds[i]===findata)? true:false}
-              AllGreater={(isGreat==="allg"&&parseInt(setds[i])>parseInt(findata))?true:false}
-              AllSmaller={(isGreat==="alls"&&parseInt(setds[i])<parseInt(findata))?true:false}
+              highlight={(isGreat === "no" && findata != null && parseInt(setds[i]) === parseInt(findata) ? true : false}
+              AllGreater={(isGreat === "allg" && parseInt(setds[i]) > parseInt(findata)) ? true : false}
+              AllSmaller={(isGreat === "alls" && parseInt(setds[i]) < parseInt(findata)) ? true : false}
             />
           </Fragment>
         );
-      
-    key++;       
-  }
-  
-    setIsGreat(null);       
-    setFindata(null);   
-    setList(list);
-     setRendered(true);   
-  }
-    
-      
+
+        key++;
+      }
+
+      setIsGreat(null);
+      setFindata(null);
+      setList(list);
+      setRendered(true);
+    }
+
+
   };
 
   //-----------------content of render function ------------------------------------
@@ -255,12 +253,7 @@ else{
                         control={<StyledRadio />}
                         label="Delete"
                       />
-                      <FormControlLabel
-                        value="Update"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Update"
-                      />
+
                       <FormControlLabel
                         value="Search"
                         onChange={showoperation}
@@ -281,8 +274,8 @@ else{
               />
               <Search
                 open={radioVal === "Search"}
-                search={(data,where) => {
-                  search(data,where);
+                search={(data, where) => {
+                  search(data, where);
                 }}
               />
               <Delete
@@ -291,18 +284,13 @@ else{
                   del(data);
                 }}
               />
-           
-           {/*    <Update
-                open={radioVal === "Update"}
-                update={(position, value) => {
-                  update(position, value);
-                }}
-              /> */}
+
+
             </Grid>
           </Paper>
         </Grid>
-        <Grid container style={{border:"2px solid black",height:"auto" }} sm={8}>
-            {list}    
+        <Grid container style={{ border: "2px solid black", height: "auto" }} sm={8}>
+          {list}
         </Grid>
       </Grid>
     </div>

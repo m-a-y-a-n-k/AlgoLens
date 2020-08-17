@@ -67,11 +67,11 @@ function RedditTextField(props) {
 }
 
 export default function Search(props) {
-    const classes1 = useStyles(); //style for formcontrol
-    const classes = useStyles(); // style for card component
-    const [data, setData] = React.useState(null); // stores the data entered in the list
-  if(props.open)
- 
+  const classes1 = useStyles(); //style for formcontrol
+  const classes = useStyles(); // style for card component
+  const [data, setData] = React.useState(null); // stores the data entered in the list
+  if (props.open)
+
     return (
       <Card
         className={classes.root}
@@ -83,13 +83,13 @@ export default function Search(props) {
             Search{" "}
           </Typography>
         </CardContent>
-  
+
         <CardContent className="text-center pb-0 mt-0">
           <Typography variant="h6" component="h2">
             Data
           </Typography>
         </CardContent>
-  
+
         <CardActions>
           <FormControl variant="outlined" className={classes1.formControl}>
             <RedditTextField
@@ -102,10 +102,10 @@ export default function Search(props) {
               variant="filled"
               id="reddit-input"
             />
-  
+
             <Button
               onClick={() => {
-                props.search(data,"allg"); // calling the search function of the LinkList compoent
+                props.search(data, "allg"); // calling the search function of the LinkList compoent
                 setData(null);
               }}
               variant="outlined"
@@ -116,7 +116,7 @@ export default function Search(props) {
             </Button>
             <Button
               onClick={() => {
-                props.search(data,"alls"); // calling the search function of the LinkList compoent
+                props.search(data, "alls"); // calling the search function of the LinkList compoent
                 setData(null);
               }}
               variant="outlined"
@@ -127,7 +127,7 @@ export default function Search(props) {
             </Button>
             <Button
               onClick={() => {
-                props.search(data,"no"); // calling the search function of the LinkList compoent
+                props.search(data, "no"); // calling the search function of the LinkList compoent
                 setData(null);
               }}
               variant="outlined"
@@ -135,15 +135,14 @@ export default function Search(props) {
               className="mt-2"
             >
               Submit
-            </Button>   
+            </Button>
 
           </FormControl>
         </CardActions>
       </Card>
     );
-    else
-    return(
+  else
+    return (
       <div></div>
     )
-  }
-  
+}

@@ -72,65 +72,64 @@ export default function Insert(props) {
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = useState(0);
   React.useEffect(() => {
-    if(inputLabel.current==null)
-    return(null);
+    if (inputLabel.current == null)
+      return (null);
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
- 
+
   //-----------------------------------------------------------
   const classes = useStyles();
   const [data, setData] = React.useState(null); // stores the data entered in the list
 
-if(props.open)
-{
-  return (
+  if (props.open) {
+    return (
 
-    <Card
-      className={classes.root}
-      style={{ border: "1px solid rgba(22,45,167,0.9)" }}
-    >
-      <CardContent className="bg-primary text-white">
-        <Typography variant="h5" component="h2">
-          Insert
+      <Card
+        className={classes.root}
+        style={{ border: "1px solid rgba(22,45,167,0.9)" }}
+      >
+        <CardContent className="bg-primary text-white">
+          <Typography variant="h5" component="h2">
+            Insert
         </Typography>
-      </CardContent>
+        </CardContent>
 
-      <CardContent className=" text-center pb-0 mt-0">
-        <Typography variant="h6" component="h2">
-          Enter data
+        <CardContent className=" text-center pb-0 mt-0">
+          <Typography variant="h6" component="h2">
+            Enter data
         </Typography>
-      </CardContent>
+        </CardContent>
 
-      <CardActions>
-        <FormControl variant="outlined" className={classes1.formControl}>
-          <RedditTextField
-            label="Enter Data"
-            className={classes.margin}
-            onChange={event => {
-              setData(event.target.value);
-            }}
-            value={data ? data : ""}
-            variant="filled"
-            id="reddit-input"
-          />
+        <CardActions>
+          <FormControl variant="outlined" className={classes1.formControl}>
+            <RedditTextField
+              label="Enter Data"
+              className={classes.margin}
+              onChange={event => {
+                setData(event.target.value);
+              }}
+              value={data ? data : ""}
+              variant="filled"
+              id="reddit-input"
+            />
 
-          <Button
-            className="mt-2"
-            onClick={() => {
-              props.insert(data); // calling the insert function of the LinkList compoent
-              setData(null);
-            }}
-            variant="outlined"
-            color="primary"
-          >
-            Submit
+            <Button
+              className="mt-2"
+              onClick={() => {
+                props.insert(data); // calling the insert function of the LinkList compoent
+                setData(null);
+              }}
+              variant="outlined"
+              color="primary"
+            >
+              Submit
           </Button>
-        </FormControl>
-      </CardActions>
-    </Card>
-  )
-          }
+          </FormControl>
+        </CardActions>
+      </Card>
+    )
+  }
   else
-  return (<div></div>)
+    return (<div></div>)
 }

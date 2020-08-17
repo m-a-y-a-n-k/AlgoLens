@@ -75,7 +75,7 @@ export default function Delete(props) {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
- 
+
   //-----------------------------------------------------------------
 
   const [data, setData] = React.useState(null); // stores the data entered in the list
@@ -110,7 +110,7 @@ export default function Delete(props) {
               onClick={() => {
                 props.del(data); // calling the del function of the LinkList compoent
                 setData(null);
-                
+
               }}
               variant="outlined"
               color="primary"
