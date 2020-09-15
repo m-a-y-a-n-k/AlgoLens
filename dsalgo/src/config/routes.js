@@ -2,6 +2,8 @@ const routes = [
   "ds/Array",
   "ds/LinkedList",
   "ds/Stacks",
+  "ds/Queues",
+  "ds/Sets",
   "algo/Sieve",
   "algo/BinarySearch",
   "algo/Factorial",

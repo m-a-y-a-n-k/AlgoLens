@@ -3,14 +3,10 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
 import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 
 //styling the form and component
 const useStyles = makeStyles(theme => ({
@@ -69,80 +65,32 @@ function RedditTextField(props) {
   );
 }
 
-export default function Delete(props) {
-  ///--------- Select the start or end input type ------------
-  const classes = useStyles();
-  const [where, setWhere] = React.useState("");
-  const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  React.useEffect(() => {
-    if (inputLabel.current == null) return null;
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
-
-  const handleChange = event => {
-    setWhere(event.target.value);
-  };
-
-  //-----------------------------------------------------------------
-
-  const [data, setData] = React.useState(null); // stores the data entered in the list
-
-  const [position, setPosition] = React.useState(null); //position
-
-  if (props.open)
+export default function Search(props) {
+    const classes1 = useStyles(); //style for formcontrol
+    const classes = useStyles(); // style for card component
+    const [data, setData] = React.useState(null); // stores the data entered in the list
+    if(props.open)
+ 
     return (
       <Card
         className={classes.root}
         style={{ border: "1px solid rgba(22,45,167,0.9)" }}
       >
-        <CardContent className="bg-primary text-white ">
+        <CardContent className="  bg-primary text-white">
           <Typography variant="h5" component="h2">
             {" "}
-            Delete
+            Search{" "}
           </Typography>
         </CardContent>
-
-        <CardContent className=" text-center pb-0 mt-0">
+  
+        <CardContent className="text-center pb-0 mt-0">
           <Typography variant="h6" component="h2">
-            Position or value
+            Data
           </Typography>
         </CardContent>
-
+  
         <CardActions>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-              Position
-            </InputLabel>
-
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={where}
-              onChange={handleChange}
-              labelWidth={labelWidth}
-            >
-              <MenuItem value={"start"}>Start</MenuItem>
-              <MenuItem value={"end"}>End</MenuItem>
-            </Select>
-
-            <Typography className="text-center">OR</Typography>
-
-            <RedditTextField
-              className="w-50"
-              label="Index"
-              onChange={event => {
-                setPosition(event.target.value);
-              }}
-              value={position ? position : ""}
-              variant="filled"
-              id="reddit-input-index"
-            />
-
-            <Typography className="text-center">
-              {" "}
-              {"OR"}
-            </Typography>
+          <FormControl variant="outlined" className={classes1.formControl}>
             <RedditTextField
               label="Value"
               className={classes.margin}
@@ -151,18 +99,22 @@ export default function Delete(props) {
               }}
               value={data ? data : ""}
               variant="filled"
-              id="reddit-input-value"
+              id="reddit-input"
             />
-
+  
+            
+          
+           
+           
             <Button
-              className="mt-2"
               onClick={() => {
-                props.del(data, where,position); // calling the del function of the LinkList compoent
+                props.search(data,null); // calling the search function of the LinkList compoent
                 setData(null);
-                setPosition(null);
+                
               }}
               variant="outlined"
               color="primary"
+              className="mt-2"
             >
               Submit
             </Button>
@@ -170,5 +122,9 @@ export default function Delete(props) {
         </CardActions>
       </Card>
     );
-  else return <div></div>;
-}
+    else
+    return(
+      <div></div>
+    )
+  }
+  

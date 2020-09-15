@@ -4,7 +4,6 @@ import Element from "../../../ui/Element";
 
 import Insert from "./Insert";
 import Delete from "./Delete";
-import Update from "./Update";
 import Search from "./Search";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
@@ -93,195 +92,132 @@ function StyledRadio(props) {
 
 export default function LinkedList() {
   const gridclass = gridStyle();
-  let [head, setHead] = useState(null);
+  let [setds, setSetds] = useState([]);
   let [list, setList] = useState(null);
   let [rendered, setRendered] = useState(false);
   let [radioVal, setRadioVal] = useState(false);
-
+  let [isGreat, setIsGreat] = useState('');
+  let [findata, setFindata] = useState(null);
   let showoperation = event => {
     let operation = event.target.value;
     setRadioVal(operation);
   };
 
-  // clear function --------------------------------------------
-  let clear = () => {
-    let curr = head;
-    while (curr) {
-      curr.highlight = false;
-      curr = curr.next;
-    }
-    setHead(head);
-  };
+
   // insert--------------------------------------------------------
-  let insert = (data, where) => {
+
+
+  const SortedSet = require('js-sorted-set');
+
+  let insert = (data) => {
     if (data) {
-      clear();
-      let newNode = { info: data, next: null, highlight: false },
-        curr;
-      if (!head) {
-        setHead({ ...newNode });
-      } else {
-        switch (where.toLowerCase()) {
-          case "start":
-            newNode.next = head;
-            setHead({ ...newNode });
-            break;
-          case "end":
-          default:
-            curr = head;
-            while (curr.next) {
-              curr = curr.next;
-            }
-            curr.next = newNode;
-            setHead({ ...head });
-        }
-      }
-      setRendered(false);
-    } else {
-      alert("Empty Insert");
-    }
-  };
-  //----------Using "del" instead of delete is some keyword
-  let del = (data, where, position) => {
-    if (head) {
-      clear();
-      if (data) {
-        let head1 = head,
-          curr = head1;
-        while (head1 && head1.info === data) {
-          head1 = head1.next;
-          curr = head1;
-        }
-        while (curr && curr.next) {
-          if (curr.next.info === data) {
-            curr.next = curr.next.next;
-          } else {
-            curr = curr.next;
-          }
-        }
-        setHead(head1);
-      } else if (position === parseInt(position)) {
-        position = parseInt(position);
-        if (position === 0) {
-          head = head.next;
-        } else {
-          let curr = head;
-          while (--position > 0 && curr) {
-            curr = curr.next;
-          }
-          if (curr && curr.next) {
-            curr.next = curr.next.next;
-          } else {
-            alert("No element to delete");
-          }
-        }
-        setHead(head);
-      } else if (where) {
-        switch (where) {
-          case "start":
-            head = head.next;
-            break;
-          case "end":
-            let curr = head;
-            if(!head.next){
-              head = null;
-            } else {
-              while (curr && curr.next && curr.next.next) {
-                curr = curr.next;
-              }
-              if (curr && curr.next) {
-                curr.next = curr.next.next;
-              }  
-            }
-            break;
-          default:
-        }
-        setHead(head);
-      } else {
-        alert("Invalid Deletion Exception");
-      }
-      setRendered(false);
-    } else {
-      alert("List is empty");
-    }
-  };
-  //Update------------------------------------------------------
-  let update = (position, value) => {
-    if (position && value && parseInt(position) >= 0) {
-      clear();
-      let head1 = head,
-        curr = head;
-      while (curr && --position >= 0) {
-        curr = curr.next;
-      }
-      if (curr) {
-        curr.info = value;
-        curr.highlight = true;
-        setHead(head1);
+      if (data.length < 7 && isNaN(data) == false) {
+        const set = new SortedSet();
+        set.insert(data);
+        setds.forEach((value, index) => {
+          if (!set.contains(value))
+            set.insert(value);
+          else
+            alert("already present");
+
+        })
+        console.log(set.map((x) => { return x }));
+        let setarr = set.map((x) => { return x });
         setRendered(false);
-      } else {
-        alert("Position out of bounds");
+        setSetds(setarr);
       }
-    } else {
-      alert("Cannot update");
+      else {
+        alert("Invalid input (must contains integers only)");
+      }
+
     }
-  };
 
-  // Seacrh----------------------------------------------------
+    else {
+      alert("Enter data");
+    }
+  }
 
-  let search = data => {
+  //----------Using "del" instead of delete is some keyword
+  let del = (data) => {
     if (data) {
-      clear();
-      let head1 = head,
-        curr = head;
-      while (curr) {
-        if (curr.info === data) {
-          curr.highlight = true;
+      if (data.length < 6 && isNaN(data) == false) {
+        let newsetds = setds.filter((value) => {
+          if (value != data) {
+            return value;
+          }
+        })
+
+        if (newsetds.length != setds.length) {
+          setSetds(newsetds);
+          setRendered(false);
         }
-        curr = curr.next;
+        else {
+          alert("value not exists in the set");
+        }
       }
-      setHead(head1);
-      setRendered(false);
-    } else {
-      alert("Empty Search");
+      else {
+        alert("Invalid input (must contains integers only)");
+      }
+    }
+    else {
+      alert("Enter data");
     }
   };
+  // search
+  let search = (data, where) => {
+    if (data) {
 
-  let renderList = () => {
-    let list = [];
-    if (head) {
-      let curr = head,
-        key = 0;
-      while (curr) {
-        if (curr.next) {
-          list.push(
-            <Fragment key={key + "-" + curr.info}>
-              <Element
-                data={{ value: curr.info }}
-                type="LinkedList"
-                next={true}
-                highlight={curr.highlight}
-              />
-            </Fragment>
-          );
-        } else {
-          list.push(
-            <Fragment key={key + "-" + curr.info}>
-              <Element
-                data={{ value: curr.info }}
-                type="LinkedList"
-                next={false}
-                highlight={curr.highlight}
-              />
-            </Fragment>
-          );
+      if (data.length < 7 && isNaN(data) == false) {
+        if (setds.includes(data)) {
+          setIsGreat(where);
+          setFindata(data);
+          setRendered(false);
         }
-        curr = curr.next;
+        else {
+          alert("element not exits");
+        }
+      }
+      else {
+        alert("Invalid input (must contains integers only)");
+      }
+
+    }
+    else {
+      alert("Enter data");
+    }
+  }
+
+  // render list 
+  let renderList = () => {
+
+    let list = [];
+    let key = 0;
+
+    if (setds != null) {
+      for (var i = 0; i < setds.length; i++) {
+        list.push(
+          <Fragment key={key + "-" + setds[i]}>
+            <Element
+              data={{ value: parseInt(setds[i]) }}
+              type="sets"
+              next={true}
+              highlight={(isGreat === "no" && findata != null && parseInt(setds[i]) === parseInt(findata) ? true : false}
+              AllGreater={(isGreat === "allg" && parseInt(setds[i]) > parseInt(findata)) ? true : false}
+              AllSmaller={(isGreat === "alls" && parseInt(setds[i]) < parseInt(findata)) ? true : false}
+            />
+          </Fragment>
+        );
+
         key++;
       }
+
+      setIsGreat(null);
+      setFindata(null);
+      setList(list);
+      setRendered(true);
     }
-    setList(list);
-    setRendered(true);
+
+
   };
 
   //-----------------content of render function ------------------------------------
@@ -317,12 +253,7 @@ export default function LinkedList() {
                         control={<StyledRadio />}
                         label="Delete"
                       />
-                      <FormControlLabel
-                        value="Update"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Update"
-                      />
+
                       <FormControlLabel
                         value="Search"
                         onChange={showoperation}
@@ -337,32 +268,28 @@ export default function LinkedList() {
             <Grid className="mt-3" item spacing={4} xs={12} sm={12}>
               <Insert
                 open={radioVal === "Insert"}
-                insert={(data, where) => {
-                  insert(data, where);
+                insert={(data) => {
+                  insert(data);
                 }}
               />
               <Search
                 open={radioVal === "Search"}
-                search={data => {
-                  search(data);
+                search={(data, where) => {
+                  search(data, where);
                 }}
               />
               <Delete
                 open={radioVal === "Delete"}
-                del={(data, where, position) => {
-                  del(data, where, position);
+                del={(data) => {
+                  del(data);
                 }}
               />
-              <Update
-                open={radioVal === "Update"}
-                update={(position, value) => {
-                  update(position, value);
-                }}
-              />
+
+
             </Grid>
           </Paper>
         </Grid>
-        <Grid container sm={8}>
+        <Grid container style={{ border: "2px solid black", height: "auto" }} sm={8}>
           {list}
         </Grid>
       </Grid>

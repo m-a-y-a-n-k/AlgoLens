@@ -172,11 +172,11 @@ export default class BinarySearch extends React.Component {
         if(data){
             let length = arr.length;
             arr = arr.filter((value)=>{
-                return value != data;
+                return value !== data;
             });
             if(!arr || arr.length===0)
                 arr = [];
-            if(length != arr.length)
+            if(length !== arr.length)
                 this.setState({array: arr, highlights: []});
             else
                 alert("Data not found to delete");
@@ -205,14 +205,14 @@ export default class BinarySearch extends React.Component {
         mid = parseInt(mid);
         if(start > end)
             return ;
-        if(arr[mid] == data){
+        if(arr[mid] === data){
             this.setState((prevState)=>{
                 let highlights = prevState.highlights;
-                while(start <= end && arr[start] != data){
+                while(start <= end && arr[start] !== data){
                     start++;
                     highlights.shift();
                 }
-                while(end >= start && arr[end] != data){
+                while(end >= start && arr[end] !== data){
                     end--;
                     highlights.pop();
                 }
@@ -305,7 +305,7 @@ export default class BinarySearch extends React.Component {
                     }
                 </Row>
                 {
-                    (parseInt(this.state.iter) > 0 || this.state.iter != "0") &&
+                    (parseInt(this.state.iter) > 0 || this.state.iter !== "0") &&
                     (<Row className="mt-4 mb-4">
                         Steps : {this.state.iter}
                     </Row>)

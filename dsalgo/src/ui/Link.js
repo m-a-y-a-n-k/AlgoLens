@@ -14,7 +14,8 @@ export default class Link extends React.Component{
                 break;
             case 'down':                
                 ico = <i className="ico down"></i>
-            case 'right':
+                    break;
+             
             default:
                ico = <i className="ico right"></i>
         }

@@ -197,11 +197,11 @@ export default class Visuals extends React.Component {
         if (data) {
             let length = arr.length;
             arr = arr.filter((value) => {
-                return value != data;
+                return value !== data;
             });
             if (!arr || arr.length === 0)
                 arr = [];
-            if (length != arr.length)
+            if (length !== arr.length)
                 this.setState({ array: arr, highlights: [] });
             else
                 alert("Data not found to delete");
@@ -226,10 +226,10 @@ export default class Visuals extends React.Component {
     }
 
     isPeak(arr, mid, start, end) {
-        let midEle = arr[mid] == parseFloat(arr[mid]) ? parseFloat(arr[mid]) : arr[mid];
+        let midEle = arr[mid] === parseFloat(arr[mid]) ? parseFloat(arr[mid]) : arr[mid];
         if (mid > start && mid < end) {
-            let midMoreEle = arr[mid + 1] == parseFloat(arr[mid + 1]) ? parseFloat(arr[mid + 1]) : arr[mid + 1];
-            let midLessEle = arr[mid - 1] == parseFloat(arr[mid - 1]) ? parseFloat(arr[mid - 1]) : arr[mid - 1];
+            let midMoreEle = arr[mid + 1] === parseFloat(arr[mid + 1]) ? parseFloat(arr[mid + 1]) : arr[mid + 1];
+            let midLessEle = arr[mid - 1] === parseFloat(arr[mid - 1]) ? parseFloat(arr[mid - 1]) : arr[mid - 1];
 
             if (midEle >= midMoreEle && midEle >= midLessEle) {
                 return { r: true };
@@ -239,13 +239,13 @@ export default class Visuals extends React.Component {
             }
         }
         else if (mid === start && mid < end) {
-            let midMoreEle = arr[mid + 1] == parseFloat(arr[mid + 1]) ? parseFloat(arr[mid + 1]) : arr[mid + 1];
+            let midMoreEle = arr[mid + 1] === parseFloat(arr[mid + 1]) ? parseFloat(arr[mid + 1]) : arr[mid + 1];
             if (midEle >= midMoreEle) {
                 return { r: true };
             }
         }
         else if (mid === end && mid > start) {
-            let midLessEle = arr[mid - 1] == parseFloat(arr[mid - 1]) ? parseFloat(arr[mid - 1]) : arr[mid - 1];
+            let midLessEle = arr[mid - 1] === parseFloat(arr[mid - 1]) ? parseFloat(arr[mid - 1]) : arr[mid - 1];
             if (midEle >= midLessEle) {
                 return { r: true };
             }
@@ -305,7 +305,7 @@ export default class Visuals extends React.Component {
 
     peak(start, end) {
         if (start && end) {
-            if (start == Math.floor(start) && end == Math.floor(end)) {
+            if (start === Math.floor(start) && end === Math.floor(end)) {
                 if (start > end) {
                     alert("Start should be less than end");
                     return;
@@ -368,7 +368,7 @@ export default class Visuals extends React.Component {
                     }
                 </Row>
                 {
-                    (parseInt(this.state.iter) > 0 || this.state.iter != "0") &&
+                    (parseInt(this.state.iter) > 0 || this.state.iter !== "0") &&
                     (<Row className="mt-4 mb-4">
                         Steps : {this.state.iter}
                     </Row>)

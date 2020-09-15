@@ -3,14 +3,10 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
 import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 
 //styling the form and component
 const useStyles = makeStyles(theme => ({
@@ -72,7 +68,6 @@ function RedditTextField(props) {
 export default function Delete(props) {
   ///--------- Select the start or end input type ------------
   const classes = useStyles();
-  const [where, setWhere] = React.useState("");
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
@@ -80,16 +75,10 @@ export default function Delete(props) {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const handleChange = event => {
-    setWhere(event.target.value);
-  };
 
   //-----------------------------------------------------------------
 
   const [data, setData] = React.useState(null); // stores the data entered in the list
-
-  const [position, setPosition] = React.useState(null); //position
-
   if (props.open)
     return (
       <Card
@@ -103,46 +92,8 @@ export default function Delete(props) {
           </Typography>
         </CardContent>
 
-        <CardContent className=" text-center pb-0 mt-0">
-          <Typography variant="h6" component="h2">
-            Position or value
-          </Typography>
-        </CardContent>
-
         <CardActions>
           <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-              Position
-            </InputLabel>
-
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={where}
-              onChange={handleChange}
-              labelWidth={labelWidth}
-            >
-              <MenuItem value={"start"}>Start</MenuItem>
-              <MenuItem value={"end"}>End</MenuItem>
-            </Select>
-
-            <Typography className="text-center">OR</Typography>
-
-            <RedditTextField
-              className="w-50"
-              label="Index"
-              onChange={event => {
-                setPosition(event.target.value);
-              }}
-              value={position ? position : ""}
-              variant="filled"
-              id="reddit-input-index"
-            />
-
-            <Typography className="text-center">
-              {" "}
-              {"OR"}
-            </Typography>
             <RedditTextField
               label="Value"
               className={classes.margin}
@@ -157,9 +108,9 @@ export default function Delete(props) {
             <Button
               className="mt-2"
               onClick={() => {
-                props.del(data, where,position); // calling the del function of the LinkList compoent
+                props.del(data); // calling the del function of the LinkList compoent
                 setData(null);
-                setPosition(null);
+
               }}
               variant="outlined"
               color="primary"

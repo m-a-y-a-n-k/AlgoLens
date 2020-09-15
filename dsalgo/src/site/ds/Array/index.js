@@ -225,7 +225,7 @@ export default class Array extends React.Component {
         if(data){
             arr = this.state.array;
             arr = arr.filter((value)=>{
-                return value != data;
+                return value !== data;
             });
             this.setState({array: arr, highlights: []});
         } else {
@@ -258,10 +258,10 @@ export default class Array extends React.Component {
         if(data){
             let arr = this.state.array,highlights = [];
             arr.map((value,index)=>{
-                if(value == data){
+                if(value === data){
                     highlights.push(parseInt(index));
                 }
-                return value == data;
+                return value === data;
             });
             this.setState({highlights});
         }else{
