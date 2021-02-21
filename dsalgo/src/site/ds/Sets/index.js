@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment,useEffect } from "react";
 
 import Element from "../../../ui/Element";
 
@@ -201,7 +201,7 @@ export default function LinkedList() {
               data={{ value: parseInt(setds[i]) }}
               type="sets"
               next={true}
-              highlight={(isGreat === "no" && findata != null && parseInt(setds[i]) === parseInt(findata) ? true : false}
+              highlight={(isGreat === "no" && findata != null && parseInt(setds[i]) === parseInt(findata)) ? true : false}
               AllGreater={(isGreat === "allg" && parseInt(setds[i]) > parseInt(findata)) ? true : false}
               AllSmaller={(isGreat === "alls" && parseInt(setds[i]) < parseInt(findata)) ? true : false}
             />
@@ -216,8 +216,6 @@ export default function LinkedList() {
       setList(list);
       setRendered(true);
     }
-
-
   };
 
   //-----------------content of render function ------------------------------------
