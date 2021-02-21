@@ -12,18 +12,18 @@ import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Zoom from "@material-ui/core/Zoom";
-
-const useStyles = makeStyles(theme => ({
+import LightBox from "../ui/LightBox";
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    position: "absolute"
+    position: "absolute",
   },
   copyright: {
     minHeight: "12px",
     color: "white",
-    textAlign: "center"
+    textAlign: "center",
   },
   main: {
     marginTop: theme.spacing(3),
@@ -32,27 +32,27 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.divider,
     color: "white",
     fontStyle: "italic",
-    fontSize: "20px"
+    fontSize: "20px",
   },
   footer: {
     padding: theme.spacing(3, 2),
     marginTop: "auto",
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
   },
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   buttonGrid: {
     display: "flex",
     justifyContent: "center",
     textAlign: "center",
-    fontSize: "16px"
+    fontSize: "16px",
   },
   topFab: {
     position: "fixed",
     bottom: theme.spacing(2),
-    right: theme.spacing(2)
-  }
+    right: theme.spacing(2),
+  },
 }));
 
 function ScrollTop(props) {
@@ -64,10 +64,10 @@ function ScrollTop(props) {
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
-    threshold: 100
+    threshold: 100,
   });
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector(
       "#back-to-top-anchor"
     );
@@ -92,7 +92,7 @@ ScrollTop.propTypes = {
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
-  window: PropTypes.func
+  window: PropTypes.func,
 };
 
 function Copyright() {
@@ -111,8 +111,52 @@ function Copyright() {
 }
 
 export default function StickyFooter(props) {
+  const [dialogConfig, setDialogConfig] = React.useState(null);
   const classes = useStyles();
-
+  const Config = {
+    title: "TITLE",
+    number: "1",
+    contentJSX: (
+      <div>
+        <h3> Use for given your description</h3>
+        <typography>
+          hey i am in lightbox 1-damn. Put your content here for plug and play
+        </typography>
+      </div>
+    ),
+    open: {
+      animation: "fade-in",
+      callback: function (event) {
+        alert("open");
+      },
+    },
+    close: {
+      escDisabled: false,
+      backdropDisabled: true,
+      animation: "fade-out",
+      callback: function () {
+        setDialogConfig(null);
+        alert("closed");
+      },
+    },
+    accept: {
+      text: "Accept",
+      callback: function (closefn) {
+        alert("Accept");
+        closefn && closefn();
+      },
+      icon: "fa fa-tick",
+    },
+    reject: {
+      text: "Reject",
+      icon: "fa fa-close",
+      callback: function (closefn) {
+        alert("rejected");
+        closefn && closefn();
+      },
+    },
+  };
+  const openLightBox = () => {};
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -132,6 +176,10 @@ export default function StickyFooter(props) {
               color="primary"
               className={classes.button}
               endIcon={<BugReportRoundedIcon />}
+              onClick={() => {
+                setDialogConfig(Config);
+                // handleOpen();
+              }}
             >
               Report Bug
             </Button>
@@ -153,6 +201,7 @@ export default function StickyFooter(props) {
           <Copyright />
         </Container>
       </footer>
+      <LightBox dialogConfig={dialogConfig} />
     </div>
   );
 }
