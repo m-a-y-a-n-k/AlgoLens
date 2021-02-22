@@ -44,18 +44,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchSuggestor(props) {
   const classes = useStyles();
-  const [opVal,setOptionValue] = useState({});
-
+  const [opVal,setOptionValue] = useState(null);
+  const [open,setOpen] = useState(false);
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
       <Autocomplete
-        freeSolo
+        open={open}
         clearOnEscape
         id={props.id}
-        disableClearable
+        onInputChange={
+          (event, value) => {
+            setOpen((value)?true:false);
+        }
+        }
+        openOnFocus
         options={props.searchOps}
         value={opVal}
         getOptionLabel={option => option.title || option.data || ""}
@@ -73,7 +78,9 @@ export default function SearchSuggestor(props) {
         )}
         onChange={(event, value) => {
             if(value){
-                setOptionValue({...value});
+              
+              //debugger;  
+              setOptionValue({...value});
                 props.updateSelection && props.updateSelection({...value});    
             }
         }}
