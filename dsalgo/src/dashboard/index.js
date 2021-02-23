@@ -15,7 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import siteLogo from "../site-logo.png";
+import siteLogo from "../VisuAlgo.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     width: 700
   },
   media: {
-    height: "auto",
+    height: "100vh",
     paddingTop: "56.25%" // 16:9,
   }
 }));
@@ -113,8 +113,8 @@ export default function Dashboard() {
           <Card className={classes.card}>
             <CardHeader
               avatar={
-                <Avatar aria-label="csvisuals" className={classes.avatar}>
-                  CS
+                <Avatar aria-label="VisuAlgo" className={classes.avatar}>
+                  VA
                 </Avatar>
               }
               title={<h2 style={{ marginTop: 32 }}>Meet The Platform</h2>}
@@ -123,11 +123,11 @@ export default function Dashboard() {
             <CardMedia
               className={classes.media}
               image={siteLogo}
-              title="CSVisuals"
+              title="VisuAlgo"
             />
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
-                CSVisuals stands for Computer Science Visualizations
+                VisuAlgo stands for Computer Science Visualizations
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -148,13 +148,13 @@ export default function Dashboard() {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
                 <Paper elevation={3} className={classes.paper}>
-                  {`CSVisuals is an excellent and proud platform designed by strongly passionate Computer Science alumni of Delhi Technological University, Delhi, India to bridge the gap between new comers in Computer Science and those who are masters of the field by acting as a solution that helps both in learning and teaching related concepts. It is an effort in the direction of improving fundamentals of those who want to pursue Computer Science or who use it on a daily basis in their life. Primarily for Programming Professionals, Professors and Students from various institutions across the globe.`}
+                  {`VisuAlgo is an excellent and proud platform designed by strongly passionate Computer Science alumni of Delhi Technological University, Delhi, India to bridge the gap between new comers in Computer Science and those who are masters of the field by acting as a solution that helps both in learning and teaching related concepts. It is an effort in the direction of improving fundamentals of those who want to pursue Computer Science or who use it on a daily basis in their life. Primarily for Programming Professionals, Professors and Students from various institutions across the globe.`}
                 </Paper>
               </CardContent>
             </Collapse>
           </Card>
         </Grid>
-        <Grid item sm={12} className={classes.gridItem}>
+        {false && (<Grid item sm={12} className={classes.gridItem}>
           <Grow in={status} {...{ timeout: 800 }}>
             <Grid container spacing={2}>
               {lines.split(".").map((line, idx) => {
@@ -176,7 +176,7 @@ export default function Dashboard() {
               })}
             </Grid>
           </Grow>
-        </Grid>
+        </Grid>)}
       </Grid>
     </div>
   );

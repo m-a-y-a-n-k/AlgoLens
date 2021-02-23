@@ -14,7 +14,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import SearchSuggestor from "./SearchSuggestor";
 import Image from "material-ui-image";
 import Grid from "@material-ui/core/Grid";
-import siteLogo from "../site-logo.png";
+import siteLogo from "../VisuAlgo.png";
 import { siteSugg } from "../config/routes";
 
 const useStyles = makeStyles(theme => ({
@@ -147,7 +147,7 @@ export default function PrimarySearchAppBar() {
                 <Image
                   color="transparent"
                   src={siteLogo}
-                  aspectRatio={16 / 9}
+                  aspectRatio={4/3}
                 />
               </Grid>
             </Grid>

@@ -60,7 +60,12 @@ export default function SearchSuggestor(props) {
             setOpen((value)?true:false);
         }
         }
-        openOnFocus
+        onFocus={()=>{
+          setOpen(true);
+        }}
+        onBlur={()=>{
+          setOpen(false);
+        }}
         options={props.searchOps}
         value={opVal}
         getOptionLabel={option => option.title || option.data || ""}
@@ -68,7 +73,6 @@ export default function SearchSuggestor(props) {
           <InputBase
             ref={params.InputProps.ref}
             inputProps={params.inputProps}
-            autoFocus
             placeholder={"Search Page"}
             classes={{
               root: classes.inputRoot,

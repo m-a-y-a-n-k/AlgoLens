@@ -102,7 +102,7 @@ function Copyright() {
     <Typography variant="body2" className={classes.copyright}>
       {"Copyright © "}
       <Link color="inherit" href="/">
-        CSVisuals
+        VisuAlgo
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -163,7 +163,7 @@ export default function StickyFooter(props) {
       <footer className={classes.footer}>
         <Typography variant="body1" className={classes.main}>
           {`
-                CSVisuals is a website built for the sole purpose of 
+                VisuAlgo is a website built for the sole purpose of 
                 providing a platform for visualising and providing intuitive explainations to 
                 various data structures and algorithms in the various sub-domains of the vast field 
                 of study and research in Computer Science
