@@ -17,34 +17,34 @@ import Grid from "@material-ui/core/Grid";
 import siteLogo from "../VisuAlgo.png";
 import { siteSugg } from "../config/routes";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   logoSec: {
-    width: 125
+    width: 125,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
+      display: "block",
+    },
   },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+      display: "flex",
+    },
   },
   sectionMobile: {
     display: "flex",
     [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
-  }
+      display: "none",
+    },
+  },
 }));
 
 export default function PrimarySearchAppBar() {
@@ -55,7 +55,7 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = event => {
+  const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -68,7 +68,7 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = event => {
+  const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
@@ -144,11 +144,7 @@ export default function PrimarySearchAppBar() {
           <section className={classes.logoSec}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Image
-                  color="transparent"
-                  src={siteLogo}
-                  aspectRatio={4/3}
-                />
+                <Image color="transparent" src={siteLogo} aspectRatio={4 / 3} />
               </Grid>
             </Grid>
           </section>
@@ -156,7 +152,7 @@ export default function PrimarySearchAppBar() {
             id="sitemapSugg"
             searchOps={siteSugg}
             updateSelection={(selection) => {
-                window.location.pathname = selection.path;
+              window.location.pathname = selection.path;
             }}
           />
           <div className={classes.grow} />

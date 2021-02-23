@@ -1,7 +1,5 @@
-import React, { useState, Fragment,useEffect } from "react";
-
+import React, { useState, Fragment } from "react";
 import Element from "../../../ui/Element";
-
 import Insert from "./Insert";
 import Delete from "./Delete";
 import Search from "./Search";
@@ -16,26 +14,27 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import SortedSet from "js-sorted-set";
 
-const gridStyle = makeStyles(theme => ({
+const gridStyle = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   control: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 }));
 
 const useStyles = makeStyles({
   root: {
     "&:hover": {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: "transparent",
+    },
   },
   icon: {
     borderRadius: "50%",
@@ -48,15 +47,15 @@ const useStyles = makeStyles({
       "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
     "$root.Mui-focusVisible &": {
       outline: "2px auto rgba(19,124,189,.6)",
-      outlineOffset: 2
+      outlineOffset: 2,
     },
     "input:hover ~ &": {
-      backgroundColor: "#ebf1f5"
+      backgroundColor: "#ebf1f5",
     },
     "input:disabled ~ &": {
       boxShadow: "none",
-      background: "rgba(206,217,224,.5)"
-    }
+      background: "rgba(206,217,224,.5)",
+    },
   },
   checkedIcon: {
     backgroundColor: "#137cbd",
@@ -67,12 +66,12 @@ const useStyles = makeStyles({
       width: 16,
       height: 16,
       backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
-      content: '""'
+      content: '""',
     },
     "input:hover ~ &": {
-      backgroundColor: "#106ba3"
-    }
-  }
+      backgroundColor: "#106ba3",
+    },
+  },
 });
 
 function StyledRadio(props) {
@@ -92,138 +91,137 @@ function StyledRadio(props) {
 
 export default function LinkedList() {
   const gridclass = gridStyle();
-  let [setds, setSetds] = useState([]);
-  let [list, setList] = useState(null);
-  let [rendered, setRendered] = useState(false);
   let [radioVal, setRadioVal] = useState(false);
-  let [isGreat, setIsGreat] = useState('');
+  let [isGreat, setIsGreat] = useState("");
   let [findata, setFindata] = useState(null);
-  let showoperation = event => {
+  let [set, setSet] = useState(new SortedSet());
+  let showoperation = (event) => {
     let operation = event.target.value;
     setRadioVal(operation);
   };
 
+  // clone set
+  let cloneSet = (sortedSet) => {
+    let clone = new SortedSet();
+    if (!sortedSet || sortedSet.length === 0) {
+      return clone;
+    }
+    sortedSet.forEach((element) => {
+      clone.insert(element);
+    });
+    return clone;
+  };
 
   // insert--------------------------------------------------------
 
-
-  const SortedSet = require('js-sorted-set');
-
   let insert = (data) => {
     if (data) {
-      if (data.length < 7 && isNaN(data) == false) {
-        const set = new SortedSet();
-        set.insert(data);
-        setds.forEach((value, index) => {
-          if (!set.contains(value))
-            set.insert(value);
-          else
-            alert("already present");
-
-        })
-        console.log(set.map((x) => { return x }));
-        let setarr = set.map((x) => { return x });
-        setRendered(false);
-        setSetds(setarr);
-      }
-      else {
+      if (data.length < 7 && isNaN(data) === false) {
+        if (set.contains(Number(data))) {
+          alert("Already Present");
+          return;
+        }
+        console.log(set);
+        const mySet = cloneSet(set);
+        mySet.insert(Number(data));
+        console.log(mySet);
+        setSet(mySet);
+      } else {
         alert("Invalid input (must contains integers only)");
       }
-
-    }
-
-    else {
+    } else {
       alert("Enter data");
     }
-  }
+  };
 
   //----------Using "del" instead of delete is some keyword
   let del = (data) => {
     if (data) {
-      if (data.length < 6 && isNaN(data) == false) {
-        let newsetds = setds.filter((value) => {
-          if (value != data) {
-            return value;
-          }
-        })
-
-        if (newsetds.length != setds.length) {
-          setSetds(newsetds);
-          setRendered(false);
-        }
-        else {
+      if (data.length < 6 && isNaN(data) === false) {
+        if (set.contains(Number(data))) {
+          const mySet = cloneSet(set);
+          mySet.remove(Number(data));
+          setSet(mySet);
+        } else {
           alert("value not exists in the set");
         }
-      }
-      else {
+      } else {
         alert("Invalid input (must contains integers only)");
       }
-    }
-    else {
+    } else {
       alert("Enter data");
     }
   };
   // search
   let search = (data, where) => {
     if (data) {
-
-      if (data.length < 7 && isNaN(data) == false) {
-        if (setds.includes(data)) {
-          setIsGreat(where);
-          setFindata(data);
-          setRendered(false);
+      if (data.length < 7 && isNaN(data) === false) {
+        if (!set || set.length === 0) {
+          alert("set is empty");
+          return;
         }
-        else {
-          alert("element not exits");
+        setIsGreat(where);
+        setFindata(Number(data));
+        switch (where) {
+          case "no":
+            !set.contains(Number(data)) && alert("Data Not Found");
+            break;
+          case "alls":
+            Number(set.beginIterator().value()) > Number(data) &&
+              alert("No smaller element present");
+            break;
+          case "allg":
+            Number(set.endIterator().previous().value()) < Number(data) &&
+              alert("No Greater Element present");
+            break;
+          default:
+            break;
         }
-      }
-      else {
+      } else {
         alert("Invalid input (must contains integers only)");
       }
-
-    }
-    else {
+    } else {
       alert("Enter data");
-    }
-  }
-
-  // render list 
-  let renderList = () => {
-
-    let list = [];
-    let key = 0;
-
-    if (setds != null) {
-      for (var i = 0; i < setds.length; i++) {
-        list.push(
-          <Fragment key={key + "-" + setds[i]}>
-            <Element
-              data={{ value: parseInt(setds[i]) }}
-              type="sets"
-              next={true}
-              highlight={(isGreat === "no" && findata != null && parseInt(setds[i]) === parseInt(findata)) ? true : false}
-              AllGreater={(isGreat === "allg" && parseInt(setds[i]) > parseInt(findata)) ? true : false}
-              AllSmaller={(isGreat === "alls" && parseInt(setds[i]) < parseInt(findata)) ? true : false}
-            />
-          </Fragment>
-        );
-
-        key++;
-      }
-
-      setIsGreat(null);
-      setFindata(null);
-      setList(list);
-      setRendered(true);
     }
   };
 
+  // render list
+  let renderList = () => {
+    const list =
+      set &&
+      set.length > 0 &&
+      set.map((element, key) => {
+        return (
+          <Fragment key={key + "-" + element}>
+            <Element
+              data={{ value: Number(element) }}
+              type="sets"
+              next={true}
+              highlight={
+                isGreat === "no" &&
+                findata !== null &&
+                Number(element) === Number(findata)
+                  ? true
+                  : false
+              }
+              AllGreater={
+                isGreat === "allg" && Number(element) > Number(findata)
+                  ? true
+                  : false
+              }
+              AllSmaller={
+                isGreat === "alls" && Number(element) < Number(findata)
+                  ? true
+                  : false
+              }
+            />
+          </Fragment>
+        );
+      });
+    return list || [];
+  };
+
   //-----------------content of render function ------------------------------------
-  React.useEffect(() => {
-    if (!rendered) {
-      renderList();
-    }
-  });
 
   return (
     <div className={gridclass.root}>
@@ -282,13 +280,18 @@ export default function LinkedList() {
                   del(data);
                 }}
               />
-
-
             </Grid>
           </Paper>
         </Grid>
-        <Grid container style={{ border: "2px solid black", height: "auto" }} sm={8}>
-          {list}
+        <Grid
+          container
+          style={{
+            border: set.length > 0 ? "2px solid black" : "",
+            height: "auto",
+          }}
+          sm={8}
+        >
+          {renderList()}
         </Grid>
       </Grid>
     </div>

@@ -52,7 +52,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({ dialogConfig}) {
+export default function CustomizedDialogs({ dialogConfig }) {
   useEffect(() => {
     if (dialogConfig && dialogConfig.open && dialogConfig.open.callback) {
       dialogConfig.open.callback();
@@ -60,7 +60,6 @@ export default function CustomizedDialogs({ dialogConfig}) {
   }, [dialogConfig]);
 
   const handleClose = () => {
-    
     if (dialogConfig && dialogConfig.close && dialogConfig.close.callback) {
       dialogConfig.close.callback();
     }

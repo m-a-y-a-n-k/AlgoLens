@@ -8,37 +8,35 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 
 //styling the form and component
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 3
+    minWidth: 3,
   },
   bullet: {
     display: "inline-block",
     margin: "0 8px",
-    transform: "scale(0.8)"
+    transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
   },
   pos: {
     marginBottom: 175,
-    marginTop: 33
+    marginTop: 33,
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(1)
-  }
+    marginTop: theme.spacing(1),
+  },
 }));
-
-
 
 export default function Delete(props) {
   ///--------- Select the start or end input type ------------
   const classes = useStyles();
-    let where ="start";
+  let where = "start";
 
   //-----------------------------------------------------------------
 
@@ -54,13 +52,13 @@ export default function Delete(props) {
             Delete
           </Typography>
         </CardContent>
-       
+
         <CardActions>
           <FormControl variant="outlined" className={classes.formControl}>
-          <Button
+            <Button
               className="mt-2"
               onClick={() => {
-                props.del( where); // calling the del function of the LinkList compoent         
+                props.del(where); // calling the del function of the LinkList compoent
               }}
               variant="outlined"
               color="primary"

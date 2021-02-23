@@ -1,28 +1,27 @@
 import React, { Component } from "react";
 
 export default function asyncComponent(getComponent) {
-    class AsyncComponent extends Component {
-        static Component = null;
-        state = { Component: AsyncComponent.Component };
+  class AsyncComponent extends Component {
+    static Component = null;
+    state = { Component: AsyncComponent.Component };
 
-        constructor(props) {
-            super(props);
-            if (!this.state.Component) {
-                getComponent().then(Component => {
-                    AsyncComponent.Component = Component
-                    this.setState({ Component })
-                })
-            }
-            
-          }
-       
-        render() {
-            const { Component } = this.state
-            if (Component) {
-                return <Component {...this.props} />
-            }
-            return null
-        }
+    constructor(props) {
+      super(props);
+      if (!this.state.Component) {
+        getComponent().then((Component) => {
+          AsyncComponent.Component = Component;
+          this.setState({ Component });
+        });
+      }
     }
-    return AsyncComponent;
+
+    render() {
+      const { Component } = this.state;
+      if (Component) {
+        return <Component {...this.props} />;
+      }
+      return null;
+    }
+  }
+  return AsyncComponent;
 }

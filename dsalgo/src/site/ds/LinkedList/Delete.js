@@ -13,33 +13,33 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 //styling the form and component
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 3
+    minWidth: 3,
   },
   bullet: {
     display: "inline-block",
     margin: "0 8px",
-    transform: "scale(0.8)"
+    transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
   },
   pos: {
     marginBottom: 175,
-    marginTop: 33
+    marginTop: 33,
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(1)
-  }
+    marginTop: theme.spacing(1),
+  },
 }));
 
 // input field styling
-const useStylesReddit = makeStyles(theme => ({
+const useStylesReddit = makeStyles((theme) => ({
   root: {
     border: "1px solid #e2e2e1",
     overflow: "hidden",
@@ -49,16 +49,16 @@ const useStylesReddit = makeStyles(theme => ({
     backgroundColor: "#fcfcfb",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:hover": {
-      backgroundColor: "#fff"
+      backgroundColor: "#fff",
     },
     "&$focused": {
       backgroundColor: "#fff",
       boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main
-    }
+      borderColor: theme.palette.primary.main,
+    },
   },
 
-  focused: {}
+  focused: {},
 }));
 
 // handling input field
@@ -80,7 +80,7 @@ export default function Delete(props) {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setWhere(event.target.value);
   };
 
@@ -131,7 +131,7 @@ export default function Delete(props) {
             <RedditTextField
               className="w-50"
               label="Index"
-              onChange={event => {
+              onChange={(event) => {
                 setPosition(event.target.value);
               }}
               value={position ? position : ""}
@@ -139,14 +139,11 @@ export default function Delete(props) {
               id="reddit-input-index"
             />
 
-            <Typography className="text-center">
-              {" "}
-              {"OR"}
-            </Typography>
+            <Typography className="text-center"> {"OR"}</Typography>
             <RedditTextField
               label="Value"
               className={classes.margin}
-              onChange={event => {
+              onChange={(event) => {
                 setData(event.target.value);
               }}
               value={data ? data : ""}
@@ -157,7 +154,7 @@ export default function Delete(props) {
             <Button
               className="mt-2"
               onClick={() => {
-                props.del(data, where,position); // calling the del function of the LinkList compoent
+                props.del(data, where, position); // calling the del function of the LinkList compoent
                 setData(null);
                 setPosition(null);
               }}

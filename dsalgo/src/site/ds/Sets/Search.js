@@ -10,33 +10,33 @@ import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 
 //styling the form and component
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 3
+    minWidth: 3,
   },
   bullet: {
     display: "inline-block",
     margin: "0 8px",
-    transform: "scale(0.8)"
+    transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
   },
   pos: {
     marginBottom: 175,
-    marginTop: 33
+    marginTop: 33,
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(1)
-  }
+    marginTop: theme.spacing(1),
+  },
 }));
 
 // input field styling
-const useStylesReddit = makeStyles(theme => ({
+const useStylesReddit = makeStyles((theme) => ({
   root: {
     border: "1px solid #e2e2e1",
     overflow: "hidden",
@@ -46,16 +46,16 @@ const useStylesReddit = makeStyles(theme => ({
     backgroundColor: "#fcfcfb",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:hover": {
-      backgroundColor: "#fff"
+      backgroundColor: "#fff",
     },
     "&$focused": {
       backgroundColor: "#fff",
       boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main
-    }
+      borderColor: theme.palette.primary.main,
+    },
   },
 
-  focused: {}
+  focused: {},
 }));
 
 // handling input field
@@ -71,7 +71,6 @@ export default function Search(props) {
   const classes = useStyles(); // style for card component
   const [data, setData] = React.useState(null); // stores the data entered in the list
   if (props.open)
-
     return (
       <Card
         className={classes.root}
@@ -95,7 +94,7 @@ export default function Search(props) {
             <RedditTextField
               label="Value"
               className={classes.margin}
-              onChange={event => {
+              onChange={(event) => {
                 setData(event.target.value);
               }}
               value={data ? data : ""}
@@ -136,13 +135,9 @@ export default function Search(props) {
             >
               Submit
             </Button>
-
           </FormControl>
         </CardActions>
       </Card>
     );
-  else
-    return (
-      <div></div>
-    )
+  else return <div></div>;
 }

@@ -19,7 +19,7 @@ export default class Element extends React.Component {
         }
         elStyles = {
           border: "1px solid white",
-          background: "rgba(40,40,160,0.8)"
+          background: "rgba(40,40,160,0.8)",
         };
         if (this.props.highlight) {
           elStyles.background = "rgba(30,150,40,0.8)";
@@ -42,7 +42,7 @@ export default class Element extends React.Component {
       case "array":
         elStyles = {
           border: "1px solid white",
-          background: "rgba(40,40,120,0.8)"
+          background: "rgba(40,40,120,0.8)",
         };
         if (this.props.highlight) {
           elStyles.background = "rgba(30,150,40,0.8)";
@@ -61,7 +61,7 @@ export default class Element extends React.Component {
       case "linkedlist":
         elStyles = {
           border: "1px solid white",
-          background: "rgba(40,60,180,0.8)"
+          background: "rgba(40,60,180,0.8)",
         };
         if (this.props.highlight) {
           elStyles.background = "rgba(30,150,40,0.8)";
@@ -78,7 +78,7 @@ export default class Element extends React.Component {
             <Box color="white" p={1} textAlign="center" fontSize={12}>
               {this.props.data.index}
             </Box>
-          </Box>
+          </Box>,
         ];
 
         if (this.props.next)
@@ -95,33 +95,47 @@ export default class Element extends React.Component {
       case "queues":
         elStyles = {
           border: "1px solid white",
-          background: "rgba(40,60,180,0.8)"
+          background: "rgba(40,60,180,0.8)",
         };
         if (this.props.highlight) {
           elStyles.background = "rgba(30,150,40,0.8)";
         }
         element = [
-        <div>
-          <Box
-            key={this.props.data.value + this.props.data.index}
-            p={1}
-            style={elStyles}
-          >
-            <Box p={1} color="white" textAlign="center" fontSize={18}>
-              {this.props.data.value} 
-              
-              
+          <div>
+            <Box
+              key={this.props.data.value + this.props.data.index}
+              p={1}
+              style={elStyles}
+            >
+              <Box p={1} color="white" textAlign="center" fontSize={18}>
+                {this.props.data.value}
+              </Box>
             </Box>
-           
-          </Box>
-         <Box color="white" p={1}  className={this.props.data.index===0||this.props.next===false?"bg-danger":""} textAlign="center" fontSize={12}>
-         {this.props.data.index===0?<typography  >Front <br/> </typography>:<div></div>}
-        {this.props.next===false?<typography>Rear</typography>:<div></div>}
-        </Box>
-        
-        </div>  
-          
-
+            <Box
+              color="white"
+              p={1}
+              className={
+                this.props.data.index === 0 || this.props.next === false
+                  ? "bg-danger"
+                  : ""
+              }
+              textAlign="center"
+              fontSize={12}
+            >
+              {this.props.data.index === 0 ? (
+                <typography>
+                  Front <br />{" "}
+                </typography>
+              ) : (
+                <div></div>
+              )}
+              {this.props.next === false ? (
+                <typography>Rear</typography>
+              ) : (
+                <div></div>
+              )}
+            </Box>
+          </div>,
         ];
 
         if (this.props.next)
@@ -134,46 +148,42 @@ export default class Element extends React.Component {
             </Box>
           );
         break;
-        case "sets":
-          elStyles = {
-            border: "1px solid black",
-            background: "rgba(40,60,180,0.8)",
-            borderRadius:"50%", 
-            minHeight:"100px",
-            minWidth:"100px",
-            margin: "20px",
-            
-            
-          };
-          if(this.props.AllGreater){
-            elStyles.background = "rgba(242,19,23,0.8)";
-          }
-          if(this.props.AllSmaller){
-            elStyles.background = "rgba(250,183,0,0.8)";
-          }
-          if (this.props.highlight) {
-            elStyles.background = "rgba(30,150,40,0.8)";
-          }
-        
-          element = [
-            <Box
-              key={this.props.data.value }
-              p={1}
-              style={elStyles}
-            >
-              <Box p={0} color="white"  fontSize={18}>
-               <div style={{position: "relative",top:"45%",textAlign: "center"}}>
-                 {this.props.data.value}
-                 </div> 
-              </Box>
-              
+      case "sets":
+        elStyles = {
+          border: "1px solid black",
+          background: "rgba(40,60,180,0.8)",
+          borderRadius: "50%",
+          minHeight: "100px",
+          minWidth: "100px",
+          margin: "20px",
+        };
+        if (this.props.AllGreater) {
+          elStyles.background = "rgba(242,19,23,0.8)";
+        }
+        if (this.props.AllSmaller) {
+          elStyles.background = "rgba(250,183,0,0.8)";
+        }
+        if (this.props.highlight) {
+          elStyles.background = "rgba(30,150,40,0.8)";
+        }
+
+        element = [
+          <Box key={this.props.data.value} p={1} style={elStyles}>
+            <Box p={0} color="white" fontSize={18}>
+              <div
+                style={{
+                  position: "relative",
+                  top: "45%",
+                  textAlign: "center",
+                }}
+              >
+                {this.props.data.value}
+              </div>
             </Box>
-          ];
-  
-          break;
-              
+          </Box>,
+        ];
 
-
+        break;
 
       default:
     }

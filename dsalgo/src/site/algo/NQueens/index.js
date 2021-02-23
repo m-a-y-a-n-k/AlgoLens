@@ -12,7 +12,7 @@ import {
   InputGroup,
   Input,
   InputGroupAddon,
-  InputGroupText
+  InputGroupText,
 } from "reactstrap";
 
 class Inp extends React.Component {
@@ -20,7 +20,7 @@ class Inp extends React.Component {
     super(props);
 
     this.state = {
-      input: null
+      input: null,
     };
   }
   render() {
@@ -36,7 +36,7 @@ class Inp extends React.Component {
             <Input
               type="number"
               placeholder="Number of Queens on Board"
-              onChange={event => {
+              onChange={(event) => {
                 this.setState({ input: event.target.value });
               }}
               value={this.state.input ? this.state.input : ""}
@@ -61,7 +61,7 @@ export default class NQueens extends React.Component {
   state = {
     queens: [],
     number: 0,
-    disabled: false
+    disabled: false,
   };
 
   safe(row, col) {
@@ -97,12 +97,12 @@ export default class NQueens extends React.Component {
         return;
       }
       this.setState(
-        prevState => {
+        (prevState) => {
           let queens = [...prevState.queens];
           queens.length = col;
           queens.push({ row, col });
           return {
-            queens
+            queens,
           };
         },
         () => {
@@ -114,7 +114,7 @@ export default class NQueens extends React.Component {
               } else {
                 this.setState(
                   {
-                    disabled: false
+                    disabled: false,
                   },
                   () => {
                     alert("Found Solution. Continue !!!");
@@ -133,7 +133,7 @@ export default class NQueens extends React.Component {
                     } else {
                       this.setState(
                         {
-                          disabled: false
+                          disabled: false,
                         },
                         () => {
                           alert(
@@ -148,7 +148,7 @@ export default class NQueens extends React.Component {
                 } else {
                   this.setState(
                     {
-                      disabled: false
+                      disabled: false,
                     },
                     () => {
                       alert("Did not Found Solution. Try different input !!!");
@@ -168,10 +168,10 @@ export default class NQueens extends React.Component {
   queens(input) {
     if (input >= 1 && input <= 36 && !this.state.disabled) {
       this.setState(
-        prevState => {
+        (prevState) => {
           return {
             number: input,
-            disabled: true
+            disabled: true,
           };
         },
         () => {
@@ -198,7 +198,7 @@ export default class NQueens extends React.Component {
         <Row>
           <Board
             size={this.state.number}
-            queens={this.state.queens.map(queen => {
+            queens={this.state.queens.map((queen) => {
               return queen.row * this.state.number + queen.col;
             })}
           ></Board>

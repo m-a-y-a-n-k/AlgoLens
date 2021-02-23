@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import Element from "../../../ui/Element";
 import Box from "@material-ui/core/Box";
-import Grid from '@material-ui/core/Grid';
-import Push from './Push.js'
-import Pop from './Pop.js'
-import Get from './Get.js'
+import Grid from "@material-ui/core/Grid";
+import Push from "./Push.js";
+import Pop from "./Pop.js";
+import Get from "./Get.js";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
@@ -17,27 +16,26 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-
 // modified version
-const gridStyle = makeStyles(theme => ({
+const gridStyle = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   control: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 }));
 
 const useStyles = makeStyles({
   root: {
     "&:hover": {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: "transparent",
+    },
   },
   icon: {
     borderRadius: "50%",
@@ -50,15 +48,15 @@ const useStyles = makeStyles({
       "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
     "$root.Mui-focusVisible &": {
       outline: "2px auto rgba(19,124,189,.6)",
-      outlineOffset: 2
+      outlineOffset: 2,
     },
     "input:hover ~ &": {
-      backgroundColor: "#ebf1f5"
+      backgroundColor: "#ebf1f5",
     },
     "input:disabled ~ &": {
       boxShadow: "none",
-      background: "rgba(206,217,224,.5)"
-    }
+      background: "rgba(206,217,224,.5)",
+    },
   },
   checkedIcon: {
     backgroundColor: "#137cbd",
@@ -69,12 +67,12 @@ const useStyles = makeStyles({
       width: 16,
       height: 16,
       backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
-      content: '""'
+      content: '""',
     },
     "input:hover ~ &": {
-      backgroundColor: "#106ba3"
-    }
-  }
+      backgroundColor: "#106ba3",
+    },
+  },
 });
 function StyledRadio(props) {
   const classes = useStyles();
@@ -91,26 +89,20 @@ function StyledRadio(props) {
   );
 }
 
-
-
-
-
-
 export default function Stack(props) {
   const gridclass = gridStyle();
 
   let [array, setArray] = useState([]);
   let [highlights, setHighlights] = useState(null);
-  let [where, setWhere] = useState('Top');
+  let [where, setWhere] = useState("Top");
   let [result, setResult] = useState(null);
 
   let [radioVal, setRadioVal] = useState(false);
 
-  let showoperation = event => {
+  let showoperation = (event) => {
     let operation = event.target.value;
     setRadioVal(operation);
   };
-
 
   let push = (data) => {
     if (data) {
@@ -122,7 +114,7 @@ export default function Stack(props) {
     } else {
       alert("Nothing to Push");
     }
-  }
+  };
 
   let pop = () => {
     let arr = array;
@@ -130,11 +122,11 @@ export default function Stack(props) {
     setArray(arr);
     setHighlights([]);
     setResult(null);
-  }
+  };
 
   let get = () => {
     let arr = array;
-  
+
     switch (where.toLowerCase()) {
       case "top":
         setHighlights([0]);
@@ -146,78 +138,76 @@ export default function Stack(props) {
         return;
       default:
     }
-  }
-
+  };
 
   return (
     <div className={gridclass.root}>
-      <Grid container direction="row" justify="flex-start" alignItems="flex-end" >
-         <Paper className={gridclass.paper}>
-            <Grid item xs={12} sm={12} m={4}  >
-              <Card>
-                <h2 className="bg-primary text-white p-3">
-                  Operations
-                </h2>
-                <CardContent className="pl-0 pr-0 pt-0 text-left">
-                  <FormControl className="pl-3" component="fieldset">
-                    <FormLabel component="legend"></FormLabel>
-                    <RadioGroup aria-label="gender" name="customized-radios">
-                      <FormControlLabel
-                        value="Push"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Push"
-                      />
-                      <FormControlLabel
-                        value="Pop"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Pop"
-                      />
-                      <FormControlLabel
-                        value="Get"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Get"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item  className="mt-3" xs={12} sm={12}>
-              <Push
-                open={radioVal === "Push"}
-                push={(data) => {
-                  push(data);
-                }}
-              />
-              <Pop
-                open={radioVal === "Pop"}
-                pop={() => {
-                  pop();
-                }}
-    
-              />
-              <Get
-                open={radioVal === "Get"}
-                modifywhere={(position) => {
-                  setWhere(position)
-                }}
-                result1={result}
-                array1={array}
-                get={() => {
-                  get();
-                }}
-                
-              />
-              
-            </Grid>
-          </Paper>
-        
-        <Grid item xs={8} sm={6}  className="ml-4" >
-          
-        <Box  
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-end"
+      >
+        <Paper className={gridclass.paper}>
+          <Grid item xs={12} sm={12} m={4}>
+            <Card>
+              <h2 className="bg-primary text-white p-3">Operations</h2>
+              <CardContent className="pl-0 pr-0 pt-0 text-left">
+                <FormControl className="pl-3" component="fieldset">
+                  <FormLabel component="legend"></FormLabel>
+                  <RadioGroup aria-label="gender" name="customized-radios">
+                    <FormControlLabel
+                      value="Push"
+                      onChange={showoperation}
+                      control={<StyledRadio />}
+                      label="Push"
+                    />
+                    <FormControlLabel
+                      value="Pop"
+                      onChange={showoperation}
+                      control={<StyledRadio />}
+                      label="Pop"
+                    />
+                    <FormControlLabel
+                      value="Get"
+                      onChange={showoperation}
+                      control={<StyledRadio />}
+                      label="Get"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item className="mt-3" xs={12} sm={12}>
+            <Push
+              open={radioVal === "Push"}
+              push={(data) => {
+                push(data);
+              }}
+            />
+            <Pop
+              open={radioVal === "Pop"}
+              pop={() => {
+                pop();
+              }}
+            />
+            <Get
+              open={radioVal === "Get"}
+              modifywhere={(position) => {
+                setWhere(position);
+              }}
+              result1={result}
+              array1={array}
+              get={() => {
+                get();
+              }}
+            />
+          </Grid>
+        </Paper>
+
+        <Grid item xs={8} sm={6} className="ml-4">
+          <Box
             display="flex"
             flexWrap="wrap"
             flexDirection="column"
@@ -226,7 +216,7 @@ export default function Stack(props) {
             bgcolor="background.paper"
             css={{
               border: "1px solid black",
-              borderTop: "none"
+              borderTop: "none",
             }}
             className="col-sm-12"
           >
@@ -248,37 +238,8 @@ export default function Stack(props) {
           <Box textAlign="center" className="col-sm-12">
             Stack Container
           </Box>
-        
         </Grid>
       </Grid>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

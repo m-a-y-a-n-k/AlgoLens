@@ -17,52 +17,52 @@ import { blue } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import siteLogo from "../VisuAlgo.png";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     overflow: "auto",
     padding: theme.spacing(2),
-    minHeight: "50vh"
+    minHeight: "50vh",
   },
   gridItem: {
     display: "flex",
     textAlign: "center",
     justifyContent: "center",
-    margin: theme.spacing(3)
+    margin: theme.spacing(3),
   },
   line: {
     margin: 0,
     padding: "1px !important",
     border: "none",
     color: theme.palette.text.secondary,
-    background: "rgba(225,235,245,0.25)"
+    background: "rgba(225,235,245,0.25)",
   },
   paper: {
     margin: theme.spacing(1),
     padding: theme.spacing(2),
     fontSize: 16,
-    color: 'grey'
+    color: "grey",
   },
   expand: {
     fontSize: 14,
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: blue[800]
+    backgroundColor: blue[800],
   },
   card: {
-    width: 700
+    width: 700,
   },
   media: {
     height: "100vh",
-    paddingTop: "56.25%" // 16:9,
-  }
+    paddingTop: "56.25%", // 16:9,
+  },
 }));
 
 export default function Dashboard() {
@@ -140,7 +140,7 @@ export default function Dashboard() {
                 Know More
                 <ExpandMoreIcon
                   className={clsx({
-                    [classes.expandOpen]: expanded
+                    [classes.expandOpen]: expanded,
                   })}
                 />
               </IconButton>
@@ -154,29 +154,31 @@ export default function Dashboard() {
             </Collapse>
           </Card>
         </Grid>
-        {false && (<Grid item sm={12} className={classes.gridItem}>
-          <Grow in={status} {...{ timeout: 800 }}>
-            <Grid container spacing={2}>
-              {lines.split(".").map((line, idx) => {
-                return (
-                  <Grid item sm={12} key={idx} className={classes.line}>
-                    {line.split("").map(bit => {
-                      return (
-                        <span
-                          style={{
-                            color: `${bit === "1" ? "red" : "lightblue"}`
-                          }}
-                        >
-                          {bit}
-                        </span>
-                      );
-                    })}
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Grow>
-        </Grid>)}
+        {false && (
+          <Grid item sm={12} className={classes.gridItem}>
+            <Grow in={status} {...{ timeout: 800 }}>
+              <Grid container spacing={2}>
+                {lines.split(".").map((line, idx) => {
+                  return (
+                    <Grid item sm={12} key={idx} className={classes.line}>
+                      {line.split("").map((bit) => {
+                        return (
+                          <span
+                            style={{
+                              color: `${bit === "1" ? "red" : "lightblue"}`,
+                            }}
+                          >
+                            {bit}
+                          </span>
+                        );
+                      })}
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Grow>
+          </Grid>
+        )}
       </Grid>
     </div>
   );

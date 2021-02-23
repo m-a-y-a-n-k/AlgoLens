@@ -12,16 +12,16 @@ const routes = [
   "algo/FloodFill",
   "algo/Peak",
   "algo/KnuthShuffle",
-  "algo/ClosestPair"
+  "algo/ClosestPair",
 ];
 
-const siteSugg = routes.map((route)=>{
-    let title = route.split('/').join(" : ");
-    title = title[0].toUpperCase() + title.substr(1,title.length); 
-    return {
-        path: `/${route}`,
-        title
-    }
-})
+const siteSugg = routes.map((route) => {
+  let title = route.split("/").join(" : ");
+  title = title[0].toUpperCase() + title.substr(1, title.length);
+  return {
+    path: `/${route}`,
+    title,
+  };
+});
 
-export { routes,siteSugg };
+export { routes, siteSugg };

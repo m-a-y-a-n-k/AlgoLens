@@ -156,7 +156,6 @@ export default function StickyFooter(props) {
       },
     },
   };
-  const openLightBox = () => {};
   return (
     <div className={classes.root}>
       <CssBaseline />

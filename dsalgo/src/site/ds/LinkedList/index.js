@@ -18,25 +18,25 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-const gridStyle = makeStyles(theme => ({
+const gridStyle = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   control: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 }));
 
 const useStyles = makeStyles({
   root: {
     "&:hover": {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: "transparent",
+    },
   },
   icon: {
     borderRadius: "50%",
@@ -49,15 +49,15 @@ const useStyles = makeStyles({
       "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
     "$root.Mui-focusVisible &": {
       outline: "2px auto rgba(19,124,189,.6)",
-      outlineOffset: 2
+      outlineOffset: 2,
     },
     "input:hover ~ &": {
-      backgroundColor: "#ebf1f5"
+      backgroundColor: "#ebf1f5",
     },
     "input:disabled ~ &": {
       boxShadow: "none",
-      background: "rgba(206,217,224,.5)"
-    }
+      background: "rgba(206,217,224,.5)",
+    },
   },
   checkedIcon: {
     backgroundColor: "#137cbd",
@@ -68,12 +68,12 @@ const useStyles = makeStyles({
       width: 16,
       height: 16,
       backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
-      content: '""'
+      content: '""',
     },
     "input:hover ~ &": {
-      backgroundColor: "#106ba3"
-    }
-  }
+      backgroundColor: "#106ba3",
+    },
+  },
 });
 
 function StyledRadio(props) {
@@ -98,7 +98,7 @@ export default function LinkedList() {
   let [rendered, setRendered] = useState(false);
   let [radioVal, setRadioVal] = useState(false);
 
-  let showoperation = event => {
+  let showoperation = (event) => {
     let operation = event.target.value;
     setRadioVal(operation);
   };
@@ -183,7 +183,7 @@ export default function LinkedList() {
             break;
           case "end":
             let curr = head;
-            if(!head.next){
+            if (!head.next) {
               head = null;
             } else {
               while (curr && curr.next && curr.next.next) {
@@ -191,7 +191,7 @@ export default function LinkedList() {
               }
               if (curr && curr.next) {
                 curr.next = curr.next.next;
-              }  
+              }
             }
             break;
           default:
@@ -229,7 +229,7 @@ export default function LinkedList() {
 
   // Seacrh----------------------------------------------------
 
-  let search = data => {
+  let search = (data) => {
     if (data) {
       clear();
       let head1 = head,
@@ -343,7 +343,7 @@ export default function LinkedList() {
               />
               <Search
                 open={radioVal === "Search"}
-                search={data => {
+                search={(data) => {
                   search(data);
                 }}
               />
