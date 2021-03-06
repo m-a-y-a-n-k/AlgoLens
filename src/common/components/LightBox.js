@@ -128,5 +128,5 @@ export default function CustomizedDialogs({ dialogConfig }) {
     </Dialog>
   );
 
-  return <div>{dialogueJSX}</div>;
+  return <>{dialogueJSX}</>;
 }

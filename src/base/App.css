@@ -9,9 +9,13 @@
 }
 
 .content {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  position: relative;
+  -moz-flex-grow: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 360px;
+  padding: 1em;
 }
 
 .ico {

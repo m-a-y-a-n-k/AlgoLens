@@ -1,52 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import BugReportRoundedIcon from "@material-ui/icons/BugReportRounded";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Zoom from "@material-ui/core/Zoom";
 import LightBox from "../common/components/LightBox";
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    position: "absolute",
-  },
   copyright: {
-    minHeight: "12px",
+    margin: "auto",
+    padding: theme.spacing(1),
     color: "white",
     textAlign: "center",
   },
   main: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(4),
-    backgroundColor: theme.palette.divider,
+    padding: theme.spacing(1),
     color: "white",
     fontStyle: "italic",
-    fontSize: "20px",
+    fontSize: "1.1rem",
+    "&:hover": {
+      backgroundColor: theme.palette.divider,
+    },
   },
   footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: "auto",
+    padding: theme.spacing(1),
     backgroundColor: theme.palette.primary.dark,
+    display: "flex",
+    flexDirection: "column",
   },
   button: {
-    margin: theme.spacing(1),
-  },
-  buttonGrid: {
-    display: "flex",
-    justifyContent: "center",
-    textAlign: "center",
-    fontSize: "16px",
+    margin: "10px auto",
   },
   topFab: {
     position: "fixed",
@@ -58,9 +46,6 @@ const useStyles = makeStyles((theme) => ({
 function ScrollTop(props) {
   const { children, window } = props;
   const classes = useStyles();
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
@@ -101,7 +86,7 @@ function Copyright() {
   return (
     <Typography variant="body2" className={classes.copyright}>
       {"Copyright © "}
-      <Link color="inherit" href="/">
+      <Link color="secondary" href="/">
         VisuAlgo
       </Link>{" "}
       {new Date().getFullYear()}
@@ -113,22 +98,26 @@ function Copyright() {
 export default function StickyFooter(props) {
   const [dialogConfig, setDialogConfig] = React.useState(null);
   const classes = useStyles();
-  const Config = {
+
+  const whyWeBuilt = `VisuAlgo is a website built for the sole purpose of providing a
+  platform for visualising and providing intuitive explainations to
+  various data structures and algorithms in the various sub-domains of
+  the vast field of study and research in Computer Science`;
+
+  const bugReportDialogConfig = {
     title: "TITLE",
     number: "1",
     contentJSX: (
       <div>
         <h3> Use for given your description</h3>
-        <typography>
+        <Typography>
           hey i am in lightbox 1-damn. Put your content here for plug and play
-        </typography>
+        </Typography>
       </div>
     ),
     open: {
       animation: "fade-in",
-      callback: function (event) {
-        alert("open");
-      },
+      callback: function (event) {},
     },
     close: {
       escDisabled: false,
@@ -136,13 +125,11 @@ export default function StickyFooter(props) {
       animation: "fade-out",
       callback: function () {
         setDialogConfig(null);
-        alert("closed");
       },
     },
     accept: {
       text: "Accept",
       callback: function (closefn) {
-        alert("Accept");
         closefn && closefn();
       },
       icon: "fa fa-tick",
@@ -151,56 +138,35 @@ export default function StickyFooter(props) {
       text: "Reject",
       icon: "fa fa-close",
       callback: function (closefn) {
-        alert("rejected");
         closefn && closefn();
       },
     },
   };
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <>
       <footer className={classes.footer}>
+        <Copyright />
         <Typography variant="body1" className={classes.main}>
-          {`
-                VisuAlgo is a website built for the sole purpose of 
-                providing a platform for visualising and providing intuitive explainations to 
-                various data structures and algorithms in the various sub-domains of the vast field 
-                of study and research in Computer Science
-            `}
+          {whyWeBuilt}
         </Typography>
-        <Grid container spacing={3} className={classes.buttonGrid}>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              endIcon={<BugReportRoundedIcon />}
-              onClick={() => {
-                setDialogConfig(Config);
-                // handleOpen();
-              }}
-            >
-              Report Bug
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <ScrollTop {...props}>
-              <Fab
-                color="secondary"
-                size="small"
-                aria-label="scroll back to top"
-              >
-                <KeyboardArrowUpIcon />
-              </Fab>
-            </ScrollTop>
-          </Grid>
-        </Grid>
-
-        <Container maxWidth="sm">
-          <Copyright />
-        </Container>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          endIcon={<BugReportRoundedIcon />}
+          onClick={() => {
+            setDialogConfig(bugReportDialogConfig);
+          }}
+        >
+          Report A Bug
+        </Button>
+        <ScrollTop {...props}>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
       </footer>
       <LightBox dialogConfig={dialogConfig} />
-    </div>
+    </>
   );
 }
