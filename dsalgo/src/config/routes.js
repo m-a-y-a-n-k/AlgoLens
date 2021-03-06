@@ -4,6 +4,7 @@ const routes = [
   "ds/Stacks",
   "ds/Queues",
   "ds/Sets",
+  "ds/TwoDArray",
   "algo/Sieve",
   "algo/BinarySearch",
   "algo/Factorial",
@@ -13,6 +14,7 @@ const routes = [
   "algo/Peak",
   "algo/KnuthShuffle",
   "algo/ClosestPair",
+
 ];
 
 const siteSugg = routes.map((route) => {
