@@ -13,7 +13,7 @@ const pages = [
     ],
   },
   {
-    ds: ["Array", "LinkedList", "Stacks", "Queues", "Sets"],
+    ds: ["Array", "LinkedList", "Stacks", "Queues", "Sets","Lookup"],
   },
 ];
 

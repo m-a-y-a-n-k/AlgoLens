@@ -14,7 +14,7 @@
   -ms-flex-grow: 1;
   flex-grow: 1;
   overflow: auto;
-  min-height: 360px;
+  min-height: 600px;
   padding: 1em;
 }
 
