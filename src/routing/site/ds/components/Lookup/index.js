@@ -7,6 +7,8 @@ import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import { Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +26,12 @@ export default function Demo() {
   const [formValue, setFormValue] = useState("");
   const helperTextFormValue = formValue.length === 0 ? "Required" : "";
   const [rows, setRows] = useState([]);
+  const [filteredRows, setFilteredRows] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [snackBar, setSnackBar] = useState({
+    open: false,
+    message: "",
+  });
 
   const createData = (key, value) => {
     return { key, value };
@@ -35,15 +42,22 @@ export default function Demo() {
       id: "key",
       numeric: false,
       disablePadding: true,
-      label: "Lookup key",
+      label: "Lookup Key",
     },
     {
       id: "value",
       numeric: false,
       disablePadding: false,
-      label: "Lookup value",
+      label: "Lookup Value",
     },
   ];
+
+  const handleCloseSnackBar = () => {
+    setSnackBar({
+      open: false,
+      message: "",
+    });
+  };
 
   const handleDelete = (numSelected) => {
     let temparr = [...rows];
@@ -62,8 +76,16 @@ export default function Demo() {
     });
     if (entry) {
       entry.value = formValue.trim();
+      setSnackBar({
+        open: true,
+        message: `Entry has been Updated`,
+      });
     } else {
       temp.push(createData(formKey.trim(), formValue.trim()));
+      setSnackBar({
+        open: true,
+        message: `Entry has been created`,
+      });
     }
     setRows(temp);
   };
@@ -139,10 +161,23 @@ export default function Demo() {
       )}
 
       <Table
-        rows={[...rows]}
+        allRows={rows}
+        rows={filteredRows}
+        setFilteredRows={setFilteredRows}
         headCells={headCells}
         deleteHandler={handleDelete}
+        title="Lookup Mapping"
       />
+
+      <Snackbar
+        open={snackBar?.open || false}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert onClose={handleCloseSnackBar} severity="success">
+          {snackBar?.message || ""}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

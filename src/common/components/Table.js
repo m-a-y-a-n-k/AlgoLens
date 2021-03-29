@@ -19,7 +19,15 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterListIcon from "@material-ui/icons/FilterList";
+import {
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import { useEffect } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -62,7 +70,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead>
+    <TableHead className={classes.tableHead}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -74,6 +82,7 @@ function EnhancedTableHead(props) {
         </TableCell>
         {props.headCells.map((headCell) => (
           <TableCell
+            className={classes.headCell}
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "default"}
@@ -110,27 +119,51 @@ EnhancedTableHead.propTypes = {
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
+    margin: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
+    flexDirection: "column",
   },
   highlight:
     theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
           backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          flexDirection: "row",
         }
       : {
           color: theme.palette.text.primary,
           backgroundColor: theme.palette.secondary.dark,
+          flexDirection: "row",
         },
   title: {
     flex: "1 1 100%",
+    margin: theme.spacing(1),
+  },
+  searchField: {
+    margin: theme.spacing(2),
+    width: "80%",
+  },
+  searchColumns: {
+    margin: theme.spacing(1),
+    flexDirection: "row",
   },
 }));
 
-const EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = ({
+  numSelected,
+  title,
+  setSelected,
+  deleteHandler,
+  selected,
+  searchState,
+  setSearchState,
+  performSearch,
+  headCells,
+}) => {
   const classes = useToolbarStyles();
-  const { numSelected, title } = props;
+  const searchText = searchState?.searchText || "";
+  const selectedIds = searchState?.searchIds || new Set();
 
   return (
     <Toolbar
@@ -148,6 +181,87 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
+        <>
+          <FormControl className={classes.searchField} variant="outlined">
+            <InputLabel htmlFor="outlined-search-table">
+              Search In Table
+            </InputLabel>
+            <OutlinedInput
+              autoComplete="off"
+              id="outlined-search-table"
+              type={"text"}
+              value={searchText}
+              onChange={({ target: { value } }) => {
+                setSearchState({
+                  searchText: value || "",
+                  searchIds: selectedIds,
+                });
+              }}
+              endAdornment={
+                <Tooltip title="Filter table">
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="perform-search"
+                      onClick={() => {
+                        performSearch(searchState);
+                      }}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                      }}
+                      disabled={!searchText}
+                      edge="end"
+                    >
+                      {searchText ? <SearchIcon /> : <NotInterestedIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                </Tooltip>
+              }
+              labelWidth={120}
+            />
+          </FormControl>
+          <FormControl className={classes.searchColumns}>
+            {searchText &&
+              headCells.map((cell) => {
+                const { id, label } = cell;
+                return (
+                  <FormControlLabel
+                    key={id}
+                    control={
+                      <Checkbox
+                        checked={selectedIds.has(id)}
+                        onChange={({ target: { checked } }) => {
+                          checked
+                            ? selectedIds.add(id)
+                            : selectedIds.size > 1 && selectedIds.delete(id);
+                          setSearchState({
+                            searchText: searchText,
+                            searchIds: selectedIds,
+                          });
+                        }}
+                        inputProps={{ "aria-label": "select all enteries" }}
+                      />
+                    }
+                    label={label}
+                  />
+                );
+              })}
+          </FormControl>
+        </>
+      )}
+
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton
+            aria-label="delete"
+            onClick={() => {
+              deleteHandler(selected);
+              setSelected([]);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
         <Typography
           className={classes.title}
           variant="h6"
@@ -157,32 +271,16 @@ const EnhancedTableToolbar = (props) => {
           {title}
         </Typography>
       )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              props.deleteHandler(props.selected);
-              props.setSelected([]);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
     </Toolbar>
   );
 };
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  searchState: PropTypes.object.isRequired,
+  performSearch: PropTypes.func.isRequired,
+  setSearchState: PropTypes.func.isRequired,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -207,9 +305,22 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  tableHead: {
+    background: "#A2DDFF",
+  },
+  headCell: {
+    fontWeight: "bolder",
+  },
 }));
 
-export default function EnhancedTable({ rows, headCells, deleteHandler }) {
+export default function EnhancedTable({
+  allRows,
+  rows,
+  headCells,
+  deleteHandler,
+  title,
+  setFilteredRows,
+}) {
   const primaryCellKey =
     (headCells &&
       Array.isArray(headCells) &&
@@ -223,6 +334,29 @@ export default function EnhancedTable({ rows, headCells, deleteHandler }) {
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [searchState, setSearchState] = useState({
+    searchText: "",
+    searchIds: new Set([primaryCellKey]),
+  });
+
+  const handlePerformSearch = ({ searchText, searchIds }) => {
+    const temp = allRows.filter((row) => {
+      let res = false;
+      for (let id of searchIds) {
+        if (!res) {
+          res = row[id].includes(searchText);
+        }
+      }
+      return res;
+    });
+    console.log(temp);
+    setFilteredRows(temp);
+    setPage(0);
+  };
+
+  useEffect(() => {
+    handlePerformSearch(searchState);
+  }, [searchState, allRows]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -279,10 +413,15 @@ export default function EnhancedTable({ rows, headCells, deleteHandler }) {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar
+          title={title}
           numSelected={selected.length}
-          deleteHandler={deleteHandler}
           selected={selected}
+          searchState={searchState}
+          headCells={headCells}
+          performSearch={handlePerformSearch}
+          deleteHandler={deleteHandler}
           setSelected={setSelected}
+          setSearchState={setSearchState}
         />
         <TableContainer>
           <Table
@@ -356,7 +495,9 @@ export default function EnhancedTable({ rows, headCells, deleteHandler }) {
                 fontStyle: "italic",
               }}
             >
-              Please add some data to table
+              {searchState.searchText
+                ? `No search results found :( `
+                : `No data found. Please add some entries using + button`}
             </Typography>
           )}
         </TableContainer>
