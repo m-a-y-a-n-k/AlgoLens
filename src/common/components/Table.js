@@ -1,33 +1,34 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, useEffect, lazy } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import DeleteIcon from "@material-ui/icons/Delete";
 import {
   FormControl,
+  Switch,
+  FormControlLabel,
+  Tooltip,
+  IconButton,
+  Checkbox,
+  Paper,
+  Typography,
+  Toolbar,
+  Table,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
   InputAdornment,
   InputLabel,
   OutlinedInput,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
-import { useEffect } from "react";
+import { DynamicLoader } from "../../routing/base/Router";
+
+const TableBody = lazy(() => import(`@material-ui/core/TableBody`));
+const TableContainer = lazy(() => import(`@material-ui/core/TableContainer`));
+const TablePagination = lazy(() => import(`@material-ui/core/TablePagination`));
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -58,13 +59,15 @@ function stableSort(array, comparator) {
 function EnhancedTableHead(props) {
   const {
     classes,
-    onSelectAllClick,
+    numSelected,
     order,
     orderBy,
-    numSelected,
-    rowCount,
+    onSelectAllClick,
     onRequestSort,
+    rowCount,
+    headCells,
   } = props;
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -80,7 +83,7 @@ function EnhancedTableHead(props) {
             inputProps={{ "aria-label": "select all enteries" }}
           />
         </TableCell>
-        {props.headCells.map((headCell) => (
+        {headCells.map((headCell) => (
           <TableCell
             className={classes.headCell}
             key={headCell.id}
@@ -115,6 +118,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
+  headCells: PropTypes.array.isRequired,
 };
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -219,9 +223,9 @@ const EnhancedTableToolbar = ({
               labelWidth={120}
             />
           </FormControl>
-          <FormControl className={classes.searchColumns}>
-            {searchText &&
-              headCells.map((cell) => {
+          {searchText && (
+            <FormControl className={classes.searchColumns}>
+              {headCells.map((cell) => {
                 const { id, label } = cell;
                 return (
                   <FormControlLabel
@@ -245,7 +249,8 @@ const EnhancedTableToolbar = ({
                   />
                 );
               })}
-          </FormControl>
+            </FormControl>
+          )}
         </>
       )}
 
@@ -292,7 +297,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750,
+    width: "100vw",
   },
   visuallyHidden: {
     border: 0,
@@ -310,6 +315,13 @@ const useStyles = makeStyles((theme) => ({
   },
   headCell: {
     fontWeight: "bolder",
+  },
+  tableNote: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "lighter",
+    padding: "15px 0px",
+    fontStyle: "italic",
   },
 }));
 
@@ -339,7 +351,8 @@ export default function EnhancedTable({
     searchIds: new Set([primaryCellKey]),
   });
 
-  const handlePerformSearch = ({ searchText, searchIds }) => {
+  const handlePerformSearch = useCallback(() => {
+    const { searchText, searchIds } = searchState;
     const temp = allRows.filter((row) => {
       let res = false;
       for (let id of searchIds) {
@@ -349,14 +362,13 @@ export default function EnhancedTable({
       }
       return res;
     });
-    console.log(temp);
     setFilteredRows(temp);
     setPage(0);
-  };
+  }, [searchState, setFilteredRows, allRows]);
 
   useEffect(() => {
-    handlePerformSearch(searchState);
-  }, [searchState, allRows]);
+    handlePerformSearch();
+  }, [handlePerformSearch]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -418,98 +430,98 @@ export default function EnhancedTable({
           selected={selected}
           searchState={searchState}
           headCells={headCells}
-          performSearch={handlePerformSearch}
+          performSearch={() => {
+            handlePerformSearch();
+          }}
           deleteHandler={deleteHandler}
           setSelected={setSelected}
           setSearchState={setSearchState}
         />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              selected={selected}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              headCells={headCells}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row[primaryCellKey]);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+        {DynamicLoader(TableContainer, {
+          children: (
+            <>
+              <Table
+                className={classes.table}
+                aria-labelledby="tableTitle"
+                size={dense ? "small" : "medium"}
+                aria-label="enhanced table"
+              >
+                <EnhancedTableHead
+                  classes={classes}
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows.length}
+                  headCells={headCells}
+                />
+                {DynamicLoader(TableBody, {
+                  children: stableSort(rows, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      const isItemSelected = isSelected(row[primaryCellKey]);
+                      const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) =>
-                        handleClick(event, row[primaryCellKey])
-                      }
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row[primaryCellKey]}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      {headCells.map((cell, index) => {
-                        return index === 0 ? (
-                          <TableCell
-                            component="th"
-                            id={labelId}
-                            scope="row"
-                            padding="none"
-                          >
-                            {row[cell.id]}
+                      return (
+                        <TableRow
+                          hover
+                          onClick={(event) =>
+                            handleClick(event, row[primaryCellKey])
+                          }
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          tabIndex={-1}
+                          key={row[primaryCellKey]}
+                          selected={isItemSelected}
+                        >
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              checked={isItemSelected}
+                              inputProps={{ "aria-labelledby": labelId }}
+                            />
                           </TableCell>
-                        ) : (
-                          <TableCell align="left">{row[cell.id]}</TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
+                          {headCells.map((cell, index) => {
+                            return index === 0 ? (
+                              <TableCell
+                                key={cell.id}
+                                component="th"
+                                id={labelId}
+                                scope="row"
+                                padding="none"
+                              >
+                                {row[cell.id]}
+                              </TableCell>
+                            ) : (
+                              <TableCell key={cell.id} align="left">
+                                {row[cell.id]}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    }),
                 })}
-            </TableBody>
-          </Table>
-          {emptyRows && (
-            <Typography
-              style={{
-                textAlign: "center",
-                fontSize: "20px",
-                fontWeight: "lighter",
-                padding: "15px",
-                fontStyle: "italic",
-              }}
-            >
-              {searchState.searchText
-                ? `No search results found :( `
-                : `No data found. Please add some entries using + button`}
-            </Typography>
-          )}
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+              </Table>
+              {emptyRows && (
+                <Typography className={classes.tableNote}>
+                  {searchState.searchText
+                    ? `No search results found :( `
+                    : `No data found. Please add some entries using + button`}
+                </Typography>
+              )}
+            </>
+          ),
+        })}
+        {DynamicLoader(TablePagination, {
+          rowsPerPageOptions: [5, 10, 25],
+          component: "div",
+          count: rows.length,
+          rowsPerPage: rowsPerPage,
+          page: page,
+          onChangePage: handleChangePage,
+          onChangeRowsPerPage: handleChangeRowsPerPage,
+        })}
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}

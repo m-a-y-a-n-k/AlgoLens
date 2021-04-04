@@ -1,0 +1,12 @@
+{
+    "importCost.debug": true,
+    "importCost.javascriptExtensions": [
+
+        "\\.jsx?$"
+    ],
+    "importCost.timeout": 100000,
+    "importCost.typescriptExtensions": [
+    
+        "\\.tsx?$"
+    ]
+}

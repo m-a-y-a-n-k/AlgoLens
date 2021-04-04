@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import Table from "../../../../../common/components/Table";
-import IconButton from "@material-ui/core/IconButton";
-import TextField from "@material-ui/core/TextField";
+import React, { lazy, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import { Snackbar } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { DynamicLoader } from "../../../../base/Router";
+
+const Table = lazy(() => import(`../../../../../common/components/Table`));
+const TextField = lazy(() => import(`@material-ui/core/TextField`));
+const Alert = lazy(() => import(`@material-ui/lab/Alert`));
+const IconButton = lazy(() => import(`@material-ui/core/IconButton`));
+const CheckIcon = lazy(() => import(`@material-ui/icons/Check`));
+const CloseIcon = lazy(() => import(`@material-ui/icons/Close`));
+const Snackbar = lazy(() => import(`@material-ui/core/Snackbar`));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,56 +97,55 @@ export default function Demo() {
       {showForm ? (
         <form className={classes.root} noValidate autoComplete="off">
           <div>
-            <TextField
-              required
-              error={!!helperTextFormKey}
-              value={formKey}
-              onChange={({ target: { value } }) => {
+            {DynamicLoader(TextField, {
+              required: true,
+              error: !!helperTextFormKey,
+              value: formKey,
+              onChange: ({ target: { value } }) => {
                 setFormKey(value);
-              }}
-              id="lookup-key-field"
-              label="Key"
-              placeholder="Enter Lookup key"
-              helperText={helperTextFormKey}
-              variant="outlined"
-            />
-            <TextField
-              required
-              error={!!helperTextFormValue}
-              value={formValue}
-              onChange={({ target: { value } }) => {
+              },
+              id: "lookup-key-field",
+              label: "Key",
+              placeholder: "Enter Lookup key",
+              helperText: helperTextFormKey,
+              variant: "outlined",
+            })}
+            {DynamicLoader(TextField, {
+              required: true,
+              error: !!helperTextFormValue,
+              value: formValue,
+              onChange: ({ target: { value } }) => {
                 setFormValue(value);
-              }}
-              id="lookup-value-field"
-              label="Value"
-              placeholder="Enter Lookup Value"
-              helperText={helperTextFormValue}
-              variant="outlined"
-            />
+              },
+              id: "lookup-value-field",
+              label: "Value",
+              placeholder: "Enter Lookup Value",
+              helperText: helperTextFormValue,
+              variant: "outlined",
+            })}
           </div>
           <div>
-            <IconButton
-              color="primary"
-              aria-label="checkIcon"
-              disabled={helperTextFormKey || helperTextFormValue}
-              onClick={() => {
+            {DynamicLoader(IconButton, {
+              color: "primary",
+              "aria-label": "checkIcon",
+              disabled: !!(helperTextFormKey || helperTextFormValue),
+              onClick: () => {
                 handleAddLookup();
                 setShowForm(false);
-              }}
-            >
-              <CheckIcon />
-            </IconButton>
-            <IconButton
-              color="primary"
-              aria-label="closeIcon"
-              onClick={() => {
+              },
+              children: <CheckIcon />,
+            })}
+            {DynamicLoader(IconButton, {
+              color: "primary",
+              "aria-label": "closeIcon",
+              disabled: !!(helperTextFormKey || helperTextFormValue),
+              onClick: () => {
                 setShowForm(false);
                 setFormKey("");
                 setFormValue("");
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
+              },
+              children: <CloseIcon />,
+            })}
           </div>
         </form>
       ) : (
@@ -160,24 +161,25 @@ export default function Demo() {
         </Fab>
       )}
 
-      <Table
-        allRows={rows}
-        rows={filteredRows}
-        setFilteredRows={setFilteredRows}
-        headCells={headCells}
-        deleteHandler={handleDelete}
-        title="Lookup Mapping"
-      />
+      {DynamicLoader(Table, {
+        allRows: rows,
+        rows: filteredRows,
+        setFilteredRows: setFilteredRows,
+        headCells: headCells,
+        deleteHandler: handleDelete,
+        title: "Lookup Mapping",
+      })}
 
-      <Snackbar
-        open={snackBar?.open || false}
-        autoHideDuration={2000}
-        onClose={handleCloseSnackBar}
-      >
-        <Alert onClose={handleCloseSnackBar} severity="success">
-          {snackBar?.message || ""}
-        </Alert>
-      </Snackbar>
+      {DynamicLoader(Snackbar, {
+        open: snackBar?.open || false,
+        autoHideDuration: 2000,
+        onClose: handleCloseSnackBar,
+        children: DynamicLoader(Alert, {
+          onClose: handleCloseSnackBar,
+          severity: "success",
+          children: snackBar?.message || "",
+        }),
+      })}
     </div>
   );
 }

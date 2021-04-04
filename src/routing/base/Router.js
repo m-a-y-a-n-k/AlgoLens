@@ -6,17 +6,17 @@ import { CircularProgress } from "@material-ui/core";
 const Dashboard = lazy(() => import(`../../dashboard/index`));
 const NotFound = lazy(() => import(`./NotFound`));
 
-function DynamicLoader(LazyComponent) {
+export function DynamicLoader(LazyComponent, props) {
   return (
     <Suspense fallback={<CircularProgress />}>
-      <LazyComponent />
+      <LazyComponent {...props}>{props?.children}</LazyComponent>
     </Suspense>
   );
 }
 
 function RouteSection() {
   return (
-    <section className="content">
+    <main className="content">
       <Switch>
         <Route exact path="/" render={() => DynamicLoader(Dashboard)} />
         {siteSugg.map((site, index) => {
@@ -33,7 +33,7 @@ function RouteSection() {
         })}
         <Route path="*" render={() => DynamicLoader(NotFound)} />
       </Switch>
-    </section>
+    </main>
   );
 }
 

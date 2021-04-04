@@ -1,15 +1,17 @@
-import React from "react";
+import React, { lazy } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import Button from "@material-ui/core/Button";
-import BugReportRoundedIcon from "@material-ui/icons/BugReportRounded";
-import Fab from "@material-ui/core/Fab";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Zoom from "@material-ui/core/Zoom";
-import LightBox from "../common/components/LightBox";
+import { DynamicLoader } from "../routing/base/Router";
+
+const LightBox = lazy(() => import(`../common/components/LightBox`));
+const Fab = lazy(() => import(`@material-ui/core/Fab`));
+const ArrowUpIcon = lazy(() => import(`@material-ui/icons/KeyboardArrowUp`));
+const Button = lazy(() => import(`@material-ui/core/Button`));
+const BugReport = lazy(() => import(`@material-ui/icons/BugReportRounded`));
 
 const useStyles = makeStyles((theme) => ({
   copyright: {
@@ -17,6 +19,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     color: "white",
     textAlign: "center",
+  },
+  company: {
+    color: "#D1F5E6",
+    "&:hover": {
+      color: "#AEF4D6",
+      textDecoration: "none",
+    },
   },
   main: {
     padding: theme.spacing(1),
@@ -86,7 +95,7 @@ function Copyright() {
   return (
     <Typography variant="body2" className={classes.copyright}>
       {"Copyright © "}
-      <Link color="secondary" href="/">
+      <Link href="/" className={classes.company}>
         VisuAlgo
       </Link>{" "}
       {new Date().getFullYear()}
@@ -149,24 +158,28 @@ export default function StickyFooter(props) {
         <Typography variant="body1" className={classes.main}>
           {whyWeBuilt}
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          endIcon={<BugReportRoundedIcon />}
-          onClick={() => {
+        {DynamicLoader(Button, {
+          variant: "contained",
+          color: "primary",
+          className: classes.button,
+          endIcon: DynamicLoader(BugReport),
+          onClick: () => {
             setDialogConfig(bugReportDialogConfig);
-          }}
-        >
-          Report A Bug
-        </Button>
+          },
+          children: `Report A Bug`,
+        })}
         <ScrollTop {...props}>
-          <Fab color="secondary" size="small" aria-label="scroll back to top">
-            <KeyboardArrowUpIcon />
-          </Fab>
+          {DynamicLoader(Fab, {
+            color: "secondary",
+            size: "small",
+            "aria-label": "scroll back to top",
+            children: DynamicLoader(ArrowUpIcon),
+          })}
         </ScrollTop>
       </footer>
-      <LightBox dialogConfig={dialogConfig} />
+      {DynamicLoader(LightBox, {
+        dialogConfig: dialogConfig,
+      })}
     </>
   );
 }
