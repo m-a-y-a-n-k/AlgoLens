@@ -9,7 +9,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
-import siteLogo from "../common/assets/VisuAlgo.png";
+import siteLogo from "../common/assets/VisuAlgo.jpg";
+import useWindowDimensions from "../common/helpers/dimensions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +44,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: blue[800],
   },
   card: {
-    width: "50vw",
+    width: "75%",
+    [theme.breakpoints.down("xs")]: {
+      width: "auto",
+    },
   },
   media: {
     width: "100%",
@@ -53,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const windowDimensions = useWindowDimensions();
+  const isDesktop = windowDimensions.width > 768;
 
   const knowMoreText = `VisuAlgo is an excellent and proud platform designed by
   strongly passionate Computer Science alumni of Delhi
@@ -78,10 +84,13 @@ export default function Dashboard() {
                 </Avatar>
               }
               title={"Meet The Platform"}
-              titleTypographyProps={{ variant: "h4", color: "primary" }}
+              titleTypographyProps={{
+                variant: isDesktop ? "h4" : "h6",
+                color: "primary",
+              }}
               subheader="Initiative since Nov 2019"
               subheaderTypographyProps={{
-                variant: "subtitle1",
+                variant: isDesktop ? "subtitle1" : "caption",
                 color: "secondary",
               }}
             />
@@ -94,9 +103,11 @@ export default function Dashboard() {
               <Typography variant="h5" color="textPrimary">
                 VisuAlgo stands for Computer Science Visualizations
               </Typography>
-              <Paper elevation={2} className={classes.paper}>
-                <Typography variant="subtitle1">{knowMoreText}</Typography>
-              </Paper>
+              {isDesktop && (
+                <Paper elevation={2} className={classes.paper}>
+                  <Typography variant="subtitle1">{knowMoreText}</Typography>
+                </Paper>
+              )}
             </CardContent>
           </Card>
         </Grid>
