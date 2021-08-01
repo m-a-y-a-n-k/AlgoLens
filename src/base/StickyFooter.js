@@ -6,7 +6,7 @@ import Link from "@material-ui/core/Link";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Zoom from "@material-ui/core/Zoom";
 import { DynamicLoader } from "../routing/base/Router";
-
+import {BRAND_NAME} from "../common/helpers/constants";
 const LightBox = lazy(() => import(`../common/components/LightBox`));
 const Fab = lazy(() => import(`@material-ui/core/Fab`));
 const ArrowUpIcon = lazy(() => import(`@material-ui/icons/KeyboardArrowUp`));
@@ -96,7 +96,7 @@ function Copyright() {
     <Typography variant="body2" className={classes.copyright}>
       {"Copyright © "}
       <Link href="/" className={classes.company}>
-        AlgoLens
+        {BRAND_NAME}
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -108,7 +108,7 @@ export default function StickyFooter(props) {
   const [dialogConfig, setDialogConfig] = React.useState(null);
   const classes = useStyles();
 
-  const whyWeBuilt = `AlgoLens is a website built for the sole purpose of providing a
+  const whyWeBuilt = `${BRAND_NAME} is a website built for the sole purpose of providing a
   platform for visualising and providing intuitive explainations to
   various data structures and algorithms in the various sub-domains of
   the vast field of study and research in Computer Science`;
