@@ -2,16 +2,13 @@ import React, { lazy } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import siteLogo from "../common/assets/VisuAlgo.png";
 import { siteSugg } from "../routing/base/routes";
 import { DynamicLoader } from "../routing/base/Router";
 
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`));
 const MenuIcon = lazy(() => import(`@material-ui/icons/Menu`));
 const HomeIcon = lazy(() => import(`@material-ui/icons/Home`));
-const Image = lazy(() => import(`material-ui-image`));
 const Search = lazy(() => import(`../common/components/SearchSuggestor`));
-const Grid = lazy(() => import(`@material-ui/core/Grid`));
 
 const useStyles = makeStyles((theme) => ({
   menuSec: {
@@ -66,22 +63,6 @@ export default function PrimarySearchAppBar() {
             color: "inherit",
             "aria-label": "open drawer",
             children: DynamicLoader(MenuIcon),
-          })}
-        </section>
-        <section className={classes.logoSec}>
-          {DynamicLoader(Grid, {
-            container: true,
-            spacing: 3,
-            children: DynamicLoader(Grid, {
-              item: true,
-              xs: 12,
-              children: DynamicLoader(Image, {
-                color: "transparent",
-                src: siteLogo,
-                aspectRatio: 1,
-                alt: "AlgoLens",
-              }),
-            }),
           })}
         </section>
         <section className={classes.searchSec}>
