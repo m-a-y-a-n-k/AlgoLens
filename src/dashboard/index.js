@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import siteLogo from "../common/assets/VisuAlgo.jpg";
 import useWindowDimensions from "../common/helpers/dimensions";
-
+import BRAND_NAME from "../common/helpers/constants"
 const useStyles = makeStyles((theme) => ({
   root: {
     overflow: "auto",
@@ -60,7 +60,7 @@ export default function Dashboard() {
   const windowDimensions = useWindowDimensions();
   const isDesktop = windowDimensions.width > 768;
 
-  const knowMoreText = `VisuAlgo is an excellent and proud platform designed by
+  const knowMoreText = `${BRAND_NAME} is an excellent and proud platform designed by
   strongly passionate Computer Science alumni of Delhi
   Technological University, Delhi, India to bridge the gap
   between new comers in Computer Science and those who are
@@ -79,8 +79,8 @@ export default function Dashboard() {
           <Card className={classes.card}>
             <CardHeader
               avatar={
-                <Avatar aria-label="AlgoLens" className={classes.avatar}>
-                  VA
+                <Avatar aria-label={BRAND_NAME} className={classes.avatar}>
+                  AL
                 </Avatar>
               }
               title={"Meet The Platform"}
@@ -97,11 +97,11 @@ export default function Dashboard() {
             <CardMedia
               className={classes.media}
               image={siteLogo}
-              title="AlgoLens"
+              title={BRAND_NAME}
             />
             <CardContent>
               <Typography variant="h5" color="textPrimary">
-                AlgoLens stands for Computer Science Visualizations
+               {BRAND_NAME} stands for Computer Science Visualizations
               </Typography>
               {isDesktop && (
                 <Paper elevation={2} className={classes.paper}>
