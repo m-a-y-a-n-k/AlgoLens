@@ -79,7 +79,7 @@ export default function Dashboard() {
           <Card className={classes.card}>
             <CardHeader
               avatar={
-                <Avatar aria-label="VisuAlgo" className={classes.avatar}>
+                <Avatar aria-label="AlgoLens" className={classes.avatar}>
                   VA
                 </Avatar>
               }
@@ -97,11 +97,11 @@ export default function Dashboard() {
             <CardMedia
               className={classes.media}
               image={siteLogo}
-              title="VisuAlgo"
+              title="AlgoLens"
             />
             <CardContent>
               <Typography variant="h5" color="textPrimary">
-                VisuAlgo stands for Computer Science Visualizations
+                AlgoLens stands for Computer Science Visualizations
               </Typography>
               {isDesktop && (
                 <Paper elevation={2} className={classes.paper}>
