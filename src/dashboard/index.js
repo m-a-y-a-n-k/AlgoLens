@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import siteLogo from "../common/assets/VisuAlgo.jpg";
 import useWindowDimensions from "../common/helpers/dimensions";
-import BRAND_NAME from "../common/helpers/constants"
+import {BRAND_NAME} from "../common/helpers/constants";
 const useStyles = makeStyles((theme) => ({
   root: {
     overflow: "auto",

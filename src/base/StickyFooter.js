@@ -6,7 +6,7 @@ import Link from "@material-ui/core/Link";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Zoom from "@material-ui/core/Zoom";
 import { DynamicLoader } from "../routing/base/Router";
-import BRAND_NAME from "../common/helpers/constants";
+import {BRAND_NAME} from "../common/helpers/constants";
 const LightBox = lazy(() => import(`../common/components/LightBox`));
 const Fab = lazy(() => import(`@material-ui/core/Fab`));
 const ArrowUpIcon = lazy(() => import(`@material-ui/icons/KeyboardArrowUp`));
