@@ -79,7 +79,7 @@ export default function PrimarySearchAppBar() {
                 color: "transparent",
                 src: siteLogo,
                 aspectRatio: 1,
-                alt: "VisuAlgo",
+                alt: "AlgoLens",
               }),
             }),
           })}
