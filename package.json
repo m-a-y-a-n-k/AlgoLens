@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "react-scripts build && serve -s build",
+    "deploy": "react-scripts build && serve -s build -l 5001",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
