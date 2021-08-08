@@ -25,7 +25,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "serve -s build -l 4000",
+    "start": "set PORT=4000 && serve -s build -l 4000",
     "build": "react-scripts build",
     "heroku-postbuild": "react-scripts build",
     "test": "react-scripts test",
