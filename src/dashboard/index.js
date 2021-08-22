@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
@@ -9,25 +9,26 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
-import siteLogo from "../common/assets/VisuAlgo.jpg";
 import useWindowDimensions from "../common/helpers/dimensions";
-import {BRAND_NAME} from "../common/helpers/constants";
+import { BRAND_NAME } from "../common/helpers/constants";
+import Placeholder from "../common/components/Placeholder";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     overflow: "auto",
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
   },
   gridItem: {
     display: "flex",
     textAlign: "center",
     justifyContent: "center",
-    margin: theme.spacing(3),
+    margin: theme.spacing(2),
   },
   paper: {
     margin: theme.spacing(1),
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     fontSize: 16,
-    color: "grey",
+    color: "#092B2F",
   },
   expand: {
     fontSize: 14,
@@ -49,14 +50,18 @@ const useStyles = makeStyles((theme) => ({
       width: "auto",
     },
   },
-  media: {
-    width: "100%",
-    paddingTop: "100%", // 1:1 aspect ratio
+  siteLogo: {
+    height: "initial",
+    margin: "0 auto",
+    [theme.breakpoints.up("sm")]: {
+      width: 480,
+    },
   },
 }));
 
 export default function Dashboard() {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const windowDimensions = useWindowDimensions();
   const isDesktop = windowDimensions.width > 768;
 
@@ -72,6 +77,18 @@ export default function Dashboard() {
   Professors and Students from various institutions across the
   globe.`;
 
+  const [siteLogoSrc, setSiteLogoSrc] = useState("");
+
+  useEffect(() => {
+    const loadBrandLogo = async () => {
+      const logoSrc = await import("../common/assets/VisuAlgo.jpg").then(
+        (module) => module.default
+      );
+      setSiteLogoSrc(logoSrc);
+    };
+    loadBrandLogo();
+  }, []);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
@@ -85,23 +102,32 @@ export default function Dashboard() {
               }
               title={"Meet The Platform"}
               titleTypographyProps={{
-                variant: isDesktop ? "h4" : "h6",
+                variant: "h5",
                 color: "primary",
               }}
               subheader="Initiative since Nov 2019"
               subheaderTypographyProps={{
-                variant: isDesktop ? "subtitle1" : "caption",
+                variant: "subtitle1",
                 color: "secondary",
               }}
             />
-            <CardMedia
-              className={classes.media}
-              image={siteLogo}
-              title={BRAND_NAME}
-            />
+            {siteLogoSrc ? (
+              <CardMedia
+                src={siteLogoSrc}
+                title={BRAND_NAME}
+                component="img"
+                classes={{
+                  img: classes.siteLogo,
+                }}
+                loading="lazy"
+                alt={BRAND_NAME}
+              />
+            ) : (
+              <Placeholder variant="rect" height={400} />
+            )}
             <CardContent>
               <Typography variant="h5" color="textPrimary">
-               {BRAND_NAME} stands for Computer Science Visualizations
+                {BRAND_NAME} stands for Computer Science Visualizations
               </Typography>
               {isDesktop && (
                 <Paper elevation={2} className={classes.paper}>
