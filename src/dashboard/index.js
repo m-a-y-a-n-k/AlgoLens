@@ -51,11 +51,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   siteLogo: {
-    height: "initial",
+    width: 275,
+    height: 275,
     margin: "0 auto",
-    [theme.breakpoints.up("sm")]: {
-      width: 480,
-    },
   },
 }));
 
@@ -121,9 +119,11 @@ export default function Dashboard() {
                 }}
                 loading="lazy"
                 alt={BRAND_NAME}
+                width={275}
+                height={275}
               />
             ) : (
-              <Placeholder variant="rect" height={400} />
+              <Placeholder variant="rect" height={275} />
             )}
             <CardContent>
               <Typography variant="h5" color="textPrimary">
