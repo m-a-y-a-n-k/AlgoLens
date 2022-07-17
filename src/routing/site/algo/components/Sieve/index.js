@@ -1,19 +1,7 @@
 import React from "react";
 import Element from "../../../../../common/components/Element";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Button,
-  InputGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-} from "reactstrap";
+import { Button, Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core";
+import { Alert } from "reactstrap";
 
 class Range extends React.Component {
   constructor(props) {
@@ -26,39 +14,42 @@ class Range extends React.Component {
   }
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Primes in Range</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Range</CardTitle>
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Start</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              type="number"
-              placeholder="Start of Range"
-              onChange={(event) => {
-                this.setState({ start: event.target.value });
-              }}
-              value={this.state.start ? this.state.start : ""}
-            />
-          </InputGroup>
-          <br />
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>End</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              type="number"
-              placeholder="End of Range"
-              onChange={(event) => {
-                this.setState({ end: event.target.value });
-              }}
-              value={this.state.end ? this.state.end : ""}
-            />
-          </InputGroup>
-          <br />
+      <Card>
+        <CardHeader
+          title={"Primes in Range"}
+          titleTypographyProps={{
+            variant: "h5",
+            color: "primary",
+          }}
+          subheader="Find primes from start to end number in range"
+          subheaderTypographyProps={{
+            variant: "subtitle1",
+            color: "secondary",
+          }}
+        />
+        <CardContent style={{ display: "flex", flexDirection: "column" }}>
+          <TextField
+            type="number"
+            label="Start of Range"
+            color="secondary"
+            onChange={(event) => {
+              this.setState({ start: event.target.value });
+            }}
+            value={this.state.start ?? ""}
+          />
+          <TextField
+            type="number"
+            label="End of Range"
+            color="secondary"
+            className="mt-2"
+            onChange={(event) => {
+              this.setState({ end: event.target.value });
+            }}
+            value={this.state.end ?? ""}
+          />
           <Button
+            style={{ marginTop: 12, backgroundColor: "#403d4a", color: "white" }}
+            type="submit"
             onClick={() => {
               this.props.parent.sieve(
                 parseInt(this.state.start),
@@ -69,7 +60,7 @@ class Range extends React.Component {
           >
             Submit
           </Button>
-        </CardBody>
+        </CardContent>
       </Card>
     );
   }
@@ -101,8 +92,11 @@ export default class Sieve extends React.Component {
 
   sieve(start, end) {
     if (start && end && start >= 1 && start <= end) {
-      if (start - end >= 1000001 || end > 1000000000) {
-        alert("Too big range not supported yet");
+      if (end - start >= 1000 || end > 100000000) {
+        this.setState({
+          alert:
+            { text: "Too big range not supported yet", type: "danger" }
+        });
         return;
       }
       let { numbers, primes } = this.init(start, end);
@@ -119,35 +113,57 @@ export default class Sieve extends React.Component {
           numbers[s].prime = false;
         }
       }
-      this.setState({ numbers });
+      this.setState({
+        numbers, alert:
+          { text: "The prime ones are highlighted in green", type: "success" }
+      });
     } else {
-      alert("Invalid Range or No primes in Range");
+      this.setState({
+        alert:
+          { text: "Invalid Range or No primes in Range", type: "danger" }
+      });
     }
   }
 
   render() {
     return (
-      <Container>
-        <Row className="text-center">
-          <Col sm={6}>
-            <Range parent={this} />
-          </Col>
-        </Row>
-        <Row className="mt-4 mb-4">
-          {this.state.numbers.map((data, index) => {
-            let highlight = data.prime || false,
-              value = data.value;
-            return (
-              <Element
-                highlight={highlight}
-                key={value + "-" + index}
-                data={{ value, index }}
-                type="array"
-              />
-            );
-          })}
-        </Row>
-      </Container>
+      <>
+        {this.state.alert && (<Alert
+          color={this.state.alert.type}
+          isOpen={!!this.state.alert.text}
+          toggle={() => {
+            this.setState({ alert: null });
+          }}
+        >
+          {this.state.alert.text}
+        </Alert>)}
+        <Grid container>
+          <Grid container className="text-center">
+            <Grid item xs={12}>
+              <Range parent={this} />
+            </Grid>
+          </Grid>
+          <Grid container className="mt-4 mb-4 text-center">
+            {this.state.numbers.map((data, index) => {
+              let highlight = data.prime || false,
+                value = data.value;
+              return (
+                <Grid
+                  item xs={3}
+                  key={value + "-" + index}
+                >
+                  <Element
+                    highlight={highlight}
+                    data={{ value, index }}
+                    type="array"
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Grid>
+      </>
+
     );
   }
 }
