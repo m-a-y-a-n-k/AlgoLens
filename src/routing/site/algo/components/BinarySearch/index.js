@@ -1,19 +1,18 @@
 import React from "react";
 import Element from "../../../../../common/components/Element";
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
   Button,
   InputGroup,
   Input,
   InputGroupAddon,
   InputGroupText,
+  Alert,
 } from "reactstrap";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Grid } from "@material-ui/core";
 
 class Insert extends React.Component {
   constructor(props) {
@@ -26,11 +25,22 @@ class Insert extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Sorted Insert</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Enter data</CardTitle>
-          <br />
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}>
+          Insert Sorted Data
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
@@ -40,7 +50,7 @@ class Insert extends React.Component {
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
           <br />
@@ -52,8 +62,8 @@ class Insert extends React.Component {
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -70,48 +80,61 @@ class Delete extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Delete</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Position or Value</CardTitle>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          Delete Position or Value
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
+              type="number"
               placeholder="Position"
               onChange={(event) => {
                 this.setState({ position: event.target.value, data: null });
               }}
-              value={this.state.position ? this.state.position : ""}
+              disabled={this.state.data}
+              value={this.state.position ?? ""}
             />
           </InputGroup>
-          <br />
-          <span>Or</span>
           <br />
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
+              type="number"
               placeholder="Value"
               onChange={(event) => {
                 this.setState({ data: event.target.value, position: null });
               }}
-              value={this.state.data ? this.state.data : ""}
+              disabled={this.state.position}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
           <br />
           <Button
             onClick={() => {
-              this.props.parent.delete(this.state.data, this.state.position);
+              this.props.parent.delete(parseFloat(this.state.data), parseFloat(this.state.position));
               this.setState({ data: null, position: null });
             }}
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -128,10 +151,21 @@ class Update extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Update</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Value at Position</CardTitle>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          Update Value at Position
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Position</InputGroupText>
@@ -142,7 +176,7 @@ class Update extends React.Component {
               onChange={(event) => {
                 this.setState({ position: event.target.value });
               }}
-              value={this.state.position ? this.state.position : ""}
+              value={this.state.position ?? ""}
             />
           </InputGroup>
           <br />
@@ -151,24 +185,25 @@ class Update extends React.Component {
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
+              type="number"
               placeholder="Value"
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
           <br />
           <Button
             onClick={() => {
-              this.props.parent.update(this.state.position, this.state.data);
+              this.props.parent.update(parseFloat(this.state.position), parseFloat(this.state.data));
               this.setState({ position: null, data: null });
             }}
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -184,33 +219,45 @@ class Search extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Search</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Data</CardTitle>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          Search a Value
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
+              type="number"
               placeholder="Value"
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
           <br />
           <Button
             onClick={() => {
-              this.props.parent.search(this.state.data);
+              this.props.parent.search(parseFloat(this.state.data));
               this.setState({ data: null });
             }}
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -232,52 +279,50 @@ export default class BinarySearch extends React.Component {
         }
       }
       arr.splice(i, 0, data);
-      this.setState({ array: arr, highlights: [], iter: 0 });
+      this.setState({ array: arr, highlights: [], iter: 0, alert: null });
       return i;
     }
-    alert("Submission is empty");
+    this.setState({ alert: { text: "Submission is empty", type: "danger", alertId: 1 } });
     return null;
   }
 
   delete(data, position) {
     let arr = this.state.array;
-    position = parseInt(position);
     if (data) {
       let length = arr.length;
       arr = arr.filter((value) => {
         return value !== data;
       });
       if (!arr || arr.length === 0) arr = [];
-      if (length !== arr.length) this.setState({ array: arr, highlights: [] });
-      else alert("Data not found to delete");
+      if (length !== arr.length) this.setState({ array: arr, highlights: [], alert: null });
+      else
+        this.setState({ alert: { text: "Data not found to delete", type: "danger", alertId: 2 } });
     } else if (position >= 0 && position < arr.length) {
       arr = this.state.array;
       arr.splice(position, 1);
-      this.setState({ array: arr, highlights: [], iter: 0 });
+      this.setState({ array: arr, highlights: [], iter: 0, alert: null });
     } else {
-      alert("Unable to delete");
+      this.setState({ alert: { text: "Unable to delete", type: "danger", alertId: 2 } });
     }
   }
 
   update(position, value) {
     if (
-      position &&
-      value &&
-      parseInt(position) < this.state.array.length &&
-      parseInt(position) >= 0
+      position < this.state.array.length &&
+      position >= 0
     ) {
       let highlights = [];
       this.delete(null, position);
       position = this.insert(value);
       highlights.push(position);
-      this.setState({ highlights, iter: 0 });
+      this.setState({ highlights, iter: 0, alert: null });
     } else {
-      alert("Cannot update");
+      this.setState({ alert: { text: "Data not found to update", type: "danger", alertId: 3 } });
     }
   }
 
-  bs(data, start, mid, end, arr) {
-    mid = parseInt(mid);
+  bs(data, start, end, arr) {
+    let mid = Math.floor((start + end) / 2);
     if (start > end) return;
     if (arr[mid] === data) {
       this.setState((prevState) => {
@@ -290,13 +335,13 @@ export default class BinarySearch extends React.Component {
           end--;
           highlights.pop();
         }
-        return { highlights, iter: "Completed" };
+        return { highlights, iter: prevState.iter + 1 };
       });
     } else if (arr[mid] < data) {
       this.setState(
         (prevState) => {
           let highlights = prevState.highlights;
-          while (start < mid + 1) {
+          while (start <= mid) {
             highlights.shift();
             start++;
           }
@@ -304,15 +349,15 @@ export default class BinarySearch extends React.Component {
         },
         () => {
           setTimeout(() => {
-            this.bs(data, mid + 1, mid + 1 + (end - mid - 1) / 2, end, arr);
-          }, 0.5 * 1000);
+            this.bs(data, start, end, arr);
+          }, .75 * 1000);
         }
       );
     } else {
       this.setState(
         (prevState) => {
           let highlights = prevState.highlights;
-          while (end > mid - 1) {
+          while (end >= mid) {
             highlights.pop();
             end--;
           }
@@ -320,8 +365,8 @@ export default class BinarySearch extends React.Component {
         },
         () => {
           setTimeout(() => {
-            this.bs(data, start, start + (mid - 1 - start) / 2, mid - 1, arr);
-          }, 0.5 * 1000);
+            this.bs(data, start, end, arr);
+          }, .75 * 1000);
         }
       );
     }
@@ -339,56 +384,61 @@ export default class BinarySearch extends React.Component {
           start++;
         }
         return { highlights, iter: 0 };
+      }, () => {
+        setTimeout(() => {
+          this.bs(
+            data,
+            0,
+            this.state.array.length - 1,
+            this.state.array
+          );
+        }, .75 * 1000);
       });
-      this.bs(
-        data,
-        0,
-        (this.state.array.length - 1) / 2,
-        this.state.array.length - 1,
-        this.state.array
-      );
     } else {
-      alert("Empty Search");
+      this.setState({ alert: { text: "Empty Search", type: "danger", alertId: 4 } });
     }
   }
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col sm={3}>
-            <Insert parent={this} />
-          </Col>
-          <Col sm={3}>
-            <Delete parent={this} />
-          </Col>
-          <Col sm={3}>
-            <Update parent={this} />
-          </Col>
-          <Col sm={3}>
-            <Search parent={this} />
-          </Col>
-        </Row>
-        <Row className="mt-4 mb-4">
+      <Grid container>
+        <Grid container>
+          <Grid item xs={12} className="mt-2">
+            <Insert parent={this} alertId={1} />
+          </Grid>
+          <Grid item xs={12} className="mt-2">
+            <Delete parent={this} alertId={2} />
+          </Grid>
+          <Grid item xs={12} className="mt-2">
+            <Update parent={this} alertId={3} />
+          </Grid>
+          <Grid item xs={12} className="mt-2">
+            <Search parent={this} alertId={4} />
+          </Grid>
+        </Grid>
+        <Grid container className="mt-4 mb-4">
           {this.state.array.map((value, index) => {
             let highlight = false;
             if (this.state.highlights.includes(index)) {
               highlight = true;
             }
             return (
-              <Element
-                highlight={highlight}
+              <Grid item xs={3}
                 key={value + "-" + index}
-                data={{ value, index }}
-                type="array"
-              />
+              >
+                <Element
+                  highlight={highlight}
+                  data={{ value, index }}
+                  type="array"
+                />
+              </Grid>
             );
           })}
-        </Row>
-        {(parseInt(this.state.iter) > 0 || this.state.iter !== "0") && (
-          <Row className="mt-4 mb-4">Steps : {this.state.iter}</Row>
-        )}
-      </Container>
+        </Grid>
+        <Grid item xs={12} className="mt-4 mb-4">
+          Steps : {this.state.iter}
+        </Grid>
+      </Grid>
     );
   }
 }
