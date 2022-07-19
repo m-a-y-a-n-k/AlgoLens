@@ -1,20 +1,8 @@
 import React from "react";
 import Element from "../../../../../common/components/Element";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Button,
-  InputGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-} from "reactstrap";
 import { FaEquals, FaTimes } from "react-icons/fa";
+import { Button, Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core";
+import { Alert } from "reactstrap";
 
 class Inp extends React.Component {
   constructor(props) {
@@ -26,26 +14,34 @@ class Inp extends React.Component {
   }
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Factorial Of Number</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Number</CardTitle>
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Value</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              disabled={this.props.parent.state.disabled}
-              type="number"
-              placeholder="Factorial Of Number"
-              onChange={(event) => {
-                this.setState({ input: event.target.value });
-              }}
-              value={this.state.input ? this.state.input : ""}
-            />
-          </InputGroup>
+      <Card>
+        <CardHeader
+          title={"Factorial Of Number"}
+          titleTypographyProps={{
+            variant: "h5",
+            color: "primary",
+          }}
+          subheader="Finds the product 1 x 2 x 3 x .... upto a number N"
+          subheaderTypographyProps={{
+            variant: "subtitle1",
+            color: "secondary",
+          }}
+        ></CardHeader>
+        <CardContent
+          style={{ display: "flex", flexDirection: "column" }} className="text-center">
+          <TextField
+            disabled={this.props.parent.state.disabled}
+            type="number"
+            label="Factorial Of Number"
+            onChange={(event) => {
+              this.setState({ input: event.target.value });
+            }}
+            value={this.state.input ?? ""}
+          />
           <br />
           <Button
+            style={{ marginTop: 12, backgroundColor: "#403d4a", color: "white" }}
+            type="submit"
             disabled={this.props.parent.state.disabled}
             onClick={() => {
               this.props.parent.fact(parseInt(this.state.input));
@@ -55,7 +51,7 @@ class Inp extends React.Component {
           >
             Submit
           </Button>
-        </CardBody>
+        </CardContent>
       </Card>
     );
   }
@@ -71,7 +67,7 @@ export default class Factorial extends React.Component {
   };
 
   fact(input) {
-    if (input >= 0) {
+    if (input >= 0 && input <= 50) {
       this.setState(
         (prevState) => {
           if (prevState.input === null) {
@@ -80,12 +76,13 @@ export default class Factorial extends React.Component {
               input,
               processed: `${input}`,
               rest: input >= 2 ? input - 1 : 1,
+              alert: null,
             };
           }
           if (!prevState.processed.includes("X")) {
             return {
               processed: `${prevState.processed} X ${prevState.rest}`,
-              rest: prevState.rest - 1,
+              rest: prevState.rest >= 2 ? prevState.rest - 1 : 1,
             };
           } else {
             let processed = prevState.processed.split(" X ");
@@ -96,6 +93,8 @@ export default class Factorial extends React.Component {
                 result: `${processed}`,
                 input: null,
                 disabled: false,
+                alert:
+                  { text: "Factorial successfully computed", type: "success" }
               };
             } else {
               return {
@@ -113,43 +112,68 @@ export default class Factorial extends React.Component {
         }
       );
     } else {
-      alert("Uncomputable");
+      this.setState({
+        alert:
+          { text: "Factorial does not exist or too large", type: "danger" }
+      });
     }
   }
 
   render() {
     return (
-      <Container>
-        <Row className="text-center">
-          <Col sm={6}>
+      <Grid container>
+        {this.state.alert && (<Grid item sm={12}>
+          <Alert
+            color={this.state.alert.type}
+            isOpen={!!this.state.alert.text}
+            toggle={() => {
+              this.setState({ alert: null });
+            }}
+          >
+            {this.state.alert.text}
+          </Alert>
+        </Grid>)}
+        <Grid container className="text-center">
+          <Grid item sm={12}>
             <Inp parent={this} />
-          </Col>
-        </Row>
-        <Row className="text-center mt-4 mb-4">
-          {this.state.input && (
-            <React.Fragment>
+          </Grid>
+        </Grid>
+
+        {parseInt(this.state.input) >= 0 && (
+          <Grid container className="text-center mt-4 mb-4">
+            <Grid item sm={2}>
               <Element
                 highlight={true}
                 data={{ value: `${this.state.input}!` }}
                 type="Array"
               />
+            </Grid>
+            <Grid item sm={2}>
               <FaEquals style={{ margin: "auto 5px" }} />
+            </Grid>
+            <Grid item sm={3}>
               <Element data={{ value: this.state.processed }} type="Array" />
+            </Grid>
+            <Grid item sm={2}>
               <FaTimes style={{ margin: "auto 5px" }} />
+            </Grid>
+            <Grid item sm={3}>
               <Element data={{ value: `${this.state.rest}!` }} type="Array" />
-            </React.Fragment>
-          )}
-          {this.state.result && (
-            <React.Fragment>
+            </Grid>
+          </Grid>
+        )}
+        {this.state.result && (
+          <Grid container className="text-center mt-4 mb-4">
+            <Grid item xs={12}>
               <Element
                 highlight={true}
                 data={{ value: `${this.state.result}` }}
                 type="Array"
               />
-            </React.Fragment>
-          )}
-        </Row>
-      </Container>
+            </Grid>
+          </Grid>
+        )}
+      </Grid>
     );
   }
 }
