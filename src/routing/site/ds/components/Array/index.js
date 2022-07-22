@@ -11,22 +11,20 @@ import {
   InputGroupText,
   Alert,
 } from "reactstrap";
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Grid } from "@material-ui/core";
 
 class Insert extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.insert = this.insert.bind(this);
     this.state = {
       dropdownOpen: false,
       data: null,
       where: "Start",
+      alert: null,
     };
   }
 
@@ -37,6 +35,24 @@ class Insert extends React.Component {
     });
   }
 
+  insert(data, where) {
+    if (data) {
+      let arr = this.props.array;
+      switch (where.toLowerCase()) {
+        case "start":
+          arr.splice(0, 0, data);
+          break;
+        case "end":
+        default:
+          arr.splice(arr.length, 0, data);
+      }
+      this.setState({ alert: { text: "Inserted successfully", type: "success", alertId: 1 } });
+      this.props.updateState({ array: arr, highlights: [] });
+    } else {
+      this.setState({ alert: { text: "Submission is empty", type: "danger", alertId: 1 } });
+    }
+  }
+
   render() {
     return (
       <Accordion>
@@ -45,15 +61,15 @@ class Insert extends React.Component {
           Insert Element
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
-          {this.props.parent.state.alert &&
-            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
-              color={this.props.parent.state.alert.type}
-              isOpen={!!this.props.parent.state.alert.text}
+          {this.state.alert &&
+            this.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.state.alert.type}
+              isOpen={!!this.state.alert.text}
               toggle={() => {
-                this.props.parent.setState({ alert: null });
+                this.setState({ alert: null });
               }}
             >
-              {this.props.parent.state.alert.text}
+              {this.state.alert.text}
             </Alert>)}
           <InputGroup>
             <Input
@@ -91,7 +107,7 @@ class Insert extends React.Component {
             className="mt-4"
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.insert(this.state.data, this.state.where);
+              this.insert(this.state.data, this.state.where);
               this.setState({ data: null });
             }}
           >
@@ -108,10 +124,12 @@ class Delete extends React.Component {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.delete = this.delete.bind(this);
     this.state = {
       dropdownOpen: false,
       data: null,
       where: 0,
+      alert: null,
     };
     this.posOptions = ["Select", "Start", "End"];
   }
@@ -123,6 +141,35 @@ class Delete extends React.Component {
     });
   }
 
+  delete(data, where) {
+    let arr = this.props.array;
+    let exists = arr.length > 0, present;
+    if (data) {
+      present = exists = exists && !!arr.find((value) => value === data);
+      arr = arr.filter((value) => {
+        return value !== data;
+      });
+    } else {
+      switch (where.toLowerCase()) {
+        case "start":
+          arr.splice(0, 1);
+          break;
+        case "end":
+          arr.splice(arr.length - 1, 1);
+          break;
+        default:
+          present = exists = false;
+      }
+    }
+    this.setState({
+      alert: { text: present ? "Deleted Successfully" : exists ? "Value not present" : "Delete operation is invalid", type: present ? "success" : exists ? "warning" : "danger", alertId: 2 }
+    });
+    this.props.updateState({
+      array: arr,
+      highlights: [],
+    });
+  }
+
   render() {
     return (
       <Accordion>
@@ -131,15 +178,15 @@ class Delete extends React.Component {
           Delete Element (Position or Value)
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
-          {this.props.parent.state.alert &&
-            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
-              color={this.props.parent.state.alert.type}
-              isOpen={!!this.props.parent.state.alert.text}
+          {this.state.alert &&
+            this.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.state.alert.type}
+              isOpen={!!this.state.alert.text}
               toggle={() => {
-                this.props.parent.setState({ alert: null });
+                this.setState({ alert: null });
               }}
             >
-              {this.props.parent.state.alert.text}
+              {this.state.alert.text}
             </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
@@ -196,7 +243,7 @@ class Delete extends React.Component {
             className="mt-4"
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.delete(this.state.data, this.posOptions[this.state.where]);
+              this.delete(this.state.data, this.posOptions[this.state.where]);
               this.setState({ data: null });
             }}
           >
@@ -213,10 +260,12 @@ class Update extends React.Component {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.update = this.update.bind(this);
     this.state = {
       dropdownOpen: false,
       data: null,
       position: null,
+      alert: null,
     };
   }
 
@@ -227,6 +276,30 @@ class Update extends React.Component {
     });
   }
 
+  update(position, value) {
+    if (
+      position &&
+      value &&
+      parseInt(position) <= this.props.array.length - 1 &&
+      parseInt(position) >= 0
+    ) {
+      let arr = this.props.array,
+        highlights = [];
+      arr[position] = value;
+      highlights.push(parseInt(position));
+      this.setState({
+        alert: { text: "Successfully updated check highlighted element", type: "success", alertId: 3 }
+      });
+      this.props.updateState({
+        array: arr, highlights,
+      });
+    } else {
+      this.setState({
+        alert: { text: "Invalid update operation", type: "danger", alertId: 3 }
+      });
+    }
+  }
+
   render() {
     return (
       <Accordion>
@@ -235,15 +308,15 @@ class Update extends React.Component {
           Update Element (Value at Position)
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
-          {this.props.parent.state.alert &&
-            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
-              color={this.props.parent.state.alert.type}
-              isOpen={!!this.props.parent.state.alert.text}
+          {this.state.alert &&
+            this.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.state.alert.type}
+              isOpen={!!this.state.alert.text}
               toggle={() => {
-                this.props.parent.setState({ alert: null });
+                this.setState({ alert: null });
               }}
             >
-              {this.props.parent.state.alert.text}
+              {this.state.alert.text}
             </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
@@ -274,7 +347,7 @@ class Update extends React.Component {
             className="mt-4"
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.update(this.state.position, this.state.data);
+              this.update(this.state.position, this.state.data);
               this.setState({ position: null, data: null });
             }}
           >
@@ -303,6 +376,34 @@ class Search extends React.Component {
       dropdownOpen: !dropdownOpen,
     });
   }
+ 
+  search(data) {
+    if (data) {
+      let arr = this.props.array,
+        highlights = [];
+      arr.forEach((value, index) => {
+        if (value === data) {
+          highlights.push(parseInt(index));
+        }
+      });
+      const foundMatches = highlights.length > 0;
+      this.setState({
+        alert: {
+          text: foundMatches
+            ? "Searched values are highlighted" : 'No matches found',
+          type: "success",
+          alertId: 4
+        }
+      });
+      this.props.updateState({
+        highlights,
+      });
+    } else {
+      this.setState({
+        alert: { text: "Empty Search", type: "danger", alertId: 4 }
+      });
+    }
+  }
 
   render() {
     return (
@@ -312,15 +413,15 @@ class Search extends React.Component {
           Search Element (Value at Position)
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
-          {this.props.parent.state.alert &&
-            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
-              color={this.props.parent.state.alert.type}
-              isOpen={!!this.props.parent.state.alert.text}
+          {this.state.alert &&
+            this.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.state.alert.type}
+              isOpen={!!this.state.alert.text}
               toggle={() => {
-                this.props.parent.setState({ alert: null });
+                this.setState({ alert: null });
               }}
             >
-              {this.props.parent.state.alert.text}
+              {this.state.alert.text}
             </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
@@ -338,7 +439,7 @@ class Search extends React.Component {
             className="mt-4"
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.search(this.state.data);
+              this.search(this.state.data);
               this.setState({ data: null });
             }}
           >
@@ -351,101 +452,19 @@ class Search extends React.Component {
 }
 
 export default class Array extends React.Component {
-  state = {
-    array: [],
-    highlights: [],
-  };
 
-  insert(data, where) {
-    if (data) {
-      let arr = this.state.array;
-      switch (where.toLowerCase()) {
-        case "start":
-          arr.splice(0, 0, data);
-          break;
-        case "end":
-        default:
-          arr.splice(arr.length, 0, data);
-      }
-      this.setState({ array: arr, highlights: [], alert: { text: "Inserted successfully", type: "success", alertId: 1 } });
-    } else {
-      this.setState({ alert: { text: "Submission is empty", type: "danger", alertId: 1 } });
-    }
-  }
+  constructor(props) {
+    super(props);
 
-  delete(data, where) {
-    let arr = this.state.array;
-    let exists = arr.length > 0, present;
-    if (data) {
-      present = exists && !!arr.find((value) => value === data);
-      arr = arr.filter((value) => {
-        return value !== data;
-      });
-    } else {
-      switch (where.toLowerCase()) {
-        case "start":
-          arr.splice(0, 1);
-          break;
-        case "end":
-          arr.splice(arr.length - 1, 1);
-          break;
-        default:
-          present = false;
-      }
-    }
-    this.setState({
-      array: arr,
+    this.updateState = this.updateState.bind(this);
+    this.state = {
+      array: [],
       highlights: [],
-      alert: { text: present ? "Deleted Successfully" : exists || data ? "Value not present" : "Delete operation is invalid", type: present ? "success" : exists || data ? "warning" : "danger", alertId: 2 }
-    });
+    };
   }
 
-  update(position, value) {
-    if (
-      position &&
-      value &&
-      parseInt(position) <= this.state.array.length - 1 &&
-      parseInt(position) >= 0
-    ) {
-      let arr = this.state.array,
-        highlights = [];
-      arr[position] = value;
-      highlights.push(parseInt(position));
-      this.setState({
-        array: arr, highlights,
-        alert: { text: "Successfully updated check highlighted element", type: "success", alertId: 3 }
-      });
-    } else {
-      this.setState({
-        alert: { text: "Invalid update operation", type: "danger", alertId: 3 }
-      });
-    }
-  }
-
-  search(data) {
-    if (data) {
-      let arr = this.state.array,
-        highlights = [];
-      arr.forEach((value, index) => {
-        if (value === data) {
-          highlights.push(parseInt(index));
-        }
-      });
-      const foundMatches = highlights.length > 0;
-      this.setState({
-        highlights,
-        alert: { 
-          text: foundMatches 
-            ? "Searched values are highlighted" : 'No matches found', 
-          type: "success", 
-          alertId: 4 
-        }
-      });
-    } else {
-      this.setState({
-        alert: { text: "Empty Search", type: "danger", alertId: 4 }
-      });
-    }
+  updateState(state) {
+    this.setState(state);
   }
 
   render() {
@@ -453,16 +472,16 @@ export default class Array extends React.Component {
       <Grid container>
         <Grid container>
           <Grid item sm={12} className="mt-2">
-            <Insert parent={this} alertId={1} />
+            <Insert array={this.state.array} updateState={this.updateState} alertId={1} />
           </Grid>
           <Grid item sm={12} className="mt-2">
-            <Delete parent={this} alertId={2} />
+            <Delete array={this.state.array} updateState={this.updateState}  alertId={2} />
           </Grid>
           <Grid item sm={12} className="mt-2">
-            <Update parent={this} alertId={3} />
+            <Update array={this.state.array} updateState={this.updateState}  alertId={3} />
           </Grid>
           <Grid item sm={12} className="mt-2">
-            <Search parent={this} alertId={4} />
+            <Search array={this.state.array} updateState={this.updateState}  alertId={4} />
           </Grid>
         </Grid>
         <Grid container className="mt-4 mb-4">
