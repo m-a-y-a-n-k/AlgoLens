@@ -1,14 +1,6 @@
 import React from "react";
 import Element from "../../../../../common/components/Element";
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Button,
   InputGroup,
   Input,
   InputGroupButtonDropdown,
@@ -17,7 +9,14 @@ import {
   DropdownItem,
   InputGroupAddon,
   InputGroupText,
+  Alert,
 } from "reactstrap";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 class Insert extends React.Component {
   constructor(props) {
@@ -40,17 +39,28 @@ class Insert extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Insert</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Enter data</CardTitle>
-          <br />
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}>
+          Insert Element
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <Input
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ?? ""}
             />
             <InputGroupButtonDropdown
               addonType="append"
@@ -72,14 +82,14 @@ class Insert extends React.Component {
                     this.setState({ where: "End" });
                   }}
                 >
-                  {" "}
                   End
                 </DropdownItem>
               </DropdownMenu>
             </InputGroupButtonDropdown>
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.insert(this.state.data, this.state.where);
               this.setState({ data: null });
@@ -87,8 +97,8 @@ class Insert extends React.Component {
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -101,8 +111,9 @@ class Delete extends React.Component {
     this.state = {
       dropdownOpen: false,
       data: null,
-      where: "Start",
+      where: 0,
     };
+    this.posOptions = ["Select", "Start", "End"];
   }
 
   toggleDropDown() {
@@ -114,10 +125,22 @@ class Delete extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Delete</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Position or Value</CardTitle>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}>
+          Delete Element (Position or Value)
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Position</InputGroupText>
@@ -127,11 +150,19 @@ class Delete extends React.Component {
               isOpen={this.state.dropdownOpen}
               toggle={this.toggleDropDown}
             >
-              <DropdownToggle caret>{this.state.where}</DropdownToggle>
+              <DropdownToggle caret>{this.posOptions[this.state.where]}</DropdownToggle>
               <DropdownMenu>
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "Start" });
+                    this.setState({ where: 0 });
+                  }}
+                >
+                  Select
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem
+                  onClick={() => {
+                    this.setState({ where: 1, data: "" });
                   }}
                 >
                   Start
@@ -139,18 +170,15 @@ class Delete extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "End" });
+                    this.setState({ where: 2, data: "" });
                   }}
                 >
-                  {" "}
                   End
                 </DropdownItem>
               </DropdownMenu>
             </InputGroupButtonDropdown>
           </InputGroup>
-          <br />
-          <span>Or</span>
-          <br />
+          <span className="m-2">Or</span>
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
@@ -158,22 +186,24 @@ class Delete extends React.Component {
             <Input
               placeholder="Value"
               onChange={(event) => {
-                this.setState({ data: event.target.value });
+                this.setState({ data: event.target.value, where: 0 });
               }}
-              value={this.state.data ? this.state.data : ""}
+              disabled={!!this.state.where}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.delete(this.state.data, this.state.where);
+              this.props.parent.delete(this.state.data, this.posOptions[this.state.where]);
               this.setState({ data: null });
             }}
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -199,10 +229,22 @@ class Update extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Update</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Value at Position</CardTitle>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}>
+          Update Element (Value at Position)
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Position</InputGroupText>
@@ -213,11 +255,10 @@ class Update extends React.Component {
               onChange={(event) => {
                 this.setState({ position: event.target.value });
               }}
-              value={this.state.position ? this.state.position : ""}
+              value={this.state.position ?? ""}
             />
           </InputGroup>
-          <br />
-          <InputGroup>
+          <InputGroup className="mt-3">
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
@@ -226,11 +267,12 @@ class Update extends React.Component {
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.update(this.state.position, this.state.data);
               this.setState({ position: null, data: null });
@@ -238,8 +280,8 @@ class Update extends React.Component {
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -264,10 +306,22 @@ class Search extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Search</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Data</CardTitle>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}>
+          Search Element (Value at Position)
+        </AccordionSummary>
+        <AccordionDetails style={{ flexDirection: "column" }}>
+          {this.props.parent.state.alert &&
+            this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
+              color={this.props.parent.state.alert.type}
+              isOpen={!!this.props.parent.state.alert.text}
+              toggle={() => {
+                this.props.parent.setState({ alert: null });
+              }}
+            >
+              {this.props.parent.state.alert.text}
+            </Alert>)}
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
@@ -277,11 +331,12 @@ class Search extends React.Component {
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.search(this.state.data);
               this.setState({ data: null });
@@ -289,8 +344,8 @@ class Search extends React.Component {
           >
             Submit
           </Button>
-        </CardBody>
-      </Card>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
@@ -312,22 +367,21 @@ export default class Array extends React.Component {
         default:
           arr.splice(arr.length, 0, data);
       }
-      this.setState({ array: arr, highlights: [] });
+      this.setState({ array: arr, highlights: [], alert: { text: "Inserted successfully", type: "success", alertId: 1 } });
     } else {
-      alert("Submission is empty");
+      this.setState({ alert: { text: "Submission is empty", type: "danger", alertId: 1 } });
     }
   }
 
   delete(data, where) {
-    let arr = [];
+    let arr = this.state.array;
+    let exists = arr.length > 0, present;
     if (data) {
-      arr = this.state.array;
+      present = exists && !!arr.find((value) => value === data);
       arr = arr.filter((value) => {
         return value !== data;
       });
-      this.setState({ array: arr, highlights: [] });
     } else {
-      arr = this.state.array;
       switch (where.toLowerCase()) {
         case "start":
           arr.splice(0, 1);
@@ -336,9 +390,14 @@ export default class Array extends React.Component {
           arr.splice(arr.length - 1, 1);
           break;
         default:
+          present = false;
       }
-      this.setState({ array: arr, highlights: [] });
     }
+    this.setState({
+      array: arr,
+      highlights: [],
+      alert: { text: present ? "Deleted Successfully" : exists || data ? "Value not present" : "Delete operation is invalid", type: present ? "success" : exists || data ? "warning" : "danger", alertId: 2 }
+    });
   }
 
   update(position, value) {
@@ -352,9 +411,14 @@ export default class Array extends React.Component {
         highlights = [];
       arr[position] = value;
       highlights.push(parseInt(position));
-      this.setState({ array: arr, highlights });
+      this.setState({
+        array: arr, highlights,
+        alert: { text: "Successfully updated check highlighted element", type: "success", alertId: 3 }
+      });
     } else {
-      alert("Cannot update");
+      this.setState({
+        alert: { text: "Invalid update operation", type: "danger", alertId: 3 }
+      });
     }
   }
 
@@ -362,52 +426,66 @@ export default class Array extends React.Component {
     if (data) {
       let arr = this.state.array,
         highlights = [];
-      arr.map((value, index) => {
+      arr.forEach((value, index) => {
         if (value === data) {
           highlights.push(parseInt(index));
         }
-        return value === data;
       });
-      this.setState({ highlights });
+      const foundMatches = highlights.length > 0;
+      this.setState({
+        highlights,
+        alert: { 
+          text: foundMatches 
+            ? "Searched values are highlighted" : 'No matches found', 
+          type: "success", 
+          alertId: 4 
+        }
+      });
     } else {
-      alert("Empty Search");
+      this.setState({
+        alert: { text: "Empty Search", type: "danger", alertId: 4 }
+      });
     }
   }
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col sm={3}>
-            <Insert parent={this} />
-          </Col>
-          <Col sm={3}>
-            <Delete parent={this} />
-          </Col>
-          <Col sm={3}>
-            <Update parent={this} />
-          </Col>
-          <Col sm={3}>
-            <Search parent={this} />
-          </Col>
-        </Row>
-        <Row className="mt-4 mb-4">
+      <Grid container>
+        <Grid container>
+          <Grid item sm={12} className="mt-2">
+            <Insert parent={this} alertId={1} />
+          </Grid>
+          <Grid item sm={12} className="mt-2">
+            <Delete parent={this} alertId={2} />
+          </Grid>
+          <Grid item sm={12} className="mt-2">
+            <Update parent={this} alertId={3} />
+          </Grid>
+          <Grid item sm={12} className="mt-2">
+            <Search parent={this} alertId={4} />
+          </Grid>
+        </Grid>
+        <Grid container className="mt-4 mb-4">
           {this.state.array.map((value, index) => {
             let highlight = false;
             if (this.state.highlights.includes(index)) {
               highlight = true;
             }
             return (
-              <Element
-                highlight={highlight}
+              <Grid
+                item sm={3}
                 key={value + "-" + index}
-                data={{ value, index }}
-                type="array"
-              />
+              >
+                <Element
+                  highlight={highlight}
+                  data={{ value, index }}
+                  type="array"
+                />
+              </Grid>
             );
           })}
-        </Row>
-      </Container>
+        </Grid>
+      </Grid>
     );
   }
 }

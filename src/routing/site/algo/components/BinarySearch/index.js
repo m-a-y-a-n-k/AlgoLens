@@ -1,7 +1,6 @@
 import React from "react";
 import Element from "../../../../../common/components/Element";
 import {
-  Button,
   InputGroup,
   Input,
   InputGroupAddon,
@@ -12,7 +11,8 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 class Insert extends React.Component {
   constructor(props) {
@@ -53,8 +53,9 @@ class Insert extends React.Component {
               value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.insert(parseFloat(this.state.data));
               this.setState({ data: null });
@@ -109,8 +110,9 @@ class Delete extends React.Component {
               value={this.state.position ?? ""}
             />
           </InputGroup>
-          <br />
-          <InputGroup>
+          <InputGroup
+            className="mt-3"
+          >
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
@@ -124,8 +126,9 @@ class Delete extends React.Component {
               value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.delete(parseFloat(this.state.data), parseFloat(this.state.position));
               this.setState({ data: null, position: null });
@@ -179,8 +182,9 @@ class Update extends React.Component {
               value={this.state.position ?? ""}
             />
           </InputGroup>
-          <br />
-          <InputGroup>
+          <InputGroup
+            className="mt-3"
+          >
             <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
@@ -193,8 +197,9 @@ class Update extends React.Component {
               value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.update(parseFloat(this.state.position), parseFloat(this.state.data));
               this.setState({ position: null, data: null });
@@ -247,8 +252,9 @@ class Search extends React.Component {
               value={this.state.data ?? ""}
             />
           </InputGroup>
-          <br />
           <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.search(parseFloat(this.state.data));
               this.setState({ data: null });
