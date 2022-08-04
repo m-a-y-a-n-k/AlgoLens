@@ -358,7 +358,7 @@ export default class KnuthShuffle extends React.Component {
     } else if (!i && this.state.array.length > 0) {
       this.shuffle(0);
     } else {
-      alert('Can't Shuffle empty array');
+      alert('Can not Shuffle empty array');
     }
   }
 
