@@ -1,28 +1,28 @@
-import React from 'react';
-import Link from './Link';
-import Box from '@material-ui/core/Box';
+import React from "react"
+import Link from "./Link"
+import Box from "@material-ui/core/Box"
 
 export default class Element extends React.Component {
   render() {
     let elStyles,
-      element = null;
+      element = null
 
     switch (this.props.type.toLowerCase()) {
-      case 'stack':
-        element = [];
+      case "stack":
+        element = []
         if (this.props.data.index === 0) {
           element.push(
-            <Box key='Top' p={1} textAlign='center'>
+            <Box key="Top" p={1} textAlign="center">
               Top
             </Box>
-          );
+          )
         }
         elStyles = {
-          border: '1px solid white',
-          background: 'rgba(40,40,160,0.8)',
-        };
+          border: "1px solid white",
+          background: "rgba(40,40,160,0.8)",
+        }
         if (this.props.highlight) {
-          elStyles.background = 'rgba(30,150,40,0.8)';
+          elStyles.background = "rgba(30,150,40,0.8)"
         }
         element.push(
           <Box
@@ -30,41 +30,41 @@ export default class Element extends React.Component {
             p={1}
             style={elStyles}
           >
-            <Box p={1} color='white' textAlign='center' fontSize={18}>
+            <Box p={1} color="white" textAlign="center" fontSize={18}>
               {this.props.data.value}
             </Box>
-            <Box color='white' p={1} textAlign='center' fontSize={12}>
+            <Box color="white" p={1} textAlign="center" fontSize={12}>
               {this.props.data.index}
             </Box>
           </Box>
-        );
-        break;
-      case 'array':
+        )
+        break
+      case "array":
         elStyles = {
-          border: '1px solid white',
-          background: 'rgba(40,40,120,0.8)',
-        };
+          border: "1px solid white",
+          background: "rgba(40,40,120,0.8)",
+        }
         if (this.props.highlight) {
-          elStyles.background = 'rgba(30,150,40,0.8)';
+          elStyles.background = "rgba(30,150,40,0.8)"
         }
         element = (
           <Box key={this.props.data.index} p={1} style={elStyles}>
-            <Box p={1} color='white' textAlign='center' fontSize={18}>
+            <Box p={1} color="white" textAlign="center" fontSize={18}>
               {this.props.data.value}
             </Box>
-            <Box color='white' p={1} textAlign='center' fontSize={12}>
+            <Box color="white" p={1} textAlign="center" fontSize={12}>
               {this.props.data.index}
             </Box>
           </Box>
-        );
-        break;
-      case 'linkedlist':
+        )
+        break
+      case "linkedlist":
         elStyles = {
-          border: '1px solid white',
-          background: 'rgba(40,60,180,0.8)',
-        };
+          border: "1px solid white",
+          background: "rgba(40,60,180,0.8)",
+        }
         if (this.props.highlight) {
-          elStyles.background = 'rgba(30,150,40,0.8)';
+          elStyles.background = "rgba(30,150,40,0.8)"
         }
         element = [
           <Box
@@ -72,33 +72,33 @@ export default class Element extends React.Component {
             p={1}
             style={elStyles}
           >
-            <Box p={1} color='white' textAlign='center' fontSize={18}>
+            <Box p={1} color="white" textAlign="center" fontSize={18}>
               {this.props.data.value}
             </Box>
-            <Box color='white' p={1} textAlign='center' fontSize={12}>
+            <Box color="white" p={1} textAlign="center" fontSize={12}>
               {this.props.data.index}
             </Box>
           </Box>,
-        ];
+        ]
 
         if (this.props.next)
           element.push(
             <Box
               key={`${this.props.data.index}-${this.props.data.value}-nextlink`}
-              component='span'
+              component="span"
             >
-              <Link direction='right' />
+              <Link direction="right" />
             </Box>
-          );
-        break;
+          )
+        break
 
-      case 'queues':
+      case "queues":
         elStyles = {
-          border: '1px solid white',
-          background: 'rgba(40,60,180,0.8)',
-        };
+          border: "1px solid white",
+          background: "rgba(40,60,180,0.8)",
+        }
         if (this.props.highlight) {
-          elStyles.background = 'rgba(30,150,40,0.8)';
+          elStyles.background = "rgba(30,150,40,0.8)"
         }
         element = [
           <div>
@@ -107,24 +107,24 @@ export default class Element extends React.Component {
               p={1}
               style={elStyles}
             >
-              <Box p={1} color='white' textAlign='center' fontSize={18}>
+              <Box p={1} color="white" textAlign="center" fontSize={18}>
                 {this.props.data.value}
               </Box>
             </Box>
             <Box
-              color='white'
+              color="white"
               p={1}
               className={
                 this.props.data.index === 0 || this.props.next === false
-                  ? 'bg-danger'
-                  : ''
+                  ? "bg-danger"
+                  : ""
               }
-              textAlign='center'
+              textAlign="center"
               fontSize={12}
             >
               {this.props.data.index === 0 ? (
                 <typography>
-                  Front <br />{' '}
+                  Front <br />{" "}
                 </typography>
               ) : (
                 <div></div>
@@ -136,58 +136,58 @@ export default class Element extends React.Component {
               )}
             </Box>
           </div>,
-        ];
+        ]
 
         if (this.props.next)
           element.push(
             <Box
               key={`${this.props.data.index}-${this.props.data.value}-nextLink`}
-              component='span'
+              component="span"
             >
-              <Link direction='right' />
+              <Link direction="right" />
             </Box>
-          );
-        break;
-      case 'sets':
+          )
+        break
+      case "sets":
         elStyles = {
-          border: '1px solid black',
-          background: 'rgba(40,60,180,0.8)',
-          borderRadius: '50%',
-          minHeight: '100px',
-          minWidth: '100px',
-          margin: '20px',
-        };
+          border: "1px solid black",
+          background: "rgba(40,60,180,0.8)",
+          borderRadius: "50%",
+          minHeight: "100px",
+          minWidth: "100px",
+          margin: "20px",
+        }
         if (this.props.AllGreater) {
-          elStyles.background = 'rgba(242,19,23,0.8)';
+          elStyles.background = "rgba(242,19,23,0.8)"
         }
         if (this.props.AllSmaller) {
-          elStyles.background = 'rgba(250,183,0,0.8)';
+          elStyles.background = "rgba(250,183,0,0.8)"
         }
         if (this.props.highlight) {
-          elStyles.background = 'rgba(30,150,40,0.8)';
+          elStyles.background = "rgba(30,150,40,0.8)"
         }
 
         element = [
           <Box key={this.props.data.value} p={1} style={elStyles}>
-            <Box p={0} color='white' fontSize={18}>
+            <Box p={0} color="white" fontSize={18}>
               <div
                 style={{
-                  position: 'relative',
-                  top: '45%',
-                  textAlign: 'center',
+                  position: "relative",
+                  top: "45%",
+                  textAlign: "center",
                 }}
               >
                 {this.props.data.value}
               </div>
             </Box>
           </Box>,
-        ];
+        ]
 
-        break;
+        break
 
       default:
     }
 
-    return this.props.data && element;
+    return this.props.data && element
   }
 }

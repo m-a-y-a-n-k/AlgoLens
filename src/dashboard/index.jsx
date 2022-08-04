@@ -1,69 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import { blue } from '@material-ui/core/colors';
-import useWindowDimensions from '../common/helpers/dimensions';
-import constants from '../common/helpers/constants';
-import Placeholder from '../common/components/Placeholder';
+import React, { useEffect, useState } from "react"
+import { makeStyles, useTheme } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
+import Card from "@material-ui/core/Card"
+import CardHeader from "@material-ui/core/CardHeader"
+import CardMedia from "@material-ui/core/CardMedia"
+import CardContent from "@material-ui/core/CardContent"
+import Avatar from "@material-ui/core/Avatar"
+import Typography from "@material-ui/core/Typography"
+import { blue } from "@material-ui/core/colors"
+import useWindowDimensions from "../common/helpers/dimensions"
+import constants from "../common/helpers/constants"
+import Placeholder from "../common/components/Placeholder"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    overflow: 'auto',
+    overflow: "auto",
     padding: theme.spacing(1),
   },
   gridItem: {
-    display: 'flex',
-    textAlign: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
     margin: theme.spacing(2),
   },
   paper: {
     margin: theme.spacing(1),
     padding: theme.spacing(1),
     fontSize: 16,
-    color: '#092B2F',
+    color: "#092B2F",
   },
   expand: {
     fontSize: 14,
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
   avatar: {
     backgroundColor: blue[800],
   },
   card: {
-    width: '75%',
-    [theme.breakpoints.down('xs')]: {
-      width: 'auto',
+    width: "75%",
+    [theme.breakpoints.down("xs")]: {
+      width: "auto",
     },
   },
   siteLogo: {
-    height: 'initial',
-    margin: '0 auto',
-    [theme.breakpoints.up('sm')]: {
+    height: "initial",
+    margin: "0 auto",
+    [theme.breakpoints.up("sm")]: {
       width: 480,
     },
   },
-}));
+}))
 
 export default function Dashboard() {
-  const theme = useTheme();
-  const classes = useStyles(theme);
-  const windowDimensions = useWindowDimensions();
-  const isDesktop = windowDimensions.width > 768;
+  const theme = useTheme()
+  const classes = useStyles(theme)
+  const windowDimensions = useWindowDimensions()
+  const isDesktop = windowDimensions.width > 768
 
   const knowMoreText = `${constants.BRAND_NAME} is an excellent and proud platform designed by
   strongly passionate Computer Science alumni of Delhi
@@ -75,19 +75,19 @@ export default function Dashboard() {
   pursue Computer Science or who use it on a daily basis in
   their life. Primarily for Programming Professionals,
   Professors and Students from various institutions across the
-  globe.`;
+  globe.`
 
-  const [siteLogoSrc, setSiteLogoSrc] = useState('');
+  const [siteLogoSrc, setSiteLogoSrc] = useState("")
 
   useEffect(() => {
     const loadBrandLogo = async () => {
-      const logoSrc = await import('../common/assets/VisuAlgo.jpg').then(
+      const logoSrc = await import("../common/assets/VisuAlgo.jpg").then(
         (module) => module.default
-      );
-      setSiteLogoSrc(logoSrc);
-    };
-    loadBrandLogo();
-  }, []);
+      )
+      setSiteLogoSrc(logoSrc)
+    }
+    loadBrandLogo()
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -96,42 +96,46 @@ export default function Dashboard() {
           <Card className={classes.card}>
             <CardHeader
               avatar={
-                <Avatar aria-label={constants.BRAND_NAME} className={classes.avatar}>
+                <Avatar
+                  aria-label={constants.BRAND_NAME}
+                  className={classes.avatar}
+                >
                   AL
                 </Avatar>
               }
-              title={'Meet The Platform'}
+              title={"Meet The Platform"}
               titleTypographyProps={{
-                variant: 'h5',
-                color: 'primary',
+                variant: "h5",
+                color: "primary",
               }}
-              subheader='Initiative since Nov 2019'
+              subheader="Initiative since Nov 2019"
               subheaderTypographyProps={{
-                variant: 'subtitle1',
-                color: 'secondary',
+                variant: "subtitle1",
+                color: "secondary",
               }}
             />
             {siteLogoSrc ? (
               <CardMedia
                 src={siteLogoSrc}
                 title={constants.BRAND_NAME}
-                component='img'
+                component="img"
                 classes={{
                   img: classes.siteLogo,
                 }}
-                loading='lazy'
+                loading="lazy"
                 alt={constants.BRAND_NAME}
               />
             ) : (
-              <Placeholder variant='rect' height={400} />
+              <Placeholder variant="rect" height={400} />
             )}
             <CardContent>
-              <Typography variant='h5' color='textPrimary'>
-                {constants.BRAND_NAME} stands for Computer Science Visualizations
+              <Typography variant="h5" color="textPrimary">
+                {constants.BRAND_NAME} stands for Computer Science
+                Visualizations
               </Typography>
               {isDesktop && (
                 <Paper elevation={2} className={classes.paper}>
-                  <Typography variant='subtitle1'>{knowMoreText}</Typography>
+                  <Typography variant="subtitle1">{knowMoreText}</Typography>
                 </Paper>
               )}
             </CardContent>
@@ -139,5 +143,5 @@ export default function Dashboard() {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 }

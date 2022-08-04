@@ -1,5 +1,5 @@
-import React from 'react';
-import Board from '../../../../../common/components/Board';
+import React from "react"
+import Board from "../../../../../common/components/Board"
 import {
   Container,
   Row,
@@ -13,47 +13,47 @@ import {
   Input,
   InputGroupAddon,
   InputGroupText,
-} from 'reactstrap';
+} from "reactstrap"
 
 class Inp extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       input: null,
-    };
+    }
   }
   render() {
     return (
-      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
+      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
         <CardHeader>Queens on Board</CardHeader>
-        <CardBody className='text-center'>
+        <CardBody className="text-center">
           <CardTitle>Number</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType='prepend'>
+            <InputGroupAddon addonType="prepend">
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              type='number'
-              placeholder='Number of Queens on Board'
+              type="number"
+              placeholder="Number of Queens on Board"
               onChange={(event) => {
-                this.setState({ input: event.target.value });
+                this.setState({ input: event.target.value })
               }}
-              value={this.state.input ? this.state.input : ''}
+              value={this.state.input ? this.state.input : ""}
             />
           </InputGroup>
           <br />
           <Button
             onClick={() => {
-              this.props.parent.queens(parseInt(this.state.input));
-              this.setState({ input: null });
+              this.props.parent.queens(parseInt(this.state.input))
+              this.setState({ input: null })
             }}
           >
             Submit
           </Button>
         </CardBody>
       </Card>
-    );
+    )
   }
 }
 
@@ -62,16 +62,16 @@ export default class NQueens extends React.Component {
     queens: [],
     number: 0,
     disabled: false,
-  };
+  }
 
   safe(row, col) {
     if (this.state.disabled) {
       let queens = this.state.queens,
-        queen;
+        queen
       let markRow = {},
-        markCol = {};
+        markCol = {}
       for (let q = 0; q < queens.length - 1; q++) {
-        queen = queens[q];
+        queen = queens[q]
         if (
           markRow[queen.row] === true ||
           markCol[queen.col] === true ||
@@ -79,57 +79,57 @@ export default class NQueens extends React.Component {
             col !== queen.col &&
             Math.abs(row - queen.row) === Math.abs(col - queen.col))
         ) {
-          return false;
+          return false
         }
-        markRow[queen.row] = true;
-        markCol[queen.col] = true;
+        markRow[queen.row] = true
+        markCol[queen.col] = true
       }
-      if (markRow[row] === true || markCol[col] === true) return false;
-      return true;
+      if (markRow[row] === true || markCol[col] === true) return false
+      return true
     }
-    return false;
+    return false
   }
 
   place(row, col) {
     if (this.state.disabled) {
-      let size = this.state.number;
+      let size = this.state.number
       if (size === 0 || col === size || row < 0 || col < 0) {
-        return;
+        return
       }
       this.setState(
         (prevState) => {
-          let queens = [...prevState.queens];
-          queens.length = col;
-          queens.push({ row, col });
+          let queens = [...prevState.queens]
+          queens.length = col
+          queens.push({ row, col })
           return {
             queens,
-          };
+          }
         },
         () => {
           setTimeout(() => {
-            let safe = this.safe(row, col);
+            let safe = this.safe(row, col)
             if (safe) {
               if (this.state.queens.length < size) {
-                this.place(0, col + 1);
+                this.place(0, col + 1)
               } else {
                 this.setState(
                   {
                     disabled: false,
                   },
                   () => {
-                    alert('Found Solution. Continue !!!');
+                    alert("Found Solution. Continue !!!")
                   }
-                );
+                )
               }
             } else {
               if (row + 1 === size) {
-                let queens = [...this.state.queens];
+                let queens = [...this.state.queens]
                 if (queens.length >= 2) {
-                  row = queens[queens.length - 2].row;
+                  row = queens[queens.length - 2].row
                   if (row + 1 === size) {
                     if (queens.length >= 3) {
-                      row = queens[queens.length - 3].row;
-                      this.place(row + 1, col - 2);
+                      row = queens[queens.length - 3].row
+                      this.place(row + 1, col - 2)
                     } else {
                       this.setState(
                         {
@@ -137,13 +137,13 @@ export default class NQueens extends React.Component {
                         },
                         () => {
                           alert(
-                            'Did not Found Solution. Try different input !!!'
-                          );
+                            "Did not Found Solution. Try different input !!!"
+                          )
                         }
-                      );
+                      )
                     }
                   } else {
-                    this.place(row + 1, col - 1);
+                    this.place(row + 1, col - 1)
                   }
                 } else {
                   this.setState(
@@ -151,17 +151,17 @@ export default class NQueens extends React.Component {
                       disabled: false,
                     },
                     () => {
-                      alert('Did not Found Solution. Try different input !!!');
+                      alert("Did not Found Solution. Try different input !!!")
                     }
-                  );
+                  )
                 }
               } else {
-                this.place(row + 1, col);
+                this.place(row + 1, col)
               }
             }
-          }, 1000);
+          }, 1000)
         }
-      );
+      )
     }
   }
 
@@ -172,17 +172,17 @@ export default class NQueens extends React.Component {
           return {
             number: input,
             disabled: true,
-          };
+          }
         },
         () => {
-          this.place(0, 0);
+          this.place(0, 0)
         }
-      );
+      )
     } else {
       if (this.state.disabled) {
-        alert('Pending Operations');
+        alert("Pending Operations")
       } else {
-        alert('Uncomputable. Input supported 1 to 36');
+        alert("Uncomputable. Input supported 1 to 36")
       }
     }
   }
@@ -190,7 +190,7 @@ export default class NQueens extends React.Component {
   render() {
     return (
       <Container>
-        <Row className='text-center'>
+        <Row className="text-center">
           <Col sm={6}>
             <Inp parent={this} />
           </Col>
@@ -199,11 +199,11 @@ export default class NQueens extends React.Component {
           <Board
             size={this.state.number}
             queens={this.state.queens.map((queen) => {
-              return queen.row * this.state.number + queen.col;
+              return queen.row * this.state.number + queen.col
             })}
           ></Board>
         </Row>
       </Container>
-    );
+    )
   }
 }

@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from "react"
+import { withStyles } from "@material-ui/core/styles"
+import Button from "@material-ui/core/Button"
+import Dialog from "@material-ui/core/Dialog"
+import MuiDialogTitle from "@material-ui/core/DialogTitle"
+import MuiDialogContent from "@material-ui/core/DialogContent"
+import MuiDialogActions from "@material-ui/core/DialogActions"
+import IconButton from "@material-ui/core/IconButton"
+import CloseIcon from "@material-ui/icons/Close"
+import Typography from "@material-ui/core/Typography"
 const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
   },
   closeButton: {
-    position: 'absolute',
+    position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-});
+})
 
 const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
+  const { children, classes, onClose, ...other } = props
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant='h6'>{children}</Typography>
+      <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton
-          aria-label='close'
+          aria-label="close"
           className={classes.closeButton}
           onClick={onClose}
         >
@@ -36,34 +36,34 @@ const DialogTitle = withStyles(styles)((props) => {
         </IconButton>
       ) : null}
     </MuiDialogTitle>
-  );
-});
+  )
+})
 
 const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
-}))(MuiDialogContent);
+}))(MuiDialogContent)
 
 const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(1),
   },
-}))(MuiDialogActions);
+}))(MuiDialogActions)
 
 export default function CustomizedDialogs({ dialogConfig }) {
   useEffect(() => {
     if (dialogConfig && dialogConfig.open && dialogConfig.open.callback) {
-      dialogConfig.open.callback();
+      dialogConfig.open.callback()
     }
-  }, [dialogConfig]);
+  }, [dialogConfig])
 
   const handleClose = () => {
     if (dialogConfig && dialogConfig.close && dialogConfig.close.callback) {
-      dialogConfig.close.callback();
+      dialogConfig.close.callback()
     }
-  };
+  }
 
   const dialogueJSX = dialogConfig && (
     <Dialog
@@ -74,15 +74,15 @@ export default function CustomizedDialogs({ dialogConfig }) {
         (dialogConfig.close && dialogConfig.close.backdropDisabled) || false
       }
       onClose={() => {
-        handleClose();
+        handleClose()
       }}
-      aria-labelledby='customized-dialog-title'
+      aria-labelledby="customized-dialog-title"
       open={true}
     >
       <DialogTitle
-        id='customized-dialog-title'
+        id="customized-dialog-title"
         onClose={() => {
-          handleClose();
+          handleClose()
         }}
       >
         {dialogConfig.title}
@@ -95,13 +95,13 @@ export default function CustomizedDialogs({ dialogConfig }) {
             onClick={() => {
               if (dialogConfig.accept.callback) {
                 dialogConfig.accept.callback(() => {
-                  handleClose();
-                });
+                  handleClose()
+                })
               } else {
-                handleClose();
+                handleClose()
               }
             }}
-            color='primary'
+            color="primary"
           >
             {dialogConfig.accept.text}
           </Button>
@@ -113,20 +113,20 @@ export default function CustomizedDialogs({ dialogConfig }) {
             onClick={() => {
               if (dialogConfig.reject.callback) {
                 dialogConfig.reject.callback(() => {
-                  handleClose();
-                });
+                  handleClose()
+                })
               } else {
-                handleClose();
+                handleClose()
               }
             }}
-            color='secondary'
+            color="secondary"
           >
             {dialogConfig.reject.text}
           </Button>
         )}
       </DialogActions>
     </Dialog>
-  );
+  )
 
-  return <>{dialogueJSX}</>;
+  return <>{dialogueJSX}</>
 }
