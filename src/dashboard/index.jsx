@@ -10,7 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import useWindowDimensions from "../common/helpers/dimensions";
-import { BRAND_NAME } from "../common/helpers/constants";
+import constants from "../common/helpers/constants";
 import Placeholder from "../common/components/Placeholder";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +65,7 @@ export default function Dashboard() {
   const windowDimensions = useWindowDimensions();
   const isDesktop = windowDimensions.width > 768;
 
-  const knowMoreText = `${BRAND_NAME} is an excellent and proud platform designed by
+  const knowMoreText = `${constants.BRAND_NAME} is an excellent and proud platform designed by
   strongly passionate Computer Science alumni of Delhi
   Technological University, Delhi, India to bridge the gap
   between new comers in Computer Science and those who are
@@ -96,7 +96,7 @@ export default function Dashboard() {
           <Card className={classes.card}>
             <CardHeader
               avatar={
-                <Avatar aria-label={BRAND_NAME} className={classes.avatar}>
+                <Avatar aria-label={constants.BRAND_NAME} className={classes.avatar}>
                   AL
                 </Avatar>
               }
@@ -114,20 +114,20 @@ export default function Dashboard() {
             {siteLogoSrc ? (
               <CardMedia
                 src={siteLogoSrc}
-                title={BRAND_NAME}
+                title={constants.BRAND_NAME}
                 component="img"
                 classes={{
                   img: classes.siteLogo,
                 }}
                 loading="lazy"
-                alt={BRAND_NAME}
+                alt={constants.BRAND_NAME}
               />
             ) : (
               <Placeholder variant="rect" height={400} />
             )}
             <CardContent>
               <Typography variant="h5" color="textPrimary">
-                {BRAND_NAME} stands for Computer Science Visualizations
+                {constants.BRAND_NAME} stands for Computer Science Visualizations
               </Typography>
               {isDesktop && (
                 <Paper elevation={2} className={classes.paper}>
