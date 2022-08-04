@@ -493,7 +493,7 @@ export default class Array extends React.Component {
             return (
               <Grid
                 item sm={3}
-                key={value + "-" + index}
+                key={`${value}-${index}`}
               >
                 <Element
                   highlight={highlight}

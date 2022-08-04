@@ -192,7 +192,7 @@ export default function LinkedList() {
       set.length > 0 &&
       set.map((element, key) => {
         return (
-          <Fragment key={key + "-" + element}>
+          <Fragment key={`${key}-${element}`}>
             <Element
               data={{ value: Number(element) }}
               type="sets"

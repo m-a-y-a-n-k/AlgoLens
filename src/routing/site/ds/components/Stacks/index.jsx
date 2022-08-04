@@ -228,7 +228,7 @@ export default function Stack(props) {
               return (
                 <Element
                   highlight={highlight}
-                  key={value + "-" + index}
+                  key={`${value}-${index}`}
                   data={{ value, index }}
                   type="stack"
                 />

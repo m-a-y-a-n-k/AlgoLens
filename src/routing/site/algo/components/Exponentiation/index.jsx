@@ -163,7 +163,7 @@ export default class Exponent extends React.Component {
             this.state.result.map((value, index, result) => {
               if (index > 0) {
                 return (
-                  <React.Fragment key={"res_mul_val_" + index}>
+                  <React.Fragment key={`res_mul_val_${index}`}>
                     <FaTimes style={{ margin: "auto 5px" }} />
                     <Element data={{ value }} type="Array" />
                   </React.Fragment>

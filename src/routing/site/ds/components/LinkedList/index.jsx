@@ -255,7 +255,7 @@ export default function LinkedList() {
       while (curr) {
         if (curr.next) {
           list.push(
-            <Fragment key={key + "-" + curr.info}>
+            <Fragment key={`${key}-${curr.info}`}>
               <Element
                 data={{ value: curr.info }}
                 type="LinkedList"
@@ -266,7 +266,7 @@ export default function LinkedList() {
           );
         } else {
           list.push(
-            <Fragment key={key + "-" + curr.info}>
+            <Fragment key={`${key}-${curr.info}`}>
               <Element
                 data={{ value: curr.info }}
                 type="LinkedList"

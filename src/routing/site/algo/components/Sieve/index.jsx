@@ -150,8 +150,8 @@ export default class Sieve extends React.Component {
               return (
                 <Grid
                   item xs={3}
-                  key={value + "-" + index}
-                >
+                  key={`${value}-${index}`}
+                  >
                   <Element
                     highlight={highlight}
                     data={{ value, index }}

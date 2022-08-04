@@ -231,7 +231,7 @@ export default function Queues() {
       while (curr) {
         if (curr.next) {
           list.push(
-            <Fragment key={key + "-" + curr.info}>
+            <Fragment key={`${key}-${curr.info}`}>
               <Element
                 data={{ value: curr.info, index: key }}
                 type="queues"
@@ -242,7 +242,7 @@ export default function Queues() {
           );
         } else {
           list.push(
-            <Fragment key={key + "-" + curr.info}>
+            <Fragment key={`${key}-${curr.info}`}>
               <Element
                 data={{ value: curr.info, index: key }}
                 type="queues"

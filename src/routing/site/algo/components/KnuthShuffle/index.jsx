@@ -396,7 +396,7 @@ export default class KnuthShuffle extends React.Component {
             return (
               <Element
                 highlight={highlight}
-                key={value + "-" + index}
+                key={`${value}-${index}`}
                 data={{ value, index }}
                 type="array"
               />

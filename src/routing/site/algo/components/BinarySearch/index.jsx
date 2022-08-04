@@ -430,7 +430,7 @@ export default class BinarySearch extends React.Component {
             }
             return (
               <Grid item xs={3}
-                key={value + "-" + index}
+                key={`${value}-${index}`}
               >
                 <Element
                   highlight={highlight}

@@ -26,7 +26,7 @@ export default class Element extends React.Component {
         }
         element.push(
           <Box
-            key={this.props.data.index + this.props.data.value}
+            key={`${this.props.data.index}-${this.props.data.value}`}
             p={1}
             style={elStyles}
           >
@@ -68,7 +68,7 @@ export default class Element extends React.Component {
         }
         element = [
           <Box
-            key={this.props.data.value + this.props.data.index}
+            key={`${this.props.data.value}-${this.props.data.index}`}
             p={1}
             style={elStyles}
           >
@@ -84,7 +84,7 @@ export default class Element extends React.Component {
         if (this.props.next)
           element.push(
             <Box
-              key={this.props.data.index + this.props.data.value + "-nextLink"}
+              key={`${this.props.data.index}-${this.props.data.value}-nextlink`}
               component="span"
             >
               <Link direction="right" />
@@ -103,7 +103,7 @@ export default class Element extends React.Component {
         element = [
           <div>
             <Box
-              key={this.props.data.value + this.props.data.index}
+              key={`${this.props.data.value}-${this.props.data.index}`}
               p={1}
               style={elStyles}
             >
@@ -141,7 +141,7 @@ export default class Element extends React.Component {
         if (this.props.next)
           element.push(
             <Box
-              key={this.props.data.index + this.props.data.value + "-nextLink"}
+              key={`${this.props.data.index}-${this.props.data.value}-nextLink`}
               component="span"
             >
               <Link direction="right" />
