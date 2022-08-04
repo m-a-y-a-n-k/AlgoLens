@@ -422,7 +422,7 @@ export default class Visuals extends React.Component {
         }
         if (this.state.array.length > 0) {
           this.setState(
-            (prevState) => {
+            () => {
               let highlights = [],
                 s = Math.floor(start);
               start = s;

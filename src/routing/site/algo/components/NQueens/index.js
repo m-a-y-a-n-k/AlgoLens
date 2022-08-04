@@ -168,7 +168,7 @@ export default class NQueens extends React.Component {
   queens(input) {
     if (input >= 1 && input <= 36 && !this.state.disabled) {
       this.setState(
-        (prevState) => {
+        () => {
           return {
             number: input,
             disabled: true,

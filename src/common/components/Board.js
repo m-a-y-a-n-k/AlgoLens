@@ -23,7 +23,7 @@ export default class Board extends React.Component {
     cells: [],
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       let totalPieces = this.props.size * this.props.size,
         boards = document.querySelectorAll(".ch-board"),

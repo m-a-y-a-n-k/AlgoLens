@@ -126,7 +126,7 @@ export default function StickyFooter(props) {
     ),
     open: {
       animation: "fade-in",
-      callback: function (event) {},
+      callback: function () {},
     },
     close: {
       escDisabled: false,
