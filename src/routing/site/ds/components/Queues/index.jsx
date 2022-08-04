@@ -10,10 +10,10 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import Insert from "./Insert.js";
-import Delete from "./Delete.js";
-import Update from "./Update.js";
-import Search from "./Search.js";
+import Insert from "./Insert";
+import Delete from "./Delete";
+import Update from "./Update";
+import Search from "./Search";
 import Element from "../../../../../common/components/Element";
 
 const gridStyle = makeStyles((theme) => ({

@@ -21,7 +21,7 @@ function RouteSection() {
         <Route exact path="/" render={() => DynamicLoader(Dashboard)} />
         {siteSugg.map((site, index) => {
           const { route, path } = site;
-          const Component = lazy(() => import(`../${path}/index`));
+          const Component = lazy(() => import(`../${path}/index.jsx`));
           return (
             <Route
               exact
