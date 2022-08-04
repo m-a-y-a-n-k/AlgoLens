@@ -1,8 +1,8 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
-import { FaEquals, FaTimes } from "react-icons/fa";
-import { Button, Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core";
-import { Alert } from "reactstrap";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
+import { FaEquals, FaTimes } from 'react-icons/fa';
+import { Button, Card, CardContent, CardHeader, Grid, TextField } from '@material-ui/core';
+import { Alert } from 'reactstrap';
 
 class Inp extends React.Component {
   constructor(props) {
@@ -16,32 +16,32 @@ class Inp extends React.Component {
     return (
       <Card>
         <CardHeader
-          title={"Factorial Of Number"}
+          title={'Factorial Of Number'}
           titleTypographyProps={{
-            variant: "h5",
-            color: "primary",
+            variant: 'h5',
+            color: 'primary',
           }}
-          subheader="Finds the product 1 x 2 x 3 x .... upto a number N"
+          subheader='Finds the product 1 x 2 x 3 x .... upto a number N'
           subheaderTypographyProps={{
-            variant: "subtitle1",
-            color: "secondary",
+            variant: 'subtitle1',
+            color: 'secondary',
           }}
         ></CardHeader>
         <CardContent
-          style={{ display: "flex", flexDirection: "column" }} className="text-center">
+          style={{ display: 'flex", flexDirection: "column" }} className="text-center'>
           <TextField
             disabled={this.props.parent.state.disabled}
-            type="number"
-            label="Factorial Of Number"
+            type='number'
+            label='Factorial Of Number'
             onChange={(event) => {
               this.setState({ input: event.target.value });
             }}
-            value={this.state.input ?? ""}
+            value={this.state.input ?? ''}
           />
           <br />
           <Button
-            style={{ marginTop: 12, backgroundColor: "#403d4a", color: "white" }}
-            type="submit"
+            style={{ marginTop: 12, backgroundColor: '#403d4a", color: "white' }}
+            type='submit'
             disabled={this.props.parent.state.disabled}
             onClick={() => {
               this.props.parent.fact(parseInt(this.state.input));
@@ -79,13 +79,13 @@ export default class Factorial extends React.Component {
               alert: null,
             };
           }
-          if (!prevState.processed.includes("X")) {
+          if (!prevState.processed.includes('X')) {
             return {
               processed: `${prevState.processed} X ${prevState.rest}`,
               rest: prevState.rest >= 2 ? prevState.rest - 1 : 1,
             };
           } else {
-            let processed = prevState.processed.split(" X ");
+            let processed = prevState.processed.split(' X ');
             processed = parseFloat(processed[0]) * parseFloat(processed[1]);
 
             if (prevState.rest === 1) {
@@ -94,7 +94,7 @@ export default class Factorial extends React.Component {
                 input: null,
                 disabled: false,
                 alert:
-                  { text: "Factorial successfully computed", type: "success" }
+                  { text: 'Factorial successfully computed", type: "success' }
               };
             } else {
               return {
@@ -114,7 +114,7 @@ export default class Factorial extends React.Component {
     } else {
       this.setState({
         alert:
-          { text: "Factorial does not exist or too large", type: "danger" }
+          { text: 'Factorial does not exist or too large", type: "danger' }
       });
     }
   }
@@ -133,42 +133,42 @@ export default class Factorial extends React.Component {
             {this.state.alert.text}
           </Alert>
         </Grid>)}
-        <Grid container className="text-center">
+        <Grid container className='text-center'>
           <Grid item sm={12}>
             <Inp parent={this} />
           </Grid>
         </Grid>
 
         {parseInt(this.state.input) >= 0 && (
-          <Grid container className="text-center mt-4 mb-4">
+          <Grid container className='text-center mt-4 mb-4'>
             <Grid item sm={2}>
               <Element
                 highlight={true}
                 data={{ value: `${this.state.input}!` }}
-                type="Array"
+                type='Array'
               />
             </Grid>
             <Grid item sm={2}>
-              <FaEquals style={{ margin: "auto 5px" }} />
+              <FaEquals style={{ margin: 'auto 5px' }} />
             </Grid>
             <Grid item sm={3}>
-              <Element data={{ value: this.state.processed }} type="Array" />
+              <Element data={{ value: this.state.processed }} type='Array' />
             </Grid>
             <Grid item sm={2}>
-              <FaTimes style={{ margin: "auto 5px" }} />
+              <FaTimes style={{ margin: 'auto 5px' }} />
             </Grid>
             <Grid item sm={3}>
-              <Element data={{ value: `${this.state.rest}!` }} type="Array" />
+              <Element data={{ value: `${this.state.rest}!` }} type='Array' />
             </Grid>
           </Grid>
         )}
         {this.state.result && (
-          <Grid container className="text-center mt-4 mb-4">
+          <Grid container className='text-center mt-4 mb-4'>
             <Grid item xs={12}>
               <Element
                 highlight={true}
                 data={{ value: `${this.state.result}` }}
-                type="Array"
+                type='Array'
               />
             </Grid>
           </Grid>

@@ -1,5 +1,5 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
 import {
   Container,
   Row,
@@ -17,7 +17,7 @@ import {
   DropdownItem,
   InputGroupAddon,
   InputGroupText,
-} from "reactstrap";
+} from 'reactstrap';
 
 class Insert extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Insert extends React.Component {
     this.state = {
       dropdownOpen: false,
       data: null,
-      where: "Start",
+      where: 'Start',
     };
   }
 
@@ -40,9 +40,9 @@ class Insert extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Insert</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Enter data</CardTitle>
           <br />
           <InputGroup>
@@ -51,10 +51,10 @@ class Insert extends React.Component {
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ? this.state.data : ''}
             />
             <InputGroupButtonDropdown
-              addonType="append"
+              addonType='append'
               isOpen={this.state.dropdownOpen}
               toggle={this.toggleDropDown}
             >
@@ -62,7 +62,7 @@ class Insert extends React.Component {
               <DropdownMenu>
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "Start" });
+                    this.setState({ where: 'Start' });
                   }}
                 >
                   Start
@@ -70,10 +70,10 @@ class Insert extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "End" });
+                    this.setState({ where: 'End' });
                   }}
                 >
-                  {" "}
+                  {' '}
                   End
                 </DropdownItem>
               </DropdownMenu>
@@ -107,37 +107,37 @@ class Delete extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Delete</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Position or Value</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
               disabled={this.props.parent.state.disabled}
-              placeholder="Position"
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value, data: null });
               }}
-              value={this.state.position ? this.state.position : ""}
+              value={this.state.position ? this.state.position : ''}
             />
           </InputGroup>
           <br />
           <span>Or</span>
           <br />
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
               disabled={this.props.parent.state.disabled}
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value, position: null });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ? this.state.data : ''}
             />
           </InputGroup>
           <br />
@@ -177,36 +177,36 @@ class Update extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Update</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Value at Position</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
               disabled={this.props.parent.state.disabled}
-              type="number"
-              placeholder="Position"
+              type='number'
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value });
               }}
-              value={this.state.position ? this.state.position : ""}
+              value={this.state.position ? this.state.position : ''}
             />
           </InputGroup>
           <br />
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
               disabled={this.props.parent.state.disabled}
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ? this.state.data : ''}
             />
           </InputGroup>
           <br />
@@ -232,9 +232,9 @@ class Shuffle extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Knuths Shuffle</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>
             Shuffle (or Unshuffle) Array Randomly and Uniformly
           </CardTitle>
@@ -277,16 +277,16 @@ export default class KnuthShuffle extends React.Component {
     if (data) {
       let arr = this.state.array;
       switch (where.toLowerCase()) {
-        case "start":
+        case 'start':
           arr.splice(0, 0, data);
           break;
-        case "end":
+        case 'end':
         default:
           arr.splice(arr.length, 0, data);
       }
       this.setState({ array: arr, highlights: [], original: arr });
     } else {
-      alert("Submission is empty");
+      alert('Submission is empty');
     }
   }
 
@@ -301,13 +301,13 @@ export default class KnuthShuffle extends React.Component {
       if (!arr || arr.length === 0) arr = [];
       if (length !== arr.length)
         this.setState({ array: arr, highlights: [], original: arr });
-      else alert("Data not found to delete");
+      else alert('Data not found to delete');
     } else if (position >= 0 && position < arr.length) {
       arr = this.state.array;
       arr.splice(position, 1);
       this.setState({ array: arr, highlights: [], original: arr });
     } else {
-      alert("Unable to delete");
+      alert('Unable to delete');
     }
   }
 
@@ -324,7 +324,7 @@ export default class KnuthShuffle extends React.Component {
       highlights.push(parseInt(position));
       this.setState({ array: arr, highlights, original: arr });
     } else {
-      alert("Cannot update");
+      alert('Cannot update');
     }
   }
 
@@ -358,7 +358,7 @@ export default class KnuthShuffle extends React.Component {
     } else if (!i && this.state.array.length > 0) {
       this.shuffle(0);
     } else {
-      alert("Can't Shuffle empty array");
+      alert('Can't Shuffle empty array');
     }
   }
 
@@ -366,7 +366,7 @@ export default class KnuthShuffle extends React.Component {
     if (this.state.array.length > 0) {
       this.setState({ array: [...this.state.original] });
     } else {
-      alert("Array is empty");
+      alert('Array is empty');
     }
   }
 
@@ -387,7 +387,7 @@ export default class KnuthShuffle extends React.Component {
             <Shuffle parent={this} />
           </Col>
         </Row>
-        <Row className="mt-4 mb-4">
+        <Row className='mt-4 mb-4'>
           {this.state.array.map((value, index) => {
             let highlight = false;
             if (this.state.highlights.includes(index)) {
@@ -398,7 +398,7 @@ export default class KnuthShuffle extends React.Component {
                 highlight={highlight}
                 key={`${value}-${index}`}
                 data={{ value, index }}
-                type="array"
+                type='array'
               />
             );
           })}

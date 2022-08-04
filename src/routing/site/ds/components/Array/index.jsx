@@ -1,5 +1,5 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
 import {
   InputGroup,
   Input,
@@ -10,9 +10,9 @@ import {
   InputGroupAddon,
   InputGroupText,
   Alert,
-} from "reactstrap";
+} from 'reactstrap';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Grid } from "@material-ui/core";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Grid } from '@material-ui/core';
 
 class Insert extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Insert extends React.Component {
     this.state = {
       dropdownOpen: false,
       data: null,
-      where: "Start",
+      where: 'Start',
       alert: null,
     };
   }
@@ -39,17 +39,17 @@ class Insert extends React.Component {
     if (data) {
       let arr = this.props.array;
       switch (where.toLowerCase()) {
-        case "start":
+        case 'start':
           arr.splice(0, 0, data);
           break;
-        case "end":
+        case 'end':
         default:
           arr.splice(arr.length, 0, data);
       }
-      this.setState({ alert: { text: "Inserted successfully", type: "success", alertId: 1 } });
+      this.setState({ alert: { text: 'Inserted successfully", type: "success', alertId: 1 } });
       this.props.updateState({ array: arr, highlights: [] });
     } else {
-      this.setState({ alert: { text: "Submission is empty", type: "danger", alertId: 1 } });
+      this.setState({ alert: { text: 'Submission is empty", type: "danger', alertId: 1 } });
     }
   }
 
@@ -60,7 +60,7 @@ class Insert extends React.Component {
           expandIcon={<ExpandMoreIcon />}>
           Insert Element
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.state.alert &&
             this.state.alert.alertId === this.props.alertId && (<Alert
               color={this.state.alert.type}
@@ -76,10 +76,10 @@ class Insert extends React.Component {
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
             <InputGroupButtonDropdown
-              addonType="append"
+              addonType='append'
               isOpen={this.state.dropdownOpen}
               toggle={this.toggleDropDown}
             >
@@ -87,7 +87,7 @@ class Insert extends React.Component {
               <DropdownMenu>
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "Start" });
+                    this.setState({ where: 'Start' });
                   }}
                 >
                   Start
@@ -95,7 +95,7 @@ class Insert extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "End" });
+                    this.setState({ where: 'End' });
                   }}
                 >
                   End
@@ -104,8 +104,8 @@ class Insert extends React.Component {
             </InputGroupButtonDropdown>
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.insert(this.state.data, this.state.where);
               this.setState({ data: null });
@@ -131,7 +131,7 @@ class Delete extends React.Component {
       where: 0,
       alert: null,
     };
-    this.posOptions = ["Select", "Start", "End"];
+    this.posOptions = ['Select", "Start", "End'];
   }
 
   toggleDropDown() {
@@ -151,10 +151,10 @@ class Delete extends React.Component {
       });
     } else {
       switch (where.toLowerCase()) {
-        case "start":
+        case 'start':
           arr.splice(0, 1);
           break;
-        case "end":
+        case 'end':
           arr.splice(arr.length - 1, 1);
           break;
         default:
@@ -162,7 +162,7 @@ class Delete extends React.Component {
       }
     }
     this.setState({
-      alert: { text: present ? "Deleted Successfully" : exists ? "Value not present" : "Delete operation is invalid", type: present ? "success" : exists ? "warning" : "danger", alertId: 2 }
+      alert: { text: present ? 'Deleted Successfully" : exists ? "Value not present" : "Delete operation is invalid", type: present ? "success" : exists ? "warning" : "danger', alertId: 2 }
     });
     this.props.updateState({
       array: arr,
@@ -177,7 +177,7 @@ class Delete extends React.Component {
           expandIcon={<ExpandMoreIcon />}>
           Delete Element (Position or Value)
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.state.alert &&
             this.state.alert.alertId === this.props.alertId && (<Alert
               color={this.state.alert.type}
@@ -189,11 +189,11 @@ class Delete extends React.Component {
               {this.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <InputGroupButtonDropdown
-              addonType="append"
+              addonType='append'
               isOpen={this.state.dropdownOpen}
               toggle={this.toggleDropDown}
             >
@@ -209,7 +209,7 @@ class Delete extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: 1, data: "" });
+                    this.setState({ where: 1, data: '' });
                   }}
                 >
                   Start
@@ -217,7 +217,7 @@ class Delete extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: 2, data: "" });
+                    this.setState({ where: 2, data: '' });
                   }}
                 >
                   End
@@ -225,23 +225,23 @@ class Delete extends React.Component {
               </DropdownMenu>
             </InputGroupButtonDropdown>
           </InputGroup>
-          <span className="m-2">Or</span>
+          <span className='m-2'>Or</span>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value, where: 0 });
               }}
               disabled={!!this.state.where}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.delete(this.state.data, this.posOptions[this.state.where]);
               this.setState({ data: null });
@@ -288,14 +288,14 @@ class Update extends React.Component {
       arr[position] = value;
       highlights.push(parseInt(position));
       this.setState({
-        alert: { text: "Successfully updated check highlighted element", type: "success", alertId: 3 }
+        alert: { text: 'Successfully updated check highlighted element", type: "success', alertId: 3 }
       });
       this.props.updateState({
         array: arr, highlights,
       });
     } else {
       this.setState({
-        alert: { text: "Invalid update operation", type: "danger", alertId: 3 }
+        alert: { text: 'Invalid update operation", type: "danger', alertId: 3 }
       });
     }
   }
@@ -307,7 +307,7 @@ class Update extends React.Component {
           expandIcon={<ExpandMoreIcon />}>
           Update Element (Value at Position)
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.state.alert &&
             this.state.alert.alertId === this.props.alertId && (<Alert
               color={this.state.alert.type}
@@ -319,33 +319,33 @@ class Update extends React.Component {
               {this.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Position"
+              type='number'
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value });
               }}
-              value={this.state.position ?? ""}
+              value={this.state.position ?? ''}
             />
           </InputGroup>
-          <InputGroup className="mt-3">
-            <InputGroupAddon addonType="prepend">
+          <InputGroup className='mt-3'>
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.update(this.state.position, this.state.data);
               this.setState({ position: null, data: null });
@@ -390,8 +390,8 @@ class Search extends React.Component {
       this.setState({
         alert: {
           text: foundMatches
-            ? "Searched values are highlighted" : 'No matches found',
-          type: "success",
+            ? 'Searched values are highlighted' : 'No matches found',
+          type: 'success',
           alertId: 4
         }
       });
@@ -400,7 +400,7 @@ class Search extends React.Component {
       });
     } else {
       this.setState({
-        alert: { text: "Empty Search", type: "danger", alertId: 4 }
+        alert: { text: 'Empty Search", type: "danger', alertId: 4 }
       });
     }
   }
@@ -412,7 +412,7 @@ class Search extends React.Component {
           expandIcon={<ExpandMoreIcon />}>
           Search Element (Value at Position)
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.state.alert &&
             this.state.alert.alertId === this.props.alertId && (<Alert
               color={this.state.alert.type}
@@ -424,20 +424,20 @@ class Search extends React.Component {
               {this.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.search(this.state.data);
               this.setState({ data: null });
@@ -471,20 +471,20 @@ export default class Array extends React.Component {
     return (
       <Grid container>
         <Grid container>
-          <Grid item sm={12} className="mt-2">
+          <Grid item sm={12} className='mt-2'>
             <Insert array={this.state.array} updateState={this.updateState} alertId={1} />
           </Grid>
-          <Grid item sm={12} className="mt-2">
+          <Grid item sm={12} className='mt-2'>
             <Delete array={this.state.array} updateState={this.updateState}  alertId={2} />
           </Grid>
-          <Grid item sm={12} className="mt-2">
+          <Grid item sm={12} className='mt-2'>
             <Update array={this.state.array} updateState={this.updateState}  alertId={3} />
           </Grid>
-          <Grid item sm={12} className="mt-2">
+          <Grid item sm={12} className='mt-2'>
             <Search array={this.state.array} updateState={this.updateState}  alertId={4} />
           </Grid>
         </Grid>
-        <Grid container className="mt-4 mb-4">
+        <Grid container className='mt-4 mb-4'>
           {this.state.array.map((value, index) => {
             let highlight = false;
             if (this.state.highlights.includes(index)) {
@@ -498,7 +498,7 @@ export default class Array extends React.Component {
                 <Element
                   highlight={highlight}
                   data={{ value, index }}
-                  type="array"
+                  type='array'
                 />
               </Grid>
             );

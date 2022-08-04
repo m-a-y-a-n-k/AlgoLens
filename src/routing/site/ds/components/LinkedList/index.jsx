@@ -1,22 +1,22 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment } from 'react';
 
-import Element from "../../../../../common/components/Element";
+import Element from '../../../../../common/components/Element';
 
-import Insert from "./Insert";
-import Delete from "./Delete";
-import Update from "./Update";
-import Search from "./Search";
-import { Grid } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Paper from "@material-ui/core/Paper";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
+import Insert from './Insert';
+import Delete from './Delete';
+import Update from './Update';
+import Search from './Search';
+import { Grid } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Paper from '@material-ui/core/Paper';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const gridStyle = makeStyles((theme) => ({
   root: {
@@ -34,44 +34,44 @@ const gridStyle = makeStyles((theme) => ({
 
 const useStyles = makeStyles({
   root: {
-    "&:hover": {
-      backgroundColor: "transparent",
+    '&:hover': {
+      backgroundColor: 'transparent',
     },
   },
   icon: {
-    borderRadius: "50%",
+    borderRadius: '50%',
     width: 16,
     height: 16,
     boxShadow:
-      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
-    backgroundColor: "#f5f8fa",
+      'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+    backgroundColor: '#f5f8fa',
     backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
-    "$root.Mui-focusVisible &": {
-      outline: "2px auto rgba(19,124,189,.6)",
+      'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
+    '$root.Mui-focusVisible &': {
+      outline: '2px auto rgba(19,124,189,.6)',
       outlineOffset: 2,
     },
-    "input:hover ~ &": {
-      backgroundColor: "#ebf1f5",
+    'input:hover ~ &': {
+      backgroundColor: '#ebf1f5',
     },
-    "input:disabled ~ &": {
-      boxShadow: "none",
-      background: "rgba(206,217,224,.5)",
+    'input:disabled ~ &': {
+      boxShadow: 'none',
+      background: 'rgba(206,217,224,.5)',
     },
   },
   checkedIcon: {
-    backgroundColor: "#137cbd",
+    backgroundColor: '#137cbd',
     backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
-    "&:before": {
-      display: "block",
+      'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+    '&:before': {
+      display: 'block',
       width: 16,
       height: 16,
-      backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
-      content: '""',
+      backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
+      content: '''',
     },
-    "input:hover ~ &": {
-      backgroundColor: "#106ba3",
+    'input:hover ~ &': {
+      backgroundColor: '#106ba3',
     },
   },
 });
@@ -83,7 +83,7 @@ function StyledRadio(props) {
     <Radio
       className={classes.root}
       disableRipple
-      color="default"
+      color='default'
       checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
       icon={<span className={classes.icon} />}
       {...props}
@@ -122,11 +122,11 @@ export default function LinkedList() {
         setHead({ ...newNode });
       } else {
         switch (where.toLowerCase()) {
-          case "start":
+          case 'start':
             newNode.next = head;
             setHead({ ...newNode });
             break;
-          case "end":
+          case 'end':
           default:
             curr = head;
             while (curr.next) {
@@ -138,10 +138,10 @@ export default function LinkedList() {
       }
       setRendered(false);
     } else {
-      alert("Empty Insert");
+      alert('Empty Insert');
     }
   };
-  //----------Using "del" instead of delete is some keyword
+  //----------Using 'del' instead of delete is some keyword
   let del = (data, where, position) => {
     if (head) {
       clear();
@@ -172,16 +172,16 @@ export default function LinkedList() {
           if (curr && curr.next) {
             curr.next = curr.next.next;
           } else {
-            alert("No element to delete");
+            alert('No element to delete');
           }
         }
         setHead(head);
       } else if (where) {
         switch (where) {
-          case "start":
+          case 'start':
             head = head.next;
             break;
-          case "end":
+          case 'end':
             let curr = head;
             if (!head.next) {
               head = null;
@@ -198,11 +198,11 @@ export default function LinkedList() {
         }
         setHead(head);
       } else {
-        alert("Invalid Deletion Exception");
+        alert('Invalid Deletion Exception');
       }
       setRendered(false);
     } else {
-      alert("List is empty");
+      alert('List is empty');
     }
   };
   //Update------------------------------------------------------
@@ -220,10 +220,10 @@ export default function LinkedList() {
         setHead(head1);
         setRendered(false);
       } else {
-        alert("Position out of bounds");
+        alert('Position out of bounds');
       }
     } else {
-      alert("Cannot update");
+      alert('Cannot update');
     }
   };
 
@@ -243,7 +243,7 @@ export default function LinkedList() {
       setHead(head1);
       setRendered(false);
     } else {
-      alert("Empty Search");
+      alert('Empty Search');
     }
   };
 
@@ -258,7 +258,7 @@ export default function LinkedList() {
             <Fragment key={`${key}-${curr.info}`}>
               <Element
                 data={{ value: curr.info }}
-                type="LinkedList"
+                type='LinkedList'
                 next={true}
                 highlight={curr.highlight}
               />
@@ -269,7 +269,7 @@ export default function LinkedList() {
             <Fragment key={`${key}-${curr.info}`}>
               <Element
                 data={{ value: curr.info }}
-                type="LinkedList"
+                type='LinkedList'
                 next={false}
                 highlight={curr.highlight}
               />
@@ -293,68 +293,68 @@ export default function LinkedList() {
 
   return (
     <div className={gridclass.root}>
-      <Grid container direction="row" justify="left" alignItems="center">
+      <Grid container direction='row" justify="left" alignItems="center'>
         <Grid container sm={4}>
           <Paper className={gridclass.paper}>
-            <Grid item xs={12} sm={12} spacing={3} alignItems="center">
+            <Grid item xs={12} sm={12} spacing={3} alignItems='center'>
               <Card>
-                <h6 className="bg-primary text-center text-white p-3">
+                <h6 className='bg-primary text-center text-white p-3'>
                   Operations
                 </h6>
-                <CardContent className="pl-0 pr-0 pt-0 text-left">
-                  <FormControl className="pl-3" component="fieldset">
-                    <FormLabel component="legend"></FormLabel>
-                    <RadioGroup aria-label="gender" name="customized-radios">
+                <CardContent className='pl-0 pr-0 pt-0 text-left'>
+                  <FormControl className='pl-3" component="fieldset'>
+                    <FormLabel component='legend'></FormLabel>
+                    <RadioGroup aria-label='gender" name="customized-radios'>
                       <FormControlLabel
-                        value="Insert"
+                        value='Insert'
                         onChange={showoperation}
                         control={<StyledRadio />}
-                        label="Insert"
+                        label='Insert'
                       />
                       <FormControlLabel
-                        value="Delete"
+                        value='Delete'
                         onChange={showoperation}
                         control={<StyledRadio />}
-                        label="Delete"
+                        label='Delete'
                       />
                       <FormControlLabel
-                        value="Update"
+                        value='Update'
                         onChange={showoperation}
                         control={<StyledRadio />}
-                        label="Update"
+                        label='Update'
                       />
                       <FormControlLabel
-                        value="Search"
+                        value='Search'
                         onChange={showoperation}
                         control={<StyledRadio />}
-                        label="Search"
+                        label='Search'
                       />
                     </RadioGroup>
                   </FormControl>
                 </CardContent>
               </Card>
             </Grid>
-            <Grid className="mt-3" item spacing={4} xs={12} sm={12}>
+            <Grid className='mt-3' item spacing={4} xs={12} sm={12}>
               <Insert
-                open={radioVal === "Insert"}
+                open={radioVal === 'Insert'}
                 insert={(data, where) => {
                   insert(data, where);
                 }}
               />
               <Search
-                open={radioVal === "Search"}
+                open={radioVal === 'Search'}
                 search={(data) => {
                   search(data);
                 }}
               />
               <Delete
-                open={radioVal === "Delete"}
+                open={radioVal === 'Delete'}
                 del={(data, where, position) => {
                   del(data, where, position);
                 }}
               />
               <Update
-                open={radioVal === "Update"}
+                open={radioVal === 'Update'}
                 update={(position, value) => {
                   update(position, value);
                 }}

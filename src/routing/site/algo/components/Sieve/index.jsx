@@ -1,7 +1,7 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
-import { Button, Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core";
-import { Alert } from "reactstrap";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
+import { Button, Card, CardContent, CardHeader, Grid, TextField } from '@material-ui/core';
+import { Alert } from 'reactstrap';
 
 class Range extends React.Component {
   constructor(props) {
@@ -16,40 +16,40 @@ class Range extends React.Component {
     return (
       <Card>
         <CardHeader
-          title={"Primes in Range"}
+          title={'Primes in Range'}
           titleTypographyProps={{
-            variant: "h5",
-            color: "primary",
+            variant: 'h5',
+            color: 'primary',
           }}
-          subheader="Find primes from start to end number in range"
+          subheader='Find primes from start to end number in range'
           subheaderTypographyProps={{
-            variant: "subtitle1",
-            color: "secondary",
+            variant: 'subtitle1',
+            color: 'secondary',
           }}
         />
-        <CardContent style={{ display: "flex", flexDirection: "column" }}>
+        <CardContent style={{ display: 'flex", flexDirection: "column' }}>
           <TextField
-            type="number"
-            label="Start of Range"
-            color="secondary"
+            type='number'
+            label='Start of Range'
+            color='secondary'
             onChange={(event) => {
               this.setState({ start: event.target.value });
             }}
-            value={this.state.start ?? ""}
+            value={this.state.start ?? ''}
           />
           <TextField
-            type="number"
-            label="End of Range"
-            color="secondary"
-            className="mt-2"
+            type='number'
+            label='End of Range'
+            color='secondary'
+            className='mt-2'
             onChange={(event) => {
               this.setState({ end: event.target.value });
             }}
-            value={this.state.end ?? ""}
+            value={this.state.end ?? ''}
           />
           <Button
-            style={{ marginTop: 12, backgroundColor: "#403d4a", color: "white" }}
-            type="submit"
+            style={{ marginTop: 12, backgroundColor: '#403d4a", color: "white' }}
+            type='submit'
             onClick={() => {
               this.props.parent.sieve(
                 parseInt(this.state.start),
@@ -95,7 +95,7 @@ export default class Sieve extends React.Component {
       if (end - start >= 1000 || end > 100000000) {
         this.setState({
           alert:
-            { text: "Too big range not supported yet", type: "danger" }
+            { text: 'Too big range not supported yet", type: "danger' }
         });
         return;
       }
@@ -115,12 +115,12 @@ export default class Sieve extends React.Component {
       }
       this.setState({
         numbers, alert:
-          { text: "The prime ones are highlighted in green", type: "success" }
+          { text: 'The prime ones are highlighted in green", type: "success' }
       });
     } else {
       this.setState({
         alert:
-          { text: "Invalid Range or No primes in Range", type: "danger" }
+          { text: 'Invalid Range or No primes in Range", type: "danger' }
       });
     }
   }
@@ -138,12 +138,12 @@ export default class Sieve extends React.Component {
           {this.state.alert.text}
         </Alert>)}
         <Grid container>
-          <Grid container className="text-center">
+          <Grid container className='text-center'>
             <Grid item xs={12}>
               <Range parent={this} />
             </Grid>
           </Grid>
-          <Grid container className="mt-4 mb-4 text-center">
+          <Grid container className='mt-4 mb-4 text-center'>
             {this.state.numbers.map((data, index) => {
               let highlight = data.prime || false,
                 value = data.value;
@@ -155,7 +155,7 @@ export default class Sieve extends React.Component {
                   <Element
                     highlight={highlight}
                     data={{ value, index }}
-                    type="array"
+                    type='array'
                   />
                 </Grid>
               );

@@ -1,18 +1,18 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
 import {
   InputGroup,
   Input,
   InputGroupAddon,
   InputGroupText,
   Alert,
-} from "reactstrap";
+} from 'reactstrap';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 class Insert extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class Insert extends React.Component {
           expandIcon={<ExpandMoreIcon />}>
           Insert Sorted Data
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.props.parent.state.alert &&
             this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
               color={this.props.parent.state.alert.type}
@@ -42,20 +42,20 @@ class Insert extends React.Component {
               {this.props.parent.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
+              type='number'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.props.parent.insert(parseFloat(this.state.data));
               this.setState({ data: null });
@@ -85,7 +85,7 @@ class Delete extends React.Component {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           Delete Position or Value
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.props.parent.state.alert &&
             this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
               color={this.props.parent.state.alert.type}
@@ -97,38 +97,38 @@ class Delete extends React.Component {
               {this.props.parent.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Position"
+              type='number'
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value, data: null });
               }}
               disabled={this.state.data}
-              value={this.state.position ?? ""}
+              value={this.state.position ?? ''}
             />
           </InputGroup>
           <InputGroup
-            className="mt-3"
+            className='mt-3'
           >
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Value"
+              type='number'
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value, position: null });
               }}
               disabled={this.state.position}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.props.parent.delete(parseFloat(this.state.data), parseFloat(this.state.position));
               this.setState({ data: null, position: null });
@@ -158,7 +158,7 @@ class Update extends React.Component {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           Update Value at Position
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.props.parent.state.alert &&
             this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
               color={this.props.parent.state.alert.type}
@@ -170,36 +170,36 @@ class Update extends React.Component {
               {this.props.parent.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Position"
+              type='number'
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value });
               }}
-              value={this.state.position ?? ""}
+              value={this.state.position ?? ''}
             />
           </InputGroup>
           <InputGroup
-            className="mt-3"
+            className='mt-3'
           >
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Value"
+              type='number'
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.props.parent.update(parseFloat(this.state.position), parseFloat(this.state.data));
               this.setState({ position: null, data: null });
@@ -228,7 +228,7 @@ class Search extends React.Component {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           Search a Value
         </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
+        <AccordionDetails style={{ flexDirection: 'column' }}>
           {this.props.parent.state.alert &&
             this.props.parent.state.alert.alertId === this.props.alertId && (<Alert
               color={this.props.parent.state.alert.type}
@@ -240,21 +240,21 @@ class Search extends React.Component {
               {this.props.parent.state.alert.text}
             </Alert>)}
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Value"
+              type='number'
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ?? ""}
+              value={this.state.data ?? ''}
             />
           </InputGroup>
           <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
+            className='mt-4'
+            style={{ backgroundColor: '#403d4a", color: "white' }}
             onClick={() => {
               this.props.parent.search(parseFloat(this.state.data));
               this.setState({ data: null });
@@ -288,7 +288,7 @@ export default class BinarySearch extends React.Component {
       this.setState({ array: arr, highlights: [], iter: 0, alert: null });
       return i;
     }
-    this.setState({ alert: { text: "Submission is empty", type: "danger", alertId: 1 } });
+    this.setState({ alert: { text: 'Submission is empty", type: "danger', alertId: 1 } });
     return null;
   }
 
@@ -302,13 +302,13 @@ export default class BinarySearch extends React.Component {
       if (!arr || arr.length === 0) arr = [];
       if (length !== arr.length) this.setState({ array: arr, highlights: [], alert: null });
       else
-        this.setState({ alert: { text: "Data not found to delete", type: "danger", alertId: 2 } });
+        this.setState({ alert: { text: 'Data not found to delete", type: "danger', alertId: 2 } });
     } else if (position >= 0 && position < arr.length) {
       arr = this.state.array;
       arr.splice(position, 1);
       this.setState({ array: arr, highlights: [], iter: 0, alert: null });
     } else {
-      this.setState({ alert: { text: "Unable to delete", type: "danger", alertId: 2 } });
+      this.setState({ alert: { text: 'Unable to delete", type: "danger', alertId: 2 } });
     }
   }
 
@@ -323,7 +323,7 @@ export default class BinarySearch extends React.Component {
       highlights.push(position);
       this.setState({ highlights, iter: 0, alert: null });
     } else {
-      this.setState({ alert: { text: "Data not found to update", type: "danger", alertId: 3 } });
+      this.setState({ alert: { text: 'Data not found to update", type: "danger', alertId: 3 } });
     }
   }
 
@@ -401,7 +401,7 @@ export default class BinarySearch extends React.Component {
         }, .75 * 1000);
       });
     } else {
-      this.setState({ alert: { text: "Empty Search", type: "danger", alertId: 4 } });
+      this.setState({ alert: { text: 'Empty Search", type: "danger', alertId: 4 } });
     }
   }
 
@@ -409,20 +409,20 @@ export default class BinarySearch extends React.Component {
     return (
       <Grid container>
         <Grid container>
-          <Grid item xs={12} className="mt-2">
+          <Grid item xs={12} className='mt-2'>
             <Insert parent={this} alertId={1} />
           </Grid>
-          <Grid item xs={12} className="mt-2">
+          <Grid item xs={12} className='mt-2'>
             <Delete parent={this} alertId={2} />
           </Grid>
-          <Grid item xs={12} className="mt-2">
+          <Grid item xs={12} className='mt-2'>
             <Update parent={this} alertId={3} />
           </Grid>
-          <Grid item xs={12} className="mt-2">
+          <Grid item xs={12} className='mt-2'>
             <Search parent={this} alertId={4} />
           </Grid>
         </Grid>
-        <Grid container className="mt-4 mb-4">
+        <Grid container className='mt-4 mb-4'>
           {this.state.array.map((value, index) => {
             let highlight = false;
             if (this.state.highlights.includes(index)) {
@@ -435,13 +435,13 @@ export default class BinarySearch extends React.Component {
                 <Element
                   highlight={highlight}
                   data={{ value, index }}
-                  type="array"
+                  type='array'
                 />
               </Grid>
             );
           })}
         </Grid>
-        <Grid item xs={12} className="mt-4 mb-4">
+        <Grid item xs={12} className='mt-4 mb-4'>
           Steps : {this.state.iter}
         </Grid>
       </Grid>

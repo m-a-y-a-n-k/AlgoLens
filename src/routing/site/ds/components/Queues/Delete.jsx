@@ -1,11 +1,11 @@
-import React from "react";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
+import React from 'react';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
 
 //styling the form and component
 const useStyles = makeStyles((theme) => ({
@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 3,
   },
   bullet: {
-    display: "inline-block",
-    margin: "0 8px",
-    transform: "scale(0.8)",
+    display: 'inline-block',
+    margin: '0 8px',
+    transform: 'scale(0.8)',
   },
   title: {
     fontSize: 14,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Delete(props) {
   ///--------- Select the start or end input type ------------
   const classes = useStyles();
-  let where = "start";
+  let where = 'start';
 
   //-----------------------------------------------------------------
 
@@ -44,24 +44,24 @@ export default function Delete(props) {
     return (
       <Card
         className={classes.root}
-        style={{ border: "1px solid rgba(22,45,167,0.9)" }}
+        style={{ border: '1px solid rgba(22,45,167,0.9)' }}
       >
-        <CardContent className="bg-primary text-white ">
-          <Typography variant="h5" component="h2">
-            {" "}
+        <CardContent className='bg-primary text-white '>
+          <Typography variant='h5" component="h2'>
+            {' '}
             Delete
           </Typography>
         </CardContent>
 
         <CardActions>
-          <FormControl variant="outlined" className={classes.formControl}>
+          <FormControl variant='outlined' className={classes.formControl}>
             <Button
-              className="mt-2"
+              className='mt-2'
               onClick={() => {
                 props.del(where); // calling the del function of the LinkList compoent
               }}
-              variant="outlined"
-              color="primary"
+              variant='outlined'
+              color='primary'
             >
               DELETE
             </Button>

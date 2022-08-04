@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
   Row,
@@ -10,8 +10,8 @@ import {
   InputGroup,
   Input,
   Alert,
-} from "reactstrap";
-import SketchPicker from "react-color";
+} from 'reactstrap';
+import SketchPicker from 'react-color';
 
 class CanvasImage extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -19,10 +19,10 @@ class CanvasImage extends React.Component {
   }
 
   captureMousePixel(event) {
-    let image = document.getElementById("cusImage"),
-      details = document.getElementById("detailsPane");
+    let image = document.getElementById('cusImage'),
+      details = document.getElementById('detailsPane');
     let imageData = image
-      .getContext("2d")
+      .getContext('2d')
       .getImageData(
         event.nativeEvent.offsetX,
         event.nativeEvent.offsetY,
@@ -31,13 +31,13 @@ class CanvasImage extends React.Component {
       );
     let pixelData = imageData.data;
     details.innerHTML =
-      "R: " +
+      'R: ' +
       pixelData[0] +
-      "<br>G: " +
+      '<br>G: ' +
       pixelData[1] +
-      "<br>B: " +
+      '<br>B: ' +
       pixelData[2] +
-      "<br>A: " +
+      '<br>A: ' +
       pixelData[3];
   }
 
@@ -45,7 +45,7 @@ class CanvasImage extends React.Component {
     hex
       .replace(
         /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-        (m, r, g, b) => "#" + r + r + g + g + b + b
+        (m, r, g, b) => '#' + r + r + g + g + b + b
       )
       .substring(1)
       .match(/.{2}/g)
@@ -57,7 +57,7 @@ class CanvasImage extends React.Component {
     }
 
     let pixelData = image
-      .getContext("2d")
+      .getContext('2d')
       .getImageData(xPos, yPos, image.width, image.height).data;
 
     if (
@@ -69,7 +69,7 @@ class CanvasImage extends React.Component {
     }
 
     let rgb = this.hexToRgb(fillColor);
-    let imageData = image.getContext("2d").createImageData(1, 1);
+    let imageData = image.getContext('2d').createImageData(1, 1);
 
     pixelData = imageData.data;
     pixelData[0] = rgb[0];
@@ -77,7 +77,7 @@ class CanvasImage extends React.Component {
     pixelData[2] = rgb[2];
     pixelData[3] = 255;
 
-    image.getContext("2d").putImageData(imageData, xPos, yPos);
+    image.getContext('2d').putImageData(imageData, xPos, yPos);
 
     // Flood fill recursion
     setTimeout(() => {
@@ -109,13 +109,13 @@ class CanvasImage extends React.Component {
   render() {
     return (
       <canvas
-        id="cusImage"
-        width="360"
-        height="360"
+        id='cusImage'
+        width='360'
+        height='360'
         style={{
-          cursor: "crosshair",
-          margin: "5% auto",
-          border: "1px solid #bbb",
+          cursor: 'crosshair',
+          margin: '5% auto',
+          border: '1px solid #bbb',
         }}
         onMouseMove={(event) => {
           this.captureMousePixel(event);
@@ -124,9 +124,9 @@ class CanvasImage extends React.Component {
           let xPos = event.nativeEvent.offsetX;
           let yPos = event.nativeEvent.offsetY;
 
-          let image = document.getElementById("cusImage");
+          let image = document.getElementById('cusImage');
           let imageData = image
-            .getContext("2d")
+            .getContext('2d')
             .getImageData(xPos, yPos, image.width, image.height);
           let originalRgb = imageData.data;
 
@@ -141,14 +141,14 @@ class DetailsPane extends React.Component {
   render() {
     return (
       <div
-        id="detailsPane"
+        id='detailsPane'
         style={{
-          position: "relative",
-          top: "50%",
-          margin: "auto",
-          height: "100px",
-          width: "200px",
-          border: "1px solid #bbb",
+          position: 'relative',
+          top: '50%',
+          margin: 'auto',
+          height: '100px',
+          width: '200px',
+          border: '1px solid #bbb',
         }}
       ></div>
     );
@@ -163,7 +163,7 @@ export default class FloodFill extends React.Component {
     this.state = {
       hasImage: false,
       alert: null,
-      background: "#fff",
+      background: '#fff',
     };
   }
 
@@ -177,9 +177,9 @@ export default class FloodFill extends React.Component {
       img = new Image();
     let file = event.target.files[0];
 
-    if (file.type.indexOf("image") === -1) {
+    if (file.type.indexOf('image') === -1) {
       self.setState(
-        { hasImage: false, alert: "Please upload an image" },
+        { hasImage: false, alert: 'Please upload an image' },
         () => {
           setTimeout(() => {
             self.setState({ alert: null });
@@ -194,11 +194,11 @@ export default class FloodFill extends React.Component {
         {
           hasImage: true,
           alert:
-            "Click at position in image to start flood fill with color of choice",
+            'Click at position in image to start flood fill with color of choice',
         },
         () => {
-          var canvas = document.getElementById("cusImage");
-          var ctx = canvas.getContext("2d");
+          var canvas = document.getElementById('cusImage');
+          var ctx = canvas.getContext('2d');
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0, 360, 360);
 
@@ -217,21 +217,21 @@ export default class FloodFill extends React.Component {
         <Row>
           <Col sm={12}>
             {this.state.alert && (
-              <Alert color="primary">{this.state.alert}</Alert>
+              <Alert color='primary'>{this.state.alert}</Alert>
             )}
           </Col>
         </Row>
         <Row>
           <Col sm={6}>
-            <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+            <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
               <CardHeader>Flood Fill Algorithm on Custom Image</CardHeader>
-              <CardBody className="text-center">
+              <CardBody className='text-center'>
                 <CardTitle>Choose Custom Image</CardTitle>
                 <InputGroup>
                   <Input
-                    id="getCustomImage"
-                    type="file"
-                    placeholder="Custom Image"
+                    id='getCustomImage'
+                    type='file'
+                    placeholder='Custom Image'
                     onChange={this.getCustomImage}
                   />
                 </InputGroup>

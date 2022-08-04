@@ -1,5 +1,5 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
 import {
   Container,
   Row,
@@ -17,7 +17,7 @@ import {
   DropdownToggle,
   DropdownItem,
   DropdownMenu,
-} from "reactstrap";
+} from 'reactstrap';
 
 class Insert extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Insert extends React.Component {
     this.state = {
       dropdownOpen: false,
       data: null,
-      where: "Start",
+      where: 'Start',
     };
   }
 
@@ -40,9 +40,9 @@ class Insert extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Insert</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Enter data</CardTitle>
           <br />
           <InputGroup>
@@ -50,10 +50,10 @@ class Insert extends React.Component {
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ? this.state.data : ''}
             />
             <InputGroupButtonDropdown
-              addonType="append"
+              addonType='append'
               isOpen={this.state.dropdownOpen}
               toggle={this.toggleDropDown}
             >
@@ -61,7 +61,7 @@ class Insert extends React.Component {
               <DropdownMenu>
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "Start" });
+                    this.setState({ where: 'Start' });
                   }}
                 >
                   Start
@@ -69,10 +69,10 @@ class Insert extends React.Component {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() => {
-                    this.setState({ where: "End" });
+                    this.setState({ where: 'End' });
                   }}
                 >
-                  {" "}
+                  {' '}
                   End
                 </DropdownItem>
               </DropdownMenu>
@@ -105,35 +105,35 @@ class Delete extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Delete</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Position or Value</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Position"
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value, data: null });
               }}
-              value={this.state.position ? this.state.position : ""}
+              value={this.state.position ? this.state.position : ''}
             />
           </InputGroup>
           <br />
           <span>Or</span>
           <br />
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value, position: null });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ? this.state.data : ''}
             />
           </InputGroup>
           <br />
@@ -163,34 +163,34 @@ class Update extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Update</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Value at Position</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Position</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Position"
+              type='number'
+              placeholder='Position'
               onChange={(event) => {
                 this.setState({ position: event.target.value });
               }}
-              value={this.state.position ? this.state.position : ""}
+              value={this.state.position ? this.state.position : ''}
             />
           </InputGroup>
           <br />
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Value"
+              placeholder='Value'
               onChange={(event) => {
                 this.setState({ data: event.target.value });
               }}
-              value={this.state.data ? this.state.data : ""}
+              value={this.state.data ? this.state.data : ''}
             />
           </InputGroup>
           <br />
@@ -220,32 +220,32 @@ class Peak extends React.Component {
 
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Peak</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Any One Peak inside Range</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Start</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="Start"
+              placeholder='Start'
               onChange={(event) => {
                 this.setState({ start: event.target.value });
               }}
-              value={this.state.start ? this.state.start : ""}
+              value={this.state.start ? this.state.start : ''}
             />
           </InputGroup>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>End</InputGroupText>
             </InputGroupAddon>
             <Input
-              placeholder="End"
+              placeholder='End'
               onChange={(event) => {
                 this.setState({ end: event.target.value });
               }}
-              value={this.state.end ? this.state.end : ""}
+              value={this.state.end ? this.state.end : ''}
             />
           </InputGroup>
           <br />
@@ -274,16 +274,16 @@ export default class Visuals extends React.Component {
     if (data) {
       let arr = this.state.array;
       switch (where.toLowerCase()) {
-        case "start":
+        case 'start':
           arr.splice(0, 0, data);
           break;
-        case "end":
+        case 'end':
         default:
           arr.splice(arr.length, 0, data);
       }
       this.setState({ array: arr, highlights: [] });
     } else {
-      alert("Submission is empty");
+      alert('Submission is empty');
     }
   }
 
@@ -297,13 +297,13 @@ export default class Visuals extends React.Component {
       });
       if (!arr || arr.length === 0) arr = [];
       if (length !== arr.length) this.setState({ array: arr, highlights: [] });
-      else alert("Data not found to delete");
+      else alert('Data not found to delete');
     } else if (position >= 0 && position < arr.length) {
       arr = this.state.array;
       arr.splice(position, 1);
       this.setState({ array: arr, highlights: [], iter: 0 });
     } else {
-      alert("Unable to delete");
+      alert('Unable to delete');
     }
   }
 
@@ -320,7 +320,7 @@ export default class Visuals extends React.Component {
       highlights.push(parseInt(position));
       this.setState({ array: arr, highlights });
     } else {
-      alert("Cannot update");
+      alert('Cannot update');
     }
   }
 
@@ -341,7 +341,7 @@ export default class Visuals extends React.Component {
         return { r: true };
       }
       if (midEle <= midLessEle) {
-        return { r: false, d: "left" };
+        return { r: false, d: 'left' };
       }
     } else if (mid === start && mid < end) {
       let midMoreEle =
@@ -359,9 +359,9 @@ export default class Visuals extends React.Component {
       if (midEle >= midLessEle) {
         return { r: true };
       }
-      return { r: false, d: "left" };
+      return { r: false, d: 'left' };
     }
-    return { r: false, d: "right" };
+    return { r: false, d: 'right' };
   }
 
   bsPeak(start, end, arr) {
@@ -375,9 +375,9 @@ export default class Visuals extends React.Component {
       this.setState((prevState) => {
         let highlights = prevState.highlights;
         highlights = [mid];
-        return { highlights, iter: "Completed" };
+        return { highlights, iter: 'Completed' };
       });
-    } else if (d === "right") {
+    } else if (d === 'right') {
       this.setState(
         (prevState) => {
           let highlights = prevState.highlights;
@@ -393,7 +393,7 @@ export default class Visuals extends React.Component {
           }, 1000);
         }
       );
-    } else if (d === "left") {
+    } else if (d === 'left') {
       this.setState(
         (prevState) => {
           let highlights = prevState.highlights;
@@ -417,7 +417,7 @@ export default class Visuals extends React.Component {
     if (start && end) {
       if (start === Math.floor(start) && end === Math.floor(end)) {
         if (start > end) {
-          alert("Start should be less than end");
+          alert('Start should be less than end');
           return;
         }
         if (this.state.array.length > 0) {
@@ -440,13 +440,13 @@ export default class Visuals extends React.Component {
             }
           );
         } else {
-          alert("No peak in empty array");
+          alert('No peak in empty array');
         }
       } else {
-        alert("Enter integers only");
+        alert('Enter integers only');
       }
     } else {
-      alert("Incomplete Range");
+      alert('Incomplete Range');
     }
   }
 
@@ -467,7 +467,7 @@ export default class Visuals extends React.Component {
             <Peak parent={this} />
           </Col>
         </Row>
-        <Row className="mt-4 mb-4">
+        <Row className='mt-4 mb-4'>
           {this.state.array.map((value, index) => {
             let highlight = false;
             if (this.state.highlights.includes(index)) {
@@ -478,13 +478,13 @@ export default class Visuals extends React.Component {
                 highlight={highlight}
                 key={`${value}-${index}`}
                 data={{ value, index }}
-                type="array"
+                type='array'
               />
             );
           })}
         </Row>
-        {(parseInt(this.state.iter) > 0 || this.state.iter !== "0") && (
-          <Row className="mt-4 mb-4">Steps : {this.state.iter}</Row>
+        {(parseInt(this.state.iter) > 0 || this.state.iter !== '0') && (
+          <Row className='mt-4 mb-4'>Steps : {this.state.iter}</Row>
         )}
       </Container>
     );

@@ -1,5 +1,5 @@
-import React from "react";
-import Board from "../../../../../common/components/Board";
+import React from 'react';
+import Board from '../../../../../common/components/Board';
 import {
   Container,
   Row,
@@ -13,7 +13,7 @@ import {
   Input,
   InputGroupAddon,
   InputGroupText,
-} from "reactstrap";
+} from 'reactstrap';
 
 class Inp extends React.Component {
   constructor(props) {
@@ -25,21 +25,21 @@ class Inp extends React.Component {
   }
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Queens on Board</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Number</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Value</InputGroupText>
             </InputGroupAddon>
             <Input
-              type="number"
-              placeholder="Number of Queens on Board"
+              type='number'
+              placeholder='Number of Queens on Board'
               onChange={(event) => {
                 this.setState({ input: event.target.value });
               }}
-              value={this.state.input ? this.state.input : ""}
+              value={this.state.input ? this.state.input : ''}
             />
           </InputGroup>
           <br />
@@ -117,7 +117,7 @@ export default class NQueens extends React.Component {
                     disabled: false,
                   },
                   () => {
-                    alert("Found Solution. Continue !!!");
+                    alert('Found Solution. Continue !!!');
                   }
                 );
               }
@@ -137,7 +137,7 @@ export default class NQueens extends React.Component {
                         },
                         () => {
                           alert(
-                            "Did not Found Solution. Try different input !!!"
+                            'Did not Found Solution. Try different input !!!'
                           );
                         }
                       );
@@ -151,7 +151,7 @@ export default class NQueens extends React.Component {
                       disabled: false,
                     },
                     () => {
-                      alert("Did not Found Solution. Try different input !!!");
+                      alert('Did not Found Solution. Try different input !!!');
                     }
                   );
                 }
@@ -180,9 +180,9 @@ export default class NQueens extends React.Component {
       );
     } else {
       if (this.state.disabled) {
-        alert("Pending Operations");
+        alert('Pending Operations');
       } else {
-        alert("Uncomputable. Input supported 1 to 36");
+        alert('Uncomputable. Input supported 1 to 36');
       }
     }
   }
@@ -190,7 +190,7 @@ export default class NQueens extends React.Component {
   render() {
     return (
       <Container>
-        <Row className="text-center">
+        <Row className='text-center'>
           <Col sm={6}>
             <Inp parent={this} />
           </Col>

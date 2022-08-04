@@ -1,5 +1,5 @@
-import React from "react";
-import Element from "../../../../../common/components/Element";
+import React from 'react';
+import Element from '../../../../../common/components/Element';
 import {
   Container,
   Row,
@@ -13,8 +13,8 @@ import {
   Input,
   InputGroupAddon,
   InputGroupText,
-} from "reactstrap";
-import { FaEquals, FaTimes } from "react-icons/fa";
+} from 'reactstrap';
+import { FaEquals, FaTimes } from 'react-icons/fa';
 
 class Inp extends React.Component {
   constructor(props) {
@@ -27,36 +27,36 @@ class Inp extends React.Component {
   }
   render() {
     return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+      <Card style={{ border: '1px solid rgba(22,45,167,0.9)' }}>
         <CardHeader>Exponentiation Of Number</CardHeader>
-        <CardBody className="text-center">
+        <CardBody className='text-center'>
           <CardTitle>Base and Power</CardTitle>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Base</InputGroupText>
             </InputGroupAddon>
             <Input
               disabled={this.props.parent.state.disabled}
-              type="number"
-              placeholder="Base"
+              type='number'
+              placeholder='Base'
               onChange={(event) => {
                 this.setState({ base: event.target.value });
               }}
-              value={this.state.base ? this.state.base : ""}
+              value={this.state.base ? this.state.base : ''}
             />
           </InputGroup>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
+            <InputGroupAddon addonType='prepend'>
               <InputGroupText>Exponent</InputGroupText>
             </InputGroupAddon>
             <Input
               disabled={this.props.parent.state.disabled}
-              type="number"
-              placeholder="Power"
+              type='number'
+              placeholder='Power'
               onChange={(event) => {
                 this.setState({ power: event.target.value });
               }}
-              value={this.state.power ? this.state.power : ""}
+              value={this.state.power ? this.state.power : ''}
             />
           </InputGroup>
           <br />
@@ -142,20 +142,20 @@ export default class Exponent extends React.Component {
   render() {
     return (
       <Container>
-        <Row className="text-center">
+        <Row className='text-center'>
           <Col sm={6}>
             <Inp parent={this} />
           </Col>
         </Row>
-        <Row className="text-center mt-4 mb-4">
+        <Row className='text-center mt-4 mb-4'>
           {this.state.base && this.state.power && (
             <React.Fragment>
               <Element
                 highlight={true}
                 data={{ value: `${this.state.base} ^ ${this.state.power}` }}
-                type="Array"
+                type='Array'
               />
-              <FaEquals style={{ margin: "auto 5px" }} />
+              <FaEquals style={{ margin: 'auto 5px' }} />
             </React.Fragment>
           )}
           {this.state.result.length >= 1 &&
@@ -164,8 +164,8 @@ export default class Exponent extends React.Component {
               if (index > 0) {
                 return (
                   <React.Fragment key={`res_mul_val_${index}`}>
-                    <FaTimes style={{ margin: "auto 5px" }} />
-                    <Element data={{ value }} type="Array" />
+                    <FaTimes style={{ margin: 'auto 5px' }} />
+                    <Element data={{ value }} type='Array' />
                   </React.Fragment>
                 );
               } else {
@@ -177,20 +177,20 @@ export default class Exponent extends React.Component {
                 }
                 return (
                   <Element
-                    key="first_val"
+                    key='first_val'
                     highlight={highlight}
                     data={{ value }}
-                    type="Array"
+                    type='Array'
                   />
                 );
               }
             })}
           {!this.state.disabled && this.state.ans && (
             <Element
-              key="result"
+              key='result'
               highlight={true}
               data={{ value: this.state.ans }}
-              type="Array"
+              type='Array'
             />
           )}
         </Row>

@@ -19,12 +19,12 @@ export default class Point {
   drawCoordinates(x, y) {
     this.x = x;
     this.y = y;
-    let ctx = this.canvas.getContext("2d");
-    ctx.fillStyle = "#ff2626"; // Red color
+    let ctx = this.canvas.getContext('2d');
+    ctx.fillStyle = '#ff2626'; // Red color
     ctx.beginPath(); //Start path
     ctx.arc(x, y, this.size, 0, Math.PI * 2, true);
     ctx.fill();
-    ctx.font = "15px Arial";
+    ctx.font = '15px Arial';
     ctx.fillText(`( ${x} , ${y} ) `, x + 2 * this.size, y + 2 * this.size);
   }
 }

@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useEffect, lazy } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import React, { useCallback, useState, useEffect, lazy } from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import { lighten, makeStyles } from '@material-ui/core/styles';
 import {
   FormControl,
   Switch,
@@ -20,11 +20,11 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import SearchIcon from "@material-ui/icons/Search";
-import NotInterestedIcon from "@material-ui/icons/NotInterested";
-import { DynamicLoader } from "../../routing/base/Router";
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SearchIcon from '@material-ui/icons/Search';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import { DynamicLoader } from '../../routing/base/Router';
 
 const TableBody = lazy(() => import(`@material-ui/core/TableBody`));
 const TableContainer = lazy(() => import(`@material-ui/core/TableContainer`));
@@ -41,7 +41,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === "desc"
+  return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -75,31 +75,31 @@ function EnhancedTableHead(props) {
   return (
     <TableHead className={classes.tableHead}>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding='checkbox'>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all enteries" }}
+            inputProps={{ 'aria-label": "select all enteries' }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             className={classes.headCell}
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "default"}
+            align={headCell.numeric ? 'right" : "left'}
+            padding={headCell.disablePadding ? 'none" : "default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
+              direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === 'desc" ? "sorted descending" : "sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -115,7 +115,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
+  order: PropTypes.oneOf(['asc", "desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
   headCells: PropTypes.array.isRequired,
@@ -126,31 +126,31 @@ const useToolbarStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   highlight:
-    theme.palette.type === "light"
+    theme.palette.type === 'light'
       ? {
           color: theme.palette.secondary.main,
           backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-          flexDirection: "row",
+          flexDirection: 'row',
         }
       : {
           color: theme.palette.text.primary,
           backgroundColor: theme.palette.secondary.dark,
-          flexDirection: "row",
+          flexDirection: 'row',
         },
   title: {
-    flex: "1 1 100%",
+    flex: '1 1 100%',
     margin: theme.spacing(1),
   },
   searchField: {
     margin: theme.spacing(2),
-    width: "80%",
+    width: '80%',
   },
   searchColumns: {
     margin: theme.spacing(1),
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 }));
 
@@ -166,7 +166,7 @@ const EnhancedTableToolbar = ({
   headCells,
 }) => {
   const classes = useToolbarStyles();
-  const searchText = searchState?.searchText || "";
+  const searchText = searchState?.searchText || '';
   const selectedIds = searchState?.searchIds || new Set();
 
   return (
@@ -178,34 +178,34 @@ const EnhancedTableToolbar = ({
       {numSelected > 0 ? (
         <Typography
           className={classes.title}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
+          color='inherit'
+          variant='subtitle1'
+          component='div'
         >
           {numSelected} selected
         </Typography>
       ) : (
         <>
-          <FormControl className={classes.searchField} variant="outlined">
-            <InputLabel htmlFor="outlined-search-table">
+          <FormControl className={classes.searchField} variant='outlined'>
+            <InputLabel htmlFor='outlined-search-table'>
               Search In Table
             </InputLabel>
             <OutlinedInput
-              autoComplete="off"
-              id="outlined-search-table"
-              type={"text"}
+              autoComplete='off'
+              id='outlined-search-table'
+              type={'text'}
               value={searchText}
               onChange={({ target: { value } }) => {
                 setSearchState({
-                  searchText: value || "",
+                  searchText: value || '',
                   searchIds: selectedIds,
                 });
               }}
               endAdornment={
-                <Tooltip title="Filter table">
-                  <InputAdornment position="end">
+                <Tooltip title='Filter table'>
+                  <InputAdornment position='end'>
                     <IconButton
-                      aria-label="perform-search"
+                      aria-label='perform-search'
                       onClick={() => {
                         performSearch(searchState);
                       }}
@@ -213,7 +213,7 @@ const EnhancedTableToolbar = ({
                         e.preventDefault();
                       }}
                       disabled={!searchText}
-                      edge="end"
+                      edge='end'
                     >
                       {searchText ? <SearchIcon /> : <NotInterestedIcon />}
                     </IconButton>
@@ -242,7 +242,7 @@ const EnhancedTableToolbar = ({
                             searchIds: selectedIds,
                           });
                         }}
-                        inputProps={{ "aria-label": "select all enteries" }}
+                        inputProps={{ 'aria-label": "select all enteries' }}
                       />
                     }
                     label={label}
@@ -255,9 +255,9 @@ const EnhancedTableToolbar = ({
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title='Delete'>
           <IconButton
-            aria-label="delete"
+            aria-label='delete'
             onClick={() => {
               deleteHandler(selected);
               setSelected([]);
@@ -269,9 +269,9 @@ const EnhancedTableToolbar = ({
       ) : (
         <Typography
           className={classes.title}
-          variant="h6"
-          id="tableTitle"
-          component="div"
+          variant='h6'
+          id='tableTitle'
+          component='div'
         >
           {title}
         </Typography>
@@ -290,38 +290,38 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
   },
   paper: {
-    width: "100%",
+    width: '100%',
     marginBottom: theme.spacing(2),
   },
   table: {
-    width: "100vw",
+    width: '100vw',
   },
   visuallyHidden: {
     border: 0,
-    clip: "rect(0 0 0 0)",
+    clip: 'rect(0 0 0 0)',
     height: 1,
     margin: -1,
-    overflow: "hidden",
+    overflow: 'hidden',
     padding: 0,
-    position: "absolute",
+    position: 'absolute',
     top: 20,
     width: 1,
   },
   tableHead: {
-    background: "#A2DDFF",
+    background: '#A2DDFF',
   },
   headCell: {
-    fontWeight: "bolder",
+    fontWeight: 'bolder',
   },
   tableNote: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 16,
-    fontWeight: "lighter",
-    padding: "15px 0px",
-    fontStyle: "italic",
+    fontWeight: 'lighter',
+    padding: '15px 0px',
+    fontStyle: 'italic',
   },
 }));
 
@@ -338,16 +338,16 @@ export default function EnhancedTable({
       Array.isArray(headCells) &&
       headCells.length > 0 &&
       headCells[0].id) ||
-    "";
+    '';
   const classes = useStyles();
-  const [order, setOrder] = useState("asc");
+  const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState(primaryCellKey);
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchState, setSearchState] = useState({
-    searchText: "",
+    searchText: '',
     searchIds: new Set([primaryCellKey]),
   });
 
@@ -371,8 +371,8 @@ export default function EnhancedTable({
   }, [handlePerformSearch]);
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc" : "asc');
     setOrderBy(property);
   };
 
@@ -442,9 +442,9 @@ export default function EnhancedTable({
             <>
               <Table
                 className={classes.table}
-                aria-labelledby="tableTitle"
-                size={dense ? "small" : "medium"}
-                aria-label="enhanced table"
+                aria-labelledby='tableTitle'
+                size={dense ? 'small" : "medium'}
+                aria-label='enhanced table'
               >
                 <EnhancedTableHead
                   classes={classes}
@@ -469,31 +469,31 @@ export default function EnhancedTable({
                           onClick={(event) =>
                             handleClick(event, row[primaryCellKey])
                           }
-                          role="checkbox"
+                          role='checkbox'
                           aria-checked={isItemSelected}
                           tabIndex={-1}
                           key={row[primaryCellKey]}
                           selected={isItemSelected}
                         >
-                          <TableCell padding="checkbox">
+                          <TableCell padding='checkbox'>
                             <Checkbox
                               checked={isItemSelected}
-                              inputProps={{ "aria-labelledby": labelId }}
+                              inputProps={{ 'aria-labelledby': labelId }}
                             />
                           </TableCell>
                           {headCells.map((cell, index) => {
                             return index === 0 ? (
                               <TableCell
                                 key={cell.id}
-                                component="th"
+                                component='th'
                                 id={labelId}
-                                scope="row"
-                                padding="none"
+                                scope='row'
+                                padding='none'
                               >
                                 {row[cell.id]}
                               </TableCell>
                             ) : (
-                              <TableCell key={cell.id} align="left">
+                              <TableCell key={cell.id} align='left'>
                                 {row[cell.id]}
                               </TableCell>
                             );
@@ -515,7 +515,7 @@ export default function EnhancedTable({
         })}
         {DynamicLoader(TablePagination, {
           rowsPerPageOptions: [5, 10, 25],
-          component: "div",
+          component: 'div',
           count: rows.length,
           rowsPerPage: rowsPerPage,
           page: page,
@@ -525,7 +525,7 @@ export default function EnhancedTable({
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label='Dense padding'
       />
     </div>
   );
