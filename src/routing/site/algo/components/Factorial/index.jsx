@@ -28,7 +28,7 @@ class Inp extends React.Component {
           }}
         ></CardHeader>
         <CardContent
-          style={{ display: 'flex", flexDirection: "column" }} className="text-center'>
+          style={{ display: 'flex', flexDirection: 'column' }} className='text-center'>
           <TextField
             disabled={this.props.parent.state.disabled}
             type='number'
@@ -40,7 +40,7 @@ class Inp extends React.Component {
           />
           <br />
           <Button
-            style={{ marginTop: 12, backgroundColor: '#403d4a", color: "white' }}
+            style={{ marginTop: 12, backgroundColor: '#403d4a', color: 'white' }}
             type='submit'
             disabled={this.props.parent.state.disabled}
             onClick={() => {
@@ -94,7 +94,7 @@ export default class Factorial extends React.Component {
                 input: null,
                 disabled: false,
                 alert:
-                  { text: 'Factorial successfully computed", type: "success' }
+                  { text: 'Factorial successfully computed', type: 'success' }
               };
             } else {
               return {
@@ -114,7 +114,7 @@ export default class Factorial extends React.Component {
     } else {
       this.setState({
         alert:
-          { text: 'Factorial does not exist or too large", type: "danger' }
+          { text: 'Factorial does not exist or too large', type: 'danger' }
       });
     }
   }

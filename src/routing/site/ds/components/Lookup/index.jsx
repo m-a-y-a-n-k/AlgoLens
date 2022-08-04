@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Demo() {
   const classes = useStyles();
   const [formKey, setFormKey] = useState('');
-  const helperTextFormKey = formKey.length === 0 ? 'Required" : "';
+  const helperTextFormKey = formKey.length === 0 ? 'Required' : '';
   const [formValue, setFormValue] = useState('');
-  const helperTextFormValue = formValue.length === 0 ? 'Required" : "';
+  const helperTextFormValue = formValue.length === 0 ? 'Required' : '';
   const [rows, setRows] = useState([]);
   const [filteredRows, setFilteredRows] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -127,7 +127,7 @@ export default function Demo() {
           <div>
             {DynamicLoader(IconButton, {
               color: 'primary',
-              'aria-label": "checkIcon',
+              'aria-label': 'checkIcon',
               disabled: !!(helperTextFormKey || helperTextFormValue),
               onClick: () => {
                 handleAddLookup();
@@ -137,7 +137,7 @@ export default function Demo() {
             })}
             {DynamicLoader(IconButton, {
               color: 'primary',
-              'aria-label": "closeIcon',
+              'aria-label': 'closeIcon',
               disabled: !!(helperTextFormKey || helperTextFormValue),
               onClick: () => {
                 setShowForm(false);

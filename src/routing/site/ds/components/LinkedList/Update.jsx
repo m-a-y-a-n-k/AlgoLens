@@ -44,7 +44,7 @@ const useStylesReddit = makeStyles((theme) => ({
     margin: '4px 0px 0px 0px',
 
     backgroundColor: '#fcfcfb',
-    transition: theme.transitions.create(['border-color", "box-shadow']),
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:hover': {
       backgroundColor: '#fff',
     },
@@ -79,13 +79,13 @@ export default function Update(props) {
         style={{ border: '1px solid rgba(22,45,167,0.9)' }}
       >
         <CardContent className='bg-primary text-white'>
-          <Typography variant='h5" component="h2'>
+          <Typography variant='h5' component='h2'>
             Update
           </Typography>
         </CardContent>
 
         <CardContent className=' text-center pb-0 mt-0'>
-          <Typography variant='h6" component="h2'>
+          <Typography variant='h6' component='h2'>
             Value at position
           </Typography>
         </CardContent>

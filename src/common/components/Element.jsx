@@ -12,7 +12,7 @@ export default class Element extends React.Component {
         element = [];
         if (this.props.data.index === 0) {
           element.push(
-            <Box key='Top" p={1} textAlign="center'>
+            <Box key='Top' p={1} textAlign='center'>
               Top
             </Box>
           );
@@ -30,10 +30,10 @@ export default class Element extends React.Component {
             p={1}
             style={elStyles}
           >
-            <Box p={1} color='white" textAlign="center' fontSize={18}>
+            <Box p={1} color='white' textAlign='center' fontSize={18}>
               {this.props.data.value}
             </Box>
-            <Box color='white" p={1} textAlign="center' fontSize={12}>
+            <Box color='white' p={1} textAlign='center' fontSize={12}>
               {this.props.data.index}
             </Box>
           </Box>
@@ -49,10 +49,10 @@ export default class Element extends React.Component {
         }
         element = (
           <Box key={this.props.data.index} p={1} style={elStyles}>
-            <Box p={1} color='white" textAlign="center' fontSize={18}>
+            <Box p={1} color='white' textAlign='center' fontSize={18}>
               {this.props.data.value}
             </Box>
-            <Box color='white" p={1} textAlign="center' fontSize={12}>
+            <Box color='white' p={1} textAlign='center' fontSize={12}>
               {this.props.data.index}
             </Box>
           </Box>
@@ -72,10 +72,10 @@ export default class Element extends React.Component {
             p={1}
             style={elStyles}
           >
-            <Box p={1} color='white" textAlign="center' fontSize={18}>
+            <Box p={1} color='white' textAlign='center' fontSize={18}>
               {this.props.data.value}
             </Box>
-            <Box color='white" p={1} textAlign="center' fontSize={12}>
+            <Box color='white' p={1} textAlign='center' fontSize={12}>
               {this.props.data.index}
             </Box>
           </Box>,
@@ -107,7 +107,7 @@ export default class Element extends React.Component {
               p={1}
               style={elStyles}
             >
-              <Box p={1} color='white" textAlign="center' fontSize={18}>
+              <Box p={1} color='white' textAlign='center' fontSize={18}>
                 {this.props.data.value}
               </Box>
             </Box>

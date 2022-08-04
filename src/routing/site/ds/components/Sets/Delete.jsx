@@ -43,7 +43,7 @@ const useStylesReddit = makeStyles((theme) => ({
     margin: '4px 0px 0px 0px',
 
     backgroundColor: '#fcfcfb',
-    transition: theme.transitions.create(['border-color", "box-shadow']),
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:hover': {
       backgroundColor: '#fff',
     },
@@ -76,7 +76,7 @@ export default function Delete(props) {
         style={{ border: '1px solid rgba(22,45,167,0.9)' }}
       >
         <CardContent className='bg-primary text-white '>
-          <Typography variant='h5" component="h2'>
+          <Typography variant='h5' component='h2'>
             {' '}
             Delete
           </Typography>

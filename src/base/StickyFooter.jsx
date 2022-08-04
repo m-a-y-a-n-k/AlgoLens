@@ -67,7 +67,7 @@ function ScrollTop(props) {
     );
 
     if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth", block: "center' });
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
@@ -172,7 +172,7 @@ export default function StickyFooter(props) {
           {DynamicLoader(Fab, {
             color: 'secondary',
             size: 'small',
-            'aria-label": "scroll back to top',
+            'aria-label': 'scroll back to top',
             children: DynamicLoader(ArrowUpIcon),
           })}
         </ScrollTop>

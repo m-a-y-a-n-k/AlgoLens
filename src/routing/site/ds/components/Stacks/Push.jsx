@@ -31,7 +31,7 @@ const useStylesReddit = makeStyles((theme) => ({
     overflow: 'hidden',
     borderRadius: 4,
     backgroundColor: '#fcfcfb',
-    transition: theme.transitions.create(['border-color", "box-shadow']),
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:hover': {
       backgroundColor: '#fff',
     },

@@ -46,10 +46,10 @@ class Insert extends React.Component {
         default:
           arr.splice(arr.length, 0, data);
       }
-      this.setState({ alert: { text: 'Inserted successfully", type: "success', alertId: 1 } });
+      this.setState({ alert: { text: 'Inserted successfully', type: 'success', alertId: 1 } });
       this.props.updateState({ array: arr, highlights: [] });
     } else {
-      this.setState({ alert: { text: 'Submission is empty", type: "danger', alertId: 1 } });
+      this.setState({ alert: { text: 'Submission is empty', type: 'danger', alertId: 1 } });
     }
   }
 
@@ -105,7 +105,7 @@ class Insert extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.insert(this.state.data, this.state.where);
               this.setState({ data: null });
@@ -131,7 +131,7 @@ class Delete extends React.Component {
       where: 0,
       alert: null,
     };
-    this.posOptions = ['Select", "Start", "End'];
+    this.posOptions = ['Select', 'Start', 'End'];
   }
 
   toggleDropDown() {
@@ -162,7 +162,7 @@ class Delete extends React.Component {
       }
     }
     this.setState({
-      alert: { text: present ? 'Deleted Successfully" : exists ? "Value not present" : "Delete operation is invalid", type: present ? "success" : exists ? "warning" : "danger', alertId: 2 }
+      alert: { text: present ? 'Deleted Successfully' : exists ? 'Value not present' : 'Delete operation is invalid', type: present ? 'success' : exists ? 'warning' : 'danger', alertId: 2 }
     });
     this.props.updateState({
       array: arr,
@@ -241,7 +241,7 @@ class Delete extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.delete(this.state.data, this.posOptions[this.state.where]);
               this.setState({ data: null });
@@ -288,14 +288,14 @@ class Update extends React.Component {
       arr[position] = value;
       highlights.push(parseInt(position));
       this.setState({
-        alert: { text: 'Successfully updated check highlighted element", type: "success', alertId: 3 }
+        alert: { text: 'Successfully updated check highlighted element', type: 'success', alertId: 3 }
       });
       this.props.updateState({
         array: arr, highlights,
       });
     } else {
       this.setState({
-        alert: { text: 'Invalid update operation", type: "danger', alertId: 3 }
+        alert: { text: 'Invalid update operation', type: 'danger', alertId: 3 }
       });
     }
   }
@@ -345,7 +345,7 @@ class Update extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.update(this.state.position, this.state.data);
               this.setState({ position: null, data: null });
@@ -400,7 +400,7 @@ class Search extends React.Component {
       });
     } else {
       this.setState({
-        alert: { text: 'Empty Search", type: "danger', alertId: 4 }
+        alert: { text: 'Empty Search', type: 'danger', alertId: 4 }
       });
     }
   }
@@ -437,7 +437,7 @@ class Search extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.search(this.state.data);
               this.setState({ data: null });

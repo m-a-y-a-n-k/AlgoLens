@@ -27,7 +27,7 @@ class Range extends React.Component {
             color: 'secondary',
           }}
         />
-        <CardContent style={{ display: 'flex", flexDirection: "column' }}>
+        <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
           <TextField
             type='number'
             label='Start of Range'
@@ -48,7 +48,7 @@ class Range extends React.Component {
             value={this.state.end ?? ''}
           />
           <Button
-            style={{ marginTop: 12, backgroundColor: '#403d4a", color: "white' }}
+            style={{ marginTop: 12, backgroundColor: '#403d4a', color: 'white' }}
             type='submit'
             onClick={() => {
               this.props.parent.sieve(
@@ -95,7 +95,7 @@ export default class Sieve extends React.Component {
       if (end - start >= 1000 || end > 100000000) {
         this.setState({
           alert:
-            { text: 'Too big range not supported yet", type: "danger' }
+            { text: 'Too big range not supported yet', type: 'danger' }
         });
         return;
       }
@@ -115,12 +115,12 @@ export default class Sieve extends React.Component {
       }
       this.setState({
         numbers, alert:
-          { text: 'The prime ones are highlighted in green", type: "success' }
+          { text: 'The prime ones are highlighted in green', type: 'success' }
       });
     } else {
       this.setState({
         alert:
-          { text: 'Invalid Range or No primes in Range", type: "danger' }
+          { text: 'Invalid Range or No primes in Range', type: 'danger' }
       });
     }
   }

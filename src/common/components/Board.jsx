@@ -38,19 +38,19 @@ export default class Board extends React.Component {
         board.style.left = '20px';
         for (var i = 0; i < totalPieces; i++) {
           // i = 0,color = white,size = 6,totalPieces = 36
-          color = color === '#D3D3D3" ? "#606060" : "#D3D3D3';
+          color = color === '#D3D3D3' ? '#606060' : '#D3D3D3';
           if (
             i % this.props.size === 0 &&
             i % 2 === 0 &&
             totalPieces % 2 === 0
           ) {
-            color = color === '#D3D3D3" ? "#606060" : "#D3D3D3';
+            color = color === '#D3D3D3' ? '#606060' : '#D3D3D3';
           }
           if (this.props.queens.includes(i)) {
             cells.push(
               <Cell key={i} styles={{ backgroundColor: color }}>
                 <FaChessQueen
-                  style={{ margin: 'auto 5px", color: "rgba(30,190,170,0.8)' }}
+                  style={{ margin: 'auto 5px', color: 'rgba(30,190,170,0.8)' }}
                 />
               </Cell>
             );

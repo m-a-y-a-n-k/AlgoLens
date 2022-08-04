@@ -55,7 +55,7 @@ class Insert extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.props.parent.insert(parseFloat(this.state.data));
               this.setState({ data: null });
@@ -128,7 +128,7 @@ class Delete extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.props.parent.delete(parseFloat(this.state.data), parseFloat(this.state.position));
               this.setState({ data: null, position: null });
@@ -199,7 +199,7 @@ class Update extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.props.parent.update(parseFloat(this.state.position), parseFloat(this.state.data));
               this.setState({ position: null, data: null });
@@ -254,7 +254,7 @@ class Search extends React.Component {
           </InputGroup>
           <Button
             className='mt-4'
-            style={{ backgroundColor: '#403d4a", color: "white' }}
+            style={{ backgroundColor: '#403d4a', color: 'white' }}
             onClick={() => {
               this.props.parent.search(parseFloat(this.state.data));
               this.setState({ data: null });
@@ -288,7 +288,7 @@ export default class BinarySearch extends React.Component {
       this.setState({ array: arr, highlights: [], iter: 0, alert: null });
       return i;
     }
-    this.setState({ alert: { text: 'Submission is empty", type: "danger', alertId: 1 } });
+    this.setState({ alert: { text: 'Submission is empty', type: 'danger', alertId: 1 } });
     return null;
   }
 
@@ -302,13 +302,13 @@ export default class BinarySearch extends React.Component {
       if (!arr || arr.length === 0) arr = [];
       if (length !== arr.length) this.setState({ array: arr, highlights: [], alert: null });
       else
-        this.setState({ alert: { text: 'Data not found to delete", type: "danger', alertId: 2 } });
+        this.setState({ alert: { text: 'Data not found to delete', type: 'danger', alertId: 2 } });
     } else if (position >= 0 && position < arr.length) {
       arr = this.state.array;
       arr.splice(position, 1);
       this.setState({ array: arr, highlights: [], iter: 0, alert: null });
     } else {
-      this.setState({ alert: { text: 'Unable to delete", type: "danger', alertId: 2 } });
+      this.setState({ alert: { text: 'Unable to delete', type: 'danger', alertId: 2 } });
     }
   }
 
@@ -323,7 +323,7 @@ export default class BinarySearch extends React.Component {
       highlights.push(position);
       this.setState({ highlights, iter: 0, alert: null });
     } else {
-      this.setState({ alert: { text: 'Data not found to update", type: "danger', alertId: 3 } });
+      this.setState({ alert: { text: 'Data not found to update', type: 'danger', alertId: 3 } });
     }
   }
 
@@ -401,7 +401,7 @@ export default class BinarySearch extends React.Component {
         }, .75 * 1000);
       });
     } else {
-      this.setState({ alert: { text: 'Empty Search", type: "danger', alertId: 4 } });
+      this.setState({ alert: { text: 'Empty Search', type: 'danger', alertId: 4 } });
     }
   }
 

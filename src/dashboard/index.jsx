@@ -126,7 +126,7 @@ export default function Dashboard() {
               <Placeholder variant='rect' height={400} />
             )}
             <CardContent>
-              <Typography variant='h5" color="textPrimary'>
+              <Typography variant='h5' color='textPrimary'>
                 {constants.BRAND_NAME} stands for Computer Science Visualizations
               </Typography>
               {isDesktop && (

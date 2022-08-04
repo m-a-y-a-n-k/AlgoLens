@@ -153,9 +153,9 @@ export default function Stack(props) {
             <Card>
               <h2 className='bg-primary text-white p-3'>Operations</h2>
               <CardContent className='pl-0 pr-0 pt-0 text-left'>
-                <FormControl className='pl-3" component="fieldset'>
+                <FormControl className='pl-3' component='fieldset'>
                   <FormLabel component='legend'></FormLabel>
-                  <RadioGroup aria-label='gender" name="customized-radios'>
+                  <RadioGroup aria-label='gender' name='customized-radios'>
                     <FormControlLabel
                       value='Push'
                       onChange={showoperation}
@@ -235,7 +235,7 @@ export default function Stack(props) {
               );
             })}
           </Box>
-          <Box textAlign='center" className="col-sm-12'>
+          <Box textAlign='center' className='col-sm-12'>
             Stack Container
           </Box>
         </Grid>

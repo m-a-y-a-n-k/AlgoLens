@@ -80,15 +80,15 @@ function EnhancedTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label": "select all enteries' }}
+            inputProps={{ 'aria-label': 'select all enteries' }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             className={classes.headCell}
             key={headCell.id}
-            align={headCell.numeric ? 'right" : "left'}
-            padding={headCell.disablePadding ? 'none" : "default'}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -99,7 +99,7 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === 'desc" ? "sorted descending" : "sorted ascending'}
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -115,7 +115,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc", "desc']).isRequired,
+  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
   headCells: PropTypes.array.isRequired,
@@ -242,7 +242,7 @@ const EnhancedTableToolbar = ({
                             searchIds: selectedIds,
                           });
                         }}
-                        inputProps={{ 'aria-label": "select all enteries' }}
+                        inputProps={{ 'aria-label': 'select all enteries' }}
                       />
                     }
                     label={label}
@@ -372,7 +372,7 @@ export default function EnhancedTable({
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc" : "asc');
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -443,7 +443,7 @@ export default function EnhancedTable({
               <Table
                 className={classes.table}
                 aria-labelledby='tableTitle'
-                size={dense ? 'small" : "medium'}
+                size={dense ? 'small' : 'medium'}
                 aria-label='enhanced table'
               >
                 <EnhancedTableHead

@@ -268,7 +268,7 @@ export default function Queues() {
 
   return (
     <div className={gridclass.root}>
-      <Grid container direction='row" justify="left" alignItems="center'>
+      <Grid container direction='row' justify='left' alignItems='center'>
         <Grid container sm={4}>
           <Paper className={gridclass.paper}>
             <Grid item xs={12} sm={12} spacing={3} alignItems='center'>
@@ -277,9 +277,9 @@ export default function Queues() {
                   Operations
                 </h6>
                 <CardContent className='pl-0 pr-0 pt-0 text-left'>
-                  <FormControl className='pl-3" component="fieldset'>
+                  <FormControl className='pl-3' component='fieldset'>
                     <FormLabel component='legend'></FormLabel>
-                    <RadioGroup aria-label='gender" name="customized-radios'>
+                    <RadioGroup aria-label='gender' name='customized-radios'>
                       <FormControlLabel
                         value='Insert'
                         onChange={showoperation}

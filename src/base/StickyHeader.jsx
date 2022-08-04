@@ -61,7 +61,7 @@ export default function PrimarySearchAppBar() {
             edge: 'start',
             className: classes.menuButton,
             color: 'inherit',
-            'aria-label": "open drawer',
+            'aria-label': 'open drawer',
             children: DynamicLoader(MenuIcon),
           })}
         </section>
@@ -76,7 +76,7 @@ export default function PrimarySearchAppBar() {
         </section>
         <div className={classes.iconSec}>
           {DynamicLoader(IconButton, {
-            'aria-label": "home page',
+            'aria-label': 'home page',
             color: 'inherit',
             disabled: window.location.pathname === '/',
             href: '/',
