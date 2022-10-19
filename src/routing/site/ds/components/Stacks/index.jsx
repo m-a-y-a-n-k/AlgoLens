@@ -89,7 +89,7 @@ function StyledRadio(props) {
   )
 }
 
-export default function Stack(props) {
+export default function Stack() {
   const gridclass = gridStyle()
 
   let [array, setArray] = useState([])

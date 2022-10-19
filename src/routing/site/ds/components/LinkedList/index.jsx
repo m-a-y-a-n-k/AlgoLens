@@ -177,12 +177,12 @@ export default function LinkedList() {
         }
         setHead(head)
       } else if (where) {
+        let curr = head
         switch (where) {
           case "start":
             head = head.next
             break
           case "end":
-            let curr = head
             if (!head.next) {
               head = null
             } else {

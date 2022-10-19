@@ -1,3 +1,4 @@
+import React from "react"
 import { Skeleton } from "@material-ui/lab"
 
 export default function Placeholder({ variant = "rect", width, height }) {
