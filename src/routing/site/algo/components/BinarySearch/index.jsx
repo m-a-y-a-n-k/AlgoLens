@@ -338,8 +338,7 @@ export default class BinarySearch extends React.Component {
     if (data && position < this.state.array.length && position >= 0) {
       let highlights = []
       this.delete(null, position)
-      const value = parseFloat(data)
-      position = this.insert(value)
+      position = this.insert(data)
       highlights.push(position)
       this.setState({ highlights, iter: 0, alert: null })
     } else {
