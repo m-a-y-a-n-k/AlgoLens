@@ -101,12 +101,8 @@ export default class Element extends React.Component {
           elStyles.background = "rgba(30,150,40,0.8)"
         }
         element = [
-          <div>
-            <Box
-              key={`${this.props.data.value}-${this.props.data.index}`}
-              p={1}
-              style={elStyles}
-            >
+          <div key={`${this.props.data.value}-${this.props.data.index}`}>
+            <Box p={1} style={elStyles}>
               <Box p={1} color="white" textAlign="center" fontSize={18}>
                 {this.props.data.value}
               </Box>

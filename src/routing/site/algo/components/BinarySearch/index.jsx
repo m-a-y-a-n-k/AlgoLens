@@ -58,7 +58,7 @@ class Insert extends React.Component {
             className="mt-4"
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.insert(parseFloat(this.state.data))
+              this.props.parent.insert(this.state.data)
               this.setState({ data: null })
             }}
           >
@@ -105,7 +105,7 @@ class Delete extends React.Component {
             </InputGroupAddon>
             <Input
               type="number"
-              placeholder="Position"
+              placeholder="Position (0-based)"
               onChange={(event) => {
                 this.setState({ position: event.target.value, data: null })
               }}
@@ -132,7 +132,7 @@ class Delete extends React.Component {
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
               this.props.parent.delete(
-                parseFloat(this.state.data),
+                this.state.data,
                 parseFloat(this.state.position)
               )
               this.setState({ data: null, position: null })
@@ -181,7 +181,7 @@ class Update extends React.Component {
             </InputGroupAddon>
             <Input
               type="number"
-              placeholder="Position"
+              placeholder="Position (0-based)"
               onChange={(event) => {
                 this.setState({ position: event.target.value })
               }}
@@ -207,7 +207,7 @@ class Update extends React.Component {
             onClick={() => {
               this.props.parent.update(
                 parseFloat(this.state.position),
-                parseFloat(this.state.data)
+                this.state.data
               )
               this.setState({ position: null, data: null })
             }}
@@ -265,7 +265,7 @@ class Search extends React.Component {
             className="mt-4"
             style={{ backgroundColor: "#403d4a", color: "white" }}
             onClick={() => {
-              this.props.parent.search(parseFloat(this.state.data))
+              this.props.parent.search(this.state.data)
               this.setState({ data: null })
             }}
           >
@@ -286,14 +286,15 @@ export default class BinarySearch extends React.Component {
 
   insert(data) {
     if (data) {
+      const value = parseFloat(data)
       let arr = this.state.array,
         i
       for (i = 0; i < arr.length; i++) {
-        if (arr[i] >= data) {
+        if (arr[i] >= value) {
           break
         }
       }
-      arr.splice(i, 0, data)
+      arr.splice(i, 0, value)
       this.setState({ array: arr, highlights: [], iter: 0, alert: null })
       return i
     }
@@ -306,9 +307,10 @@ export default class BinarySearch extends React.Component {
   delete(data, position) {
     let arr = this.state.array
     if (data) {
+      const num = parseFloat(data)
       let length = arr.length
       arr = arr.filter((value) => {
-        return value !== data
+        return value !== num
       })
       if (!arr || arr.length === 0) arr = []
       if (length !== arr.length)
@@ -332,16 +334,21 @@ export default class BinarySearch extends React.Component {
     }
   }
 
-  update(position, value) {
-    if (position < this.state.array.length && position >= 0) {
+  update(position, data) {
+    if (data && position < this.state.array.length && position >= 0) {
       let highlights = []
       this.delete(null, position)
+      const value = parseFloat(data)
       position = this.insert(value)
       highlights.push(position)
       this.setState({ highlights, iter: 0, alert: null })
     } else {
       this.setState({
-        alert: { text: "Data not found to update", type: "danger", alertId: 3 },
+        alert: {
+          text: "Data or position not found to update",
+          type: "danger",
+          alertId: 3,
+        },
       })
     }
   }
@@ -400,6 +407,7 @@ export default class BinarySearch extends React.Component {
 
   search(data) {
     if (data && this.state.array.length > 0) {
+      const value = parseFloat(data)
       this.setState(
         (prevState) => {
           let highlights = [],
@@ -413,7 +421,7 @@ export default class BinarySearch extends React.Component {
         },
         () => {
           setTimeout(() => {
-            this.bs(data, 0, this.state.array.length - 1, this.state.array)
+            this.bs(value, 0, this.state.array.length - 1, this.state.array)
           }, 0.75 * 1000)
         }
       )
