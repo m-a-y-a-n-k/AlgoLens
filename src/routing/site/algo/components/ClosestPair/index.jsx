@@ -1,127 +1,18 @@
 import React from "react"
-import Point from "../../../../../common/components/Point"
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  InputGroup,
-  InputGroupButtonDropdown,
-  DropdownToggle,
-  DropdownItem,
-  Button,
-  DropdownMenu,
-} from "reactstrap"
-
-class Canvas extends React.Component {
-  constructor(props) {
-    super(props)
-    this.canvas = null
-  }
-
-  componentDidMount() {
-    this.canvas = document.getElementById(this.props.id)
-  }
-
-  render() {
-    return (
-      <canvas
-        id={this.props.id}
-        width={this.props.width}
-        height={this.props.height}
-        style={{
-          margin: "20px",
-          border: "1px solid lightgray",
-          background: "rgba(123,178,91,0.3)",
-        }}
-        onClick={(event) => {
-          if (this.props.clickable) {
-            let p = new Point(this.canvas)
-            p.draw(event)
-            this.props.addPoints({ x: p.x, y: p.y })
-          }
-        }}
-      ></canvas>
-    )
-  }
-}
-
-class Run extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.toggleDropDown = this.toggleDropDown.bind(this)
-    this.state = {
-      dropdownOpen: false,
-      complexity: "Select Speed",
-    }
-  }
-
-  toggleDropDown() {
-    let dropdownOpen = this.state.dropdownOpen
-    if (!dropdownOpen) {
-      this.setState({ complexity: "Select Speed" })
-    }
-    this.setState({
-      dropdownOpen: !dropdownOpen,
-    })
-  }
-
-  render() {
-    return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Closest Pair of Points</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Pair connected by red dash lines</CardTitle>
-          <InputGroup>
-            <InputGroupButtonDropdown
-              style={{ margin: "auto" }}
-              addonType="append"
-              isOpen={this.state.dropdownOpen}
-              toggle={this.toggleDropDown}
-            >
-              <DropdownToggle caret>{this.state.complexity}</DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem
-                  onClick={() => {
-                    this.setState({ complexity: "Slow" })
-                  }}
-                >
-                  Slow
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem
-                  onClick={() => {
-                    this.setState({ complexity: "Fast" })
-                  }}
-                >
-                  Fast
-                </DropdownItem>
-              </DropdownMenu>
-            </InputGroupButtonDropdown>
-          </InputGroup>
-          <br />
-          <Button
-            onClick={() => {
-              this.props.parent.find(this.state.complexity)
-            }}
-          >
-            Run
-          </Button>
-        </CardBody>
-      </Card>
-    )
-  }
-}
+import { Grid } from "@material-ui/core"
+import Canvas from "routing/site/algo/components/ClosestPair/Canvas"
+import Run from "routing/site/algo/components/ClosestPair/Run"
+import { Alert } from "reactstrap"
 
 export default class ClosestPair extends React.Component {
-  state = {
-    points: [],
-    clickable: true,
-    shortest: null,
+  constructor(props) {
+    super(props)
+    this.state = {
+      points: [],
+      clickable: true,
+      shortest: null,
+      alert: null,
+    }
   }
 
   componentDidMount() {
@@ -206,37 +97,59 @@ export default class ClosestPair extends React.Component {
       )
     setTimeout(() => {
       this.plot(i, j + 1)
-    }, 2000)
+    }, 1200)
   }
 
   find(speed) {
     switch (speed.toLowerCase()) {
       case "slow":
         if (this.state.points.length >= 2) {
-          this.setState({ clickable: false })
+          this.setState({ clickable: false, alert: null })
           this.plot(0, 1)
         } else {
-          alert("Not enough points on canvas")
+          this.setState({
+            alert: {
+              text: "Not enough points on canvas",
+              type: "info",
+            },
+          })
         }
         return
       default:
-        alert("To be implemented")
+        this.setState({
+          alert: {
+            text: "We shall implement this soon.",
+            type: "danger",
+          },
+        })
         return
     }
   }
 
   render() {
     return (
-      <Container>
-        <header className="text-center">
-          <h3 className="p-2">Click in the canvas below to draw points</h3>
-        </header>
-        <Row>
-          <Col sm={8}>
+      <Grid container>
+        <Grid item container>
+          <Grid item xs={12} className="mt-2">
+            {this.state.alert && (
+              <Alert
+                color={this.state.alert.type}
+                isOpen={!!this.state.alert.text}
+                toggle={() => {
+                  this.setState({ alert: null })
+                }}
+              >
+                {this.state.alert.text}
+              </Alert>
+            )}
+            <Run find={(speed) => this.find(speed)} />
+          </Grid>
+          <Grid item xs={12} className="mt-3">
+            <h3 className="p-2">Click in the canvas below to draw points</h3>
             <Canvas
               id="pointsCanvas"
               clickable={this.state.clickable}
-              width="700"
+              width={`${window.innerWidth - 70}`}
               height="400"
               addPoints={(p) => {
                 if (this.state.clickable) {
@@ -246,12 +159,9 @@ export default class ClosestPair extends React.Component {
                 }
               }}
             />
-          </Col>
-          <Col sm={3} className="mt-3">
-            <Run parent={this} />
-          </Col>
-        </Row>
-      </Container>
+          </Grid>
+        </Grid>
+      </Grid>
     )
   }
 }
