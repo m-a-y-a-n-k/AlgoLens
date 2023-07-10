@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import siteLogo from "../common/assets/VisuAlgo.png";
 import { siteSugg } from "../routing/base/routes";
 import { DynamicLoader } from "../routing/base/Router";
+import { red } from "@material-ui/core/colors";
 
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`));
 const MenuIcon = lazy(() => import(`@material-ui/icons/Menu`));
@@ -17,14 +18,19 @@ const useStyles = makeStyles((theme) => ({
   menuSec: {
     width: "3vw",
   },
-  logoSec: {
-    width: "5vw",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
-  },
+  // logoSec: {
+  //   // width: "5vw",
+  //   // border: '10px solid red',
+
+  //   // [theme.breakpoints.down("xs")]: {
+  //   //   display: "none",
+  //   // },
+  // },
   searchSec: {
-    width: "85vw",
+    width: "80vw",
+    margin: "10px 10px 10px 10px",
+    padding: "50px 30px",
+    // height: "10vh",
   },
   iconSec: {
     paddingLeft: 30,
@@ -34,9 +40,10 @@ const useStyles = makeStyles((theme) => ({
     WebkitFlexShrink: 0,
     "-ms-flex-shrink": 0,
     flexShrink: 0,
-    height: 70,
+    height: 80,
+    backgroundColor: '#222331',
     [theme.breakpoints.down("xs")]: {
-      height: 60,
+      height: 80,
     },
   },
   menuButton: {
@@ -96,7 +103,7 @@ export default function PrimarySearchAppBar() {
         <div className={classes.iconSec}>
           {DynamicLoader(IconButton, {
             "aria-label": "home page",
-            color: "inherit",
+            color: "transperant",
             disabled: window.location.pathname === "/",
             href: "/",
             className: classes.homeButton,
