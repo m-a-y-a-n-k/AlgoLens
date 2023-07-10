@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     textAlign: "center",
     justifyContent: "center",
-    margin: theme.spacing(3),
+    // margin: theme.spacing(1),
   },
   paper: {
     margin: theme.spacing(1),
@@ -43,11 +43,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: blue[800],
   },
   card: {
-    width: "50vw",
+    width: "40vw",
+    boxShadow:"inset 2px  0px 10px #222831,inset -2px 0px 10px #222831",
   },
   media: {
-    width: "100%",
-    paddingTop: "100%", // 1:1 aspect ratio
+    display: "block",
+  marginLeft: "auto",
+  marginRight: "auto",
+    width: "70%",
+    paddingTop: "70%", // 1:1 aspect ratio
   },
 }));
 
@@ -67,8 +71,8 @@ export default function Dashboard() {
   globe.`;
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={2}>
+    <div className={classes.root} >
+      <Grid container spacing={2} >
         <Grid item sm={12} className={classes.gridItem}>
           <Card className={classes.card}>
             <CardHeader
@@ -78,11 +82,11 @@ export default function Dashboard() {
                 </Avatar>
               }
               title={"Meet The Platform"}
-              titleTypographyProps={{ variant: "h4", color: "primary" }}
+              titleTypographyProps={{ variant: "h2", color: "primary" }}
               subheader="Initiative since Nov 2019"
               subheaderTypographyProps={{
                 variant: "subtitle1",
-                color: "secondary",
+                color: "tertiary",
               }}
             />
             <CardMedia
@@ -91,7 +95,7 @@ export default function Dashboard() {
               title="VisuAlgo"
             />
             <CardContent>
-              <Typography variant="h5" color="textPrimary">
+              <Typography variant="h5" color="#222831">
                 VisuAlgo stands for Computer Science Visualizations
               </Typography>
               <Paper elevation={2} className={classes.paper}>

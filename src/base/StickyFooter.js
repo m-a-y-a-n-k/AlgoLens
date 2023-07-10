@@ -38,9 +38,10 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: theme.spacing(1),
-    backgroundColor: theme.palette.primary.dark,
+    // backgroundColor: theme.palette.primary.dark,
     display: "flex",
     flexDirection: "column",
+    backgroundColor:"#222831",
   },
   button: {
     margin: "10px auto",
