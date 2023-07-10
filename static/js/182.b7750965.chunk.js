@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[182],{182:(e,n,s)=>{s.r(n),s.d(n,{default:()=>p});var a=s(2791),r=s(184);class c extends a.Component{render(){return(0,r.jsxs)("div",{className:"container",children:[(0,r.jsx)("p",{children:"404"}),(0,r.jsx)("p",{children:"Page not found"})]})}}const p=c}}]);
+//# sourceMappingURL=182.b7750965.chunk.js.map

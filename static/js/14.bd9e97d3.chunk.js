@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[14],{14:function(e,a,t){var u=t(4836),l=t(5263);Object.defineProperty(a,"__esModule",{value:!0}),a.default=void 0;var p=l(t(2791)),d=(0,u(t(4894)).default)(p.createElement("path",{d:"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"}),"Close");a.default=d}}]);
-//# sourceMappingURL=14.bd9e97d3.chunk.js.map

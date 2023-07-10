@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[7233],{7233:(e,a,s)=>{s.r(a),s.d(a,{default:()=>p});var o=s(7462),t=s(5987),n=s(2791),r=(s(2007),s(8182)),c=s(8317),l=n.forwardRef((function(e,a){var s=e.classes,c=e.className,l=e.component,p=void 0===l?"div":l,u=(0,t.Z)(e,["classes","className","component"]);return n.createElement(p,(0,o.Z)({ref:a,className:(0,r.Z)(s.root,c)},u))}));const p=(0,c.Z)({root:{width:"100%",overflowX:"auto"}},{name:"MuiTableContainer"})(l)}}]);
+//# sourceMappingURL=7233.7efc6f6e.chunk.js.map
