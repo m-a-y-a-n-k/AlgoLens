@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { siteSugg } from "./routes"
 import { CircularProgress } from "@material-ui/core"
 import { createBrowserHistory } from "history"
+import constants from "common/helpers/constants"
 
-const history = createBrowserHistory({ basename: "/AlgoLens" })
+const history = createBrowserHistory({ basename: `/${constants.BRAND_NAME}` })
 
 const Dashboard = lazy(() => import(`../../dashboard/index`))
 const NotFound = lazy(() => import(`./NotFound`))
@@ -24,7 +25,7 @@ function RouteSection() {
         <Route
           exact
           history={history}
-          path="/"
+          path={`/${constants.BRAND_NAME}`}
           render={() => DynamicLoader(Dashboard)}
         />
         {siteSugg.map((site, index) => {
@@ -48,7 +49,7 @@ function RouteSection() {
 
 export default function Routes() {
   return (
-    <Router basename="/AlgoLens">
+    <Router>
       <RouteSection />
     </Router>
   )

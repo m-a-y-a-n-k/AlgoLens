@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import { siteSugg } from "../routing/base/routes"
 import { DynamicLoader } from "../routing/base/Router"
+import constants from "common/helpers/constants"
 
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`))
 const MenuIcon = lazy(() => import(`@material-ui/icons/Menu`))
@@ -78,8 +79,8 @@ export default function PrimarySearchAppBar() {
           {DynamicLoader(IconButton, {
             "aria-label": "home page",
             color: "inherit",
-            disabled: window.location.pathname === "/",
-            href: "/",
+            disabled: window.location.pathname === `/${constants.BRAND_NAME}`,
+            href: `/${constants.BRAND_NAME}`,
             className: classes.homeButton,
             children: DynamicLoader(HomeIcon),
           })}

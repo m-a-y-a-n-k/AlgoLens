@@ -95,7 +95,7 @@ function Copyright() {
   return (
     <Typography variant="body2" className={classes.copyright}>
       {"Copyright © "}
-      <Link href="/" className={classes.company}>
+      <Link href={`/${constants.BRAND_NAME}`} className={classes.company}>
         {constants.BRAND_NAME}
       </Link>{" "}
       {new Date().getFullYear()}
