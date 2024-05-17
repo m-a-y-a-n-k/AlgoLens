@@ -1,5 +1,3 @@
-import constants from "common/helpers/constants"
-
 const pages = [
   {
     algo: [
@@ -20,7 +18,7 @@ const pages = [
 ]
 
 const dynamicRoute = (category, subject) => {
-  return `${constants.BRAND_NAME}/${category}/${subject}`
+  return `${category}/${subject}`
 }
 
 const dynamicPath = (category, subject) => {

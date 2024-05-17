@@ -19,16 +19,13 @@ function RouteSection() {
   return (
     <main className="content">
       <Switch>
-        <Route
-          exact
-          path={`/${constants.BRAND_NAME}`}
-          render={() => DynamicLoader(Dashboard)}
-        />
+        <Route exact path={`/`} render={() => DynamicLoader(Dashboard)} />
         {siteSugg.map((site, index) => {
           const { route, path } = site
           const Component = lazy(() => import(`../${path}/index.jsx`))
           return (
             <Route
+              exact
               path={`${route}`}
               render={() => DynamicLoader(Component)}
               key={`${index}-${path}`}
@@ -43,7 +40,7 @@ function RouteSection() {
 
 export default function Routes() {
   return (
-    <Router>
+    <Router basename={`/${constants.BRAND_NAME}`}>
       <RouteSection />
     </Router>
   )

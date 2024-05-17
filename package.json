@@ -6,7 +6,8 @@
     "node": "16.16.0",
     "npm": "8.11.0"
   },
-  "homepage": "https://m-a-y-a-n-k.github.io/AlgoLens",
+  "homepage": "/AlgoLens",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "serve -s build",
+    "start": "react-scripts build && http-server ./build -p 3000 --path-prefix /AlgoLens",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
