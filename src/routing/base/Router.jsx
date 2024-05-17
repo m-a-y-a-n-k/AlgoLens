@@ -2,10 +2,7 @@ import React, { Suspense, lazy } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { siteSugg } from "./routes"
 import { CircularProgress } from "@material-ui/core"
-import { createBrowserHistory } from "history"
 import constants from "common/helpers/constants"
-
-const history = createBrowserHistory({ basename: `/${constants.BRAND_NAME}` })
 
 const Dashboard = lazy(() => import(`../../dashboard/index`))
 const NotFound = lazy(() => import(`./NotFound`))
@@ -24,7 +21,6 @@ function RouteSection() {
       <Switch>
         <Route
           exact
-          history={history}
           path={`/${constants.BRAND_NAME}`}
           render={() => DynamicLoader(Dashboard)}
         />
@@ -33,8 +29,6 @@ function RouteSection() {
           const Component = lazy(() => import(`../${path}/index.jsx`))
           return (
             <Route
-              exact
-              history={history}
               path={`${route}`}
               render={() => DynamicLoader(Component)}
               key={`${index}-${path}`}
