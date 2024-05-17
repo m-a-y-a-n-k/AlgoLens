@@ -71,7 +71,7 @@ export default function PrimarySearchAppBar() {
             id: "sitemapSugg",
             searchOps: siteSugg,
             updateSelection: (selection) => {
-              window.location.pathname = `${constants.BRAND_NAME}${selection.route}`
+              window.location.href = `/#${selection.route}`
             },
           })}
         </section>
