@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { siteSugg } from "./routes"
 import { CircularProgress } from "@material-ui/core"
-import constants from "common/helpers/constants"
 
 const Dashboard = lazy(() => import(`../../dashboard/index`))
 const NotFound = lazy(() => import(`./NotFound`))
@@ -40,7 +39,7 @@ function RouteSection() {
 
 export default function Routes() {
   return (
-    <Router basename={`/${constants.BRAND_NAME}`}>
+    <Router basename="/AlgoLens">
       <RouteSection />
     </Router>
   )
