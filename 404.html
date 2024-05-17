@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Page Not Found</title>
-    <meta http-equiv="refresh" content="0; URL=./index.html" />
-    <script>
-      // Redirect to the root if using client-side routing
-      window.location.href = "./index.html"
+    <script type="text/javascript">
+      // Redirect to the index.html to let React Router handle the route
+      window.location.replace(
+        "/AlgoLens" +
+          window.location.pathname +
+          window.location.search +
+          window.location.hash
+      )
     </script>
   </head>
   <body></body>
