@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <title>Page Not Found</title>
     <script type="text/javascript">
-      // Redirect to the index.html to let React Router handle the route
+      const pathname = window.location.pathname.replace("/AlgoLens/", "/")
       window.location.replace(
-        "/AlgoLens" +
-          window.location.pathname +
-          window.location.search +
-          window.location.hash
+        "/AlgoLens" + pathname + window.location.search + window.location.hash
       )
     </script>
   </head>
