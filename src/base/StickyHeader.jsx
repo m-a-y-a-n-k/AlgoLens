@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar"
 import { siteSugg } from "../routing/base/routes"
 import { DynamicLoader } from "../routing/base/Router"
 import constants from "common/helpers/constants"
-
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`))
 const MenuIcon = lazy(() => import(`@material-ui/icons/Menu`))
 const HomeIcon = lazy(() => import(`@material-ui/icons/Home`))
@@ -71,7 +70,7 @@ export default function PrimarySearchAppBar() {
             id: "sitemapSugg",
             searchOps: siteSugg,
             updateSelection: (selection) => {
-              window.location.href = `/#${selection.route}`
+              window.location.hash = selection.route
             },
           })}
         </section>
