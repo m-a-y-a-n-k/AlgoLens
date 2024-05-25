@@ -53,7 +53,7 @@ const NQueens = () => {
       alert(
         disabled
           ? "Pending Operations"
-          : "Uncomputable. Input supported 1 to 36"
+          : "Uncomputable. Input supported 1 to 16"
       )
     }
   }
@@ -70,12 +70,12 @@ const NQueens = () => {
   return (
     <Container>
       <Row className="text-center">
-        <Col xs={8} style={{ margin: "0 auto" }}>
+        <Col xs={12}>
           <Input onQueens={handleQueens} />
         </Col>
       </Row>
       <Row>
-        <Col xs={8} style={{ margin: "0 auto" }}>
+        <Col xs={12}>
           <Board
             size={number}
             queens={queens.map((queen) => queen.row * number + queen.col)}

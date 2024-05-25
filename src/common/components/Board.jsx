@@ -48,8 +48,7 @@ const Board = React.memo(({ size, queens }) => {
           <Cell key={i} styles={{ backgroundColor: color }}>
             <FaChessQueen
               style={{
-                margin: "auto 5px",
-                fontSize: "2rem",
+                fontSize: "1.5rem",
                 color: "rgba(30,190,170,0.8)",
               }}
             />
@@ -65,12 +64,12 @@ const Board = React.memo(({ size, queens }) => {
 
   const boardStyle = {
     display: "grid",
-    gridTemplateColumns: `repeat(${size}, minmax(30px, 1fr))`,
-    gridTemplateRows: `repeat(${size}, minmax(30px, 1fr))`,
+    gridTemplateColumns: `repeat(${size}, minmax(12px, 1fr))`,
+    gridTemplateRows: `repeat(${size}, minmax(12px, 1fr))`,
     width: "100%",
     maxWidth: `100vw`,
-    padding: "12px",
-    gap: "8px",
+    padding: "4px",
+    gap: "4px",
     margin: "0 auto",
     boxSizing: `border-box`,
   }
