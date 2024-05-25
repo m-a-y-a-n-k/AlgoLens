@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   company: {
-    color: "#D1F5E6",
+    color: "#25d4eb",
     "&:hover": {
-      color: "#AEF4D6",
+      color: "#56e7fa",
       textDecoration: "none",
     },
   },
