@@ -24,31 +24,28 @@ const Sieve = () => {
     if (start > end) {
       return []
     }
-    let numbers = []
-    let primes = new Set()
-    let nonPrimes = new Set()
-    for (let num = start; num <= end; num++) {
-      numbers.push({ value: num, prime: num >= 2 })
+    const isPrime = Array(end - start + 1).fill(true)
+
+    if (start <= 1) {
+      for (let i = 0; i <= Math.min(end, 1) - start; i++) {
+        isPrime[i] = false
+      }
     }
+
     for (let p = 2; p * p <= end; p++) {
-      if (!nonPrimes.has(p)) {
-        primes.add(p)
-        for (let x = 2 * p; x <= end; x += p) {
-          nonPrimes.add(x)
-        }
+      let startIdx = Math.max(p * p, Math.ceil(start / p) * p)
+      if (startIdx > end) continue
+
+      for (let multiple = startIdx; multiple <= end; multiple += p) {
+        isPrime[multiple - start] = false
       }
     }
-    primes.forEach((prime) => {
-      let s = (start + prime - 1) % prime // Adjust for start value
-      for (; s < end - start; s += prime) {
-        numbers[s].prime = false
-      }
-    })
+
     setAlert({
       text: "The prime ones are highlighted in green",
       type: "success",
     })
-    return numbers
+    return isPrime
   }, [])
 
   return (
@@ -79,15 +76,21 @@ const Sieve = () => {
 }
 
 const LazyList = ({ start, end, sieve }) => {
-  const data = useMemo(() => sieve(start, end), [start, end])
+  const numbers = useMemo(
+    () =>
+      Array.from({ length: end - start + 1 }).map((_, index) => index + start),
+    [start, end]
+  )
+
+  const isPrime = useMemo(() => sieve(start, end), [start, end])
 
   return (
-    <List height={400} itemCount={data.length} itemSize={100} width={"100%"}>
+    <List height={400} itemCount={numbers.length} itemSize={60} width={"100%"}>
       {({ index, style }) => (
         <Grid item xs={12} style={style}>
           <LazyElement
-            highlight={data[index].prime}
-            data={{ value: data[index].value, index }}
+            highlight={isPrime[index]}
+            data={{ value: numbers[index], index }}
             type="array"
           />
         </Grid>
