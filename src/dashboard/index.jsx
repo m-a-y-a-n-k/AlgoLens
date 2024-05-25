@@ -51,10 +51,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   siteLogo: {
-    height: "initial",
-    margin: "0 auto",
+    maxWidth: "100%",
+    height: "auto",
     [theme.breakpoints.up("sm")]: {
-      width: 480,
+      width: 320,
+      margin: "0 auto",
     },
   },
 }))
@@ -122,11 +123,11 @@ export default function Dashboard() {
                 classes={{
                   img: classes.siteLogo,
                 }}
-                loading="lazy"
+                loading="eager"
                 alt={constants.BRAND_NAME}
               />
             ) : (
-              <Placeholder variant="rect" height={400} />
+              <Placeholder variant="rect" height={320} width={"100%"} />
             )}
             <CardContent>
               <Typography variant="h5" color="textPrimary">
