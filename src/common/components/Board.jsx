@@ -1,69 +1,87 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { FaChessQueen } from "react-icons/fa"
 
-class Cell extends React.Component {
-  render() {
-    return (
+const Cell = ({ styles, children }) => {
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        paddingTop: "100%",
+        boxSizing: `border-box`,
+        ...styles,
+      }}
+    >
       <div
         style={{
-          width: "30px",
-          height: "30px",
-          ...this.props.styles,
-          float: "left",
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {this.props.children}
+        {children}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default class Board extends React.Component {
-  state = {
-    cells: [],
-  }
+const Board = React.memo(({ size, queens }) => {
+  const [cells, setCells] = useState([])
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      let totalPieces = this.props.size * this.props.size,
-        boards = document.querySelectorAll(".ch-board"),
-        cells = [...this.state.cells],
-        color = "#D3D3D3"
-      for (const board of boards) {
-        cells = []
-        board.style.width = `${this.props.size * 30 + 0.01}px`
-        board.style.height = `${this.props.size * 30}px`
-        board.style.position = "relative"
-        board.style.top = "20px"
-        board.style.left = "20px"
-        for (var i = 0; i < totalPieces; i++) {
-          // i = 0,color = white,size = 6,totalPieces = 36
-          color = color === "#D3D3D3" ? "#606060" : "#D3D3D3"
-          if (
-            i % this.props.size === 0 &&
-            i % 2 === 0 &&
-            totalPieces % 2 === 0
-          ) {
-            color = color === "#D3D3D3" ? "#606060" : "#D3D3D3"
-          }
-          if (this.props.queens.includes(i)) {
-            cells.push(
-              <Cell key={i} styles={{ backgroundColor: color }}>
-                <FaChessQueen
-                  style={{ margin: "auto 5px", color: "rgba(30,190,170,0.8)" }}
-                />
-              </Cell>
-            )
-          } else {
-            cells.push(<Cell key={i} styles={{ backgroundColor: color }} />)
-          }
-        }
-        this.setState({ cells })
+  useEffect(() => {
+    const totalPieces = size * size
+    const newCells = []
+    let color = "#D3D3D3"
+
+    for (let i = 0; i < totalPieces; i++) {
+      color = color === "#D3D3D3" ? "#606060" : "#D3D3D3"
+      if (i % size === 0 && i % 2 === 0 && totalPieces % 2 === 0) {
+        color = color === "#D3D3D3" ? "#606060" : "#D3D3D3"
+      }
+      if (queens.includes(i)) {
+        newCells.push(
+          <Cell key={i} styles={{ backgroundColor: color }}>
+            <FaChessQueen
+              style={{
+                margin: "auto 5px",
+                fontSize: "2rem",
+                color: "rgba(30,190,170,0.8)",
+              }}
+            />
+          </Cell>
+        )
+      } else {
+        newCells.push(<Cell key={i} styles={{ backgroundColor: color }} />)
       }
     }
+
+    setCells(newCells)
+  }, [size, queens])
+
+  const boardStyle = {
+    display: "grid",
+    gridTemplateColumns: `repeat(${size}, minmax(30px, 1fr))`,
+    gridTemplateRows: `repeat(${size}, minmax(30px, 1fr))`,
+    width: "100%",
+    maxWidth: `100vw`,
+    padding: "12px",
+    gap: "8px",
+    margin: "0 auto",
+    boxSizing: `border-box`,
   }
 
-  render() {
-    return <div className="ch-board">{this.state.cells}</div>
-  }
-}
+  return (
+    <div className="ch-board" style={boardStyle}>
+      {cells}
+    </div>
+  )
+})
+
+Board.displayName = "NQueens.Board"
+
+export default Board

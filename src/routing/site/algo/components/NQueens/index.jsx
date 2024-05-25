@@ -1,209 +1,89 @@
-import React from "react"
-import Board from "../../../../../common/components/Board"
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Button,
-  InputGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-} from "reactstrap"
+import React, { useState, useEffect, useCallback } from "react"
+import Board from "common/components/Board"
+import { Container, Row, Col } from "reactstrap"
+import Input from "./Input"
 
-class Inp extends React.Component {
-  constructor(props) {
-    super(props)
+const NQueens = () => {
+  const [queens, setQueens] = useState([])
+  const [number, setNumber] = useState(0)
+  const [disabled, setDisabled] = useState(false)
 
-    this.state = {
-      input: null,
-    }
-  }
-  render() {
-    return (
-      <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
-        <CardHeader>Queens on Board</CardHeader>
-        <CardBody className="text-center">
-          <CardTitle>Number</CardTitle>
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Value</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              type="number"
-              placeholder="Number of Queens on Board"
-              onChange={(event) => {
-                this.setState({ input: event.target.value })
-              }}
-              value={this.state.input ? this.state.input : ""}
-            />
-          </InputGroup>
-          <br />
-          <Button
-            onClick={() => {
-              this.props.parent.queens(parseInt(this.state.input))
-              this.setState({ input: null })
-            }}
-          >
-            Submit
-          </Button>
-        </CardBody>
-      </Card>
-    )
-  }
-}
-
-export default class NQueens extends React.Component {
-  state = {
-    queens: [],
-    number: 0,
-    disabled: false,
-  }
-
-  safe(row, col) {
-    if (this.state.disabled) {
-      let queens = this.state.queens,
-        queen
-      let markRow = {},
-        markCol = {}
-      for (let q = 0; q < queens.length - 1; q++) {
-        queen = queens[q]
-        if (
-          markRow[queen.row] === true ||
-          markCol[queen.col] === true ||
-          (row !== queen.row &&
-            col !== queen.col &&
-            Math.abs(row - queen.row) === Math.abs(col - queen.col))
-        ) {
-          return false
-        }
-        markRow[queen.row] = true
-        markCol[queen.col] = true
+  const safe = useCallback((row, col, board) => {
+    const queens = board.map((col, row) => ({ row, col }))
+    for (let queen of queens) {
+      if (
+        queen.row === row ||
+        queen.col === col ||
+        Math.abs(queen.row - row) === Math.abs(queen.col - col)
+      ) {
+        return false
       }
-      if (markRow[row] === true || markCol[col] === true) return false
-      return true
     }
-    return false
-  }
+    return true
+  }, [])
 
-  place(row, col) {
-    if (this.state.disabled) {
-      let size = this.state.number
-      if (size === 0 || col === size || row < 0 || col < 0) {
-        return
+  const solveNQueens = (n) => {
+    const solve = (row, board) => {
+      if (row === n) {
+        setQueens(board.map((col, row) => ({ row, col })))
+        setDisabled(false)
+        alert("Found Solution!!!")
+        return true
       }
-      this.setState(
-        (prevState) => {
-          let queens = [...prevState.queens]
-          queens.length = col
-          queens.push({ row, col })
-          return {
-            queens,
+      for (let col = 0; col < n; col++) {
+        if (safe(row, col, board)) {
+          board.push(col)
+          if (solve(row + 1, board)) {
+            return true
           }
-        },
-        () => {
-          setTimeout(() => {
-            let safe = this.safe(row, col)
-            if (safe) {
-              if (this.state.queens.length < size) {
-                this.place(0, col + 1)
-              } else {
-                this.setState(
-                  {
-                    disabled: false,
-                  },
-                  () => {
-                    alert("Found Solution. Continue !!!")
-                  }
-                )
-              }
-            } else {
-              if (row + 1 === size) {
-                let queens = [...this.state.queens]
-                if (queens.length >= 2) {
-                  row = queens[queens.length - 2].row
-                  if (row + 1 === size) {
-                    if (queens.length >= 3) {
-                      row = queens[queens.length - 3].row
-                      this.place(row + 1, col - 2)
-                    } else {
-                      this.setState(
-                        {
-                          disabled: false,
-                        },
-                        () => {
-                          alert(
-                            "Did not Found Solution. Try different input !!!"
-                          )
-                        }
-                      )
-                    }
-                  } else {
-                    this.place(row + 1, col - 1)
-                  }
-                } else {
-                  this.setState(
-                    {
-                      disabled: false,
-                    },
-                    () => {
-                      alert("Did not Found Solution. Try different input !!!")
-                    }
-                  )
-                }
-              } else {
-                this.place(row + 1, col)
-              }
-            }
-          }, 1000)
+          board.pop()
         }
-      )
+      }
+      return false
     }
+    return solve(0, [])
   }
 
-  queens(input) {
-    if (input >= 1 && input <= 36 && !this.state.disabled) {
-      this.setState(
-        () => {
-          return {
-            number: input,
-            disabled: true,
-          }
-        },
-        () => {
-          this.place(0, 0)
-        }
-      )
+  const handleQueens = (input) => {
+    if (input >= 1 && input <= 16 && !disabled) {
+      setNumber(input)
+      setDisabled(true)
+      setQueens([])
     } else {
-      if (this.state.disabled) {
-        alert("Pending Operations")
-      } else {
-        alert("Uncomputable. Input supported 1 to 36")
-      }
+      alert(
+        disabled
+          ? "Pending Operations"
+          : "Uncomputable. Input supported 1 to 36"
+      )
     }
   }
 
-  render() {
-    return (
-      <Container>
-        <Row className="text-center">
-          <Col sm={6}>
-            <Inp parent={this} />
-          </Col>
-        </Row>
-        <Row>
+  useEffect(() => {
+    if (disabled && number > 0) {
+      if (!solveNQueens(number)) {
+        setDisabled(false)
+        alert("Did not find solution. Try different input!!!")
+      }
+    }
+  }, [disabled, number, safe])
+
+  return (
+    <Container>
+      <Row className="text-center">
+        <Col xs={8} style={{ margin: "0 auto" }}>
+          <Input onQueens={handleQueens} />
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={8} style={{ margin: "0 auto" }}>
           <Board
-            size={this.state.number}
-            queens={this.state.queens.map((queen) => {
-              return queen.row * this.state.number + queen.col
-            })}
-          ></Board>
-        </Row>
-      </Container>
-    )
-  }
+            size={number}
+            queens={queens.map((queen) => queen.row * number + queen.col)}
+          />
+        </Col>
+      </Row>
+    </Container>
+  )
 }
+
+export default NQueens
