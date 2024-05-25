@@ -59,7 +59,7 @@ const styleforbutton = makeStyles((theme) => ({
   },
 }))
 
-export default function Input(props) {
+const Input = React.memo(({ disabled, fact, setResult }) => {
   const [input, setInput] = useState(null)
   const classes = useStyles()
   const inputstyle = stylefortext()
@@ -85,15 +85,15 @@ export default function Input(props) {
               setInput(event.target.value)
             }}
             value={input ? input : ""}
-            disabled={props.disabled}
+            disabled={disabled}
           />
           <Button
             className={buttonstyle.root}
-            disabled={props.disabled}
+            disabled={disabled}
             onClick={() => {
-              props.fact(parseInt(input))
+              fact(parseInt(input))
               setInput(null)
-              props.setResult(null)
+              setResult(null)
             }}
             variant="contained"
             color="primary"
@@ -105,4 +105,8 @@ export default function Input(props) {
       </CardActions>
     </Card>
   )
-}
+})
+
+Input.displayName = "Factorial.Input"
+
+export default Input

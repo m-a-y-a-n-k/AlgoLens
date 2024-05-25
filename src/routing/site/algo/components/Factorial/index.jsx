@@ -1,148 +1,137 @@
-import React from "react"
-import Element from "common/components/Element"
+import React, { useState, lazy, useEffect } from "react"
 import { FaEquals, FaTimes } from "react-icons/fa"
 import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import Input from "routing/site/algo/components/Factorial/Input"
 
-export default class Factorial extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      input: null,
-      result: null,
-      processed: null,
-      rest: null,
-      disabled: false,
+const Element = lazy(() => import("common/components/Element"))
+
+const Factorial = () => {
+  const [input, setInput] = useState(null)
+  const [result, setResult] = useState(null)
+  const [processed, setProcessed] = useState(null)
+  const [rest, setRest] = useState(null)
+  const [disabled, setDisabled] = useState(false)
+  const [alert, setAlert] = useState(null)
+
+  const computeFactorial = (currentValue) => {
+    if (currentValue <= 0) {
+      setTimeout(() => {
+        setDisabled(false)
+        setAlert({
+          text: "Factorial successfully computed",
+          type: "success",
+        })
+        setInput(null)
+        setProcessed(null)
+        setRest(null)
+      }, 500)
+      return
     }
-    this.setResult = this.setResult.bind(this)
-    this.fact = this.fact.bind(this)
-  }
-
-  setResult(result) {
-    this.setState({
-      result,
-    })
-  }
-
-  fact(input) {
-    if (input >= 0 && input <= 50) {
-      this.setState(
-        (prevState) => {
-          if (prevState.input === null) {
-            return {
-              disabled: true,
-              input,
-              processed: `${input}`,
-              rest: input >= 2 ? input - 1 : 1,
-              alert: null,
-            }
-          }
-          if (!prevState.processed.includes("X")) {
-            return {
-              processed: `${prevState.processed} X ${prevState.rest}`,
-              rest: prevState.rest >= 2 ? prevState.rest - 1 : 1,
-            }
-          } else {
-            let processed = prevState.processed.split(" X ")
-            processed = parseFloat(processed[0]) * parseFloat(processed[1])
-
-            if (prevState.rest === 1) {
-              return {
-                result: `${processed}`,
-                input: null,
-                disabled: false,
-                alert: {
-                  text: "Factorial successfully computed",
-                  type: "success",
-                },
-              }
-            } else {
-              return {
-                processed: `${processed}`,
-              }
-            }
-          }
-        },
-        () => {
-          if (this.state.result === null) {
-            setTimeout(() => {
-              this.fact(this.state.rest)
-            }, 0.5 * 1000)
-          }
+    setTimeout(() => {
+      setProcessed((prevProcessed) => `${prevProcessed} X ${currentValue}`)
+      setProcessed((prevProcessed) => {
+        const processedNumbers = prevProcessed.split(" X ").map(Number)
+        if (processedNumbers.length === 2) {
+          const [a, b] = processedNumbers
+          return (a * b).toString()
         }
-      )
+        return prevProcessed
+      })
+      setRest(currentValue - 1)
+      computeFactorial(currentValue - 1)
+    }, 500)
+  }
+
+  const fact = (input) => {
+    if (input >= 0 && input <= 1) {
+      setAlert({
+        text: "Factorial is 1",
+        type: "success",
+      })
+    } else if (input >= 2 && input <= 50) {
+      setInput(input)
+      setDisabled(true)
+      setProcessed(input > 1 ? `${input}` : `1`)
+      setRest(input >= 2 ? input - 1 : 1)
+      setAlert(null)
+      computeFactorial(input - 1)
     } else {
-      this.setState({
-        alert: {
-          text: "Factorial does not exist or too large",
-          type: "danger",
-        },
+      setAlert({
+        text: "Factorial does not exist or too large",
+        type: "danger",
       })
     }
   }
 
-  render() {
-    return (
-      <Grid container>
-        {this.state.alert && (
-          <Grid item xs={12}>
-            <Alert
-              color={this.state.alert.type}
-              isOpen={!!this.state.alert.text}
-              toggle={() => {
-                this.setState({ alert: null })
-              }}
-            >
-              {this.state.alert.text}
-            </Alert>
+  useEffect(() => {
+    const updateResult = () => {
+      if (processed) {
+        const processedNumbers = processed.split(" X ").map(Number)
+        if (processedNumbers.length === 2) {
+          const [a, b] = processedNumbers
+          if (b === 1) setResult((a * b).toString())
+        }
+      }
+    }
+    updateResult()
+  }, [processed])
+
+  return (
+    <Grid container>
+      {alert && (
+        <Grid item xs={12}>
+          <Alert
+            color={alert.type}
+            isOpen={!!alert.text}
+            toggle={() => setAlert(null)}
+          >
+            {alert.text}
+          </Alert>
+        </Grid>
+      )}
+      <Grid container className="text-center">
+        <Grid item xs={12}>
+          <Input fact={fact} setResult={setResult} disabled={disabled} />
+        </Grid>
+      </Grid>
+
+      {parseInt(input) >= 0 && (
+        <Grid container className="text-center mt-4 mb-4">
+          <Grid item xs={2}>
+            <Element
+              highlight={true}
+              data={{ value: `${input}!` }}
+              type="Array"
+            />
           </Grid>
-        )}
-        <Grid container className="text-center">
+          <Grid item xs={2}>
+            <FaEquals style={{ margin: "auto 5px" }} />
+          </Grid>
+          <Grid item xs={3}>
+            <Element data={{ value: processed }} type="Array" />
+          </Grid>
+          <Grid item xs={2}>
+            <FaTimes style={{ margin: "auto 5px" }} />
+          </Grid>
+          <Grid item xs={3}>
+            <Element data={{ value: `${rest}!` }} type="Array" />
+          </Grid>
+        </Grid>
+      )}
+      {parseInt(result) >= 0 && (
+        <Grid container className="text-center mt-4 mb-4">
           <Grid item xs={12}>
-            <Input
-              fact={this.fact}
-              setResult={this.setResult}
-              disabled={this.state.disabled}
+            <Element
+              highlight={true}
+              data={{ value: `${result}` }}
+              type="Array"
             />
           </Grid>
         </Grid>
-
-        {parseInt(this.state.input) >= 0 && (
-          <Grid container className="text-center mt-4 mb-4">
-            <Grid item xs={2}>
-              <Element
-                highlight={true}
-                data={{ value: `${this.state.input}!` }}
-                type="Array"
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <FaEquals style={{ margin: "auto 5px" }} />
-            </Grid>
-            <Grid item xs={3}>
-              <Element data={{ value: this.state.processed }} type="Array" />
-            </Grid>
-            <Grid item xs={2}>
-              <FaTimes style={{ margin: "auto 5px" }} />
-            </Grid>
-            <Grid item xs={3}>
-              <Element data={{ value: `${this.state.rest}!` }} type="Array" />
-            </Grid>
-          </Grid>
-        )}
-        {this.state.result && (
-          <Grid container className="text-center mt-4 mb-4">
-            <Grid item xs={12}>
-              <Element
-                highlight={true}
-                data={{ value: `${this.state.result}` }}
-                type="Array"
-              />
-            </Grid>
-          </Grid>
-        )}
-      </Grid>
-    )
-  }
+      )}
+    </Grid>
+  )
 }
+
+export default Factorial
