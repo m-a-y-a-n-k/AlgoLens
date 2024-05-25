@@ -10,7 +10,7 @@ const LazyElement = lazy(() => import("common/components/Element"))
 
 const BinarySearch = () => {
   const [array, setArray] = useState([])
-  const [highlights, setHighlights] = useState([])
+  const [highlights, setHighlights] = useState({ start: 0, end: -1 })
   const [iter, setIter] = useState(0)
   const [alert, setAlert] = useState(null)
 
@@ -26,7 +26,7 @@ const BinarySearch = () => {
       }
       arr.splice(i, 0, value)
       setArray(arr)
-      setHighlights([])
+      setHighlights({ start: 0, end: -1 })
       setIter(0)
       setAlert(null)
       return i
@@ -47,7 +47,7 @@ const BinarySearch = () => {
       if (!arr || arr.length === 0) arr = []
       if (length !== arr.length) {
         setArray(arr)
-        setHighlights([])
+        setHighlights({ start: 0, end: -1 })
         setAlert(null)
       } else {
         setAlert({
@@ -60,7 +60,7 @@ const BinarySearch = () => {
       arr = array
       arr.splice(position, 1)
       setArray(arr)
-      setHighlights([])
+      setHighlights({ start: 0, end: -1 })
       setIter(0)
       setAlert(null)
     } else {
@@ -70,11 +70,9 @@ const BinarySearch = () => {
 
   const update = (position, data) => {
     if (data && position < array.length && position >= 0) {
-      let newHighlights = []
       deleteItem(null, position)
       position = insert(data)
-      newHighlights.push(position)
-      setHighlights(newHighlights)
+      setHighlights({ start: position, end: position })
       setIter(0)
       setAlert(null)
     } else {
@@ -88,43 +86,29 @@ const BinarySearch = () => {
 
   const bs = (data, start, end, arr) => {
     let mid = Math.floor((start + end) / 2)
+
     if (start > end) return
+
     if (arr[mid] === data) {
-      setHighlights((oldHighlights) => {
-        while (start <= end && arr[start] !== data) {
-          start++
-          oldHighlights.shift()
-        }
-        while (end >= start && arr[end] !== data) {
-          end--
-          oldHighlights.pop()
-        }
-        return oldHighlights
-      })
+      setHighlights({ start: mid, end: mid })
       setIter((prevIter) => prevIter + 1)
     } else if (arr[mid] < data) {
-      setHighlights((oldHighlights) => {
-        while (start <= mid) {
-          oldHighlights.shift()
-          start++
-        }
-        return oldHighlights
-      })
+      setHighlights((highlights) => ({
+        ...highlights,
+        start: mid + 1,
+      }))
       setIter((prevIter) => prevIter + 1)
       setTimeout(() => {
-        bs(data, start, end, arr)
+        bs(data, mid + 1, end, arr)
       }, 0.75 * 1000)
     } else {
-      setHighlights((oldHighlights) => {
-        while (end >= mid) {
-          oldHighlights.pop()
-          end--
-        }
-        return oldHighlights
-      })
+      setHighlights((highlights) => ({
+        ...highlights,
+        end: mid - 1,
+      }))
       setIter((prevIter) => prevIter + 1)
       setTimeout(() => {
-        bs(data, start, end, arr)
+        bs(data, start, mid - 1, arr)
       }, 0.75 * 1000)
     }
   }
@@ -132,17 +116,12 @@ const BinarySearch = () => {
   const search = (data) => {
     if (data && array.length > 0) {
       const value = parseFloat(data)
-      let newHighlights = []
-      let start = 0
-      let end = array.length - 1
-      while (start <= end) {
-        newHighlights.push(start)
-        start++
-      }
-      setHighlights(newHighlights)
+      const start = 0
+      const end = array.length - 1
+      setHighlights({ start, end })
       setIter(0)
       setTimeout(() => {
-        bs(value, 0, array.length - 1, array)
+        bs(value, start, end, array)
       }, 0.75 * 1000)
     } else {
       setAlert({ text: "Empty Search", type: "danger", alertId: 4 })
@@ -187,14 +166,10 @@ const LazyList = ({ data, highlights }) => {
       direction="horizontal"
     >
       {({ index, style }) => {
-        let highlight = false
-        if (highlights.includes(index)) {
-          highlight = true
-        }
         return (
           <Grid item xs={12} style={style}>
             <LazyElement
-              highlight={highlight}
+              highlight={index >= highlights.start && index <= highlights.end}
               data={{ value: data[index], index }}
               type="array"
             />
