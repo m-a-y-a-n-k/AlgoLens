@@ -125,6 +125,8 @@ export default function Dashboard() {
                 }}
                 loading="eager"
                 alt={constants.BRAND_NAME}
+                width="320"
+                height="320"
               />
             ) : (
               <Placeholder variant="rect" height={320} width={"100%"} />
