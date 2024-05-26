@@ -23,14 +23,14 @@ const QueensInput = React.memo(({ onQueens }) => {
     <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
       <CardHeader>Queens on Board</CardHeader>
       <CardBody className="text-center">
-        <CardTitle>Number</CardTitle>
+        <CardTitle>Number of rows or columns of square board N X N</CardTitle>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>Value</InputGroupText>
+            <InputGroupText>Input Value</InputGroupText>
           </InputGroupAddon>
           <Input
             type="number"
-            placeholder="Number of Queens on Board"
+            placeholder="Number of Queens on Board ( 1 to 16 )"
             onChange={(event) => setInput(event.target.value)}
             value={input || ""}
           />
