@@ -59,7 +59,7 @@ const styleforbutton = makeStyles((theme) => ({
   },
 }))
 
-const Input = React.memo(({ disabled, fact, setResult }) => {
+const Input = React.memo(({ disabled, setData }) => {
   const [input, setInput] = useState(null)
   const classes = useStyles()
   const inputstyle = stylefortext()
@@ -69,10 +69,11 @@ const Input = React.memo(({ disabled, fact, setResult }) => {
   return (
     <Card className={classes.root} variant="outlined">
       <h2 className="bg-success text-white p-2">
-        Compute Factorial of a whole number N --&gt; N!
+        Compute factors of a whole number N = p x q x r ..... x z
       </h2>
       <h4 className="text-primary p-2">
-        Finds the product 1 x 2 x 3 x .... upto a number N
+        Finds numbers between 1 to N that completely divides N leaving remainder
+        0
       </h4>
       <CardActions>
         <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formstyle.root}`}>
@@ -91,9 +92,8 @@ const Input = React.memo(({ disabled, fact, setResult }) => {
             className={buttonstyle.root}
             disabled={disabled}
             onClick={() => {
-              fact(parseInt(input))
+              setData(Number(input))
               setInput(null)
-              setResult(null)
             }}
             variant="contained"
             color="primary"

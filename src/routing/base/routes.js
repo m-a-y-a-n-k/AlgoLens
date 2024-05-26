@@ -1,20 +1,21 @@
 const pages = [
   {
     algo: [
-      "Sieve",
       "BinarySearch",
-      "Factorial",
-      "NQueens",
-      "Exponentiation",
-      "FloodFill",
-      "Peak",
-      "KnuthShuffle",
       "ClosestPair",
+      "Exponentiation",
+      "Factorial",
+      "Factorize",
+      "FloodFill",
+      "KnuthShuffle",
+      "NQueens",
       "Palindrome",
+      "Peak",
+      "Sieve",
     ],
   },
   {
-    ds: ["Array", "LinkedList", "Stacks", "Queues", "Sets", "Lookup"],
+    ds: ["Array", "LinkedList", "Lookup", "Queues", "Sets", "Stacks"],
   },
 ]
 
