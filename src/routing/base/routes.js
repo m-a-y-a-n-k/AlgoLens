@@ -10,6 +10,7 @@ const pages = [
       "Peak",
       "KnuthShuffle",
       "ClosestPair",
+      "Palindrome",
     ],
   },
   {
