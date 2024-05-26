@@ -17,8 +17,11 @@ const Sieve = () => {
   }, [])
 
   const sieve = useCallback((start, end) => {
-    if (end - start >= 1000 || end > 100000000) {
-      setAlert({ text: "Too big range not supported yet", type: "danger" })
+    if (end - start >= 1000000 || end > 100000000) {
+      setAlert({
+        text: "Range is too big and not supported yet",
+        type: "danger",
+      })
       return []
     }
     if (start > end) {
