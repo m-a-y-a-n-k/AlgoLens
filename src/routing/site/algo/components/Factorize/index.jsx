@@ -87,17 +87,17 @@ const Factorize = () => {
 
       {parseInt(input) >= 0 && (
         <Grid container className="text-center mt-4 mb-4 align-items-center">
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <LazyElement
               highlight={true}
               data={{ value: `Factors(${input})` }}
-              type="Array"
+              type="array"
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <FaEquals style={{ margin: "auto 5px" }} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <LazyList factorize={factorize} input={input} />
           </Grid>
         </Grid>
@@ -111,22 +111,19 @@ const LazyList = ({ input, factorize }) => {
 
   return (
     <List
-      height={80}
+      height={120}
       itemCount={factors.length}
       itemSize={400}
-      width={window.innerWidth * 0.5}
+      width={window.innerWidth * 0.6}
       direction="horizontal"
     >
       {({ index, style }) => (
-        <Grid
-          container
-          item
-          xs={12}
-          style={style}
-          className="align-items-center"
-        >
+        <Grid container style={style} className="align-items-center">
           <Grid item xs={6}>
-            <LazyElement data={{ value: factors[index] }} type="Array" />
+            <LazyElement
+              data={{ value: factors[index], index: index + 1 }}
+              type="array"
+            />
           </Grid>
           {index < factors.length - 1 && (
             <Grid item xs={6}>

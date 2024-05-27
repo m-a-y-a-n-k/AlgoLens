@@ -99,7 +99,7 @@ const Palindrome = () => {
 const LazyList = ({ characters }) => {
   return (
     <List
-      height={80}
+      height={120}
       itemCount={characters.length}
       itemSize={200}
       width={window.innerWidth || 800}

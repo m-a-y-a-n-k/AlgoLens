@@ -100,7 +100,7 @@ export default class Exponent extends React.Component {
                 <Element
                   highlight={true}
                   data={{ value: `${this.state.base} ^ ${this.state.power}` }}
-                  type="Array"
+                  type="array"
                 />
                 <FaEquals style={{ margin: "auto 5px" }} />
               </React.Fragment>
@@ -112,7 +112,7 @@ export default class Exponent extends React.Component {
                   return (
                     <React.Fragment key={`res_mul_val_${index}`}>
                       <FaTimes style={{ margin: "auto 5px" }} />
-                      <Element data={{ value }} type="Array" />
+                      <Element data={{ value }} type="array" />
                     </React.Fragment>
                   )
                 } else {
@@ -127,7 +127,7 @@ export default class Exponent extends React.Component {
                       key="first_val"
                       highlight={highlight}
                       data={{ value }}
-                      type="Array"
+                      type="array"
                     />
                   )
                 }
@@ -137,7 +137,7 @@ export default class Exponent extends React.Component {
                 key="result"
                 highlight={true}
                 data={{ value: this.state.ans }}
-                type="Array"
+                type="array"
               />
             )}
           </Grid>

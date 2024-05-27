@@ -159,7 +159,7 @@ const BinarySearch = () => {
 const LazyList = ({ data, highlights }) => {
   return (
     <List
-      height={80}
+      height={120}
       itemCount={data.length}
       itemSize={200}
       width={window.innerWidth || 800}

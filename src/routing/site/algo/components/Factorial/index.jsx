@@ -102,20 +102,20 @@ const Factorial = () => {
             <Element
               highlight={true}
               data={{ value: `${input}!` }}
-              type="Array"
+              type="array"
             />
           </Grid>
           <Grid item xs={2}>
             <FaEquals style={{ margin: "auto 5px" }} />
           </Grid>
           <Grid item xs={3}>
-            <Element data={{ value: processed }} type="Array" />
+            <Element data={{ value: processed }} type="array" />
           </Grid>
           <Grid item xs={2}>
             <FaTimes style={{ margin: "auto 5px" }} />
           </Grid>
           <Grid item xs={3}>
-            <Element data={{ value: `${rest}!` }} type="Array" />
+            <Element data={{ value: `${rest}!` }} type="array" />
           </Grid>
         </Grid>
       )}
@@ -125,7 +125,7 @@ const Factorial = () => {
             <Element
               highlight={true}
               data={{ value: `${result}` }}
-              type="Array"
+              type="array"
             />
           </Grid>
         </Grid>

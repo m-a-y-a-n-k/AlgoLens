@@ -88,7 +88,13 @@ const LazyList = ({ start, end, sieve }) => {
   const isPrime = useMemo(() => sieve(start, end), [start, end])
 
   return (
-    <List height={400} itemCount={numbers.length} itemSize={60} width={"100%"}>
+    <List
+      height={120}
+      itemCount={numbers.length}
+      itemSize={200}
+      width={window.innerWidth || 800}
+      direction="horizontal"
+    >
       {({ index, style }) => (
         <Grid item xs={12} style={style}>
           <LazyElement

@@ -6,6 +6,7 @@ const pages = [
       "Exponentiation",
       "Factorial",
       "Factorize",
+      "Fibonacci",
       "FloodFill",
       "KnuthShuffle",
       "NQueens",

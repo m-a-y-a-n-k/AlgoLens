@@ -58,6 +58,11 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
             <Box p={1} color="white" textAlign="center" fontSize={18}>
               {data.value}
             </Box>
+            {data.index >= 0 && (
+              <Box p={1} color="white" textAlign="center" fontSize={12}>
+                {data.index}
+              </Box>
+            )}
           </Box>
           {type === "queues" && (
             <Box
