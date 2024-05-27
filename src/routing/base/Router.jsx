@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom"
 import { siteSugg } from "./routes"
 import { CircularProgress } from "@material-ui/core"
 
-const Dashboard = lazy(() => import(`../../dashboard/index`))
+const Dashboard = lazy(() => import(`dashboard/index`))
 const NotFound = lazy(() => import(`./NotFound`))
 
 export function DynamicLoader(LazyComponent, props) {

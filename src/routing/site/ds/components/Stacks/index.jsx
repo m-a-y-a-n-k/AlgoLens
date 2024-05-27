@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Element from "../../../../../common/components/Element"
+import Element from "common/components/Element"
 import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import Push from "./Push"

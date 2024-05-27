@@ -9,9 +9,9 @@ import CardContent from "@material-ui/core/CardContent"
 import Avatar from "@material-ui/core/Avatar"
 import Typography from "@material-ui/core/Typography"
 import { blue } from "@material-ui/core/colors"
-import useWindowDimensions from "../common/helpers/dimensions"
-import constants from "../common/helpers/constants"
-import Placeholder from "../common/components/Placeholder"
+import useWindowDimensions from "common/helpers/dimensions"
+import constants from "common/helpers/constants"
+import Placeholder from "common/components/Placeholder"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,7 +85,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const loadBrandLogo = async () => {
-      const logoSrc = await import("../common/assets/VisuAlgo.jpg").then(
+      const logoSrc = await import("common/assets/VisuAlgo.jpg").then(
         (module) => module.default
       )
       setSiteLogoSrc(logoSrc)

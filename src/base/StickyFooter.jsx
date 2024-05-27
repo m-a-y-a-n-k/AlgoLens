@@ -5,9 +5,9 @@ import { makeStyles } from "@material-ui/core/styles"
 import Link from "@material-ui/core/Link"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Zoom from "@material-ui/core/Zoom"
-import { DynamicLoader } from "../routing/base/Router"
-import constants from "../common/helpers/constants"
-const LightBox = lazy(() => import(`../common/components/LightBox`))
+import { DynamicLoader } from "routing/base/Router"
+import constants from "common/helpers/constants"
+const LightBox = lazy(() => import(`common/components/LightBox`))
 const Fab = lazy(() => import(`@material-ui/core/Fab`))
 const ArrowUpIcon = lazy(() => import(`@material-ui/icons/KeyboardArrowUp`))
 const Button = lazy(() => import(`@material-ui/core/Button`))

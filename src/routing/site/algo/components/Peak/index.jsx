@@ -1,5 +1,5 @@
 import React from "react"
-import Element from "../../../../../common/components/Element"
+import Element from "common/components/Element"
 import {
   Container,
   Row,

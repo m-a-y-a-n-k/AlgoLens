@@ -2,9 +2,9 @@ import React, { lazy, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Fab from "@material-ui/core/Fab"
 import AddIcon from "@material-ui/icons/Add"
-import { DynamicLoader } from "../../../../base/Router"
+import { DynamicLoader } from "routing/base/Router"
 
-const Table = lazy(() => import(`../../../../../common/components/Table`))
+const Table = lazy(() => import(`common/components/Table`))
 const TextField = lazy(() => import(`@material-ui/core/TextField`))
 const Alert = lazy(() => import(`@material-ui/lab/Alert`))
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`))

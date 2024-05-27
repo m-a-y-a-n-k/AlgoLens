@@ -11,27 +11,30 @@ const Palindrome = () => {
   const [alert, setAlert] = useState(null)
   const [disabled, setDisabled] = useState(false)
 
-  const updateCharacters = (start, end) => {
-    setCharacters((prevCharacters) => {
-      return prevCharacters.map(({ char, highlight }, idx) => {
-        if (idx === start || idx === end) {
+  const updateCharacters = (start, end, delay) => {
+    setTimeout(() => {
+      setCharacters((prevCharacters) => {
+        return prevCharacters.map(({ char, highlight }, idx) => {
+          if (idx === start || idx === end) {
+            return {
+              char,
+              highlight: true,
+            }
+          }
           return {
             char,
-            highlight: true,
+            highlight,
           }
-        }
-        return {
-          char,
-          highlight,
-        }
+        })
       })
-    })
+    }, delay)
   }
 
   const checkPalindrome = useCallback((input) => {
     let start = 0,
       end = input.length - 1,
-      isPalin = true
+      isPalin = true,
+      delay = 1000
 
     setCharacters(
       input.split("").map((char) => ({
@@ -50,7 +53,8 @@ const Palindrome = () => {
         isPalin = false
         break
       } else {
-        updateCharacters(start, end)
+        updateCharacters(start, end, delay)
+        delay = delay * 1.2
         start++
         end--
       }

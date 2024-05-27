@@ -24,7 +24,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete"
 import SearchIcon from "@material-ui/icons/Search"
 import NotInterestedIcon from "@material-ui/icons/NotInterested"
-import { DynamicLoader } from "../../routing/base/Router"
+import { DynamicLoader } from "routing/base/Router"
 
 const TableBody = lazy(() => import(`@material-ui/core/TableBody`))
 const TableContainer = lazy(() => import(`@material-ui/core/TableContainer`))
