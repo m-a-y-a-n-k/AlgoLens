@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 auto",
     },
   },
+  imgBg: {
+    backgroundColor: "#01c3cc",
+  },
 }))
 
 export default function Dashboard() {
@@ -115,22 +118,24 @@ export default function Dashboard() {
                 color: "secondary",
               }}
             />
-            {siteLogoSrc ? (
-              <CardMedia
-                src={siteLogoSrc}
-                title={constants.BRAND_NAME}
-                component="img"
-                classes={{
-                  img: classes.siteLogo,
-                }}
-                loading="eager"
-                alt={constants.BRAND_NAME}
-                width="320"
-                height="320"
-              />
-            ) : (
-              <Placeholder variant="rect" height={320} width={"100%"} />
-            )}
+            <div className={classes.imgBg}>
+              {siteLogoSrc ? (
+                <CardMedia
+                  src={siteLogoSrc}
+                  title={constants.BRAND_NAME}
+                  component="img"
+                  classes={{
+                    img: classes.siteLogo,
+                  }}
+                  loading="eager"
+                  alt={constants.BRAND_NAME}
+                  width="320"
+                  height="320"
+                />
+              ) : (
+                <Placeholder variant="rect" height={320} width={"100%"} />
+              )}
+            </div>
             <CardContent>
               <Typography variant="h5" color="textPrimary">
                 {constants.BRAND_NAME} stands for Computer Science
