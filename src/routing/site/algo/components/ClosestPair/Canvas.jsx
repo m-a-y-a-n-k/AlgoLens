@@ -1,37 +1,44 @@
-import React from "react"
-import Point from "common/components/Point"
+import React, { useRef, useEffect } from "react"
+import usePoint from "common/hooks/usePoint"
 
-class Canvas extends React.Component {
-  constructor(props) {
-    super(props)
-    this.canvas = null
-  }
+const Canvas = ({ id, width, height, clickable, addPoints }) => {
+  const canvasRef = useRef(null)
 
-  componentDidMount() {
-    this.canvas = document.getElementById(this.props.id)
-  }
+  const { draw } = usePoint(canvasRef.current)
 
-  render() {
-    return (
-      <canvas
-        id={this.props.id}
-        width={this.props.width}
-        height={this.props.height}
-        style={{
-          margin: "20px",
-          border: "1px solid lightgray",
-          background: "rgba(123,178,91,0.3)",
-        }}
-        onClick={(event) => {
-          if (this.props.clickable) {
-            let p = new Point(this.canvas)
-            p.draw(event)
-            this.props.addPoints({ x: p.x, y: p.y })
-          }
-        }}
-      ></canvas>
-    )
-  }
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const handleClick = (event) => {
+      if (clickable) {
+        draw(event)
+        const rect = canvas.getBoundingClientRect()
+        const x = event.clientX - rect.left
+        const y = event.clientY - rect.top
+        addPoints({ x, y })
+      }
+    }
+
+    canvas.addEventListener("click", handleClick)
+    return () => {
+      canvas.removeEventListener("click", handleClick)
+    }
+  }, [clickable, draw, addPoints])
+
+  return (
+    <canvas
+      id={id}
+      ref={canvasRef}
+      width={width}
+      height={height}
+      style={{
+        margin: "20px",
+        border: "1px solid lightgray",
+        background: "rgba(123,178,91,0.3)",
+      }}
+    ></canvas>
+  )
 }
 
 export default Canvas
