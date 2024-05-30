@@ -48,6 +48,10 @@ const pages = [
         label: "Peak",
       },
       {
+        topic: "Primality",
+        label: "Check Primes",
+      },
+      {
         topic: "Sieve",
         label: "Sieve",
       },
