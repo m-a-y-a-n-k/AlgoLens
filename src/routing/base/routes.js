@@ -87,6 +87,16 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "games",
+    label: "Game Zone",
+    pages: [
+      {
+        topic: "TicTacToe",
+        label: "Tic Tac Toe",
+      },
+    ],
+  },
 ]
 
 const dynamicRoute = (categoryTopic, subjectTopic) => {
