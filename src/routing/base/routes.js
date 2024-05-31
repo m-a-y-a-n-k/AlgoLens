@@ -49,7 +49,7 @@ const pages = [
       },
       {
         topic: "Primality",
-        label: "Check Primes",
+        label: "Prime Check",
       },
       {
         topic: "Sieve",
