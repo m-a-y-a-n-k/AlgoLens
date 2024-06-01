@@ -117,6 +117,10 @@ const pages = [
         topic: "Projectile",
         label: "Projectile Motion",
       },
+      {
+        topic: "SolarSystem",
+        label: "Planetary Motion : Solar System",
+      },
     ],
   },
 ]
