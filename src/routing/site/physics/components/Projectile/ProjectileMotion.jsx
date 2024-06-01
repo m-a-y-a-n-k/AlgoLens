@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react"
+import { Alert } from "reactstrap"
 import "./ProjectileMotion.css"
 
 const ProjectileMotion = () => {
@@ -46,7 +47,12 @@ const ProjectileMotion = () => {
           <input
             type="number"
             value={angle}
-            onChange={(e) => setAngle(Number(e.target.value))}
+            onChange={(e) => {
+              const updatedAngle = Number(e.target.value)
+              if (updatedAngle >= 0 && updatedAngle <= 90) {
+                setAngle(updatedAngle)
+              }
+            }}
           />
         </label>
         <label>
@@ -54,19 +60,74 @@ const ProjectileMotion = () => {
           <input
             type="number"
             value={speed}
-            onChange={(e) => setSpeed(Number(e.target.value))}
+            onChange={(e) => {
+              const updatedSpeed = Number(e.target.value)
+              if (updatedSpeed >= 0 && updatedSpeed <= 1000) {
+                setSpeed(updatedSpeed)
+              }
+            }}
           />
         </label>
       </div>
+      <Alert type="info" style={{ width: "100%" }}>
+        Angle should be from 0 to 90
+      </Alert>
+      <Alert type="info" style={{ width: "100%" }}>
+        Speed should be from 0 to 1000
+      </Alert>
       <div className="visualization">
-        <svg width="500" height="300" viewBox="0 0 500 300">
+        <svg width="500" height="500" viewBox="0 0 500 500">
           <path
-            d={`M 0 300 ${trajectory
-              .map((point) => `${point.x * 10} ${300 - point.y * 10}`)
+            d={`M 0 500 ${trajectory
+              .map((point) => `${point.x * 10} ${500 - point.y * 10}`)
               .join(" L ")}`}
             stroke="blue"
             fill="none"
           />
+          <line
+            x1="0"
+            y1="500"
+            x2="500"
+            y2="500"
+            stroke="black"
+            strokeWidth="2"
+          />
+          <g>
+            <line
+              x1="0"
+              y1="490"
+              x2="0"
+              y2="500"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <text
+              x="5"
+              y="490"
+              fontFamily="Arial"
+              fontSize="12"
+              textAnchor="middle"
+            >
+              0
+            </text>
+            <line
+              x1="500"
+              y1="490"
+              x2="500"
+              y2="500"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <text
+              x="490"
+              y="490"
+              fontFamily="Arial"
+              fontSize="12"
+              textAnchor="middle"
+            >
+              50
+            </text>
+          </g>
         </svg>
       </div>
       <div className="results">

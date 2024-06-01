@@ -4,7 +4,9 @@ import ProjectileMotion from "./ProjectileMotion"
 function Main() {
   return (
     <div>
-      <h1>Projectile Motion Visualizer</h1>
+      <h1 style={{ textAlign: "center", padding: 12 }}>
+        Projectile Motion Visualizer
+      </h1>
       <ProjectileMotion />
     </div>
   )
