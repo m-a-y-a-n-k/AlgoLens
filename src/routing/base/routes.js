@@ -92,6 +92,10 @@ const pages = [
     label: "Game Zone",
     pages: [
       {
+        topic: "PrisonerDillema",
+        label: "Prisoner's Dillema",
+      },
+      {
         topic: "RockPaperScissors",
         label: "Rock Paper Scissors",
       },

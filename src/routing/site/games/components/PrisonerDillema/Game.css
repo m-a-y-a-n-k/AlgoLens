@@ -1,0 +1,46 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 10px;
+  margin: 20px 0;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  color: white;
+}
+
+.cell.C {
+  background-color: #4caf50; /* Green for cooperation */
+}
+
+.cell.D {
+  background-color: #f44336; /* Red for defection */
+}
+
+.cell:hover {
+  transform: scale(1.1);
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+}
