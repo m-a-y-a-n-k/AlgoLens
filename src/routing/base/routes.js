@@ -109,6 +109,16 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "elementary-physics",
+    label: "Physics",
+    pages: [
+      {
+        topic: "ProjectileMotion",
+        label: "Projectile Motion",
+      },
+    ],
+  },
 ]
 
 const dynamicRoute = (categoryTopic, subjectTopic) => {
