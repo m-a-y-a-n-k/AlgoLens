@@ -59,7 +59,7 @@ const Game = () => {
     <div className="game">
       <h1>Prisoner&apos;s Dilemma</h1>
       <label>
-        Number of Prisoners{" "}
+        Number of Prisoners and Turns{" "}
         <input
           type="number"
           value={numPrisoners}
