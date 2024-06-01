@@ -110,11 +110,11 @@ const pages = [
     ],
   },
   {
-    topic: "elementary-physics",
+    topic: "physics",
     label: "Physics",
     pages: [
       {
-        topic: "ProjectileMotion",
+        topic: "Projectile",
         label: "Projectile Motion",
       },
     ],
