@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/7322.3bfbd58e.chunk.css","mappings":"AAAA,qBAIE,qBAAsB,CAHtB,qBAAsB,CACtB,aAAc,CACd,WAEF","sources":["routing/site/physics/components/SolarSystem/SolarSystemCanvas.css"],"sourcesContent":[".solar-system-canvas {\r\n  border: 1px solid #000;\r\n  display: block;\r\n  margin: auto;\r\n  background-color: #000;\r\n}\r\n"],"names":[],"sourceRoot":""}
