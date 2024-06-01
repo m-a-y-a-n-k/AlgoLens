@@ -3,8 +3,8 @@ import { Alert } from "reactstrap"
 import "./Game.css"
 
 const Choice = {
-  C: "CO-OP",
-  D: "DEFECT",
+  C: "HELP",
+  D: "BETRAY",
 }
 
 const Game = () => {
