@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/AlgoLens/static/css/main.996b9c37.css",
-    "main.js": "/AlgoLens/static/js/main.4486a8eb.js",
+    "main.js": "/AlgoLens/static/js/main.1909d6d5.js",
     "static/js/5900.e49be618.chunk.js": "/AlgoLens/static/js/5900.e49be618.chunk.js",
     "static/js/3907.d3916857.chunk.js": "/AlgoLens/static/js/3907.d3916857.chunk.js",
     "static/js/6407.a00031d6.chunk.js": "/AlgoLens/static/js/6407.a00031d6.chunk.js",
@@ -29,6 +29,8 @@
     "static/js/7162.c00959bf.chunk.js": "/AlgoLens/static/js/7162.c00959bf.chunk.js",
     "static/js/6721.a3ce0af1.chunk.js": "/AlgoLens/static/js/6721.a3ce0af1.chunk.js",
     "static/js/1733.da017274.chunk.js": "/AlgoLens/static/js/1733.da017274.chunk.js",
+    "static/css/4783.5a619954.chunk.css": "/AlgoLens/static/css/4783.5a619954.chunk.css",
+    "static/js/4783.739ce772.chunk.js": "/AlgoLens/static/js/4783.739ce772.chunk.js",
     "static/css/8018.c273ea7a.chunk.css": "/AlgoLens/static/css/8018.c273ea7a.chunk.css",
     "static/js/8018.d2a52484.chunk.js": "/AlgoLens/static/js/8018.d2a52484.chunk.js",
     "static/css/5481.9dfc3230.chunk.css": "/AlgoLens/static/css/5481.9dfc3230.chunk.css",
@@ -74,7 +76,7 @@
     "static/media/VisuAlgo.jpg": "/AlgoLens/static/media/VisuAlgo.3488766e9519c7992589.jpg",
     "index.html": "/AlgoLens/index.html",
     "main.996b9c37.css.map": "/AlgoLens/static/css/main.996b9c37.css.map",
-    "main.4486a8eb.js.map": "/AlgoLens/static/js/main.4486a8eb.js.map",
+    "main.1909d6d5.js.map": "/AlgoLens/static/js/main.1909d6d5.js.map",
     "5900.e49be618.chunk.js.map": "/AlgoLens/static/js/5900.e49be618.chunk.js.map",
     "3907.d3916857.chunk.js.map": "/AlgoLens/static/js/3907.d3916857.chunk.js.map",
     "6407.a00031d6.chunk.js.map": "/AlgoLens/static/js/6407.a00031d6.chunk.js.map",
@@ -102,6 +104,8 @@
     "7162.c00959bf.chunk.js.map": "/AlgoLens/static/js/7162.c00959bf.chunk.js.map",
     "6721.a3ce0af1.chunk.js.map": "/AlgoLens/static/js/6721.a3ce0af1.chunk.js.map",
     "1733.da017274.chunk.js.map": "/AlgoLens/static/js/1733.da017274.chunk.js.map",
+    "4783.5a619954.chunk.css.map": "/AlgoLens/static/css/4783.5a619954.chunk.css.map",
+    "4783.739ce772.chunk.js.map": "/AlgoLens/static/js/4783.739ce772.chunk.js.map",
     "8018.c273ea7a.chunk.css.map": "/AlgoLens/static/css/8018.c273ea7a.chunk.css.map",
     "8018.d2a52484.chunk.js.map": "/AlgoLens/static/js/8018.d2a52484.chunk.js.map",
     "5481.9dfc3230.chunk.css.map": "/AlgoLens/static/css/5481.9dfc3230.chunk.css.map",
@@ -146,6 +150,6 @@
   },
   "entrypoints": [
     "static/css/main.996b9c37.css",
-    "static/js/main.4486a8eb.js"
+    "static/js/main.1909d6d5.js"
   ]
 }
