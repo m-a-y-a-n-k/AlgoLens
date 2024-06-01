@@ -7,8 +7,8 @@
 
 .grid {
   display: grid;
-  grid-gap: 10px;
-  margin: 20px 0;
+  grid-gap: 8px;
+  margin: 48px;
 }
 
 .row {
@@ -16,8 +16,7 @@
 }
 
 .cell {
-  width: 120px;
-  height: 120px;
+  height: 72px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +24,7 @@
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
   color: white;
+  font-size: 0.8rem;
 }
 
 .cell.C {
@@ -37,10 +37,4 @@
 
 .cell:hover {
   transform: scale(1.1);
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-top: 20px;
 }

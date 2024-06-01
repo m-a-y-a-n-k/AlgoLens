@@ -70,7 +70,9 @@ const Game = () => {
       </label>
       <div
         className="grid"
-        style={{ gridTemplateColumns: `repeat(${numPrisoners}, 120px)` }}
+        style={{
+          gridTemplateColumns: `repeat(${numPrisoners}, minmax(48px, 1fr))`,
+        }}
       >
         {grid.map((row, y) => (
           <div key={y} className="row">
