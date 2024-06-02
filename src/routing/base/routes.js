@@ -123,6 +123,16 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "math",
+    label: "Mathematics",
+    pages: [
+      {
+        topic: "EquationPlotter",
+        label: "2-D Equation Plotter",
+      },
+    ],
+  },
 ]
 
 const dynamicRoute = (categoryTopic, subjectTopic) => {
