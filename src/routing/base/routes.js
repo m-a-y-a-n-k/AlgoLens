@@ -131,6 +131,10 @@ const pages = [
         topic: "EquationPlotter",
         label: "2-D Equation Plotter",
       },
+      {
+        topic: "3DEquationPlotter",
+        label: "3-D Equation Plotter",
+      },
     ],
   },
 ]
