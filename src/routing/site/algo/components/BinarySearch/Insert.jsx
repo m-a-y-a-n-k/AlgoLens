@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   InputGroup,
   Input,
@@ -12,60 +12,57 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import Button from "@material-ui/core/Button"
 
-class Insert extends React.Component {
-  constructor(props) {
-    super(props)
+const Insert = React.memo(({ parent, alertId }) => {
+  const [data, setData] = useState(null)
 
-    this.state = {
-      data: null,
-    }
+  const handleInputChange = (event) => {
+    setData(event.target.value)
   }
 
-  render() {
-    return (
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          Insert Sorted Data
-        </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
-          {this.props.parent.state.alert &&
-            this.props.parent.state.alert.alertId === this.props.alertId && (
-              <Alert
-                color={this.props.parent.state.alert.type}
-                isOpen={!!this.props.parent.state.alert.text}
-                toggle={() => {
-                  this.props.parent.setState({ alert: null })
-                }}
-              >
-                {this.props.parent.state.alert.text}
-              </Alert>
-            )}
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Value</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              type="number"
-              onChange={(event) => {
-                this.setState({ data: event.target.value })
-              }}
-              value={this.state.data ?? ""}
-            />
-          </InputGroup>
-          <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
-            onClick={() => {
-              this.props.parent.insert(this.state.data)
-              this.setState({ data: null })
+  const handleSubmit = () => {
+    parent.insert(data)
+    setData(null)
+  }
+
+  return (
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        Insert Sorted Data
+      </AccordionSummary>
+      <AccordionDetails style={{ flexDirection: "column" }}>
+        {parent.alert && parent.alert.alertId === alertId && (
+          <Alert
+            color={parent.alert.type}
+            isOpen={!!parent.alert.text}
+            toggle={() => {
+              parent.setAlert(null)
             }}
           >
-            Submit
-          </Button>
-        </AccordionDetails>
-      </Accordion>
-    )
-  }
-}
+            {parent.alert.text}
+          </Alert>
+        )}
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Value</InputGroupText>
+          </InputGroupAddon>
+          <Input
+            type="number"
+            onChange={handleInputChange}
+            value={data ?? ""}
+          />
+        </InputGroup>
+        <Button
+          className="mt-4"
+          style={{ backgroundColor: "#403d4a", color: "white" }}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </AccordionDetails>
+    </Accordion>
+  )
+})
+
+Insert.displayName = "BinarySearch.Insert"
 
 export default Insert

@@ -2,188 +2,131 @@ import React from "react"
 import Link from "./Link"
 import Box from "@material-ui/core/Box"
 
-export default class Element extends React.Component {
-  render() {
-    let elStyles,
-      element = null
+const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
+  let element = null
+  let elStyles = {
+    border: "1px solid white",
+    background: "rgba(40,60,180,0.8)",
+  }
 
-    switch (this.props.type.toLowerCase()) {
-      case "stack":
-        element = []
-        if (this.props.data.index === 0) {
-          element.push(
-            <Box key="Top" p={1} textAlign="center">
-              Top
-            </Box>
-          )
-        }
-        elStyles = {
-          border: "1px solid white",
-          background: "rgba(40,40,160,0.8)",
-        }
-        if (this.props.highlight) {
-          elStyles.background = "rgba(30,150,40,0.8)"
-        }
-        element.push(
+  if (highlight) {
+    elStyles.background = "rgba(30,150,40,0.8)"
+  }
+
+  switch (type.toLowerCase()) {
+    case "stack":
+      element = [
+        data.index === 0 && (
+          <Box key="Top" p={1} textAlign="center">
+            Top
+          </Box>
+        ),
+        <Box
+          key={`${data.index}-${data.value}`}
+          p={1}
+          style={{
+            ...elStyles,
+            background: highlight
+              ? "rgba(30,150,40,0.8)"
+              : "rgba(40,40,160,0.8)",
+          }}
+        >
+          <Box p={1} color="white" textAlign="center" fontSize={18}>
+            {data.value}
+          </Box>
+          <Box color="white" p={1} textAlign="center" fontSize={12}>
+            {data.index}
+          </Box>
+        </Box>,
+      ]
+      break
+
+    case "array":
+    case "linkedlist":
+    case "queues":
+      element = (
+        <div key={`${data.value}-${data.index}`}>
           <Box
-            key={`${this.props.data.index}-${this.props.data.value}`}
             p={1}
-            style={elStyles}
+            style={{
+              ...elStyles,
+              background: highlight
+                ? "rgba(30,150,40,0.8)"
+                : "rgba(40,60,180,0.8)",
+            }}
           >
             <Box p={1} color="white" textAlign="center" fontSize={18}>
-              {this.props.data.value}
+              {data.value}
             </Box>
-            <Box color="white" p={1} textAlign="center" fontSize={12}>
-              {this.props.data.index}
-            </Box>
-          </Box>
-        )
-        break
-      case "array":
-        elStyles = {
-          border: "1px solid white",
-          background: "rgba(40,40,120,0.8)",
-        }
-        if (this.props.highlight) {
-          elStyles.background = "rgba(30,150,40,0.8)"
-        }
-        element = (
-          <Box key={this.props.data.index} p={1} style={elStyles}>
-            <Box p={1} color="white" textAlign="center" fontSize={18}>
-              {this.props.data.value}
-            </Box>
-            <Box color="white" p={1} textAlign="center" fontSize={12}>
-              {this.props.data.index}
-            </Box>
-          </Box>
-        )
-        break
-      case "linkedlist":
-        elStyles = {
-          border: "1px solid white",
-          background: "rgba(40,60,180,0.8)",
-        }
-        if (this.props.highlight) {
-          elStyles.background = "rgba(30,150,40,0.8)"
-        }
-        element = [
-          <Box
-            key={`${this.props.data.value}-${this.props.data.index}`}
-            p={1}
-            style={elStyles}
-          >
-            <Box p={1} color="white" textAlign="center" fontSize={18}>
-              {this.props.data.value}
-            </Box>
-            <Box color="white" p={1} textAlign="center" fontSize={12}>
-              {this.props.data.index}
-            </Box>
-          </Box>,
-        ]
-
-        if (this.props.next)
-          element.push(
-            <Box
-              key={`${this.props.data.index}-${this.props.data.value}-nextlink`}
-              component="span"
-            >
-              <Link direction="right" />
-            </Box>
-          )
-        break
-
-      case "queues":
-        elStyles = {
-          border: "1px solid white",
-          background: "rgba(40,60,180,0.8)",
-        }
-        if (this.props.highlight) {
-          elStyles.background = "rgba(30,150,40,0.8)"
-        }
-        element = [
-          <div key={`${this.props.data.value}-${this.props.data.index}`}>
-            <Box p={1} style={elStyles}>
-              <Box p={1} color="white" textAlign="center" fontSize={18}>
-                {this.props.data.value}
+            {data.index >= 0 && (
+              <Box p={1} color="white" textAlign="center" fontSize={12}>
+                {data.index}
               </Box>
-            </Box>
+            )}
+          </Box>
+          {type === "queues" && (
             <Box
               color="white"
               p={1}
-              className={
-                this.props.data.index === 0 || this.props.next === false
-                  ? "bg-danger"
-                  : ""
-              }
+              className={data.index === 0 || next === false ? "bg-danger" : ""}
               textAlign="center"
               fontSize={12}
             >
-              {this.props.data.index === 0 ? (
+              {data.index === 0 && (
                 <typography>
-                  Front <br />{" "}
+                  Front <br />
                 </typography>
-              ) : (
-                <div></div>
               )}
-              {this.props.next === false ? (
-                <typography>Rear</typography>
-              ) : (
-                <div></div>
-              )}
+              {next === false && <typography>Rear</typography>}
             </Box>
-          </div>,
-        ]
+          )}
+        </div>
+      )
 
-        if (this.props.next)
-          element.push(
-            <Box
-              key={`${this.props.data.index}-${this.props.data.value}-nextLink`}
-              component="span"
+      if (type === "linkedlist" || (type === "queues" && next)) {
+        element.push(
+          <Box key={`${data.index}-${data.value}-nextlink`} component="span">
+            <Link direction="right" />
+          </Box>
+        )
+      }
+      break
+
+    case "sets":
+      element = (
+        <Box
+          key={data.value}
+          p={1}
+          style={{
+            ...elStyles,
+            background: highlight
+              ? "rgba(30,150,40,0.8)"
+              : AllGreater
+              ? "rgba(242,19,23,0.8)"
+              : AllSmaller
+              ? "rgba(250,183,0,0.8)"
+              : "rgba(40,60,180,0.8)",
+            borderRadius: "50%",
+            minHeight: "100px",
+            minWidth: "100px",
+            margin: "20px",
+          }}
+        >
+          <Box p={0} color="white" fontSize={18}>
+            <div
+              style={{ position: "relative", top: "45%", textAlign: "center" }}
             >
-              <Link direction="right" />
-            </Box>
-          )
-        break
-      case "sets":
-        elStyles = {
-          border: "1px solid black",
-          background: "rgba(40,60,180,0.8)",
-          borderRadius: "50%",
-          minHeight: "100px",
-          minWidth: "100px",
-          margin: "20px",
-        }
-        if (this.props.AllGreater) {
-          elStyles.background = "rgba(242,19,23,0.8)"
-        }
-        if (this.props.AllSmaller) {
-          elStyles.background = "rgba(250,183,0,0.8)"
-        }
-        if (this.props.highlight) {
-          elStyles.background = "rgba(30,150,40,0.8)"
-        }
+              {data.value}
+            </div>
+          </Box>
+        </Box>
+      )
+      break
 
-        element = [
-          <Box key={this.props.data.value} p={1} style={elStyles}>
-            <Box p={0} color="white" fontSize={18}>
-              <div
-                style={{
-                  position: "relative",
-                  top: "45%",
-                  textAlign: "center",
-                }}
-              >
-                {this.props.data.value}
-              </div>
-            </Box>
-          </Box>,
-        ]
-
-        break
-
-      default:
-    }
-
-    return this.props.data && element
+    default:
   }
+
+  return data && element
 }
+
+export default Element

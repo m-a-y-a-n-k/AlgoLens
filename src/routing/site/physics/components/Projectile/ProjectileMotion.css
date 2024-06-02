@@ -1,0 +1,21 @@
+.projectile-motion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls label {
+  margin-right: 10px;
+}
+
+.visualization {
+  margin-bottom: 20px;
+}
+
+.results {
+  margin-top: 10px;
+}

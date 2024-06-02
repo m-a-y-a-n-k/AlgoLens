@@ -14,9 +14,12 @@ module.exports = {
   },
   plugins: ["react", "prettier"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
     "react/prop-types": 0,
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": [
+      "error",
+      process.platform === "win32" ? "windows" : "unix",
+    ],
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
   },

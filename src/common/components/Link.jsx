@@ -1,28 +1,25 @@
 import React from "react"
 
-export default class Link extends React.Component {
-  render() {
-    let ico = null
-    switch (this.props.direction.toLowerCase()) {
+const Link = ({ direction, label }) => {
+  const getIcon = (direction) => {
+    switch (direction.toLowerCase()) {
       case "left":
-        ico = <i className="ico left"></i>
-        break
+        return <i className="ico left"></i>
       case "up":
-        ico = <i className="ico up"></i>
-        break
+        return <i className="ico up"></i>
       case "down":
-        ico = <i className="ico down"></i>
-        break
-
+        return <i className="ico down"></i>
       default:
-        ico = <i className="ico right"></i>
+        return <i className="ico right"></i>
     }
-
-    return (
-      <div>
-        <div className="link-label">{this.props.label}</div>
-        <div className="link">{ico}</div>
-      </div>
-    )
   }
+
+  return (
+    <div>
+      <div className="link-label">{label}</div>
+      <div className="link">{getIcon(direction)}</div>
+    </div>
+  )
 }
+
+export default Link

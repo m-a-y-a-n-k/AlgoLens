@@ -9,9 +9,9 @@ import CardContent from "@material-ui/core/CardContent"
 import Avatar from "@material-ui/core/Avatar"
 import Typography from "@material-ui/core/Typography"
 import { blue } from "@material-ui/core/colors"
-import useWindowDimensions from "../common/helpers/dimensions"
-import constants from "../common/helpers/constants"
-import Placeholder from "../common/components/Placeholder"
+import useWindowDimensions from "common/helpers/dimensions"
+import constants from "common/helpers/constants"
+import Placeholder from "common/components/Placeholder"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,11 +51,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   siteLogo: {
-    height: "initial",
-    margin: "0 auto",
+    maxWidth: "100%",
+    height: "auto",
     [theme.breakpoints.up("sm")]: {
-      width: 480,
+      width: 320,
+      margin: "0 auto",
     },
+  },
+  imgBg: {
+    backgroundColor: "#01c3cc",
   },
 }))
 
@@ -81,7 +85,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const loadBrandLogo = async () => {
-      const logoSrc = await import("../common/assets/VisuAlgo.jpg").then(
+      const logoSrc = await import("common/assets/VisuAlgo.jpg").then(
         (module) => module.default
       )
       setSiteLogoSrc(logoSrc)
@@ -114,20 +118,24 @@ export default function Dashboard() {
                 color: "secondary",
               }}
             />
-            {siteLogoSrc ? (
-              <CardMedia
-                src={siteLogoSrc}
-                title={constants.BRAND_NAME}
-                component="img"
-                classes={{
-                  img: classes.siteLogo,
-                }}
-                loading="lazy"
-                alt={constants.BRAND_NAME}
-              />
-            ) : (
-              <Placeholder variant="rect" height={400} />
-            )}
+            <div className={classes.imgBg}>
+              {siteLogoSrc ? (
+                <CardMedia
+                  src={siteLogoSrc}
+                  title={constants.BRAND_NAME}
+                  component="img"
+                  classes={{
+                    img: classes.siteLogo,
+                  }}
+                  loading="eager"
+                  alt={constants.BRAND_NAME}
+                  width="320"
+                  height="320"
+                />
+              ) : (
+                <Placeholder variant="rect" height={320} width={"100%"} />
+              )}
+            </div>
             <CardContent>
               <Typography variant="h5" color="textPrimary">
                 {constants.BRAND_NAME} stands for Computer Science

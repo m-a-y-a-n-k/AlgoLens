@@ -14,7 +14,7 @@ import Insert from "./Insert"
 import Delete from "./Delete"
 import Update from "./Update"
 import Search from "./Search"
-import Element from "../../../../../common/components/Element"
+import Element from "common/components/Element"
 
 const gridStyle = makeStyles((theme) => ({
   root: {

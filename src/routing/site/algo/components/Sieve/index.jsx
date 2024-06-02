@@ -1,179 +1,111 @@
-import React from "react"
-import Element from "../../../../../common/components/Element"
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  TextField,
-} from "@material-ui/core"
+import React, { lazy, useCallback, useState, Suspense, useMemo } from "react"
+import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
+import Range from "./Range"
+import { FixedSizeList as List } from "react-window"
 
-class Range extends React.Component {
-  constructor(props) {
-    super(props)
+const LazyElement = lazy(() => import("common/components/Element"))
 
-    this.state = {
-      start: null,
-      end: null,
+const Sieve = () => {
+  const [alert, setAlert] = useState(null)
+  const [start, setStart] = useState(0)
+  const [end, setEnd] = useState(-1)
+
+  const handleRangeSubmit = useCallback((start, end) => {
+    setStart(start)
+    setEnd(end)
+  }, [])
+
+  const sieve = useCallback((start, end) => {
+    if (end - start >= 1000000 || end > 100000000) {
+      setAlert({
+        text: "Range is too big and not supported yet",
+        type: "danger",
+      })
+      return []
     }
-  }
-  render() {
-    return (
-      <Card>
-        <CardHeader
-          title={"Primes in Range"}
-          titleTypographyProps={{
-            variant: "h5",
-            color: "primary",
-          }}
-          subheader="Find primes from start to end number in range"
-          subheaderTypographyProps={{
-            variant: "subtitle1",
-            color: "secondary",
-          }}
-        />
-        <CardContent style={{ display: "flex", flexDirection: "column" }}>
-          <TextField
-            type="number"
-            label="Start of Range"
-            color="secondary"
-            onChange={(event) => {
-              this.setState({ start: event.target.value })
-            }}
-            value={this.state.start ?? ""}
-          />
-          <TextField
-            type="number"
-            label="End of Range"
-            color="secondary"
-            className="mt-2"
-            onChange={(event) => {
-              this.setState({ end: event.target.value })
-            }}
-            value={this.state.end ?? ""}
-          />
-          <Button
-            style={{
-              marginTop: 12,
-              backgroundColor: "#403d4a",
-              color: "white",
-            }}
-            type="submit"
-            onClick={() => {
-              this.props.parent.sieve(
-                parseInt(this.state.start),
-                parseInt(this.state.end)
-              )
-              this.setState({ start: null, end: null })
-            }}
-          >
-            Submit
-          </Button>
-        </CardContent>
-      </Card>
-    )
-  }
-}
-
-export default class Sieve extends React.Component {
-  state = {
-    numbers: [],
-  }
-
-  init(start, end) {
-    let numbers = [],
-      primes = new Set(),
-      nonPrimes = new Set()
-    for (let num = start; num <= end; num++) {
-      if (num >= 2) numbers.push({ value: num, prime: true })
-      else numbers.push({ value: num, prime: false })
+    if (start > end) {
+      return []
     }
+    const isPrime = Array(end - start + 1).fill(true)
+
+    if (start <= 1) {
+      for (let i = 0; i <= Math.min(end, 1) - start; i++) {
+        isPrime[i] = false
+      }
+    }
+
     for (let p = 2; p * p <= end; p++) {
-      if (!nonPrimes.has(p)) {
-        primes.add(p)
-        for (let x = 2 * p; x <= end; x += p) {
-          nonPrimes.add(x)
-        }
+      let startIdx = Math.max(p * p, Math.ceil(start / p) * p)
+      if (startIdx > end) continue
+
+      for (let multiple = startIdx; multiple <= end; multiple += p) {
+        isPrime[multiple - start] = false
       }
     }
-    return { numbers, primes }
-  }
 
-  sieve(start, end) {
-    if (start && end && start >= 1 && start <= end) {
-      if (end - start >= 1000 || end > 100000000) {
-        this.setState({
-          alert: { text: "Too big range not supported yet", type: "danger" },
-        })
-        return
-      }
-      let { numbers, primes } = this.init(start, end)
-      for (const prime of primes) {
-        let s = start % prime
-        if (s) {
-          s = prime - s
-        }
-        if (prime !== numbers[s].value) {
-          numbers[s].prime = false
-        }
+    setAlert({
+      text: "The prime ones are highlighted in green",
+      type: "success",
+    })
+    return isPrime
+  }, [])
 
-        for (s = s + prime; s <= end - start; s += prime) {
-          numbers[s].prime = false
-        }
-      }
-      this.setState({
-        numbers,
-        alert: {
-          text: "The prime ones are highlighted in green",
-          type: "success",
-        },
-      })
-    } else {
-      this.setState({
-        alert: { text: "Invalid Range or No primes in Range", type: "danger" },
-      })
-    }
-  }
-
-  render() {
-    return (
-      <>
-        {this.state.alert && (
-          <Alert
-            color={this.state.alert.type}
-            isOpen={!!this.state.alert.text}
-            toggle={() => {
-              this.setState({ alert: null })
-            }}
-          >
-            {this.state.alert.text}
-          </Alert>
-        )}
-        <Grid container>
-          <Grid container className="text-center">
-            <Grid item xs={12}>
-              <Range parent={this} />
-            </Grid>
-          </Grid>
-          <Grid container className="mt-4 mb-4 text-center">
-            {this.state.numbers.map((data, index) => {
-              let highlight = data.prime || false,
-                value = data.value
-              return (
-                <Grid item xs={3} key={`${value}-${index}`}>
-                  <Element
-                    highlight={highlight}
-                    data={{ value, index }}
-                    type="array"
-                  />
-                </Grid>
-              )
-            })}
+  return (
+    <>
+      {alert && (
+        <Alert
+          color={alert.type}
+          isOpen={!!alert.text}
+          toggle={() => setAlert(null)}
+        >
+          {alert.text}
+        </Alert>
+      )}
+      <Grid container>
+        <Grid container className="text-center">
+          <Grid item xs={12}>
+            <Range handleRangeSubmit={handleRangeSubmit} />
           </Grid>
         </Grid>
-      </>
-    )
-  }
+        <Grid container className="mt-4 mb-4 text-center">
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyList start={start} end={end} sieve={sieve} />
+          </Suspense>
+        </Grid>
+      </Grid>
+    </>
+  )
 }
+
+const LazyList = ({ start, end, sieve }) => {
+  const numbers = useMemo(
+    () =>
+      Array.from({ length: end - start + 1 }).map((_, index) => index + start),
+    [start, end]
+  )
+
+  const isPrime = useMemo(() => sieve(start, end), [start, end])
+
+  return (
+    <List
+      height={120}
+      itemCount={numbers.length}
+      itemSize={200}
+      width={window.innerWidth || 800}
+      direction="horizontal"
+    >
+      {({ index, style }) => (
+        <Grid item xs={12} style={style}>
+          <LazyElement
+            highlight={isPrime[index]}
+            data={{ value: numbers[index], index }}
+            type="array"
+          />
+        </Grid>
+      )}
+    </List>
+  )
+}
+
+export default Sieve

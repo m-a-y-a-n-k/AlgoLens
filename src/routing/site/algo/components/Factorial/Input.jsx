@@ -59,7 +59,7 @@ const styleforbutton = makeStyles((theme) => ({
   },
 }))
 
-export default function Input(props) {
+const Input = React.memo(({ disabled, fact, setResult }) => {
   const [input, setInput] = useState(null)
   const classes = useStyles()
   const inputstyle = stylefortext()
@@ -69,7 +69,7 @@ export default function Input(props) {
   return (
     <Card className={classes.root} variant="outlined">
       <h2 className="bg-success text-white p-2">
-        Compute Factorial of a Number
+        Compute Factorial of a whole number N --&gt; N!
       </h2>
       <h4 className="text-primary p-2">
         Finds the product 1 x 2 x 3 x .... upto a number N
@@ -85,15 +85,15 @@ export default function Input(props) {
               setInput(event.target.value)
             }}
             value={input ? input : ""}
-            disabled={props.disabled}
+            disabled={disabled}
           />
           <Button
             className={buttonstyle.root}
-            disabled={props.disabled}
+            disabled={disabled}
             onClick={() => {
-              props.fact(parseInt(input))
+              fact(parseInt(input))
               setInput(null)
-              props.setResult(null)
+              setResult(null)
             }}
             variant="contained"
             color="primary"
@@ -105,4 +105,8 @@ export default function Input(props) {
       </CardActions>
     </Card>
   )
-}
+})
+
+Input.displayName = "Factorial.Input"
+
+export default Input

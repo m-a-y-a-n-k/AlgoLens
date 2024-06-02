@@ -2,13 +2,13 @@ import React, { lazy } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
-import { siteSugg } from "../routing/base/routes"
-import { DynamicLoader } from "../routing/base/Router"
-
+import { siteSugg } from "routing/base/routes"
+import { DynamicLoader } from "routing/base/Router"
+import constants from "common/helpers/constants"
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`))
 const MenuIcon = lazy(() => import(`@material-ui/icons/Menu`))
 const HomeIcon = lazy(() => import(`@material-ui/icons/Home`))
-const Search = lazy(() => import(`../common/components/SearchSuggestor`))
+const Search = lazy(() => import(`common/components/SearchSuggestor`))
 
 const useStyles = makeStyles((theme) => ({
   menuSec: {
@@ -70,7 +70,7 @@ export default function PrimarySearchAppBar() {
             id: "sitemapSugg",
             searchOps: siteSugg,
             updateSelection: (selection) => {
-              window.location.pathname = selection.route
+              window.location.hash = selection.route
             },
           })}
         </section>
@@ -78,8 +78,8 @@ export default function PrimarySearchAppBar() {
           {DynamicLoader(IconButton, {
             "aria-label": "home page",
             color: "inherit",
-            disabled: window.location.pathname === "/",
-            href: "/",
+            disabled: window.location.pathname === `/${constants.BRAND_NAME}`,
+            href: `/${constants.BRAND_NAME}`,
             className: classes.homeButton,
             children: DynamicLoader(HomeIcon),
           })}

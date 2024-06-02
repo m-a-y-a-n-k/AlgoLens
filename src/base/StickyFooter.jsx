@@ -5,9 +5,9 @@ import { makeStyles } from "@material-ui/core/styles"
 import Link from "@material-ui/core/Link"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 import Zoom from "@material-ui/core/Zoom"
-import { DynamicLoader } from "../routing/base/Router"
-import constants from "../common/helpers/constants"
-const LightBox = lazy(() => import(`../common/components/LightBox`))
+import { DynamicLoader } from "routing/base/Router"
+import constants from "common/helpers/constants"
+const LightBox = lazy(() => import(`common/components/LightBox`))
 const Fab = lazy(() => import(`@material-ui/core/Fab`))
 const ArrowUpIcon = lazy(() => import(`@material-ui/icons/KeyboardArrowUp`))
 const Button = lazy(() => import(`@material-ui/core/Button`))
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   company: {
-    color: "#D1F5E6",
+    color: "#25d4eb",
     "&:hover": {
-      color: "#AEF4D6",
+      color: "#56e7fa",
       textDecoration: "none",
     },
   },
@@ -95,7 +95,7 @@ function Copyright() {
   return (
     <Typography variant="body2" className={classes.copyright}>
       {"Copyright © "}
-      <Link href="/" className={classes.company}>
+      <Link href={`/${constants.BRAND_NAME}`} className={classes.company}>
         {constants.BRAND_NAME}
       </Link>{" "}
       {new Date().getFullYear()}

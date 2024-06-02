@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   InputGroup,
   Input,
@@ -12,78 +12,75 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import Button from "@material-ui/core/Button"
 
-class Update extends React.Component {
-  constructor(props) {
-    super(props)
+const Update = React.memo(({ parent, alertId }) => {
+  const [data, setData] = useState(null)
+  const [position, setPosition] = useState(null)
 
-    this.state = {
-      data: null,
-      position: null,
-    }
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value)
   }
 
-  render() {
-    return (
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          Update Value at Position
-        </AccordionSummary>
-        <AccordionDetails style={{ flexDirection: "column" }}>
-          {this.props.parent.state.alert &&
-            this.props.parent.state.alert.alertId === this.props.alertId && (
-              <Alert
-                color={this.props.parent.state.alert.type}
-                isOpen={!!this.props.parent.state.alert.text}
-                toggle={() => {
-                  this.props.parent.setState({ alert: null })
-                }}
-              >
-                {this.props.parent.state.alert.text}
-              </Alert>
-            )}
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Position</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              type="number"
-              placeholder="Position (0-based)"
-              onChange={(event) => {
-                this.setState({ position: event.target.value })
-              }}
-              value={this.state.position ?? ""}
-            />
-          </InputGroup>
-          <InputGroup className="mt-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>Value</InputGroupText>
-            </InputGroupAddon>
-            <Input
-              type="number"
-              placeholder="Value"
-              onChange={(event) => {
-                this.setState({ data: event.target.value })
-              }}
-              value={this.state.data ?? ""}
-            />
-          </InputGroup>
-          <Button
-            className="mt-4"
-            style={{ backgroundColor: "#403d4a", color: "white" }}
-            onClick={() => {
-              this.props.parent.update(
-                parseFloat(this.state.position),
-                this.state.data
-              )
-              this.setState({ position: null, data: null })
+  const handleDataChange = (event) => {
+    setData(event.target.value)
+  }
+
+  const handleSubmit = () => {
+    parent.update(parseFloat(position), data)
+    setPosition(null)
+    setData(null)
+  }
+
+  return (
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        Update Value at Position
+      </AccordionSummary>
+      <AccordionDetails style={{ flexDirection: "column" }}>
+        {parent.alert && parent.alert.alertId === alertId && (
+          <Alert
+            color={parent.alert.type}
+            isOpen={!!parent.alert.text}
+            toggle={() => {
+              parent.setAlert(null)
             }}
           >
-            Submit
-          </Button>
-        </AccordionDetails>
-      </Accordion>
-    )
-  }
-}
+            {parent.alert.text}
+          </Alert>
+        )}
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Position</InputGroupText>
+          </InputGroupAddon>
+          <Input
+            type="number"
+            placeholder="Position (0-based)"
+            onChange={handlePositionChange}
+            value={position ?? ""}
+          />
+        </InputGroup>
+        <InputGroup className="mt-3">
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Value</InputGroupText>
+          </InputGroupAddon>
+          <Input
+            type="number"
+            placeholder="Value"
+            onChange={handleDataChange}
+            value={data ?? ""}
+          />
+        </InputGroup>
+        <Button
+          className="mt-4"
+          style={{ backgroundColor: "#403d4a", color: "white" }}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </AccordionDetails>
+    </Accordion>
+  )
+})
+
+Update.displayName = "BinarySearch.Update"
 
 export default Update

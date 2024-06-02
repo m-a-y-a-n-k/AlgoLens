@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react"
 
-import Element from "../../../../../common/components/Element"
+import Element from "common/components/Element"
 
 import Insert from "./Insert"
 import Delete from "./Delete"

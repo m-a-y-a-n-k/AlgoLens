@@ -2,14 +2,14 @@ import React, { useState } from "react"
 import Autocomplete from "@material-ui/lab/Autocomplete"
 import SearchIcon from "@material-ui/icons/Search"
 import { fade, makeStyles } from "@material-ui/core/styles"
-import InputBase from "@material-ui/core/InputBase"
+import TextField from "@material-ui/core/TextField"
 import parse from "autosuggest-highlight/parse"
 import match from "autosuggest-highlight/match"
 
 const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: theme.spacing(2),
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -28,13 +28,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   inputRoot: {
-    color: "inherit",
-    width: "100%",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
+    backgroundColor: "white",
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(2),
   },
 }))
 
@@ -64,19 +60,18 @@ export default function SearchSuggestor(props) {
         value={opVal}
         getOptionLabel={(option) => option.title || option.data || ""}
         renderInput={(params) => (
-          <InputBase
-            ref={params.InputProps.ref}
-            inputProps={params.inputProps}
-            placeholder={"Search Page"}
+          <TextField
+            {...params}
+            placeholder="Search Page"
             classes={{
               root: classes.inputRoot,
-              input: classes.inputInput,
             }}
           />
         )}
         onChange={(event, value) => {
           if (value) {
             setOptionValue({ ...value })
+            setOpen(false)
             props.updateSelection && props.updateSelection({ ...value })
           }
         }}
