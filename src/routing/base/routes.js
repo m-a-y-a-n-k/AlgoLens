@@ -55,6 +55,10 @@ const pages = [
         topic: "Sieve",
         label: "Sieve",
       },
+      {
+        topic: "SortingVisualiser",
+        label: "Sorting Visualiser",
+      },
     ],
   },
   {

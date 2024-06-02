@@ -1,0 +1,56 @@
+.sorting-visualizer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.controls button,
+.controls input {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.controls button:not(:disabled):hover {
+  background-color: #007acc;
+  color: white;
+}
+
+.array-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  height: 60vh;
+}
+
+.array-bar {
+  background-color: teal;
+  margin: 0 2px;
+  width: calc(100% / 100);
+  transition: height 0.1s, background-color 0.3s;
+}
+
+.array-bar:hover {
+  background-color: #007acc;
+}
