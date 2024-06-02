@@ -17,19 +17,20 @@ const BinarySearch = () => {
   const insert = (data) => {
     if (data) {
       const value = parseFloat(data)
-      let arr = array
-      let i
-      for (i = 0; i < arr.length; i++) {
-        if (arr[i] >= value) {
-          break
+      setArray((prevArray) => {
+        const updatedArray = [...prevArray]
+        let i
+        for (i = 0; i < updatedArray.length; i++) {
+          if (updatedArray[i] >= value) {
+            break
+          }
         }
-      }
-      arr.splice(i, 0, value)
-      setArray(arr)
-      setHighlights({ start: 0, end: -1 })
+        updatedArray.splice(i, 0, value)
+        setHighlights({ start: i, end: i })
+        return updatedArray
+      })
       setIter(0)
       setAlert(null)
-      return i
     } else {
       setAlert({ text: "Submission is empty", type: "danger", alertId: 1 })
       return null
@@ -37,7 +38,7 @@ const BinarySearch = () => {
   }
 
   const deleteItem = (data, position) => {
-    let arr = array
+    let arr = [...array]
     if (data) {
       const num = parseFloat(data)
       let length = arr.length
@@ -57,7 +58,6 @@ const BinarySearch = () => {
         })
       }
     } else if (position >= 0 && position < arr.length) {
-      arr = array
       arr.splice(position, 1)
       setArray(arr)
       setHighlights({ start: 0, end: -1 })
@@ -71,8 +71,7 @@ const BinarySearch = () => {
   const update = (position, data) => {
     if (data && position < array.length && position >= 0) {
       deleteItem(null, position)
-      position = insert(data)
-      setHighlights({ start: position, end: position })
+      insert(data)
       setIter(0)
       setAlert(null)
     } else {

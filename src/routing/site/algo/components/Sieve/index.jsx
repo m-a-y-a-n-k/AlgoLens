@@ -1,4 +1,4 @@
-import React, { lazy, useCallback, useState, Suspense, useMemo } from "react"
+import React, { lazy, useCallback, useState, Suspense, useEffect } from "react"
 import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import Range from "./Range"
@@ -79,13 +79,15 @@ const Sieve = () => {
 }
 
 const LazyList = ({ start, end, sieve }) => {
-  const numbers = useMemo(
-    () =>
-      Array.from({ length: end - start + 1 }).map((_, index) => index + start),
-    [start, end]
-  )
+  const [numbers, setNumbers] = useState([])
+  const [isPrime, setIsPrime] = useState([])
 
-  const isPrime = useMemo(() => sieve(start, end), [start, end])
+  useEffect(() => {
+    setNumbers(
+      Array.from({ length: end - start + 1 }).map((_, index) => index + start)
+    )
+    setIsPrime(sieve(start, end))
+  }, [start, end])
 
   return (
     <List

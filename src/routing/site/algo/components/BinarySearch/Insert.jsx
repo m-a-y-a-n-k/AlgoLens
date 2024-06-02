@@ -27,7 +27,7 @@ const Insert = React.memo(({ parent, alertId }) => {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        Insert Sorted Data
+        Insert Data in Sorted Order
       </AccordionSummary>
       <AccordionDetails style={{ flexDirection: "column" }}>
         {parent.alert && parent.alert.alertId === alertId && (

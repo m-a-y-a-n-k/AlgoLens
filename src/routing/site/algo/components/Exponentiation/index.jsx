@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useEffect, lazy } from "react"
 import Grid from "@material-ui/core/Grid"
-import Slide from "@material-ui/core/Slide"
 import { FaEquals, FaTimes } from "react-icons/fa"
-import Input from "routing/site/algo/components/Exponentiation/Input"
+import Input from "./Input"
 
 const Element = lazy(() => import("common/components/Element"))
 
@@ -42,46 +41,36 @@ const Exponent = () => {
       }, 1200)
       return () => clearTimeout(timer)
     }
-  }, [state.disabled, state.result, calculatePower])
+  }, [state.disabled, state.result])
 
-  const expo = useCallback(
-    (base, power) => {
-      if (power === 0) {
-        setState({ result: [], base, power, disabled: false, ans: 1 })
-        return
-      }
+  const expo = useCallback((base, power) => {
+    if (power === 0) {
+      setState({ result: [], base, power, disabled: false, ans: 1 })
+      return
+    }
 
-      const initialResult = Array(power).fill(base)
-      setState({
-        result: initialResult,
-        base,
-        power,
-        disabled: true,
-        ans: null,
-      })
-      setTimeout(() => {
-        calculatePower(power)
-      }, 500)
-    },
-    [calculatePower]
-  )
+    const initialResult = Array(power).fill(base)
+    setState({
+      result: initialResult,
+      base,
+      power,
+      disabled: true,
+      ans: null,
+    })
+    setTimeout(() => {
+      calculatePower(power)
+    }, 500)
+  }, [])
 
   const { result, base, power, disabled, ans } = state
 
   return (
     <Grid container>
-      <Slide direction="right" in={!disabled} mountOnEnter unmountOnExit>
-        <Grid item xs={12} sm={6} className="text-center m-4">
-          <Input disabled={disabled} expo={expo} />
-        </Grid>
-      </Slide>
-      <Slide
-        direction="left"
-        in={disabled || ans !== null}
-        mountOnEnter
-        unmountOnExit
-      >
-        <Grid item xs={12} sm={disabled ? 12 : 4} className="text-center m-4">
+      <Grid item xs={12} sm={6} className="text-center m-4">
+        <Input disabled={disabled} expo={expo} />
+      </Grid>
+      {(disabled || ans !== null) && (
+        <Grid item xs={12} sm={4} className="text-center m-4">
           {base !== null && power !== null && (
             <>
               <Element
@@ -114,7 +103,7 @@ const Exponent = () => {
             />
           )}
         </Grid>
-      </Slide>
+      )}
     </Grid>
   )
 }

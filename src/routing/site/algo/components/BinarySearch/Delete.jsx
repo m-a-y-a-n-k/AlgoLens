@@ -27,7 +27,7 @@ const Delete = React.memo(({ parent, alertId }) => {
   }
 
   const handleSubmit = () => {
-    parent.delete(data, parseFloat(position))
+    parent.deleteItem(data, parseFloat(position))
     setData(null)
     setPosition(null)
   }
@@ -35,7 +35,7 @@ const Delete = React.memo(({ parent, alertId }) => {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        Delete Position or Value
+        Delete based on Position or Value
       </AccordionSummary>
       <AccordionDetails style={{ flexDirection: "column" }}>
         {parent.alert && parent.alert.alertId === alertId && (
@@ -57,7 +57,7 @@ const Delete = React.memo(({ parent, alertId }) => {
             type="number"
             placeholder="Position (0-based)"
             onChange={handlePositionChange}
-            disabled={data !== null}
+            disabled={data}
             value={position ?? ""}
           />
         </InputGroup>
@@ -69,7 +69,7 @@ const Delete = React.memo(({ parent, alertId }) => {
             type="number"
             placeholder="Value"
             onChange={handleDataChange}
-            disabled={position !== null}
+            disabled={position}
             value={data ?? ""}
           />
         </InputGroup>

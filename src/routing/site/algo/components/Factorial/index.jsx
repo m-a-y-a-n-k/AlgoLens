@@ -68,8 +68,8 @@ const Factorial = () => {
     const updateResult = () => {
       if (processed) {
         const processedNumbers = processed.split(" X ").map(Number)
-        if (processedNumbers.length === 2) {
-          const [a, b] = processedNumbers
+        if (processedNumbers.length <= 2) {
+          const [a = 1, b = 1] = processedNumbers
           if (b === 1) setResult((a * b).toString())
         }
       }

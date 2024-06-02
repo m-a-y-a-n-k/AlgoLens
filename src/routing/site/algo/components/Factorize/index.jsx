@@ -32,18 +32,9 @@ const Factorize = () => {
     }
 
     const factors = []
-    const sqrtN = Math.sqrt(number)
-
-    // Check 2 separately to allow skipping even numbers later
-    if (number % 2 === 0) {
-      factors.push(2)
-      if (2 !== number / 2) {
-        factors.push(number / 2)
-      }
-    }
 
     // Check odd numbers from 3 onwards
-    for (let i = 3; i <= sqrtN; i += 2) {
+    for (let i = 2; i * i <= number; i++) {
       if (number % i === 0) {
         factors.push(i)
         if (i !== number / i) {

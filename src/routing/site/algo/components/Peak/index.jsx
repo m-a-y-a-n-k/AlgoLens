@@ -57,8 +57,7 @@ const Visuals = () => {
   const update = useCallback(
     (position, value) => {
       if (
-        position &&
-        value &&
+        !Number.isNaN(value) &&
         parseInt(position) <= array.length - 1 &&
         parseInt(position) >= 0
       ) {
