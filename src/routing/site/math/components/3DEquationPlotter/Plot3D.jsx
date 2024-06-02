@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import * as THREE from "three"
-import Worker from "worker-loader!./generatePoints.worker" // Path to your worker file
+import Worker from "worker-loader!./generatePoints.worker"
 
 const Plot3D = ({ equation, precision = 0.5 }) => {
   const [points, setPoints] = useState([])
@@ -37,8 +37,18 @@ const Plot3D = ({ equation, precision = 0.5 }) => {
       gridHelperRef.current.args = [0, 0]
       axesHelperRef.current.args = [0]
       sphereMeshRef.current.position.set(0, 0, 0)
-      sphereGeometryRef.current.args = [1, 16, 16]
-      meshRef.current.geometry.setFromPoints(points)
+      sphereGeometryRef.current.args = [0, 0, 0]
+      const positions = new Float32Array(points.length * 3)
+      points.forEach((point, i) => {
+        positions[i * 3] = point.x
+        positions[i * 3 + 1] = point.y
+        positions[i * 3 + 2] = point.z
+      })
+
+      meshRef.current.geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      )
       meshRef.current.geometry.attributes.position.needsUpdate = true
     }
   }, [points])
@@ -47,10 +57,10 @@ const Plot3D = ({ equation, precision = 0.5 }) => {
     <Canvas>
       <ambientLight ref={ambientLightRef} />
       <pointLight ref={pointLightRef} />
-      <mesh ref={meshRef}>
+      <points ref={meshRef}>
         <bufferGeometry />
         <pointsMaterial color="red" size={0.5} />
-      </mesh>
+      </points>
       <gridHelper ref={gridHelperRef} />
       <axesHelper ref={axesHelperRef} />
       <OrbitControls enableZoom={false} enablePan={false} ref={cameraRef} />
