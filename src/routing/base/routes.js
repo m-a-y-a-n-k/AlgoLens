@@ -118,6 +118,10 @@ const pages = [
     label: "Physics",
     pages: [
       {
+        topic: "CircularMotion",
+        label: "Circular Motion and Angular Momentum",
+      },
+      {
         topic: "Projectile",
         label: "Projectile Motion",
       },
