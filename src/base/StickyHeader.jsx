@@ -13,7 +13,10 @@ const FixedSideDrawer = lazy(() => import(`base/FixedSideDrawer`))
 
 const useStyles = makeStyles((theme) => ({
   menuSec: {
-    width: "3vw",
+    width: "5vw",
+    [theme.breakpoints.down("xs")]: {
+      width: "10vw",
+    },
   },
   logoSec: {
     width: "5vw",

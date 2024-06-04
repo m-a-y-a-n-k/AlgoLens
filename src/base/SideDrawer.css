@@ -10,8 +10,8 @@
 }
 
 .hamburger {
-  width: 30px;
-  height: 25px;
+  width: 16px;
+  height: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,7 +27,7 @@
 }
 
 .hamburger.open .bar:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 10px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
 .hamburger.open .bar:nth-child(2) {
@@ -35,7 +35,7 @@
 }
 
 .hamburger.open .bar:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -10px);
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 .side-drawer {
