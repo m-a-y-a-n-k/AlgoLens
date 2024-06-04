@@ -5,10 +5,11 @@ import Toolbar from "@material-ui/core/Toolbar"
 import { siteSugg } from "routing/base/routes"
 import { DynamicLoader } from "routing/base/Router"
 import constants from "common/helpers/constants"
+
 const IconButton = lazy(() => import(`@material-ui/core/IconButton`))
-const MenuIcon = lazy(() => import(`@material-ui/icons/Menu`))
 const HomeIcon = lazy(() => import(`@material-ui/icons/Home`))
 const Search = lazy(() => import(`common/components/SearchSuggestor`))
+const FixedSideDrawer = lazy(() => import(`base/FixedSideDrawer`))
 
 const useStyles = makeStyles((theme) => ({
   menuSec: {
@@ -50,20 +51,10 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles()
 
   return (
-    <AppBar
-      position="static"
-      id="back-to-top-anchor"
-      className={classes.header}
-    >
+    <AppBar position="fixed" id="back-to-top-anchor" className={classes.header}>
       <Toolbar>
         <section className={classes.menuSec}>
-          {DynamicLoader(IconButton, {
-            edge: "start",
-            className: classes.menuButton,
-            color: "inherit",
-            "aria-label": "open drawer",
-            children: DynamicLoader(MenuIcon),
-          })}
+          {DynamicLoader(FixedSideDrawer)}
         </section>
         <section className={classes.searchSec}>
           {DynamicLoader(Search, {

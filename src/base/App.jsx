@@ -34,7 +34,13 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <SiteHeader />
-        <Router />
+        <div
+          style={{
+            marginTop: 70,
+          }}
+        >
+          <Router />
+        </div>
         <SiteFooter />
       </div>
     </ThemeProvider>

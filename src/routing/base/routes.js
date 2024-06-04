@@ -92,28 +92,6 @@ const pages = [
     ],
   },
   {
-    topic: "games",
-    label: "Game Zone",
-    pages: [
-      // {
-      //   topic: "Breakout",
-      //   label: "Brick Breaker",
-      // },
-      {
-        topic: "PrisonerDillema",
-        label: "Prisoner's Dillema",
-      },
-      {
-        topic: "RockPaperScissors",
-        label: "Rock Paper Scissors",
-      },
-      {
-        topic: "TicTacToe",
-        label: "Tic Tac Toe",
-      },
-    ],
-  },
-  {
     topic: "physics",
     label: "Physics",
     pages: [
@@ -145,6 +123,28 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "games",
+    label: "Game Zone",
+    pages: [
+      // {
+      //   topic: "Breakout",
+      //   label: "Brick Breaker",
+      // },
+      {
+        topic: "PrisonerDillema",
+        label: "Prisoner's Dillema",
+      },
+      {
+        topic: "RockPaperScissors",
+        label: "Rock Paper Scissors",
+      },
+      {
+        topic: "TicTacToe",
+        label: "Tic Tac Toe",
+      },
+    ],
+  },
 ]
 
 const dynamicRoute = (categoryTopic, subjectTopic) => {
@@ -170,4 +170,4 @@ pages.forEach((category) => {
   })
 })
 
-export { siteSugg }
+export { siteSugg, pages }
