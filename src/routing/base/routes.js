@@ -70,6 +70,14 @@ const pages = [
         label: "Array",
       },
       {
+        topic: "BinaryTree",
+        label: "Binary Tree Visualiser",
+      },
+      {
+        topic: "Graph",
+        label: "Randomized Graph Visualiser",
+      },
+      {
         topic: "LinkedList",
         label: "Linked List",
       },
