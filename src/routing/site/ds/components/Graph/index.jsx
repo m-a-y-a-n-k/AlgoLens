@@ -25,8 +25,8 @@ const GraphVisualizer = () => {
 
   const handleAddNode = () => {
     const id = nodes.length + 1
-    const x = 100 + Math.random() * 300
-    const y = 100 + Math.random() * 300
+    const x = 50 + Math.random() * 200
+    const y = 50 + Math.random() * 200
     dispatch({ type: "ADD_NODE", payload: { id, x, y } })
   }
 
@@ -110,8 +110,8 @@ const GraphContainer = styled.div`
   width: 90%;
   height: 70vh;
   max-width: 800px;
-  min-width: 500px;
-  min-height: 500px;
+  min-width: 300px;
+  min-height: 300px;
   border: 1px solid #ccc;
   margin: 20px auto;
 `
