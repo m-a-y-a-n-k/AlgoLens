@@ -42,7 +42,7 @@ const Game = () => {
   }, [])
 
   return (
-    <div className="game">
+    <div className="game-rock-paper-scissors">
       <h1>Rock Paper Scissors</h1>
       <div className="choices">
         {choices.map((choice) => (

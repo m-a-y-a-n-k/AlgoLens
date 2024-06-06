@@ -56,7 +56,7 @@ const Game = () => {
   )
 
   return (
-    <div className="game">
+    <div className="game-prisoners-dilemma">
       <h1>Prisoner&apos;s Dilemma</h1>
       <label>
         Number of Prisoners and Turns{" "}

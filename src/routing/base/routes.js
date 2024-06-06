@@ -121,6 +121,10 @@ const pages = [
         topic: "3DEquationPlotter",
         label: "3-D Equation Plotter",
       },
+      {
+        topic: "Calculator",
+        label: "Basic Calculator",
+      },
     ],
   },
   {
