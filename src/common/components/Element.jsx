@@ -13,7 +13,9 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
     elStyles.background = "rgba(30,150,40,0.8)"
   }
 
-  switch (type.toLowerCase()) {
+  const sanitizedType = type.toLowerCase()
+
+  switch (sanitizedType) {
     case "stack":
       element = [
         data.index === 0 && (
@@ -45,7 +47,14 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
     case "linkedlist":
     case "queues":
       element = (
-        <div key={`${data.value}-${data.index}`}>
+        <div
+          key={`${data.value}-${data.index}`}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Box
             p={1}
             style={{
@@ -64,7 +73,7 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
               </Box>
             )}
           </Box>
-          {type === "queues" && (
+          {sanitizedType === "queues" && (
             <Box
               color="white"
               p={1}
@@ -80,16 +89,14 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
               {next === false && <typography>Rear</typography>}
             </Box>
           )}
+          {(sanitizedType === "linkedlist" ||
+            (sanitizedType === "queues" && next)) && (
+            <Box key={`${data.index}-${data.value}-nextlink`} component="span">
+              <Link direction="right" />
+            </Box>
+          )}
         </div>
       )
-
-      if (type === "linkedlist" || (type === "queues" && next)) {
-        element.push(
-          <Box key={`${data.index}-${data.value}-nextlink`} component="span">
-            <Link direction="right" />
-          </Box>
-        )
-      }
       break
 
     case "sets":
