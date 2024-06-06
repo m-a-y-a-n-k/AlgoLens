@@ -8,7 +8,20 @@ const NotFound = lazy(() => import(`./NotFound`))
 
 export function DynamicLoader(LazyComponent, props) {
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      }
+    >
       <LazyComponent {...props}>{props?.children}</LazyComponent>
     </Suspense>
   )

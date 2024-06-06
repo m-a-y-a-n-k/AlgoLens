@@ -31,7 +31,7 @@ const SideDrawer = () => {
         {pages.map((section) => (
           <div key={section.topic}>
             <h3 onClick={() => toggleSection(section.topic)}>
-              {section.label}
+              {openSections[section.topic] ? "-" : "+"} {section.label}
             </h3>
             {openSections[section.topic] && (
               <ul>

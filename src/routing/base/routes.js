@@ -1,143 +1,143 @@
 const pages = [
   {
     topic: "algo",
-    label: "Algorithms",
+    label: "Algorithms 🧠",
     pages: [
       {
         topic: "BinarySearch",
-        label: "Binary Search",
+        label: "Binary Search 🔍",
       },
       {
         topic: "ClosestPair",
-        label: "Closest Pair",
+        label: "Closest Pair 🤏",
       },
       {
         topic: "Exponentiation",
-        label: "Exponentiation",
+        label: "Exponentiation ⏰",
       },
       {
         topic: "Factorial",
-        label: "Factorial",
+        label: "Factorial ➕",
       },
       {
         topic: "Factorize",
-        label: "Factorize",
+        label: "Factorize ✖️",
       },
       {
         topic: "Fibonacci",
-        label: "Fibonacci",
+        label: "Fibonacci 🔢",
       },
       {
         topic: "FloodFill",
-        label: "Flood Fill",
+        label: "Flood Fill 🌊",
       },
       {
         topic: "KnuthShuffle",
-        label: "Knuth Shuffle",
+        label: "Knuth Shuffle 🃏",
       },
       {
         topic: "NQueens",
-        label: "NQueens",
+        label: "NQueens 👑",
       },
       {
         topic: "Palindrome",
-        label: "Palindrome",
+        label: "Palindrome 🔀",
       },
       {
         topic: "Peak",
-        label: "Peak",
+        label: "Peak ⛰️",
       },
       {
         topic: "Primality",
-        label: "Prime Check",
+        label: "Prime Check 🔢",
       },
       {
         topic: "Sieve",
-        label: "Sieve",
+        label: "Sieve 🪣",
       },
       {
         topic: "SortingVisualiser",
-        label: "Sorting Visualiser",
+        label: "Sorting Visualiser 📊",
       },
     ],
   },
   {
     topic: "ds",
-    label: "Data Structures",
+    label: "Data Structures 🌳",
     pages: [
       {
         topic: "Array",
-        label: "Array",
+        label: "Array 📚",
       },
       {
         topic: "BinaryTree",
-        label: "Binary Tree Visualiser",
+        label: "Binary Tree Visualiser 🌳",
       },
       {
         topic: "Graph",
-        label: "Randomized Graph Visualiser",
+        label: "Randomized Graph Visualiser 📈",
       },
       {
         topic: "LinkedList",
-        label: "Linked List",
+        label: "Linked List 🔗",
       },
       {
         topic: "Lookup",
-        label: "Lookup",
+        label: "Lookup 🔍",
       },
       {
         topic: "Queues",
-        label: "Queues",
+        label: "Queues 📚",
       },
       {
         topic: "Sets",
-        label: "Sets",
+        label: "Sets 🎰",
       },
       {
         topic: "Stacks",
-        label: "Stacks",
+        label: "Stacks 📚",
       },
     ],
   },
   {
     topic: "physics",
-    label: "Physics",
+    label: "Physics 🌌",
     pages: [
       {
         topic: "CircularMotion",
-        label: "Circular Motion and Angular Momentum",
+        label: "Circular Motion and Angular Momentum 🔄",
       },
       {
         topic: "Projectile",
-        label: "Projectile Motion",
+        label: "Projectile Motion 💥",
       },
       {
         topic: "SolarSystem",
-        label: "Planetary Motion : Solar System",
+        label: "Planetary Motion : Solar System 🌍",
       },
     ],
   },
   {
     topic: "math",
-    label: "Mathematics",
+    label: "Mathematics 🧮",
     pages: [
       {
         topic: "EquationPlotter",
-        label: "2-D Equation Plotter",
+        label: "2-D Equation Plotter 📈",
       },
       {
         topic: "3DEquationPlotter",
-        label: "3-D Equation Plotter",
+        label: "3-D Equation Plotter 📈",
       },
       {
         topic: "Calculator",
-        label: "Basic Calculator",
+        label: "Basic Calculator ➕",
       },
     ],
   },
   {
     topic: "games",
-    label: "Game Zone",
+    label: "Game Zone 🎮",
     pages: [
       // {
       //   topic: "Breakout",
@@ -145,15 +145,15 @@ const pages = [
       // },
       {
         topic: "PrisonerDillema",
-        label: "Prisoner's Dillema",
+        label: "Prisoner's Dillema ⚖️",
       },
       {
         topic: "RockPaperScissors",
-        label: "Rock Paper Scissors",
+        label: "Rock Paper Scissors ✂️",
       },
       {
         topic: "TicTacToe",
-        label: "Tic Tac Toe",
+        label: "Tic Tac Toe ❌⭕",
       },
     ],
   },
