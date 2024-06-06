@@ -112,6 +112,14 @@ const pages = [
         label: "Projectile Motion 💥",
       },
       {
+        topic: "SimpleHarmonicMotion",
+        label: "Simple Harmonic Motion 🌊",
+      },
+      {
+        topic: "SimplePendulum",
+        label: "Simple Pendulum ⏱️",
+      },
+      {
         topic: "SolarSystem",
         label: "Planetary Motion : Solar System 🌍",
       },
