@@ -253,32 +253,31 @@ export default function LinkedList() {
       let curr = head,
         key = 0
       while (curr) {
-        if (curr.next) {
-          list.push(
-            <Fragment key={`${key}-${curr.info}`}>
-              <Element
-                data={{ value: curr.info }}
-                type="LinkedList"
-                next={true}
-                highlight={curr.highlight}
-              />
-            </Fragment>
-          )
-        } else {
-          list.push(
-            <Fragment key={`${key}-${curr.info}`}>
-              <Element
-                data={{ value: curr.info }}
-                type="LinkedList"
-                next={false}
-                highlight={curr.highlight}
-              />
-            </Fragment>
-          )
-        }
+        list.push(
+          <Fragment key={`${key}-${curr.info}`}>
+            <Element
+              data={{ value: curr.info }}
+              type="LinkedList"
+              next={true}
+              highlight={curr.highlight}
+            />
+          </Fragment>
+        )
         curr = curr.next
         key++
       }
+    }
+    if (list.length > 0) {
+      list.push(
+        <Fragment key={`NULL-element`}>
+          <Element
+            data={{ value: "NULL" }}
+            type="LinkedList"
+            next={false}
+            highlight={true}
+          />
+        </Fragment>
+      )
     }
     setList(list)
     setRendered(true)

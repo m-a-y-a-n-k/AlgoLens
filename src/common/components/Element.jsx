@@ -89,12 +89,15 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
               {next === false && <typography>Rear</typography>}
             </Box>
           )}
-          {(sanitizedType === "linkedlist" ||
-            (sanitizedType === "queues" && next)) && (
-            <Box key={`${data.index}-${data.value}-nextlink`} component="span">
-              <Link direction="right" />
-            </Box>
-          )}
+          {(sanitizedType === "linkedlist" || sanitizedType === "queues") &&
+            next && (
+              <Box
+                key={`${data.index}-${data.value}-nextlink`}
+                component="span"
+              >
+                <Link direction="right" />
+              </Box>
+            )}
         </div>
       )
       break
