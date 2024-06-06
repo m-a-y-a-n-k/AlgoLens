@@ -122,7 +122,7 @@ export default function Search(props) {
               color="primary"
               className="mt-2"
             >
-              All Smaller element
+              All Smaller elements
             </Button>
             <Button
               onClick={() => {

@@ -7,6 +7,7 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
   let elStyles = {
     border: "1px solid white",
     background: "rgba(40,60,180,0.8)",
+    width: "100%",
   }
 
   if (highlight) {

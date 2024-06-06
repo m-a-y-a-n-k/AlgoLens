@@ -102,18 +102,18 @@ const KnuthShuffle = () => {
   }
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col sm={3}>
+        <Col xs={6} className="p-2">
           <Insert parent={{ state, insert }} />
         </Col>
-        <Col sm={3}>
+        <Col xs={6} className="p-2">
           <Delete parent={{ state, delete: deleteData }} />
         </Col>
-        <Col sm={3}>
+        <Col xs={6} className="p-2">
           <Update parent={{ state, update }} />
         </Col>
-        <Col sm={3}>
+        <Col xs={6} className="p-2">
           <Shuffle parent={{ state, shuffle, unshuffle }} />
         </Col>
       </Row>

@@ -19,16 +19,16 @@ const Array = () => {
   return (
     <Grid container>
       <Grid container>
-        <Grid item sm={12} className="mt-2">
+        <Grid item xs={12} className="mt-2">
           <Insert array={state.array} updateState={updateState} alertId={1} />
         </Grid>
-        <Grid item sm={12} className="mt-2">
+        <Grid item xs={12} className="mt-2">
           <Delete array={state.array} updateState={updateState} alertId={2} />
         </Grid>
-        <Grid item sm={12} className="mt-2">
+        <Grid item xs={12} className="mt-2">
           <Update array={state.array} updateState={updateState} alertId={3} />
         </Grid>
-        <Grid item sm={12} className="mt-2">
+        <Grid item xs={12} className="mt-2">
           <Search array={state.array} updateState={updateState} alertId={4} />
         </Grid>
       </Grid>

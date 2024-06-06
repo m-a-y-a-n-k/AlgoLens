@@ -129,7 +129,7 @@ export default function Delete(props) {
             <Typography className="text-center">OR</Typography>
 
             <RedditTextField
-              className="w-50"
+              className="w-100"
               label="Index"
               onChange={(event) => {
                 setPosition(event.target.value)

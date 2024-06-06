@@ -89,7 +89,7 @@ function StyledRadio(props) {
   )
 }
 
-export default function LinkedList() {
+export default function Sets() {
   const gridclass = gridStyle()
   let [radioVal, setRadioVal] = useState(false)
   let [isGreat, setIsGreat] = useState("")
@@ -226,9 +226,9 @@ export default function LinkedList() {
   return (
     <div className={gridclass.root}>
       <Grid container direction="row" justify="left" alignItems="center">
-        <Grid container sm={4}>
+        <Grid container xs={6}>
           <Paper className={gridclass.paper}>
-            <Grid item xs={12} sm={12} spacing={3} alignItems="center">
+            <Grid item xs={12} spacing={3} alignItems="center">
               <Card>
                 <h6 className="bg-primary text-center text-white p-3">
                   Operations
@@ -261,7 +261,7 @@ export default function LinkedList() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid className="mt-3" item spacing={4} xs={12} sm={12}>
+            <Grid className="mt-3" item spacing={4} xs={12}>
               <Insert
                 open={radioVal === "Insert"}
                 insert={(data) => {
@@ -285,11 +285,12 @@ export default function LinkedList() {
         </Grid>
         <Grid
           container
+          item
           style={{
             border: set.length > 0 ? "2px solid black" : "",
             height: "auto",
           }}
-          sm={8}
+          xs={6}
         >
           {renderList()}
         </Grid>

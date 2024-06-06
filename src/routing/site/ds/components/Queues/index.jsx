@@ -269,9 +269,9 @@ export default function Queues() {
   return (
     <div className={gridclass.root}>
       <Grid container direction="row" justify="left" alignItems="center">
-        <Grid container sm={4}>
+        <Grid item container xs={6}>
           <Paper className={gridclass.paper}>
-            <Grid item xs={12} sm={12} spacing={3} alignItems="center">
+            <Grid item xs={12} spacing={3} alignItems="center">
               <Card>
                 <h6 className="bg-primary text-center text-white p-3">
                   Operations
@@ -309,7 +309,7 @@ export default function Queues() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid className="mt-3" item spacing={4} xs={12} sm={12}>
+            <Grid className="mt-3" item spacing={4} xs={12}>
               <Insert
                 open={radioVal === "Insert"}
                 insert={(data, where) => {
@@ -337,7 +337,7 @@ export default function Queues() {
             </Grid>
           </Paper>
         </Grid>
-        <Grid container sm={8}>
+        <Grid item container xs={6}>
           {list}
         </Grid>
       </Grid>

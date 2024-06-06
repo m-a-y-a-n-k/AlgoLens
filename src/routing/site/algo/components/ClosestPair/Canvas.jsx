@@ -33,7 +33,6 @@ const Canvas = ({ id, width, height, clickable, addPoints }) => {
       width={width}
       height={height}
       style={{
-        margin: "20px",
         border: "1px solid lightgray",
         background: "rgba(123,178,91,0.3)",
       }}

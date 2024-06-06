@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import { FixedSizeList as List } from "react-window"
 import Input from "./Input"
+import useWindowDimensions from "common/helpers/dimensions"
 
 const LazyElement = lazy(() => import("common/components/Element"))
 
@@ -78,7 +79,7 @@ const Factorize = () => {
 
       {parseInt(input) >= 0 && (
         <Grid container className="text-center mt-4 mb-4 align-items-center">
-          <Grid item xs={2}>
+          <Grid item xs={4}>
             <LazyElement
               highlight={true}
               data={{ value: `Factors(${input})` }}
@@ -88,7 +89,7 @@ const Factorize = () => {
           <Grid item xs={2}>
             <FaEquals style={{ margin: "auto 5px" }} />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <LazyList factorize={factorize} input={input} />
           </Grid>
         </Grid>
@@ -99,13 +100,14 @@ const Factorize = () => {
 
 const LazyList = ({ input, factorize }) => {
   const factors = useMemo(() => factorize(input), [input])
+  const { width: innerWidth } = useWindowDimensions()
 
   return (
     <List
       height={120}
       itemCount={factors.length}
-      itemSize={400}
-      width={window.innerWidth * 0.6}
+      itemSize={240}
+      width={innerWidth * 0.5}
       direction="horizontal"
     >
       {({ index, style }) => (

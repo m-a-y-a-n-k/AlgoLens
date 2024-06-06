@@ -3,12 +3,14 @@ import { Grid } from "@material-ui/core"
 import Canvas from "routing/site/algo/components/ClosestPair/Canvas"
 import Run from "routing/site/algo/components/ClosestPair/Run"
 import { Alert } from "reactstrap"
+import useWindowDimensions from "common/helpers/dimensions"
 
 const ClosestPair = () => {
   const [points, setPoints] = useState([])
   const [clickable, setClickable] = useState(true)
   const [alert, setAlert] = useState(null)
   const canvasRef = useRef(null)
+  const { width: innerWidth } = useWindowDimensions()
 
   const clearCanvas = useCallback(() => {
     const canvas = canvasRef.current
@@ -128,12 +130,12 @@ const ClosestPair = () => {
           )}
           <Run find={find} />
         </Grid>
-        <Grid item xs={12} className="mt-3">
+        <Grid item xs={12} className="m-2">
           <h3 className="p-2">Click in the canvas below to draw points</h3>
           <Canvas
             id="pointsCanvas"
             clickable={clickable}
-            width={`${window.innerWidth - 70}`}
+            width={`${innerWidth - 48}`}
             height="400"
             addPoints={(p) => {
               if (clickable) {

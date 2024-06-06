@@ -105,10 +105,24 @@ const SortingVisualizer = () => {
         <button onClick={bubbleSort} disabled={isSorting}>
           Bubble Sort
         </button>
-        <button onClick={() => quickSort(array)} disabled={isSorting}>
+        <button
+          onClick={async () => {
+            setIsSorting(true)
+            await quickSort(array)
+            setIsSorting(false)
+          }}
+          disabled={isSorting}
+        >
           Quick Sort
         </button>
-        <button onClick={() => mergeSort(array)} disabled={isSorting}>
+        <button
+          onClick={async () => {
+            setIsSorting(true)
+            await mergeSort(array)
+            setIsSorting(false)
+          }}
+          disabled={isSorting}
+        >
           Merge Sort
         </button>
         <label>
