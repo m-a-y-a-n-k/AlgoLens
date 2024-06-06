@@ -55,6 +55,20 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
             alignItems: "center",
           }}
         >
+          {(sanitizedType === "queues" || sanitizedType === "linkedlist") &&
+            data.index === 0 && (
+              <Box
+                color="white"
+                p={1}
+                className="bg-danger"
+                textAlign="center"
+                fontSize={12}
+              >
+                <typography>
+                  {sanitizedType === "linkedlist" ? "Head" : "Front"} <br />
+                </typography>
+              </Box>
+            )}
           <Box
             p={1}
             style={{
@@ -73,22 +87,20 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
               </Box>
             )}
           </Box>
-          {sanitizedType === "queues" && (
-            <Box
-              color="white"
-              p={1}
-              className={data.index === 0 || next === false ? "bg-danger" : ""}
-              textAlign="center"
-              fontSize={12}
-            >
-              {data.index === 0 && (
+          {(sanitizedType === "queues" || sanitizedType === "linkedlist") &&
+            next === false && (
+              <Box
+                color="white"
+                p={1}
+                className={"bg-danger"}
+                textAlign="center"
+                fontSize={12}
+              >
                 <typography>
-                  Front <br />
+                  {sanitizedType === "linkedlist" ? "Tail" : "Rear"}
                 </typography>
-              )}
-              {next === false && <typography>Rear</typography>}
-            </Box>
-          )}
+              </Box>
+            )}
           {(sanitizedType === "linkedlist" || sanitizedType === "queues") &&
             next && (
               <Box

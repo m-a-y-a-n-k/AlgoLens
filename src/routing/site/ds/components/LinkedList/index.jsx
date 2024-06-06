@@ -160,7 +160,7 @@ export default function LinkedList() {
           }
         }
         setHead(head1)
-      } else if (position === parseInt(position)) {
+      } else if (position == parseInt(position)) {
         position = parseInt(position)
         if (position === 0) {
           head = head.next
@@ -256,9 +256,9 @@ export default function LinkedList() {
         list.push(
           <Fragment key={`${key}-${curr.info}`}>
             <Element
-              data={{ value: curr.info }}
+              data={{ value: curr.info, index: key }}
               type="LinkedList"
-              next={true}
+              next={!!curr.next}
               highlight={curr.highlight}
             />
           </Fragment>
@@ -266,18 +266,6 @@ export default function LinkedList() {
         curr = curr.next
         key++
       }
-    }
-    if (list.length > 0) {
-      list.push(
-        <Fragment key={`NULL-element`}>
-          <Element
-            data={{ value: "NULL" }}
-            type="LinkedList"
-            next={false}
-            highlight={true}
-          />
-        </Fragment>
-      )
     }
     setList(list)
     setRendered(true)
