@@ -28,8 +28,8 @@
   width: 90%;
   height: 70vh;
   max-width: 800px;
-  min-width: 500px;
-  min-height: 500px;
+  min-width: 300px;
+  min-height: 300px;
   border: 1px solid #ccc;
   margin: 20px auto;
 `,x=o.ZP.div`
@@ -59,5 +59,5 @@
   width: 100%;
   height: 100%;
   animation: ${u} 1s linear;
-`,y=()=>{const[e,t]=(0,i.useReducer)(a,n),{nodes:r,edges:o}=e;return(0,d.jsxs)(s,{children:[(0,d.jsx)(l,{children:"Randomized Graph Visualiser"}),(0,d.jsxs)(h,{children:[(0,d.jsx)(c,{onClick:()=>{const e=r.length+1,i=100+300*Math.random(),o=100+300*Math.random();t({type:"ADD_NODE",payload:{id:e,x:i,y:o}})},children:"Add Node"}),(0,d.jsx)(c,{onClick:()=>{if(r.length<2)return;const e=r[Math.floor(Math.random()*r.length)].id;let i;do{i=r[Math.floor(Math.random()*r.length)].id}while(e===i);t({type:"ADD_EDGE",payload:{source:e,target:i}})},children:"Add Edge"}),(0,d.jsx)(c,{onClick:()=>{t({type:"CLEAR_GRAPH"})},children:"Clear Graph"})]})," ",(0,d.jsxs)(p,{children:[o.map(((e,t)=>(0,d.jsx)(f,{x1:r.find((t=>t.id===e.source)).x,y1:r.find((t=>t.id===e.source)).y,x2:r.find((t=>t.id===e.target)).x,y2:r.find((t=>t.id===e.target)).y},t))),r.map((e=>(0,d.jsx)(x,{x:e.x,y:e.y,children:e.id},e.id)))]})]})}}}]);
-//# sourceMappingURL=4558.b2b5d5a6.chunk.js.map
+`,y=()=>{const[e,t]=(0,i.useReducer)(a,n),{nodes:r,edges:o}=e;return(0,d.jsxs)(s,{children:[(0,d.jsx)(l,{children:"Randomized Graph Visualiser"}),(0,d.jsxs)(h,{children:[(0,d.jsx)(c,{onClick:()=>{const e=r.length+1,i=50+200*Math.random(),o=50+200*Math.random();t({type:"ADD_NODE",payload:{id:e,x:i,y:o}})},children:"Add Node"}),(0,d.jsx)(c,{onClick:()=>{if(r.length<2)return;const e=r[Math.floor(Math.random()*r.length)].id;let i;do{i=r[Math.floor(Math.random()*r.length)].id}while(e===i);t({type:"ADD_EDGE",payload:{source:e,target:i}})},children:"Add Edge"}),(0,d.jsx)(c,{onClick:()=>{t({type:"CLEAR_GRAPH"})},children:"Clear Graph"})]})," ",(0,d.jsxs)(p,{children:[o.map(((e,t)=>(0,d.jsx)(f,{x1:r.find((t=>t.id===e.source)).x,y1:r.find((t=>t.id===e.source)).y,x2:r.find((t=>t.id===e.target)).x,y2:r.find((t=>t.id===e.target)).y},t))),r.map((e=>(0,d.jsx)(x,{x:e.x,y:e.y,children:e.id},e.id)))]})]})}}}]);
+//# sourceMappingURL=4558.725db230.chunk.js.map
