@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[2969],{52969:(e,s,t)=>{t.r(s),t.d(s,{default:()=>c});var a=t(72791),l=t(80184);const r=a.memo((e=>{let{result:s,resetGame:t}=e;return(0,l.jsxs)("div",{className:"result",children:[(0,l.jsx)("h2",{className:"result-text",children:s}),(0,l.jsx)("button",{onClick:t,className:"reset-button",children:"Play Again"})]})}));r.displayName="RockPaperScissors.Result";const c=r}}]);
+//# sourceMappingURL=2969.87b0ba9b.chunk.js.map

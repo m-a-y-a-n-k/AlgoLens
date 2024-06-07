@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[5677],{9686:(e,a,l)=>{var t=l(4836),p=l(5263);Object.defineProperty(a,"__esModule",{value:!0}),a.default=void 0;var u=p(l(2791)),d=(0,t(l(4894)).default)(u.createElement("path",{d:"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"}),"Check");a.default=d}}]);
-//# sourceMappingURL=5677.41976003.chunk.js.map
