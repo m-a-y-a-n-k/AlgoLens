@@ -145,6 +145,10 @@ const pages = [
         topic: "Calculator",
         label: "Basic Calculator ➕",
       },
+      {
+        topic: "NumberSystems",
+        label: "Number Systems 🔢",
+      },
     ],
   },
   {
