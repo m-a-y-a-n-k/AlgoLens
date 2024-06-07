@@ -5,12 +5,12 @@ const StyledButton = styled.button`
   background: ${(props) => props.bgColor};
   border: none;
   color: white;
-  padding: 15px 20px;
+  padding: 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 1em;
-  margin: 4px 2px;
+  font-size: 1rem;
+  margin: 2px;
   transition: background-color 0.4s ease;
   cursor: pointer;
   border-radius: 4px;
