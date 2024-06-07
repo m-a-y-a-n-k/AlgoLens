@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import { FixedSizeList as List } from "react-window"
 import Input from "./Input"
+import useWindowDimensions from "common/helpers/dimensions"
 
 const LazyElement = lazy(() => import("common/components/Element"))
 
@@ -79,12 +80,14 @@ const Fibonacci = () => {
 }
 
 const LazyList = ({ sequence }) => {
+  const { width: innerWidth } = useWindowDimensions()
+
   return (
     <List
       height={120}
       itemCount={sequence.length}
       itemSize={400}
-      width={window.innerWidth}
+      width={innerWidth}
       direction="horizontal"
     >
       {({ index, style }) => (

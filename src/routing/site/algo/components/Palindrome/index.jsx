@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import Input from "./Input"
 import { FixedSizeList as List } from "react-window"
+import useWindowDimensions from "common/helpers/dimensions"
 
 const LazyElement = lazy(() => import("common/components/Element"))
 
@@ -97,12 +98,14 @@ const Palindrome = () => {
 }
 
 const LazyList = ({ characters }) => {
+  const { width: innerWidth } = useWindowDimensions()
+
   return (
     <List
       height={120}
       itemCount={characters.length}
       itemSize={200}
-      width={window.innerWidth || 800}
+      width={innerWidth || 800}
       direction="horizontal"
     >
       {({ index, style }) => (

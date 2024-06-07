@@ -5,6 +5,7 @@ import Update from "routing/site/algo/components/BinarySearch/Update"
 import Delete from "routing/site/algo/components/BinarySearch/Delete"
 import Search from "routing/site/algo/components/BinarySearch/Search"
 import { FixedSizeList as List } from "react-window"
+import useWindowDimensions from "common/helpers/dimensions"
 
 const LazyElement = lazy(() => import("common/components/Element"))
 
@@ -156,12 +157,13 @@ const BinarySearch = () => {
 }
 
 const LazyList = ({ data, highlights }) => {
+  const { width: innerWidth } = useWindowDimensions()
   return (
     <List
       height={120}
       itemCount={data.length}
       itemSize={200}
-      width={window.innerWidth || 800}
+      width={innerWidth || 800}
       direction="horizontal"
     >
       {({ index, style }) => {

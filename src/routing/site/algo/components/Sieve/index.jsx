@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import Range from "./Range"
 import { FixedSizeList as List } from "react-window"
+import useWindowDimensions from "common/helpers/dimensions"
 
 const LazyElement = lazy(() => import("common/components/Element"))
 
@@ -79,6 +80,8 @@ const Sieve = () => {
 }
 
 const LazyList = ({ start, end, sieve }) => {
+  const { width: innerWidth } = useWindowDimensions()
+
   const [numbers, setNumbers] = useState([])
   const [isPrime, setIsPrime] = useState([])
 
@@ -94,7 +97,7 @@ const LazyList = ({ start, end, sieve }) => {
       height={120}
       itemCount={numbers.length}
       itemSize={200}
-      width={window.innerWidth || 800}
+      width={innerWidth || 800}
       direction="horizontal"
     >
       {({ index, style }) => (
