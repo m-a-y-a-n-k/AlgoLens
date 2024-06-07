@@ -138,6 +138,10 @@ const pages = [
         label: "3-D Equation Plotter 📈",
       },
       {
+        topic: "AdvancedCalculator",
+        label: "Advanced Calculator 🔬",
+      },
+      {
         topic: "Calculator",
         label: "Basic Calculator ➕",
       },
