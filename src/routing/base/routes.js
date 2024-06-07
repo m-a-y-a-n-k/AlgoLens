@@ -74,10 +74,6 @@ const pages = [
         label: "Binary Tree Visualiser 🌳",
       },
       {
-        topic: "Graph",
-        label: "Randomized Graph Visualiser 📈",
-      },
-      {
         topic: "LinkedList",
         label: "Linked List 🔗",
       },
@@ -88,6 +84,10 @@ const pages = [
       {
         topic: "Queues",
         label: "Queues 📚",
+      },
+      {
+        topic: "Graph",
+        label: "Randomized Graph Visualiser 📈",
       },
       {
         topic: "Sets",
@@ -108,6 +108,10 @@ const pages = [
         label: "Circular Motion and Angular Momentum 🔄",
       },
       {
+        topic: "SolarSystem",
+        label: "Planetary Motion : Solar System 🌍",
+      },
+      {
         topic: "Projectile",
         label: "Projectile Motion 💥",
       },
@@ -118,10 +122,6 @@ const pages = [
       {
         topic: "SimplePendulum",
         label: "Simple Pendulum ⏱️",
-      },
-      {
-        topic: "SolarSystem",
-        label: "Planetary Motion : Solar System 🌍",
       },
     ],
   },
@@ -155,10 +155,6 @@ const pages = [
     topic: "games",
     label: "Game Zone 🎮",
     pages: [
-      // {
-      //   topic: "Breakout",
-      //   label: "Brick Breaker",
-      // },
       {
         topic: "PrisonerDillema",
         label: "Prisoner's Dillema ⚖️",
@@ -174,7 +170,6 @@ const pages = [
     ],
   },
 ]
-
 const dynamicRoute = (categoryTopic, subjectTopic) => {
   return `${categoryTopic}/${subjectTopic}`
 }
