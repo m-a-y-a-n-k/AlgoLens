@@ -41,7 +41,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-color: #e8f5e9;
   padding: 20px;
 `,x=i.ZP.div`
@@ -64,5 +63,5 @@
   font-size: 18px;
   margin-top: 10px;
   color: #555;
-`,m=()=>{const[e,t]=(0,n.useState)(1),[r,i]=(0,n.useState)(100);return(0,a.jsxs)(c,{children:[(0,a.jsx)(l,{children:"Simple Harmonic Motion"}),(0,a.jsxs)(x,{children:[(0,a.jsx)(g,{htmlFor:"mass",children:"Mass (0 to 10 kg):"}),(0,a.jsx)(u,{id:"mass",type:"number",value:e,onChange:e=>{const r=Number(e.target.value);r>=0&&r<=10&&t(r)}}),(0,a.jsx)(g,{htmlFor:"springLength",children:"Spring Length (0 to 200 px):"}),(0,a.jsx)(u,{id:"springLength",type:"number",value:r,onChange:e=>{const t=Number(e.target.value);t>=0&&t<=200&&i(t)}})]}),(0,a.jsx)(p,{mass:e,springLength:r})]})}}}]);
-//# sourceMappingURL=4534.0e6da6f8.chunk.js.map
+`,m=()=>{const[e,t]=(0,n.useState)(1),[r,i]=(0,n.useState)(100);return(0,a.jsxs)(c,{children:[(0,a.jsx)(l,{children:"Simple Harmonic Motion"}),(0,a.jsxs)(x,{children:[(0,a.jsx)(g,{htmlFor:"mass",children:"Mass (0 to 10 kg):"}),(0,a.jsx)(u,{id:"mass",type:"number",value:e,onChange:e=>{const r=Number(e.target.value);r>=0&&r<=10&&t(r)}}),(0,a.jsx)(g,{htmlFor:"springLength",children:"Spring Length (0 to 150 px):"}),(0,a.jsx)(u,{id:"springLength",type:"number",value:r,onChange:e=>{const t=Number(e.target.value);t>=0&&t<=150&&i(t)}})]}),(0,a.jsx)(p,{mass:e,springLength:r})]})}}}]);
+//# sourceMappingURL=4534.a0d27755.chunk.js.map
