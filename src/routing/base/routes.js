@@ -57,7 +57,7 @@ const pages = [
       },
       {
         topic: "SortingVisualiser",
-        label: "Sorting Visualiser 📊",
+        label: "Sorting 📊",
       },
     ],
   },
@@ -71,7 +71,7 @@ const pages = [
       },
       {
         topic: "BinaryTree",
-        label: "Binary Tree Visualiser 🌳",
+        label: "Binary Tree 🌳",
       },
       {
         topic: "LinkedList",
@@ -87,7 +87,7 @@ const pages = [
       },
       {
         topic: "Graph",
-        label: "Randomized Graph Visualiser 📈",
+        label: "Randomized Graph 📈",
       },
       {
         topic: "Sets",

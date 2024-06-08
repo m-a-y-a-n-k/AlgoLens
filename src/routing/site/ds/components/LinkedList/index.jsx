@@ -23,6 +23,7 @@ const gridStyle = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+    width: "100%",
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
     margin: theme.spacing(2),
@@ -281,7 +282,7 @@ export default function LinkedList() {
   return (
     <div className={gridclass.root}>
       <Grid container direction="row" justify="left" alignItems="center">
-        <Grid item container xs={6}>
+        <Grid item container xs={12}>
           <Paper className={gridclass.paper}>
             <Grid item xs={12} spacing={3} alignItems="center">
               <Card>
@@ -349,7 +350,7 @@ export default function LinkedList() {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item container xs={6}>
+        <Grid item container xs={12}>
           {list}
         </Grid>
       </Grid>
