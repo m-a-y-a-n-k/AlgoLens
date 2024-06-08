@@ -1,6 +1,24 @@
 import React, { useRef, useEffect, useState } from "react"
 import { usePlanets } from "./PlanetContext"
-import "./SolarSystemCanvas.css"
+import styled from "styled-components"
+
+// Styled-components
+const Canvas = styled.canvas`
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  border: 2px solid #fff;
+  background-color: #000;
+  display: block;
+  margin: 0 auto;
+`
+
+const TimeElapsed = styled.div`
+  color: #fff;
+  text-align: center;
+  margin: 10px;
+  font-size: 1.2em;
+`
 
 const SolarSystemCanvas = () => {
   const { planets, setPlanets } = usePlanets()
@@ -54,9 +72,14 @@ const SolarSystemCanvas = () => {
         )
       }, 50)
     }
-    // Increment elapsed days based on Earth's speed (assuming 1 day per frame for simplicity)
-    setElapsedDays((prevDays) => prevDays + 1)
-    animationFrameId = requestAnimationFrame(render)
+
+    const animate = () => {
+      render()
+      setElapsedDays((prevDays) => prevDays + 1)
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animate()
 
     return () => {
       cancelAnimationFrame(animationFrameId)
@@ -65,13 +88,13 @@ const SolarSystemCanvas = () => {
 
   return (
     <>
-      <canvas
+      <Canvas
         ref={canvasRef}
-        width="800"
-        height="800"
+        width={400}
+        height={400}
         className="solar-system-canvas"
       />
-      <div className="time-elapsed">Time Elapsed: {elapsedDays} Earth days</div>
+      <TimeElapsed>Time Elapsed: {elapsedDays} Earth days</TimeElapsed>
     </>
   )
 }
