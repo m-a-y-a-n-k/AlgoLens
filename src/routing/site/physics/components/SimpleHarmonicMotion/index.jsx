@@ -19,7 +19,6 @@ const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-color: #e8f5e9;
   padding: 20px;
 `
@@ -63,7 +62,7 @@ const Main = () => {
 
   const adjustSpringLength = (e) => {
     const updatedSpringLength = Number(e.target.value)
-    if (updatedSpringLength >= 0 && updatedSpringLength <= 200) {
+    if (updatedSpringLength >= 0 && updatedSpringLength <= 150) {
       setSpringLength(updatedSpringLength)
     }
   }
@@ -74,7 +73,7 @@ const Main = () => {
       <InputContainer>
         <Label htmlFor="mass">Mass (0 to 10 kg):</Label>
         <Input id="mass" type="number" value={mass} onChange={adjustMass} />
-        <Label htmlFor="springLength">Spring Length (0 to 200 px):</Label>
+        <Label htmlFor="springLength">Spring Length (0 to 150 px):</Label>
         <Input
           id="springLength"
           type="number"
