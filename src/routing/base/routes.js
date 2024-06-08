@@ -153,6 +153,10 @@ const pages = [
         topic: "NumberSystems",
         label: "Number Systems 🔢",
       },
+      {
+        topic: "PythagorasTheorem",
+        label: "Pythagoras Theorem 📐",
+      },
     ],
   },
   {
