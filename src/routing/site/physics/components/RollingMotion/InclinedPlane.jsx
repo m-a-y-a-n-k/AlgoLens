@@ -3,12 +3,12 @@ import styled from "styled-components"
 
 const CanvasContainer = styled.div`
   position: relative;
-  width: 600px;
+  width: 400px;
   height: 400px;
   border: 1px solid #000;
 `
 
-const PLANE_HALF_LENGTH = 200
+const PLANE_HALF_LENGTH = 100
 
 const InclinedPlane = ({ angle, initialPosition }) => {
   const canvasRef = useRef(null)
@@ -196,7 +196,7 @@ const InclinedPlane = ({ angle, initialPosition }) => {
 
   return (
     <CanvasContainer>
-      <canvas ref={canvasRef} width={600} height={400} />
+      <canvas ref={canvasRef} width={400} height={400} />
     </CanvasContainer>
   )
 }
