@@ -24,7 +24,7 @@ const SideDrawer = () => {
   })
 
   return (
-    <div className="header">
+    <div className="header" ref={sideDrawerRef}>
       <div
         className={`hamburger ${isOpen ? "open" : ""}`}
         onClick={toggleDrawer}
@@ -33,10 +33,7 @@ const SideDrawer = () => {
         <div className="bar"></div>
         <div className="bar"></div>
       </div>
-      <div
-        ref={sideDrawerRef}
-        className={`side-drawer ${isOpen ? "show" : "hide"}`}
-      >
+      <div className={`side-drawer ${isOpen ? "show" : "hide"}`}>
         {pages.map((section) => (
           <div key={section.topic}>
             <h3 onClick={() => toggleSection(section.topic)}>
