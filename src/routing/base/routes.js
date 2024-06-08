@@ -116,6 +116,10 @@ const pages = [
         label: "Projectile Motion 💥",
       },
       {
+        topic: "RollingMotion",
+        label: "Rolling Motion ⚙️",
+      },
+      {
         topic: "SimpleHarmonicMotion",
         label: "Simple Harmonic Motion 🌊",
       },
