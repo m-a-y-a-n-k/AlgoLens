@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import "./SortingVisualiser.css"
 
 const SortingVisualizer = () => {
@@ -6,6 +6,16 @@ const SortingVisualizer = () => {
   const [arraySize, setArraySize] = useState(50)
   const [isSorting, setIsSorting] = useState(false)
   const [speed, setSpeed] = useState(50)
+
+  const isSorted = useMemo(() => {
+    for (let i = 1; i < array.length; ++i) {
+      if (array[i] < array[i - 1]) {
+        return false
+      }
+    }
+
+    return true
+  }, [array])
 
   useEffect(() => {
     generateRandomArray(arraySize)
@@ -102,7 +112,7 @@ const SortingVisualizer = () => {
         >
           Generate New Array
         </button>
-        <button onClick={bubbleSort} disabled={isSorting}>
+        <button onClick={bubbleSort} disabled={isSorting || isSorted}>
           Bubble Sort
         </button>
         <button
@@ -111,7 +121,7 @@ const SortingVisualizer = () => {
             await quickSort(array)
             setIsSorting(false)
           }}
-          disabled={isSorting}
+          disabled={isSorting || isSorted}
         >
           Quick Sort
         </button>
@@ -121,7 +131,7 @@ const SortingVisualizer = () => {
             await mergeSort(array)
             setIsSorting(false)
           }}
-          disabled={isSorting}
+          disabled={isSorting || isSorted}
         >
           Merge Sort
         </button>
