@@ -1,6 +1,84 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react"
+import styled from "styled-components"
 import { Alert } from "reactstrap"
-import "./ProjectileMotion.css"
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+`
+
+const Controls = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  gap: 15px;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+`
+
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  color: #555;
+`
+
+const Input = styled.input`
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+  text-align: center;
+  font-size: 1rem;
+`
+
+const Visualization = styled.div`
+  margin-bottom: 20px;
+  width: 100%;
+`
+
+const Results = styled.div`
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+  font-size: 1rem;
+`
+
+const SVG = styled.svg`
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+`
+
+const Path = styled.path`
+  stroke: blue;
+  fill: none;
+`
+
+const Line = styled.line`
+  stroke: black;
+  stroke-width: 2;
+`
+
+const Text = styled.text`
+  font-family: Arial;
+  font-size: 12px;
+  text-anchor: middle;
+`
 
 const ProjectileMotion = () => {
   const [angle, setAngle] = useState(45)
@@ -29,7 +107,7 @@ const ProjectileMotion = () => {
 
   useEffect(() => {
     calculateTrajectory()
-  }, [angle, speed])
+  }, [angle, speed, calculateTrajectory])
 
   const totalDistance = useMemo(() => {
     return trajectory.length > 0 ? trajectory[trajectory.length - 1].x : 0
@@ -40,11 +118,11 @@ const ProjectileMotion = () => {
   }, [trajectory])
 
   return (
-    <div className="projectile-motion">
-      <div className="controls">
-        <label>
+    <Container>
+      <Controls>
+        <Label>
           Angle (degrees):
-          <input
+          <Input
             type="number"
             value={angle}
             onChange={(e) => {
@@ -54,10 +132,10 @@ const ProjectileMotion = () => {
               }
             }}
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Speed (m/s):
-          <input
+          <Input
             type="number"
             value={speed}
             onChange={(e) => {
@@ -67,74 +145,39 @@ const ProjectileMotion = () => {
               }
             }}
           />
-        </label>
-      </div>
-      <Alert type="info" style={{ width: "100%" }}>
+        </Label>
+      </Controls>
+      <Alert color="info" style={{ width: "100%" }}>
         Angle should be from 0 to 90
       </Alert>
-      <Alert type="info" style={{ width: "100%" }}>
+      <Alert color="info" style={{ width: "100%" }}>
         Speed should be from 0 to 1000
       </Alert>
-      <div className="visualization">
-        <svg width="500" height="500" viewBox="0 0 500 500">
-          <path
+      <Visualization>
+        <SVG viewBox="0 0 500 500">
+          <Path
             d={`M 0 500 ${trajectory
               .map((point) => `${point.x * 10} ${500 - point.y * 10}`)
               .join(" L ")}`}
-            stroke="blue"
-            fill="none"
           />
-          <line
-            x1="0"
-            y1="500"
-            x2="500"
-            y2="500"
-            stroke="black"
-            strokeWidth="2"
-          />
+          <Line x1="0" y1="500" x2="500" y2="500" />
           <g>
-            <line
-              x1="0"
-              y1="490"
-              x2="0"
-              y2="500"
-              stroke="black"
-              strokeWidth="2"
-            />
-            <text
-              x="5"
-              y="490"
-              fontFamily="Arial"
-              fontSize="12"
-              textAnchor="middle"
-            >
+            <Line x1="0" y1="490" x2="0" y2="500" />
+            <Text x="5" y="490">
               0
-            </text>
-            <line
-              x1="500"
-              y1="490"
-              x2="500"
-              y2="500"
-              stroke="black"
-              strokeWidth="2"
-            />
-            <text
-              x="490"
-              y="490"
-              fontFamily="Arial"
-              fontSize="12"
-              textAnchor="middle"
-            >
+            </Text>
+            <Line x1="500" y1="490" x2="500" y2="500" />
+            <Text x="490" y="490">
               50
-            </text>
+            </Text>
           </g>
-        </svg>
-      </div>
-      <div className="results">
+        </SVG>
+      </Visualization>
+      <Results>
         <p>Total Distance: {totalDistance.toFixed(2)} meters</p>
         <p>Maximum Height: {maxHeight.toFixed(2)} meters</p>
-      </div>
-    </div>
+      </Results>
+    </Container>
   )
 }
 
