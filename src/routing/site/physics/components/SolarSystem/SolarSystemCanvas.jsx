@@ -75,7 +75,7 @@ const SolarSystemCanvas = () => {
 
     const animate = () => {
       render()
-      setElapsedDays((prevDays) => prevDays + 1)
+      setElapsedDays((prevDays) => prevDays + 0.083)
       animationFrameId = requestAnimationFrame(animate)
     }
 
@@ -94,7 +94,9 @@ const SolarSystemCanvas = () => {
         height={400}
         className="solar-system-canvas"
       />
-      <TimeElapsed>Time Elapsed: {elapsedDays} Earth days</TimeElapsed>
+      <TimeElapsed>
+        Time Elapsed: {elapsedDays.toFixed(0)} Earth days
+      </TimeElapsed>
     </>
   )
 }
