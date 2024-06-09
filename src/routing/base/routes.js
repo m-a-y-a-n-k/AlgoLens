@@ -107,6 +107,10 @@ const pages = [
         topic: "CircularMotion",
         label: "Circular Motion and Angular Momentum 🔄",
       },
+      // {
+      //   topic: "Optics",
+      //   label: "Optics and Light Behavior 🔦",
+      // },
       {
         topic: "SolarSystem",
         label: "Planetary Motion : Solar System 🌍",
