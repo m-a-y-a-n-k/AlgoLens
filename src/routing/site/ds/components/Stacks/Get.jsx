@@ -1,65 +1,11 @@
-import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
-import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
-import TextField from "@material-ui/core/TextField"
-import { FormControl } from "@material-ui/core"
-import InputLabel from "@material-ui/core/InputLabel"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
-
-//Card component styling
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-})
-
-// button styling ---------------------------------------------------
-const styleforbutton = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}))
-
-// ------- Dropdown styling
-
-const stylefordropdown = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}))
+import React, { useState, useEffect, useRef } from "react"
 
 export default function Get(props) {
-  const classes = useStyles()
-  const buttonstyle = styleforbutton()
-  const dropdownstyle = stylefordropdown()
-  const [position, setPosition] = React.useState("")
-  const inputLabel = React.useRef([])
-  const [labelWidth, setLabelWidth] = React.useState(0)
-  //bug here
+  const [position, setPosition] = useState("")
+  const [, setLabelWidth] = useState(0)
+  const inputLabel = useRef()
 
-  React.useEffect(() => {
+  useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth)
   }, [])
 
@@ -67,68 +13,111 @@ export default function Get(props) {
     props.modifywhere(event.target.value)
     setPosition(event.target.value)
   }
-  //bug ended
 
   if (props.open) {
     return (
-      <Card className={classes.root} variant="outlined">
+      <div
+        style={{
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+          padding: "16px",
+          maxWidth: "400px",
+          margin: "16px auto",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         {props.array1.length > 0 ? (
-          <React.Fragment>
-            <h2 className="bg-primary text-white  p-2"> Get </h2>
-            <CardActions>
-              <FormControl
-                variant="outlined"
-                className={dropdownstyle.formControl}
-              >
-                <InputLabel
+          <>
+            <h2
+              style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                padding: "8px",
+                borderRadius: "4px 4px 0 0",
+                textAlign: "center",
+              }}
+            >
+              Get
+            </h2>
+            <div style={{ padding: "16px" }}>
+              <div style={{ marginBottom: "16px" }}>
+                <label
+                  htmlFor="position-select"
                   ref={inputLabel}
-                  id="demo-simple-select-outlined-label"
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    fontWeight: "bold",
+                  }}
                 >
                   Position
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
+                </label>
+                <select
+                  id="position-select"
                   value={position}
                   onChange={handleChange}
-                  labelWidth={labelWidth}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    borderRadius: "4px",
+                    border: "1px solid #ccc",
+                  }}
                 >
-                  <MenuItem value="top">Top</MenuItem>
-                  <MenuItem value="bottom">Bottom</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={[buttonstyle.root, "p-2"]} noValidate>
+                  <option value="" disabled>
+                    Select Position
+                  </option>
+                  <option value="top">Top</option>
+                  <option value="bottom">Bottom</option>
+                </select>
+              </div>
+              <div style={{ marginBottom: "16px" }}>
                 {props.result1 && (
-                  <TextField
+                  <input
+                    type="text"
                     disabled
-                    id="standard-disabled"
-                    label={props.result1}
+                    value={props.result1}
+                    style={{
+                      width: "100%",
+                      padding: "8px",
+                      borderRadius: "4px",
+                      border: "1px solid #ccc",
+                      backgroundColor: "#f9f9f9",
+                      color: "#333",
+                    }}
                   />
                 )}
-                <Button
-                  className="mt-2"
-                  onClick={() => {
-                    props.get()
-                  }}
-                  variant="outlined"
-                  color="primary"
-                  size="large"
-                >
-                  Submit
-                </Button>
-              </FormControl>
-            </CardActions>
-          </React.Fragment>
+              </div>
+              <button
+                onClick={() => props.get()}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  border: "none",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </>
         ) : (
-          <Typography
-            className="bg-primary text-white text-center p-2"
-            variant="h4"
-            component="h2"
+          <h2
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              padding: "16px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
           >
             Empty Stack
-          </Typography>
+          </h2>
         )}
-      </Card>
+      </div>
     )
   } else return <div></div>
 }

@@ -1,185 +1,138 @@
-import React, { lazy } from "react"
+import React, { lazy, useState } from "react"
 import PropTypes from "prop-types"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles } from "@material-ui/core/styles"
-import Link from "@material-ui/core/Link"
-import useScrollTrigger from "@material-ui/core/useScrollTrigger"
-import Zoom from "@material-ui/core/Zoom"
-import { DynamicLoader } from "routing/base/Router"
-import constants from "common/helpers/constants"
-const LightBox = lazy(() => import(`common/components/LightBox`))
-const Fab = lazy(() => import(`@material-ui/core/Fab`))
-const ArrowUpIcon = lazy(() => import(`@material-ui/icons/KeyboardArrowUp`))
-const Button = lazy(() => import(`@material-ui/core/Button`))
-const BugReport = lazy(() => import(`@material-ui/icons/BugReportRounded`))
 
-const useStyles = makeStyles((theme) => ({
-  copyright: {
-    margin: "auto",
-    padding: theme.spacing(1),
-    color: "white",
-    textAlign: "center",
-  },
-  company: {
-    color: "#25d4eb",
-    "&:hover": {
-      color: "#56e7fa",
-      textDecoration: "none",
-    },
-  },
-  main: {
-    padding: theme.spacing(1),
-    color: "white",
-    fontStyle: "italic",
-    fontSize: "1.1rem",
-    "&:hover": {
-      backgroundColor: theme.palette.divider,
-    },
-  },
-  footer: {
-    padding: theme.spacing(1),
-    backgroundColor: theme.palette.primary.dark,
-    display: "flex",
-    flexDirection: "column",
-  },
-  button: {
-    margin: "10px auto",
-  },
-  topFab: {
-    position: "fixed",
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}))
+const LightBox = lazy(() => import("common/components/LightBox"))
 
 function ScrollTop(props) {
   const { children, window } = props
-  const classes = useStyles()
-  const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
-    disableHysteresis: true,
-    threshold: 100,
-  })
+  const [trigger, setTrigger] = useState(false)
 
-  const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
-      "#back-to-top-anchor"
-    )
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setTrigger(true)
+      } else {
+        setTrigger(false)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
+  const handleClick = () => {
+    const anchor = document.querySelector("#back-to-top-anchor")
     if (anchor) {
       anchor.scrollIntoView({ behavior: "smooth", block: "center" })
     }
   }
 
   return (
-    <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.topFab}>
-        {children}
-      </div>
-    </Zoom>
+    <div
+      onClick={handleClick}
+      style={{
+        display: trigger ? "flex" : "none",
+        position: "fixed",
+        bottom: "1rem",
+        right: "1rem",
+        backgroundColor: "#f50057",
+        color: "white",
+        borderRadius: "50%",
+        width: "40px",
+        height: "40px",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      {children}
+    </div>
   )
 }
 
 ScrollTop.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
+  children: PropTypes.node.isRequired,
 }
 
-function Copyright() {
-  const classes = useStyles()
-
+function Copyright({ brandName }) {
   return (
-    <Typography variant="body2" className={classes.copyright}>
+    <div style={{ textAlign: "center", padding: "1rem", color: "white" }}>
       {"Copyright © "}
-      <Link href={`/${constants.BRAND_NAME}`} className={classes.company}>
-        {constants.BRAND_NAME}
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+      <a
+        href={`/${brandName}`}
+        style={{
+          color: "#25d4eb",
+          textDecoration: "none",
+        }}
+      >
+        {brandName}
+      </a>{" "}
+      {new Date().getFullYear()}.
+    </div>
   )
 }
 
-export default function StickyFooter(props) {
-  const [dialogConfig, setDialogConfig] = React.useState(null)
-  const classes = useStyles()
+Copyright.propTypes = {
+  brandName: PropTypes.string.isRequired,
+}
 
-  const whyWeBuilt = `${constants.BRAND_NAME} is a website built for the sole purpose of providing a
-  platform for visualising and providing intuitive explainations to
-  various data structures and algorithms in the various sub-domains of
-  the vast field of study and research in Computer Science`
+export default function StickyFooter(props) {
+  const [dialogConfig, setDialogConfig] = useState(null)
+
+  const whyWeBuilt = `Your brand is built to provide a platform for visualizing and explaining various data structures and algorithms in the vast field of Computer Science.`
 
   const bugReportDialogConfig = {
-    title: "TITLE",
-    number: "1",
-    contentJSX: (
+    title: "Report a Bug",
+    content: (
       <div>
-        <h3> Use for given your description</h3>
-        <Typography>
-          hey i am in lightbox 1-damn. Put your content here for plug and play
-        </Typography>
+        <h3>Provide your description</h3>
+        <p>Put your content here for plug and play.</p>
       </div>
     ),
-    open: {
-      animation: "fade-in",
-      callback: function () {},
-    },
-    close: {
-      escDisabled: false,
-      backdropDisabled: true,
-      animation: "fade-out",
-      callback: function () {
-        setDialogConfig(null)
-      },
-    },
-    accept: {
-      text: "Accept",
-      callback: function (closefn) {
-        closefn && closefn()
-      },
-      icon: "fa fa-tick",
-    },
-    reject: {
-      text: "Reject",
-      icon: "fa fa-close",
-      callback: function (closefn) {
-        closefn && closefn()
-      },
-    },
+    onClose: () => setDialogConfig(null),
   }
+
   return (
     <>
-      <footer className={classes.footer}>
-        <Copyright />
-        <Typography variant="body1" className={classes.main}>
+      <footer
+        style={{
+          padding: "1rem",
+          backgroundColor: "#333",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          color: "white",
+        }}
+      >
+        <Copyright brandName="YourBrand" />
+        <p
+          style={{
+            fontStyle: "italic",
+            fontSize: "1.1rem",
+            textAlign: "center",
+          }}
+        >
           {whyWeBuilt}
-        </Typography>
-        {DynamicLoader(Button, {
-          variant: "contained",
-          color: "primary",
-          className: classes.button,
-          endIcon: DynamicLoader(BugReport),
-          onClick: () => {
-            setDialogConfig(bugReportDialogConfig)
-          },
-          children: `Report A Bug`,
-        })}
+        </p>
+        <button
+          style={{
+            backgroundColor: "#007bff",
+            color: "white",
+            border: "none",
+            padding: "10px 20px",
+            margin: "10px auto",
+            cursor: "pointer",
+            borderRadius: "4px",
+          }}
+          onClick={() => setDialogConfig(bugReportDialogConfig)}
+        >
+          Report A Bug
+        </button>
         <ScrollTop {...props}>
-          {DynamicLoader(Fab, {
-            color: "secondary",
-            size: "small",
-            "aria-label": "scroll back to top",
-            children: DynamicLoader(ArrowUpIcon),
-          })}
+          <span>&uarr;</span>
         </ScrollTop>
       </footer>
-      {DynamicLoader(LightBox, {
-        dialogConfig: dialogConfig,
-      })}
+      {dialogConfig && <LightBox {...dialogConfig} />}
     </>
   )
 }

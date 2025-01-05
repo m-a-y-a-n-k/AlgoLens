@@ -1,66 +1,58 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
-import Button from "@material-ui/core/Button"
-import { FormControl } from "@material-ui/core"
-
-//Card component styling
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-})
-
-// button styling ---------------------------------------------------
-const styleforbutton = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}))
 
 export default function Pop(props) {
-  const classes = useStyles()
-  const buttonstyle = styleforbutton()
+  const cardStyle = {
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    padding: "16px",
+    minWidth: "275px",
+    margin: "16px 0",
+  }
 
-  if (props.open)
+  const buttonStyle = {
+    display: "inline-block",
+    padding: "8px 16px",
+    margin: "8px",
+    fontSize: "16px",
+    borderRadius: "4px",
+    border: "1px solid #007bff",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    cursor: "pointer",
+    textAlign: "center",
+  }
+
+  const formControlStyle = {
+    width: "100%",
+    paddingBottom: "12px",
+    paddingTop: "4px",
+  }
+
+  if (props.open) {
     return (
-      <Card className={classes.root} variant="outlined">
-        <h2 className="bg-primary text-white p-2"> Pop </h2>
-
-        <CardActions>
-          <FormControl
-            className={[buttonstyle.root, "pb-3 w-100 pt-1"]}
-            noValidate
+      <div style={cardStyle}>
+        <h2
+          style={{
+            backgroundColor: "#007bff",
+            color: "#fff",
+            padding: "8px",
+          }}
+        >
+          Pop
+        </h2>
+        <div style={formControlStyle}>
+          <button
+            style={buttonStyle}
+            onClick={() => {
+              props.pop()
+            }}
           >
-            <Button
-              className="ml-2 mr-2"
-              onClick={() => {
-                props.pop()
-              }}
-              variant="outlined"
-              color="primary"
-              size="large"
-            >
-              Submit
-            </Button>
-          </FormControl>
-        </CardActions>
-      </Card>
+            Submit
+          </button>
+        </div>
+      </div>
     )
-  else return <div></div>
+  } else {
+    return <div></div>
+  }
 }

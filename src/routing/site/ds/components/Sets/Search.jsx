@@ -1,143 +1,124 @@
-import React from "react"
-import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
-import CardContent from "@material-ui/core/CardContent"
-import Typography from "@material-ui/core/Typography"
-
-import Button from "@material-ui/core/Button"
-import { fade, makeStyles } from "@material-ui/core/styles"
-import TextField from "@material-ui/core/TextField"
-import FormControl from "@material-ui/core/FormControl"
-
-//styling the form and component
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: 3,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 8px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 175,
-    marginTop: 33,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(1),
-  },
-}))
-
-// input field styling
-const useStylesReddit = makeStyles((theme) => ({
-  root: {
-    border: "1px solid #e2e2e1",
-    overflow: "hidden",
-    borderRadius: 4,
-    margin: "4px 0px 0px 0px",
-
-    backgroundColor: "#fcfcfb",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    "&:hover": {
-      backgroundColor: "#fff",
-    },
-    "&$focused": {
-      backgroundColor: "#fff",
-      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-
-  focused: {},
-}))
-
-// handling input field
-function RedditTextField(props) {
-  const classes = useStylesReddit()
-  return (
-    <TextField InputProps={{ classes, disableUnderline: true }} {...props} />
-  )
-}
+import React, { useState } from "react"
 
 export default function Search(props) {
-  const classes1 = useStyles() //style for formcontrol
-  const classes = useStyles() // style for card component
-  const [data, setData] = React.useState(null) // stores the data entered in the list
-  if (props.open)
+  const [data, setData] = useState(null)
+
+  if (props.open) {
     return (
-      <Card
-        className={classes.root}
-        style={{ border: "1px solid rgba(22,45,167,0.9)" }}
+      <div
+        style={{
+          border: "1px solid rgba(22,45,167,0.9)",
+          borderRadius: "8px",
+          maxWidth: "400px",
+          margin: "16px auto",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
       >
-        <CardContent className="  bg-primary text-white">
-          <Typography variant="h5" component="h2">
-            {" "}
-            Search{" "}
-          </Typography>
-        </CardContent>
+        {/* Header */}
+        <div
+          style={{
+            backgroundColor: "#007bff",
+            color: "white",
+            padding: "16px",
+            borderRadius: "8px 8px 0 0",
+            textAlign: "center",
+          }}
+        >
+          <h2>Search</h2>
+        </div>
 
-        <CardContent className="text-center pb-0 mt-0">
-          <Typography variant="h6" component="h2">
-            Data
-          </Typography>
-        </CardContent>
+        {/* Content */}
+        <div style={{ padding: "16px", textAlign: "center" }}>
+          <h3>Data</h3>
+        </div>
 
-        <CardActions>
-          <FormControl variant="outlined" className={classes1.formControl}>
-            <RedditTextField
-              label="Value"
-              className={classes.margin}
-              onChange={(event) => {
-                setData(event.target.value)
+        {/* Form */}
+        <div style={{ padding: "16px", textAlign: "center" }}>
+          <div style={{ marginBottom: "16px" }}>
+            <label
+              htmlFor="reddit-input"
+              style={{
+                display: "block",
+                marginBottom: "8px",
+                fontWeight: "bold",
+                textAlign: "left",
               }}
-              value={data ? data : ""}
-              variant="filled"
+            >
+              Value
+            </label>
+            <input
+              type="text"
               id="reddit-input"
+              value={data || ""}
+              onChange={(event) => setData(event.target.value)}
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+                fontSize: "16px",
+              }}
             />
+          </div>
 
-            <Button
-              onClick={() => {
-                props.search(data, "allg") // calling the search function of the LinkList compoent
-                setData(null)
-              }}
-              variant="outlined"
-              color="primary"
-              className="mt-2"
-            >
-              All Greater elements
-            </Button>
-            <Button
-              onClick={() => {
-                props.search(data, "alls") // calling the search function of the LinkList compoent
-                setData(null)
-              }}
-              variant="outlined"
-              color="primary"
-              className="mt-2"
-            >
-              All Smaller elements
-            </Button>
-            <Button
-              onClick={() => {
-                props.search(data, "no") // calling the search function of the LinkList compoent
-                setData(null)
-              }}
-              variant="outlined"
-              color="primary"
-              className="mt-2"
-            >
-              Submit
-            </Button>
-          </FormControl>
-        </CardActions>
-      </Card>
+          <button
+            onClick={() => {
+              props.search(data, "allg")
+              setData(null)
+            }}
+            style={{
+              padding: "10px 16px",
+              margin: "8px",
+              borderRadius: "4px",
+              border: "none",
+              backgroundColor: "#007bff",
+              color: "white",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            All Greater elements
+          </button>
+
+          <button
+            onClick={() => {
+              props.search(data, "alls")
+              setData(null)
+            }}
+            style={{
+              padding: "10px 16px",
+              margin: "8px",
+              borderRadius: "4px",
+              border: "none",
+              backgroundColor: "#007bff",
+              color: "white",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            All Smaller elements
+          </button>
+
+          <button
+            onClick={() => {
+              props.search(data, "no")
+              setData(null)
+            }}
+            style={{
+              padding: "10px 16px",
+              margin: "8px",
+              borderRadius: "4px",
+              border: "none",
+              backgroundColor: "#007bff",
+              color: "white",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     )
-  else return <div></div>
+  } else return <div></div>
 }

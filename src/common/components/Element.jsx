@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "./Link"
-import Box from "@material-ui/core/Box"
 
 const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
   let element = null
@@ -20,27 +19,24 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
     case "stack":
       element = [
         data.index === 0 && (
-          <Box key="Top" p={1} textAlign="center">
+          <div key="Top" style={{ padding: "8px", textAlign: "center" }}>
             Top
-          </Box>
+          </div>
         ),
-        <Box
+        <div
           key={`${data.index}-${data.value}`}
-          p={1}
           style={{
             ...elStyles,
             background: highlight
               ? "rgba(30,150,40,0.8)"
               : "rgba(40,40,160,0.8)",
+            padding: "8px",
+            textAlign: "center",
           }}
         >
-          <Box p={1} color="white" textAlign="center" fontSize={18}>
-            {data.value}
-          </Box>
-          <Box color="white" p={1} textAlign="center" fontSize={12}>
-            {data.index}
-          </Box>
-        </Box>,
+          <div style={{ color: "white", fontSize: "18px" }}>{data.value}</div>
+          <div style={{ color: "white", fontSize: "12px" }}>{data.index}</div>
+        </div>,
       ]
       break
 
@@ -58,58 +54,54 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
         >
           {(sanitizedType === "queues" || sanitizedType === "linkedlist") &&
             data.index === 0 && (
-              <Box
-                color="white"
-                p={1}
-                className="bg-danger"
-                textAlign="center"
-                fontSize={12}
+              <div
+                style={{
+                  color: "white",
+                  padding: "8px",
+                  backgroundColor: "#dc3545",
+                  textAlign: "center",
+                  fontSize: "12px",
+                }}
               >
-                <typography>
-                  {sanitizedType === "linkedlist" ? "Head" : "Front"} <br />
-                </typography>
-              </Box>
+                {sanitizedType === "linkedlist" ? "Head" : "Front"} <br />
+              </div>
             )}
-          <Box
-            p={1}
+          <div
             style={{
               ...elStyles,
               background: highlight
                 ? "rgba(30,150,40,0.8)"
                 : "rgba(40,60,180,0.8)",
+              padding: "8px",
+              textAlign: "center",
             }}
           >
-            <Box p={1} color="white" textAlign="center" fontSize={18}>
-              {data.value}
-            </Box>
+            <div style={{ color: "white", fontSize: "18px" }}>{data.value}</div>
             {data.index >= 0 && (
-              <Box p={1} color="white" textAlign="center" fontSize={12}>
+              <div style={{ color: "white", fontSize: "12px" }}>
                 {data.index}
-              </Box>
+              </div>
             )}
-          </Box>
+          </div>
           {(sanitizedType === "queues" || sanitizedType === "linkedlist") &&
             next === false && (
-              <Box
-                color="white"
-                p={1}
-                className={"bg-danger"}
-                textAlign="center"
-                fontSize={12}
+              <div
+                style={{
+                  color: "white",
+                  padding: "8px",
+                  backgroundColor: "#dc3545",
+                  textAlign: "center",
+                  fontSize: "12px",
+                }}
               >
-                <typography>
-                  {sanitizedType === "linkedlist" ? "Tail" : "Rear"}
-                </typography>
-              </Box>
+                {sanitizedType === "linkedlist" ? "Tail" : "Rear"}
+              </div>
             )}
           {(sanitizedType === "linkedlist" || sanitizedType === "queues") &&
             next && (
-              <Box
-                key={`${data.index}-${data.value}-nextlink`}
-                component="span"
-              >
+              <span key={`${data.index}-${data.value}-nextlink`}>
                 <Link direction="right" />
-              </Box>
+              </span>
             )}
         </div>
       )
@@ -117,9 +109,8 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
 
     case "sets":
       element = (
-        <Box
+        <div
           key={data.value}
-          p={1}
           style={{
             ...elStyles,
             background: highlight
@@ -133,16 +124,23 @@ const Element = ({ type, data, highlight, next, AllGreater, AllSmaller }) => {
             minHeight: "100px",
             minWidth: "100px",
             margin: "20px",
+            position: "relative",
+            textAlign: "center",
           }}
         >
-          <Box p={0} color="white" fontSize={18}>
-            <div
-              style={{ position: "relative", top: "45%", textAlign: "center" }}
-            >
-              {data.value}
-            </div>
-          </Box>
-        </Box>
+          <div
+            style={{
+              color: "white",
+              fontSize: "18px",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            {data.value}
+          </div>
+        </div>
       )
       break
 
