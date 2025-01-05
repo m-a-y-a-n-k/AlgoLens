@@ -1,3 +1,28 @@
+:root {
+  --primary-light: #757ce8;
+  --primary-main: #162788;
+  --primary-dark: #002884;
+  --primary-contrastText: #fff;
+
+  --secondary-light: #ff7961;
+  --secondary-main: #0D681C;
+  --secondary-dark: #ba000d;
+  --secondary-contrastText: #000;
+}
+
+body {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: var(--primary-contrastText);
+  background-color: var(--primary-main);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
 .link-label {
   margin: 0 auto;
   position: relative;
