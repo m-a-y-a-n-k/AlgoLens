@@ -3,105 +3,19 @@ import Element from "common/components/Element"
 import Insert from "./Insert"
 import Delete from "./Delete"
 import Search from "./Search"
-import { Grid } from "@material-ui/core"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import Paper from "@material-ui/core/Paper"
-import clsx from "clsx"
-import { makeStyles } from "@material-ui/core/styles"
-import Radio from "@material-ui/core/Radio"
-import RadioGroup from "@material-ui/core/RadioGroup"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import FormControl from "@material-ui/core/FormControl"
-import FormLabel from "@material-ui/core/FormLabel"
 import SortedSet from "js-sorted-set"
 
-const gridStyle = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    color: theme.palette.text.secondary,
-    margin: theme.spacing(2),
-  },
-  control: {
-    padding: theme.spacing(2),
-  },
-}))
-
-const useStyles = makeStyles({
-  root: {
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-  },
-  icon: {
-    borderRadius: "50%",
-    width: 16,
-    height: 16,
-    boxShadow:
-      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
-    backgroundColor: "#f5f8fa",
-    backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
-    "$root.Mui-focusVisible &": {
-      outline: "2px auto rgba(19,124,189,.6)",
-      outlineOffset: 2,
-    },
-    "input:hover ~ &": {
-      backgroundColor: "#ebf1f5",
-    },
-    "input:disabled ~ &": {
-      boxShadow: "none",
-      background: "rgba(206,217,224,.5)",
-    },
-  },
-  checkedIcon: {
-    backgroundColor: "#137cbd",
-    backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
-    "&:before": {
-      display: "block",
-      width: 16,
-      height: 16,
-      backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
-      content: '""',
-    },
-    "input:hover ~ &": {
-      backgroundColor: "#106ba3",
-    },
-  },
-})
-
-function StyledRadio(props) {
-  const classes = useStyles()
-
-  return (
-    <Radio
-      className={classes.root}
-      disableRipple
-      color="default"
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-      icon={<span className={classes.icon} />}
-      {...props}
-    />
-  )
-}
-
 export default function Sets() {
-  const gridclass = gridStyle()
-  let [radioVal, setRadioVal] = useState(false)
-  let [isGreat, setIsGreat] = useState("")
-  let [findata, setFindata] = useState(null)
-  let [set, setSet] = useState(new SortedSet())
-  let showoperation = (event) => {
-    let operation = event.target.value
-    setRadioVal(operation)
+  const [radioVal, setRadioVal] = useState(false)
+  const [isGreat, setIsGreat] = useState("")
+  const [findata, setFindata] = useState(null)
+  const [set, setSet] = useState(new SortedSet())
+
+  const showoperation = (event) => {
+    setRadioVal(event.target.value)
   }
 
-  // clone set
-  let cloneSet = (sortedSet) => {
+  const cloneSet = (sortedSet) => {
     let clone = new SortedSet()
     if (!sortedSet || sortedSet.length === 0) {
       return clone
@@ -112,52 +26,47 @@ export default function Sets() {
     return clone
   }
 
-  // insert--------------------------------------------------------
-
-  let insert = (data) => {
+  const insert = (data) => {
     if (data) {
-      if (data.length < 7 && isNaN(data) === false) {
+      if (data.length < 7 && !isNaN(data)) {
         if (set.contains(Number(data))) {
           alert("Already Present")
           return
         }
-        console.log(set)
         const mySet = cloneSet(set)
         mySet.insert(Number(data))
-        console.log(mySet)
         setSet(mySet)
       } else {
-        alert("Invalid input (must contains integers only)")
+        alert("Invalid input (must contain integers only)")
       }
     } else {
       alert("Enter data")
     }
   }
 
-  //----------Using 'del' instead of delete is some keyword
-  let del = (data) => {
+  const del = (data) => {
     if (data) {
-      if (data.length < 6 && isNaN(data) === false) {
+      if (data.length < 6 && !isNaN(data)) {
         if (set.contains(Number(data))) {
           const mySet = cloneSet(set)
           mySet.remove(Number(data))
           setSet(mySet)
         } else {
-          alert("value not exists in the set")
+          alert("Value not exists in the set")
         }
       } else {
-        alert("Invalid input (must contains integers only)")
+        alert("Invalid input (must contain integers only)")
       }
     } else {
       alert("Enter data")
     }
   }
-  // search
-  let search = (data, where) => {
+
+  const search = (data, where) => {
     if (data) {
-      if (data.length < 7 && isNaN(data) === false) {
+      if (data.length < 7 && !isNaN(data)) {
         if (!set || set.length === 0) {
-          alert("set is empty")
+          alert("Set is empty")
           return
         }
         setIsGreat(where)
@@ -178,123 +87,104 @@ export default function Sets() {
             break
         }
       } else {
-        alert("Invalid input (must contains integers only)")
+        alert("Invalid input (must contain integers only)")
       }
     } else {
       alert("Enter data")
     }
   }
 
-  // render list
-  let renderList = () => {
-    const list =
+  const renderList = () => {
+    return (
       set &&
       set.length > 0 &&
-      set.map((element, key) => {
-        return (
-          <Fragment key={`${key}-${element}`}>
-            <Element
-              data={{ value: Number(element) }}
-              type="sets"
-              next={true}
-              highlight={
-                isGreat === "no" &&
-                findata !== null &&
-                Number(element) === Number(findata)
-                  ? true
-                  : false
-              }
-              AllGreater={
-                isGreat === "allg" && Number(element) > Number(findata)
-                  ? true
-                  : false
-              }
-              AllSmaller={
-                isGreat === "alls" && Number(element) < Number(findata)
-                  ? true
-                  : false
-              }
-            />
-          </Fragment>
-        )
-      })
-    return list || []
+      set.map((element, key) => (
+        <Fragment key={`${key}-${element}`}>
+          <Element
+            data={{ value: Number(element) }}
+            type="sets"
+            next={true}
+            highlight={
+              isGreat === "no" &&
+              findata !== null &&
+              Number(element) === Number(findata)
+            }
+            AllGreater={isGreat === "allg" && Number(element) > Number(findata)}
+            AllSmaller={isGreat === "alls" && Number(element) < Number(findata)}
+          />
+        </Fragment>
+      ))
+    )
   }
 
-  //-----------------content of render function ------------------------------------
-
   return (
-    <div className={gridclass.root}>
-      <Grid container direction="row" justify="left" alignItems="center">
-        <Grid container xs={6}>
-          <Paper className={gridclass.paper}>
-            <Grid item xs={12} spacing={3} alignItems="center">
-              <Card>
-                <h6 className="bg-primary text-center text-white p-3">
-                  Operations
-                </h6>
-                <CardContent className="pl-0 pr-0 pt-0 text-left">
-                  <FormControl className="pl-3" component="fieldset">
-                    <FormLabel component="legend"></FormLabel>
-                    <RadioGroup aria-label="gender" name="customized-radios">
-                      <FormControlLabel
-                        value="Insert"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Insert"
-                      />
-                      <FormControlLabel
-                        value="Delete"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Delete"
-                      />
-
-                      <FormControlLabel
-                        value="Search"
-                        onChange={showoperation}
-                        control={<StyledRadio />}
-                        label="Search"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid className="mt-3" item spacing={4} xs={12}>
-              <Insert
-                open={radioVal === "Insert"}
-                insert={(data) => {
-                  insert(data)
-                }}
-              />
-              <Search
-                open={radioVal === "Search"}
-                search={(data, where) => {
-                  search(data, where)
-                }}
-              />
-              <Delete
-                open={radioVal === "Delete"}
-                del={(data) => {
-                  del(data)
-                }}
-              />
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid
-          container
-          item
-          style={{
-            border: set.length > 0 ? "2px solid black" : "",
-            height: "auto",
-          }}
-          xs={6}
-        >
-          {renderList()}
-        </Grid>
-      </Grid>
+    <div style={{ display: "flex", flexDirection: "row", padding: "16px" }}>
+      <div style={{ flex: 1, marginRight: "16px" }}>
+        <div style={{ padding: "16px", border: "1px solid #ccc" }}>
+          <h6
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              padding: "8px",
+              textAlign: "center",
+            }}
+          >
+            Operations
+          </h6>
+          <div style={{ padding: "8px" }}>
+            <fieldset style={{ border: "none" }}>
+              <legend style={{ fontSize: "14px" }}>Choose Operation</legend>
+              <label>
+                <input
+                  type="radio"
+                  name="operation"
+                  value="Insert"
+                  onChange={showoperation}
+                />
+                Insert
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="operation"
+                  value="Delete"
+                  onChange={showoperation}
+                />
+                Delete
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="operation"
+                  value="Search"
+                  onChange={showoperation}
+                />
+                Search
+              </label>
+            </fieldset>
+          </div>
+        </div>
+        <div style={{ marginTop: "16px" }}>
+          <Insert
+            open={radioVal === "Insert"}
+            insert={(data) => insert(data)}
+          />
+          <Search
+            open={radioVal === "Search"}
+            search={(data, where) => search(data, where)}
+          />
+          <Delete open={radioVal === "Delete"} del={(data) => del(data)} />
+        </div>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          border: set.length > 0 ? "2px solid black" : "",
+          padding: "16px",
+        }}
+      >
+        {renderList()}
+      </div>
     </div>
   )
 }
