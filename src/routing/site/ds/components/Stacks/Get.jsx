@@ -10,7 +10,7 @@ export default function Get(props) {
   }, [])
 
   const handleChange = (event) => {
-    props.modifywhere(event.target.value)
+    props.modifyWhere(event.target.value)
     setPosition(event.target.value)
   }
 

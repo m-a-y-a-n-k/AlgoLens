@@ -117,7 +117,7 @@ export default function Update(props) {
 
             <Button
               onClick={() => {
-                props.update(position, data) // calling the update function of the LinkList compoent
+                props.update(position, data) // calling the update function of the LinkList component
                 setData(null)
                 setPosition(null)
               }}

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react"
 import { HashRouter as Router, Route, Switch } from "react-router-dom"
-import { siteSugg } from "./routes"
+import { siteSuggestions } from "./routes"
 import { CircularProgress } from "@material-ui/core"
 
 const Dashboard = lazy(() => import(`dashboard/index`))
@@ -32,7 +32,7 @@ function RouteSection() {
     <main className="content">
       <Switch>
         <Route exact path={`/`} render={() => DynamicLoader(Dashboard)} />
-        {siteSugg.map((site, index) => {
+        {siteSuggestions.map((site, index) => {
           const { route, path } = site
           const Component = lazy(() => import(`../${path}/index.jsx`))
           return (

@@ -137,7 +137,7 @@ export default function Insert(props) {
             <Button
               className="mt-2"
               onClick={() => {
-                props.insert(data, where) // calling the insert function of the LinkList compoent
+                props.insert(data, where) // calling the insert function of the LinkedList component
                 setData(null)
               }}
               variant="outlined"

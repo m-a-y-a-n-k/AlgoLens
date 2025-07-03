@@ -46,7 +46,7 @@ const GraphVisualizer = () => {
 
   return (
     <Container>
-      <Header>Randomized Graph Visualiser</Header>
+      <Header>Randomized Graph Visualizer</Header>
       <ButtonGroup>
         <Button onClick={handleAddNode}>Add Node</Button>
         <Button onClick={handleAddEdge}>Add Edge</Button>

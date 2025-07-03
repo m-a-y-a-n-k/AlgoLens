@@ -1,10 +1,10 @@
 import React, { lazy } from "react"
-import { siteSugg } from "routing/base/routes"
+import { siteSuggestions } from "routing/base/routes"
 import { DynamicLoader } from "routing/base/Router"
 import constants from "common/helpers/constants"
 import "./Header.css"
 
-const Search = lazy(() => import(`common/components/SearchSuggestor`))
+const Search = lazy(() => import(`common/components/SearchSuggestions`))
 const FixedSideDrawer = lazy(() => import(`base/FixedSideDrawer`))
 
 export default function PrimarySearchAppBar() {
@@ -14,8 +14,8 @@ export default function PrimarySearchAppBar() {
         <section className="menu-sec">{DynamicLoader(FixedSideDrawer)}</section>
         <section className="search-sec">
           {DynamicLoader(Search, {
-            id: "sitemapSugg",
-            searchOps: siteSugg,
+            id: "sitemapSuggestions",
+            searchOps: siteSuggestions,
             updateSelection: (selection) => {
               window.location.hash = selection.route
             },

@@ -62,12 +62,12 @@ export default function Demo() {
   }
 
   const handleDelete = (numSelected) => {
-    let temparr = [...rows]
+    let tempArr = [...rows]
     if (numSelected.length > 0) {
-      temparr = temparr.filter((ele) => {
+      tempArr = tempArr.filter((ele) => {
         return !numSelected.includes(ele.key)
       })
-      setRows(temparr)
+      setRows(tempArr)
     }
   }
 

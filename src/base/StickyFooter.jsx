@@ -1,5 +1,6 @@
 import React, { lazy, useState } from "react"
 import PropTypes from "prop-types"
+import constants from "common/helpers/constants"
 
 const LightBox = lazy(() => import("common/components/LightBox"))
 
@@ -83,14 +84,19 @@ Copyright.propTypes = {
 export default function StickyFooter(props) {
   const [dialogConfig, setDialogConfig] = useState(null)
 
-  const whyWeBuilt = `AlgoLens is built to provide a platform for visualizing and explaining various data structures and algorithms in the vast field of Computer Science.`
+  const whyWeBuilt = `${constants.BRAND_NAME} is built to provide a platform for visualizing and explaining various data structures and algorithms in the vast field of Computer Science.`
 
   const bugReportDialogConfig = {
     title: "Report a Bug",
     content: (
       <div>
-        <h3>Provide your description</h3>
-        <p>Put your content here for plug and play.</p>
+        <h3>
+          While we try to ensure that this site is bug free , but some can still
+          sneak out!!
+        </h3>
+        <p>
+          So do report the bug and even contribute a pull request if possible
+        </p>
       </div>
     ),
     onClose: () => setDialogConfig(null),

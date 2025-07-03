@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react"
-import "./SortingVisualiser.css"
+import "./SortingVisualizer.css"
 
 const SortingVisualizer = () => {
   const [array, setArray] = useState([])

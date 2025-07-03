@@ -63,7 +63,7 @@ export default function Search(props) {
 
           <button
             onClick={() => {
-              props.search(data, "allg")
+              props.search(data, "all-greater")
               setData(null)
             }}
             style={{

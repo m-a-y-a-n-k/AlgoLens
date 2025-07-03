@@ -93,7 +93,7 @@ const KnuthShuffle = () => {
     setTimeout(() => shuffle(i + 1), 1000)
   }
 
-  const unshuffle = () => {
+  const reset = () => {
     if (state.array.length > 0) {
       setState({ ...state, array: [...state.original] })
     } else {
@@ -114,7 +114,7 @@ const KnuthShuffle = () => {
           <Update parent={{ state, update }} />
         </Col>
         <Col xs={6} className="p-2">
-          <Shuffle parent={{ state, shuffle, unshuffle }} />
+          <Shuffle parent={{ state, shuffle, reset }} />
         </Col>
       </Row>
       <Row className="mt-4 mb-4">

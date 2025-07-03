@@ -3,7 +3,7 @@ import { Grid } from "@material-ui/core"
 import { Alert } from "reactstrap"
 import Input from "./Input"
 
-const Primality = () => {
+const Primes = () => {
   const [alert, setAlert] = useState(null)
   const [testFactor, setTestFactor] = useState(null)
 
@@ -117,4 +117,4 @@ const Primality = () => {
   )
 }
 
-export default Primality
+export default Primes

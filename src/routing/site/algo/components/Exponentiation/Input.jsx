@@ -40,20 +40,14 @@ function RedditTextField(props) {
   )
 }
 
-const styleforform = makeStyles((theme) => ({
+const formStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     margin: theme.spacing(1),
   },
 }))
 
-const stylefortext = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-  },
-}))
-
-const styleforbutton = makeStyles((theme) => ({
+const buttonStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
   },
@@ -63,19 +57,19 @@ const Input = (props) => {
   const [base, setBase] = useState(null)
   const [power, setPower] = useState(null)
   const classes = useStyles()
-  const inputstyle = stylefortext()
-  const buttonstyle = styleforbutton()
-  const formstyle = styleforform()
+  const inputStyle = formStyles()
+  const buttonStyle = buttonStyles()
+  const formStyle = formStyles()
 
   return (
     <Card className={classes.root} variant="outlined">
       <h2 className="bg-success text-white p-2"> Exponentiation Of Number </h2>
       <h4 className="text-primary p-2">Base and Power</h4>
       <CardActions>
-        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formstyle.root}`}>
+        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formStyle.root}`}>
           <RedditTextField
             label="Base"
-            className={inputstyle.root}
+            className={inputStyle.root}
             variant="filled"
             id="reddit-input-base"
             onChange={(event) => {
@@ -86,7 +80,7 @@ const Input = (props) => {
           />
           <RedditTextField
             label="Power"
-            className={inputstyle.root}
+            className={inputStyle.root}
             variant="filled"
             id="reddit-input-power"
             onChange={(event) => {
@@ -96,7 +90,7 @@ const Input = (props) => {
             disabled={props.disabled}
           />
           <Button
-            className={buttonstyle.root}
+            className={buttonStyle.root}
             disabled={props.disabled}
             onClick={() => {
               props.expo(parseFloat(base), parseInt(power))

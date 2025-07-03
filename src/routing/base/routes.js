@@ -48,7 +48,7 @@ const pages = [
         label: "Peak ⛰️",
       },
       {
-        topic: "Primality",
+        topic: "Primes",
         label: "Prime Check 🔢",
       },
       {
@@ -56,7 +56,7 @@ const pages = [
         label: "Sieve 🪣",
       },
       {
-        topic: "SortingVisualiser",
+        topic: "Sorting",
         label: "Sorting 📊",
       },
     ],
@@ -168,8 +168,8 @@ const pages = [
     label: "Game Zone 🎮",
     pages: [
       {
-        topic: "PrisonerDillema",
-        label: "Prisoner's Dillema ⚖️",
+        topic: "Prisoner's Dilemma",
+        label: "Prisoner's Dilemma ⚖️",
       },
       {
         topic: "RockPaperScissors",
@@ -190,14 +190,14 @@ const dynamicPath = (categoryTopic, subjectTopic) => {
   return `site/${categoryTopic}/components/${subjectTopic}`
 }
 
-const siteSugg = []
+const siteSuggestions = []
 
 pages.forEach((category) => {
   category.pages.forEach((subject) => {
     const path = `${dynamicPath(category.topic, subject.topic)}`
     const route = `/${dynamicRoute(category.topic, subject.topic)}`
     const title = `${category.label} : ${subject.label}`
-    siteSugg.push({
+    siteSuggestions.push({
       route,
       title,
       path,
@@ -205,4 +205,4 @@ pages.forEach((category) => {
   })
 })
 
-export { siteSugg, pages }
+export { siteSuggestions, pages }

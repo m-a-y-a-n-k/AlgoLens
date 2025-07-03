@@ -8,9 +8,7 @@ const Shuffle = ({ parent }) => {
     <Card style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
       <CardHeader>Knuths Shuffle</CardHeader>
       <CardBody className="text-center">
-        <CardTitle>
-          Shuffle (or Unshuffle) Array Randomly and Uniformly
-        </CardTitle>
+        <CardTitle>Shuffle (or reset) Array Randomly and Uniformly</CardTitle>
         <br />
         <Button
           disabled={parent.state.disabled}
@@ -25,7 +23,7 @@ const Shuffle = ({ parent }) => {
           <Button
             disabled={parent.state.disabled}
             onClick={() => {
-              parent.unshuffle()
+              parent.reset()
               setShuffle(false)
             }}
           >

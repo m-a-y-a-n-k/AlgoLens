@@ -59,7 +59,7 @@ export default function Delete(props) {
             <Button
               className="mt-2"
               onClick={() => {
-                props.del(where) // calling the del function of the LinkList compoent
+                props.del(where) // calling the del function of the LinkList component
               }}
               variant="outlined"
               color="primary"

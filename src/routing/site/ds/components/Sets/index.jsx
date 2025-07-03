@@ -8,10 +8,10 @@ import SortedSet from "js-sorted-set"
 export default function Sets() {
   const [radioVal, setRadioVal] = useState(false)
   const [isGreat, setIsGreat] = useState("")
-  const [findata, setFindata] = useState(null)
+  const [data, setData] = useState(null)
   const [set, setSet] = useState(new SortedSet())
 
-  const showoperation = (event) => {
+  const showOperation = (event) => {
     setRadioVal(event.target.value)
   }
 
@@ -70,16 +70,16 @@ export default function Sets() {
           return
         }
         setIsGreat(where)
-        setFindata(Number(data))
+        setData(Number(data))
         switch (where) {
           case "no":
             !set.contains(Number(data)) && alert("Data Not Found")
             break
-          case "alls":
+          case "all-smaller":
             Number(set.beginIterator().value()) > Number(data) &&
               alert("No smaller element present")
             break
-          case "allg":
+          case "all-greater":
             Number(set.endIterator().previous().value()) < Number(data) &&
               alert("No Greater Element present")
             break
@@ -106,11 +106,15 @@ export default function Sets() {
             next={true}
             highlight={
               isGreat === "no" &&
-              findata !== null &&
-              Number(element) === Number(findata)
+              data !== null &&
+              Number(element) === Number(data)
             }
-            AllGreater={isGreat === "allg" && Number(element) > Number(findata)}
-            AllSmaller={isGreat === "alls" && Number(element) < Number(findata)}
+            AllGreater={
+              isGreat === "all-greater" && Number(element) > Number(data)
+            }
+            AllSmaller={
+              isGreat === "all-smaller" && Number(element) < Number(data)
+            }
           />
         </Fragment>
       ))
@@ -139,7 +143,7 @@ export default function Sets() {
                   type="radio"
                   name="operation"
                   value="Insert"
-                  onChange={showoperation}
+                  onChange={showOperation}
                 />
                 Insert
               </label>
@@ -148,7 +152,7 @@ export default function Sets() {
                   type="radio"
                   name="operation"
                   value="Delete"
-                  onChange={showoperation}
+                  onChange={showOperation}
                 />
                 Delete
               </label>
@@ -157,7 +161,7 @@ export default function Sets() {
                   type="radio"
                   name="operation"
                   value="Search"
-                  onChange={showoperation}
+                  onChange={showOperation}
                 />
                 Search
               </label>

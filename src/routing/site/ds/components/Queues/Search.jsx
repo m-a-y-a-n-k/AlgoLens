@@ -67,7 +67,7 @@ function RedditTextField(props) {
 }
 
 export default function Search(props) {
-  const classes1 = useStyles() //style for formcontrol
+  const classes1 = useStyles() //style for form control
   const classes = useStyles() // style for card component
   const [data, setData] = React.useState(null) // stores the data entered in the list
   if (props.open)
@@ -104,7 +104,7 @@ export default function Search(props) {
 
             <Button
               onClick={() => {
-                props.search(data, null) // calling the search function of the LinkList compoent
+                props.search(data, null) // calling the search function of the LinkList component
                 setData(null)
               }}
               variant="outlined"

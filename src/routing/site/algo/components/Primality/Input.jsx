@@ -40,20 +40,20 @@ function RedditTextField(props) {
   )
 }
 
-const styleforform = makeStyles((theme) => ({
+const formStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     margin: theme.spacing(1),
   },
 }))
 
-const stylefortext = makeStyles((theme) => ({
+const textStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
   },
 }))
 
-const styleforbutton = makeStyles((theme) => ({
+const buttonStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
   },
@@ -62,9 +62,9 @@ const styleforbutton = makeStyles((theme) => ({
 const Input = React.memo(({ checkPrime }) => {
   const [input, setInput] = useState(null)
   const classes = useStyles()
-  const inputstyle = stylefortext()
-  const buttonstyle = styleforbutton()
-  const formstyle = styleforform()
+  const inputStyles = textStyles()
+  const buttonStyle = buttonStyles()
+  const formStyle = formStyles()
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -76,10 +76,10 @@ const Input = React.memo(({ checkPrime }) => {
         factors
       </h4>
       <CardActions>
-        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formstyle.root}`}>
+        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formStyle.root}`}>
           <RedditTextField
             label="Number"
-            className={inputstyle.root}
+            className={inputStyles.root}
             variant="filled"
             id="reddit-input-base"
             onChange={(event) => {
@@ -88,7 +88,7 @@ const Input = React.memo(({ checkPrime }) => {
             value={input ? input : ""}
           />
           <Button
-            className={buttonstyle.root}
+            className={buttonStyle.root}
             onClick={() => {
               checkPrime(parseInt(input))
               setInput(null)
@@ -105,6 +105,6 @@ const Input = React.memo(({ checkPrime }) => {
   )
 })
 
-Input.displayName = "Primality.Input"
+Input.displayName = "Primes.Input"
 
 export default Input

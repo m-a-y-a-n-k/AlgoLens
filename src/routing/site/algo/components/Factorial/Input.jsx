@@ -40,20 +40,19 @@ function RedditTextField(props) {
   )
 }
 
-const styleforform = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    margin: theme.spacing(1),
-  },
-}))
-
-const stylefortext = makeStyles((theme) => ({
+const formStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
   },
 }))
 
-const styleforbutton = makeStyles((theme) => ({
+const textStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(1),
+  },
+}))
+
+const buttonStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
   },
@@ -62,9 +61,8 @@ const styleforbutton = makeStyles((theme) => ({
 const Input = React.memo(({ disabled, fact, setResult }) => {
   const [input, setInput] = useState(null)
   const classes = useStyles()
-  const inputstyle = stylefortext()
-  const buttonstyle = styleforbutton()
-  const formstyle = styleforform()
+  const inputStyle = textStyles()
+  const buttonStyle = buttonStyles()
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -75,10 +73,10 @@ const Input = React.memo(({ disabled, fact, setResult }) => {
         Finds the product 1 x 2 x 3 x .... upto a number N
       </h4>
       <CardActions>
-        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formstyle.root}`}>
+        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formStyles.root}`}>
           <RedditTextField
             label="Number"
-            className={inputstyle.root}
+            className={inputStyle.root}
             variant="filled"
             id="reddit-input-base"
             onChange={(event) => {
@@ -88,7 +86,7 @@ const Input = React.memo(({ disabled, fact, setResult }) => {
             disabled={disabled}
           />
           <Button
-            className={buttonstyle.root}
+            className={buttonStyle.root}
             disabled={disabled}
             onClick={() => {
               fact(parseInt(input))

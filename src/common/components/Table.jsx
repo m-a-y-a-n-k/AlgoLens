@@ -80,7 +80,7 @@ function EnhancedTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all enteries" }}
+            inputProps={{ "aria-label": "select all entries" }}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -242,7 +242,7 @@ const EnhancedTableToolbar = ({
                             searchIds: selectedIds,
                           })
                         }}
-                        inputProps={{ "aria-label": "select all enteries" }}
+                        inputProps={{ "aria-label": "select all entries" }}
                       />
                     }
                     label={label}
@@ -378,8 +378,8 @@ export default function EnhancedTable({
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n[primaryCellKey])
-      setSelected(newSelecteds)
+      const newSelected = rows.map((n) => n[primaryCellKey])
+      setSelected(newSelected)
       return
     }
     setSelected([])

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SearchSuggestor(props) {
+export default function SearchSuggestions(props) {
   const classes = useStyles()
   const [opVal, setOptionValue] = useState(null)
   const [open, setOpen] = useState(false)

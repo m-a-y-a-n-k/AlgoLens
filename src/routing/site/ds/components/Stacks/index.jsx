@@ -66,7 +66,7 @@ export default function Stack() {
     gap: "8px",
   }
 
-  let showoperation = (event) => {
+  let showOperation = (event) => {
     let operation = event.target.value
     setRadioVal(operation)
   }
@@ -119,7 +119,7 @@ export default function Stack() {
                   type="radio"
                   name="operation"
                   value="Push"
-                  onChange={showoperation}
+                  onChange={showOperation}
                 />
                 Push
               </label>
@@ -128,7 +128,7 @@ export default function Stack() {
                   type="radio"
                   name="operation"
                   value="Pop"
-                  onChange={showoperation}
+                  onChange={showOperation}
                 />
                 Pop
               </label>
@@ -137,7 +137,7 @@ export default function Stack() {
                   type="radio"
                   name="operation"
                   value="Get"
-                  onChange={showoperation}
+                  onChange={showOperation}
                 />
                 Get
               </label>
@@ -159,7 +159,7 @@ export default function Stack() {
           />
           <Get
             open={radioVal === "Get"}
-            modifywhere={(position) => {
+            modifyWhere={(position) => {
               setWhere(position)
             }}
             result1={result}

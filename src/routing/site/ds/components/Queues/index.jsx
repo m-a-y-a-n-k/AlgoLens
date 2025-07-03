@@ -91,13 +91,13 @@ function StyledRadio(props) {
 }
 
 export default function Queues() {
-  const gridclass = gridStyle()
+  const gridClass = gridStyle()
   let [head, setHead] = useState(null)
   let [list, setList] = useState(null)
   let [rendered, setRendered] = useState(false)
   let [radioVal, setRadioVal] = useState(false)
 
-  let showoperation = (event) => {
+  let showOperation = (event) => {
     let operation = event.target.value
     setRadioVal(operation)
   }
@@ -141,7 +141,7 @@ export default function Queues() {
     }
   }
   //----------------Search---------------------------------------------
-  // Seacrh----------------------------------------------------
+  // Search----------------------------------------------------
 
   let search = (data, where) => {
     if (data) {
@@ -268,10 +268,10 @@ export default function Queues() {
   })
 
   return (
-    <div className={gridclass.root}>
+    <div className={gridClass.root}>
       <Grid container direction="row" justify="left" alignItems="center">
         <Grid item container xs={12}>
-          <Paper className={gridclass.paper}>
+          <Paper className={gridClass.paper}>
             <Grid item xs={12} spacing={3} alignItems="center">
               <Card>
                 <h6 className="bg-primary text-center text-white p-3">
@@ -283,25 +283,25 @@ export default function Queues() {
                     <RadioGroup aria-label="gender" name="customized-radios">
                       <FormControlLabel
                         value="Insert"
-                        onChange={showoperation}
+                        onChange={showOperation}
                         control={<StyledRadio />}
                         label="Insert"
                       />
                       <FormControlLabel
                         value="Delete"
-                        onChange={showoperation}
+                        onChange={showOperation}
                         control={<StyledRadio />}
                         label="Delete"
                       />
                       <FormControlLabel
                         value="Update"
-                        onChange={showoperation}
+                        onChange={showOperation}
                         control={<StyledRadio />}
                         label="Update"
                       />
                       <FormControlLabel
                         value="Search"
-                        onChange={showoperation}
+                        onChange={showOperation}
                         control={<StyledRadio />}
                         label="Search"
                       />

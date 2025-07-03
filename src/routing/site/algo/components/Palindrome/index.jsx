@@ -34,7 +34,7 @@ const Palindrome = () => {
   const checkPalindrome = useCallback((input) => {
     let start = 0,
       end = input.length - 1,
-      isPalin = true,
+      isPalindrome = true,
       delay = 1000
 
     setCharacters(
@@ -51,7 +51,7 @@ const Palindrome = () => {
           text: "Input string is not a Palindrome",
         })
         setDisabled(false)
-        isPalin = false
+        isPalindrome = false
         break
       } else {
         updateCharacters(start, end, delay)
@@ -60,7 +60,7 @@ const Palindrome = () => {
         end--
       }
     }
-    if (isPalin) {
+    if (isPalindrome) {
       setAlert({
         type: "success",
         text: "Input string is a Palindrome",

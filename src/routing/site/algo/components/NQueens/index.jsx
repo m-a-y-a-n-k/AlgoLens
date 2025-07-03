@@ -53,7 +53,7 @@ const NQueens = () => {
       alert(
         disabled
           ? "Pending Operations"
-          : "Uncomputable. Input supported 1 to 16"
+          : "Not computable. Input supported 1 to 16"
       )
     }
   }

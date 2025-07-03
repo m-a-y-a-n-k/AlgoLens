@@ -85,7 +85,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const loadBrandLogo = async () => {
-      const logoSrc = await import("common/assets/VisuAlgo.jpg").then(
+      const logoSrc = await import(`common/assets/AlgoLens.jpg`).then(
         (module) => module.default
       )
       setSiteLogoSrc(logoSrc)

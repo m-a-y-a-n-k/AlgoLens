@@ -12,8 +12,8 @@ const NotFound = () => {
         </div>
         <div className="not-found-body">
           <p className="not-found-description">
-            We&apos;re sorry, but the page you were looking for doesn&apos;t
-            exist. It might have been moved or deleted.
+            We&apos;re sorry, but the page you were looking for does not exist.
+            It might have been moved or deleted.
           </p>
           <Link to="/" className="not-found-home-link">
             Return Home
