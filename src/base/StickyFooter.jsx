@@ -15,8 +15,12 @@ function ScrollTop(props) {
         setTrigger(false)
       }
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll)
+    }
+    return () =>
+      typeof window !== "undefined" &&
+      window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const handleClick = () => {
@@ -79,7 +83,7 @@ Copyright.propTypes = {
 export default function StickyFooter(props) {
   const [dialogConfig, setDialogConfig] = useState(null)
 
-  const whyWeBuilt = `Your brand is built to provide a platform for visualizing and explaining various data structures and algorithms in the vast field of Computer Science.`
+  const whyWeBuilt = `AlgoLens is built to provide a platform for visualizing and explaining various data structures and algorithms in the vast field of Computer Science.`
 
   const bugReportDialogConfig = {
     title: "Report a Bug",
@@ -104,7 +108,7 @@ export default function StickyFooter(props) {
           color: "white",
         }}
       >
-        <Copyright brandName="YourBrand" />
+        <Copyright brandName="AlgoLens" />
         <p
           style={{
             fontStyle: "italic",
