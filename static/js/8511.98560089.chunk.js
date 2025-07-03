@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[8511],{8511:(p,e,s)=>{p.exports=s.p+"static/media/VisuAlgo.3488766e9519c7992589.jpg"}}]);
