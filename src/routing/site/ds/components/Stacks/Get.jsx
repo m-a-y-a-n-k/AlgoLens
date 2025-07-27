@@ -6,7 +6,9 @@ export default function Get(props) {
   const inputLabel = useRef()
 
   useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth)
+    if (inputLabel.current) {
+      setLabelWidth(inputLabel.current.offsetWidth)
+    }
   }, [])
 
   const handleChange = (event) => {

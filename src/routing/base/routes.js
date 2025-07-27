@@ -168,7 +168,7 @@ const pages = [
     label: "Game Zone 🎮",
     pages: [
       {
-        topic: "Prisoner's Dilemma",
+        topic: "PrisonerDilemma",
         label: "Prisoner's Dilemma ⚖️",
       },
       {
