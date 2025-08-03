@@ -179,6 +179,10 @@ const pages = [
         topic: "TicTacToe",
         label: "Tic Tac Toe ❌⭕",
       },
+      {
+        topic: "Chess",
+        label: "Chess ♔",
+      },
     ],
   },
 ]
