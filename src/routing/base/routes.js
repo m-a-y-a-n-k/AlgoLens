@@ -183,6 +183,10 @@ const pages = [
         topic: "Chess",
         label: "Chess ♔",
       },
+      {
+        topic: "Sudoku",
+        label: "Sudoku Puzzle 🧩",
+      },
     ],
   },
 ]
