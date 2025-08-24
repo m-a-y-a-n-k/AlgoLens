@@ -12,7 +12,7 @@
 .primaryBtn:hover { filter: brightness(1.05); }
 .timer { padding: 8px 12px; border-radius: 10px; background: #f3f4f6; border: 1px solid #e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 
-.gameRow { display: flex; gap: 24px; align-items: flex-start; }
+.gameRow { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
 .sidePanel { min-width: 240px; flex: 1; }
 
 /* Board */

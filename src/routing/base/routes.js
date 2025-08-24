@@ -187,6 +187,10 @@ const pages = [
         topic: "Sudoku",
         label: "Sudoku Puzzle 🧩",
       },
+      {
+        topic: "Tetris",
+        label: "🟥🟦🟩🟨 Tetris Boss Rush",
+      },
     ],
   },
 ]
