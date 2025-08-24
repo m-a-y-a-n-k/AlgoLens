@@ -59,6 +59,10 @@ const pages = [
         topic: "Sorting",
         label: "Sorting 📊",
       },
+      {
+        topic: "TowerOfHanoi",
+        label: "Tower of Hanoi 🗼",
+      },
     ],
   },
   {
