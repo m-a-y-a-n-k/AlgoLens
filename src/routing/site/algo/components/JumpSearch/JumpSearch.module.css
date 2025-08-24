@@ -1,0 +1,26 @@
+.arrayContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.arrayElement {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  background-color: #4caf50;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.highlight {
+  background-color: #ff5722;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #ff5722;
+}

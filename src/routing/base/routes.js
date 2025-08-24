@@ -32,6 +32,10 @@ const pages = [
         label: "Flood Fill 🌊",
       },
       {
+        topic: "JumpSearch",
+        label: "🏃‍♂️ Jump Search",
+      },
+      {
         topic: "KnuthShuffle",
         label: "Knuth Shuffle 🃏",
       },
