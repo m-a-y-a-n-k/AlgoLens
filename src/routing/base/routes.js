@@ -67,6 +67,10 @@ const pages = [
         topic: "TowerOfHanoi",
         label: "Tower of Hanoi 🗼",
       },
+      {
+        topic: "TrafficSimulation",
+        label: "Traffic Simulation 🚦",
+      },
     ],
   },
   {
