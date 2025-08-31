@@ -4,12 +4,24 @@ const pages = [
     label: "Algorithms 🧠",
     pages: [
       {
+        topic: "BFSGraph",
+        label: "Breadth First Search 🌐",
+      },
+      {
         topic: "BinarySearch",
         label: "Binary Search 🔍",
       },
       {
         topic: "ClosestPair",
         label: "Closest Pair 🤏",
+      },
+      {
+        topic: "DFSGraph",
+        label: "DFS Visualization 🌲",
+      },
+      {
+        topic: "DijkstraGraph",
+        label: "Dijkstra's Algorithm 🚦",
       },
       {
         topic: "Exponentiation",

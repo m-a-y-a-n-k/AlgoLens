@@ -1,0 +1,40 @@
+.container {
+  text-align: center;
+  margin: 20px;
+}
+
+.title {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.svg {
+  width: 600px;
+  height: 360px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+
+.node {
+  fill: #eee;
+  stroke: #555;
+  stroke-width: 2px;
+  transition: fill 0.4s ease, transform 0.3s ease;
+}
+
+.node:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.visited {
+  fill: #4caf50;
+  stroke: #2e7d32;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+}

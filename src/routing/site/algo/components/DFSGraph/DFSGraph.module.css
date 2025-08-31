@@ -1,0 +1,33 @@
+.container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  margin-bottom: 15px;
+  padding: 8px 16px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.graph {
+  border: 1px solid #ddd;
+  background: #1e1e2f;
+  border-radius: 10px;
+}
+
+.unvisitedNode {
+  fill: #444;
+  stroke: #888;
+  stroke-width: 2;
+}
+
+.visitedNode {
+  fill: #ff5722;
+  stroke: #fff;
+  stroke-width: 3;
+  transition: fill 0.3s ease-in-out;
+}
