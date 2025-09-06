@@ -213,7 +213,11 @@ const pages = [
       },
       {
         topic: "Tetris",
-        label: "🟥🟦🟩🟨 Tetris Boss Rush",
+        label: "Tetris Boss Rush 🟥🟦🟩🟨 ",
+      },
+      {
+        topic: "MatchTiles",
+        label: "Match Tiles 🧩",
       },
     ],
   },
