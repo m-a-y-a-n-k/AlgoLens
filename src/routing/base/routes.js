@@ -121,6 +121,10 @@ const pages = [
         topic: "Stacks",
         label: "Stacks 📚",
       },
+      {
+        topic: "Trie",
+        label: "Trie (Prefix Tree) 🌿",
+      },
     ],
   },
   {
