@@ -6,13 +6,7 @@ import {
   InputGroupText,
   Alert,
 } from "reactstrap"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-} from "@material-ui/core"
+import { MdExpandMore } from "react-icons/md"
 
 const Search = ({ array, updateState, alertId }) => {
   const [data, setData] = useState(null)
@@ -38,44 +32,60 @@ const Search = ({ array, updateState, alertId }) => {
   }, [array, data, updateState])
 
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        Search Element (Value at Position)
-      </AccordionSummary>
-      <AccordionDetails style={{ flexDirection: "column" }}>
-        {alert && alert.alertId === alertId && (
-          <Alert
-            color={alert.type}
-            isOpen={!!alert.text}
-            toggle={() => {
-              setAlert(null)
-            }}
+    <div className="accordion" id={`accordion-search-${alertId}`}>
+      <div className="accordion-item">
+        <h2 className="accordion-header">
+          <button
+            className="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target={`#collapse-search-${alertId}`}
           >
-            {alert.text}
-          </Alert>
-        )}
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Value</InputGroupText>
-          </InputGroupAddon>
-          <Input
-            placeholder="Value"
-            onChange={(event) => setData(event.target.value)}
-            value={data ?? ""}
-          />
-        </InputGroup>
-        <Button
-          className="mt-4"
-          style={{ backgroundColor: "#403d4a", color: "white" }}
-          onClick={() => {
-            search()
-            setData(null)
-          }}
+            Search Element (Value at Position)
+            <MdExpandMore className="ms-2" />
+          </button>
+        </h2>
+        <div
+          id={`collapse-search-${alertId}`}
+          className="accordion-collapse collapse"
+          data-bs-parent={`#accordion-search-${alertId}`}
         >
-          Submit
-        </Button>
-      </AccordionDetails>
-    </Accordion>
+          <div className="accordion-body">
+            {alert && alert.alertId === alertId && (
+              <Alert
+                color={alert.type}
+                isOpen={!!alert.text}
+                toggle={() => {
+                  setAlert(null)
+                }}
+              >
+                {alert.text}
+              </Alert>
+            )}
+            <InputGroup>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>Value</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                placeholder="Value"
+                onChange={(event) => setData(event.target.value)}
+                value={data ?? ""}
+              />
+            </InputGroup>
+            <button
+              className="btn mt-4"
+              style={{ backgroundColor: "#403d4a", color: "white" }}
+              onClick={() => {
+                search()
+                setData(null)
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 /* Layout */
 .container { max-width: 960px; margin: 24px auto; padding: 16px; font-family: ui-sans-serif, system-ui, Arial; }
-.headerRow { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; justify-content: space-between; margin-bottom: 12px; }
+.headerRow { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
 .title { font-size: 28px; font-weight: 700; margin: 0; }
 .hint { margin: 4px 0 0; color: #6b7280; font-size: 12px; }
 .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }

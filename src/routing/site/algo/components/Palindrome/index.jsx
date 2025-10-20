@@ -1,9 +1,8 @@
 import React, { Suspense, lazy, useCallback, useState } from "react"
-import { Grid } from "@material-ui/core"
-import { Alert } from "reactstrap"
 import Input from "./Input"
 import { FixedSizeList as List } from "react-window"
 import useWindowDimensions from "common/helpers/dimensions"
+import "./Palindrome.css"
 
 const LazyElement = lazy(() => import("common/components/Element"))
 
@@ -70,30 +69,34 @@ const Palindrome = () => {
   }, [])
 
   return (
-    <Grid container>
+    <div className="palindrome-container">
       {alert && (
-        <Grid item xs={12}>
-          <Alert
-            color={alert.type}
-            isOpen={!!alert.text}
-            toggle={() => setAlert(null)}
-          >
-            {alert.text}
-          </Alert>
-        </Grid>
+        <div className="palindrome-row">
+          <div className="palindrome-col-full">
+            <div className={`palindrome-alert palindrome-alert-${alert.type}`}>
+              <span>{alert.text}</span>
+              <button
+                className="palindrome-alert-close"
+                onClick={() => setAlert(null)}
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
       )}
-      <Grid container className="text-center">
-        <Grid item xs={12}>
+      <div className="palindrome-row text-center">
+        <div className="palindrome-col-full">
           <Input checkPalindrome={checkPalindrome} disabled={disabled} />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
-      <Grid container className="mt-4 mb-4 text-center">
+      <div className="palindrome-row palindrome-chars-container text-center">
         <Suspense fallback={<div>Loading...</div>}>
           <LazyList characters={characters} />
         </Suspense>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 
@@ -109,13 +112,13 @@ const LazyList = ({ characters }) => {
       direction="horizontal"
     >
       {({ index, style }) => (
-        <Grid item xs={12} style={style}>
+        <div className="palindrome-char-item" style={style}>
           <LazyElement
             highlight={characters[index].highlight}
             data={{ value: characters[index].char, index }}
             type="array"
           />
-        </Grid>
+        </div>
       )}
     </List>
   )

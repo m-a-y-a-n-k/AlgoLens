@@ -1,172 +1,65 @@
 import React from "react"
-import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
-import CardContent from "@material-ui/core/CardContent"
-import Typography from "@material-ui/core/Typography"
-
-import Button from "@material-ui/core/Button"
-import MenuItem from "@material-ui/core/MenuItem"
-import { fade, makeStyles } from "@material-ui/core/styles"
-import TextField from "@material-ui/core/TextField"
-import InputLabel from "@material-ui/core/InputLabel"
-import FormControl from "@material-ui/core/FormControl"
-import Select from "@material-ui/core/Select"
-
-//styling the form and component
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: 3,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 8px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 175,
-    marginTop: 33,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    width: "100%",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(1),
-  },
-}))
-
-// input field styling
-const useStylesReddit = makeStyles((theme) => ({
-  root: {
-    border: "1px solid #e2e2e1",
-    overflow: "hidden",
-    borderRadius: 4,
-    margin: "4px 0px 0px 0px",
-
-    backgroundColor: "#fcfcfb",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    "&:hover": {
-      backgroundColor: "#fff",
-    },
-    "&$focused": {
-      backgroundColor: "#fff",
-      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-
-  focused: {},
-}))
-
-// handling input field
-function RedditTextField(props) {
-  const classes = useStylesReddit()
-  return (
-    <TextField InputProps={{ classes, disableUnderline: true }} {...props} />
-  )
-}
 
 export default function Delete(props) {
-  ///--------- Select the start or end input type ------------
-  const classes = useStyles()
   const [where, setWhere] = React.useState("")
-  const inputLabel = React.useRef(null)
-  const [labelWidth, setLabelWidth] = React.useState(0)
-  React.useEffect(() => {
-    if (inputLabel.current == null) return null
-    setLabelWidth(inputLabel.current.offsetWidth)
-  }, [])
-
-  const handleChange = (event) => {
-    setWhere(event.target.value)
-  }
-
-  //-----------------------------------------------------------------
-
-  const [data, setData] = React.useState(null) // stores the data entered in the list
-
-  const [position, setPosition] = React.useState(null) //position
+  const [data, setData] = React.useState(null)
+  const [position, setPosition] = React.useState(null)
 
   if (props.open)
     return (
-      <Card
-        className={classes.root}
-        style={{ border: "1px solid rgba(22,45,167,0.9)" }}
-      >
-        <CardContent className="bg-primary text-white ">
-          <Typography variant="h5" component="h2">
-            {" "}
-            Delete
-          </Typography>
-        </CardContent>
-
-        <CardContent className=" text-center pb-0 mt-0">
-          <Typography variant="h6" component="h2">
-            Position or value
-          </Typography>
-        </CardContent>
-
-        <CardActions>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-              Position
-            </InputLabel>
-
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
+      <div className="card" style={{ border: "1px solid rgba(22,45,167,0.9)" }}>
+        <div className="card-header bg-primary text-white">
+          <h5 className="mb-0">Delete</h5>
+        </div>
+        <div className="card-body text-center">
+          <h6>Position or value</h6>
+          <div className="form-group mt-3">
+            <label htmlFor="position-select">Position</label>
+            <select
+              id="position-select"
+              className="form-select"
               value={where}
-              onChange={handleChange}
-              labelWidth={labelWidth}
+              onChange={(e) => setWhere(e.target.value)}
             >
-              <MenuItem value={"start"}>Start</MenuItem>
-              <MenuItem value={"end"}>End</MenuItem>
-            </Select>
-
-            <Typography className="text-center">OR</Typography>
-
-            <RedditTextField
-              className="w-100"
-              label="Index"
-              onChange={(event) => {
-                setPosition(event.target.value)
-              }}
+              <option value="">Select</option>
+              <option value="start">Start</option>
+              <option value="end">End</option>
+            </select>
+          </div>
+          <p className="text-center">OR</p>
+          <div className="form-group mt-2">
+            <label htmlFor="index-input">Index</label>
+            <input
+              type="text"
+              id="index-input"
+              className="form-control"
+              onChange={(event) => setPosition(event.target.value)}
               value={position ? position : ""}
-              variant="filled"
-              id="reddit-input-index"
             />
-
-            <Typography className="text-center"> {"OR"}</Typography>
-            <RedditTextField
-              label="Value"
-              className={classes.margin}
-              onChange={(event) => {
-                setData(event.target.value)
-              }}
+          </div>
+          <p className="text-center">OR</p>
+          <div className="form-group mt-2">
+            <label htmlFor="value-input">Value</label>
+            <input
+              type="text"
+              id="value-input"
+              className="form-control"
+              onChange={(event) => setData(event.target.value)}
               value={data ? data : ""}
-              variant="filled"
-              id="reddit-input-value"
             />
-
-            <Button
-              className="mt-2"
-              onClick={() => {
-                props.del(data, where, position) // calling the del function of the LinkList component
-                setData(null)
-                setPosition(null)
-              }}
-              variant="outlined"
-              color="primary"
-            >
-              Submit
-            </Button>
-          </FormControl>
-        </CardActions>
-      </Card>
+          </div>
+          <button
+            className="btn btn-outline-primary mt-2"
+            onClick={() => {
+              props.del(data, where, position)
+              setData(null)
+              setPosition(null)
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     )
   else return <div></div>
 }

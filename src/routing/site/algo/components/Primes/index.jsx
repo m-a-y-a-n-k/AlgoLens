@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react"
-import { Grid } from "@material-ui/core"
-import { Alert } from "reactstrap"
 import Input from "./Input"
+import "./Primes.css"
 
 const Primes = () => {
   const [alert, setAlert] = useState(null)
@@ -89,31 +88,35 @@ const Primes = () => {
   }, [])
 
   return (
-    <>
-      <Grid container className="text-center">
-        <Grid item xs={12}>
+    <div className="primes-container">
+      <div className="primes-row text-center">
+        <div className="primes-col-full">
           <Input checkPrime={checkPrime} />
-        </Grid>
-        <Grid item xs={12}>
+        </div>
+        <div className="primes-col-full">
           {testFactor !== null && (
-            <Alert color={"info"}>
-              {`Number is not divisible by ${testFactor} or ${
-                testFactor + 2
-              }. Testing further ....`}
-            </Alert>
+            <div className="primes-alert primes-alert-info">
+              <span>
+                {`Number is not divisible by ${testFactor} or ${
+                  testFactor + 2
+                }. Testing further ....`}
+              </span>
+            </div>
           )}
           {alert && (
-            <Alert
-              color={alert.type}
-              isOpen={!!alert.text}
-              toggle={() => setAlert(null)}
-            >
-              {alert.text}
-            </Alert>
+            <div className={`primes-alert primes-alert-${alert.type}`}>
+              <span>{alert.text}</span>
+              <button
+                className="primes-alert-close"
+                onClick={() => setAlert(null)}
+              >
+                ×
+              </button>
+            </div>
           )}
-        </Grid>
-      </Grid>
-    </>
+        </div>
+      </div>
+    </div>
   )
 }
 

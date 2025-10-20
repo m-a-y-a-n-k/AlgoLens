@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from "react"
 import { HashRouter as Router, Route, Switch } from "react-router-dom"
 import { siteSuggestions } from "./routes"
-import { CircularProgress } from "@material-ui/core"
 
 const Dashboard = lazy(() => import(`dashboard/index`))
 const NotFound = lazy(() => import(`./NotFound`))
@@ -18,7 +17,9 @@ export function DynamicLoader(LazyComponent, props) {
             height: "100vh",
           }}
         >
-          <CircularProgress />
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
       }
     >

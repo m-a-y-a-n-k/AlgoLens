@@ -59,7 +59,11 @@ const CanvasImage = ({ fill }) => {
         20
       )
       setTimeout(
-        () => fillPixel(fillColor, xPos - 1, yPos, firstRgb, image),
+        () => fillPixel(fillColor, xPos + 1, yPos - 1, firstRgb, image),
+        20
+      )
+      setTimeout(
+        () => fillPixel(fillColor, xPos + 1, yPos + 1, firstRgb, image),
         20
       )
       setTimeout(
@@ -68,6 +72,18 @@ const CanvasImage = ({ fill }) => {
       )
       setTimeout(
         () => fillPixel(fillColor, xPos, yPos - 1, firstRgb, image),
+        20
+      )
+      setTimeout(
+        () => fillPixel(fillColor, xPos - 1, yPos, firstRgb, image),
+        20
+      )
+      setTimeout(
+        () => fillPixel(fillColor, xPos - 1, yPos - 1, firstRgb, image),
+        20
+      )
+      setTimeout(
+        () => fillPixel(fillColor, xPos - 1, yPos + 1, firstRgb, image),
         20
       )
     },

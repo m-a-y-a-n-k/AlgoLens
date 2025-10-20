@@ -1,8 +1,7 @@
 import React, { useState, lazy, useEffect } from "react"
 import { FaEquals, FaTimes } from "react-icons/fa"
-import { Grid } from "@material-ui/core"
-import { Alert } from "reactstrap"
 import Input from "routing/site/algo/components/Factorial/Input"
+import "./Factorial.css"
 
 const Element = lazy(() => import("common/components/Element"))
 
@@ -78,59 +77,63 @@ const Factorial = () => {
   }, [processed])
 
   return (
-    <Grid container>
+    <div className="factorial-container">
       {alert && (
-        <Grid item xs={12}>
-          <Alert
-            color={alert.type}
-            isOpen={!!alert.text}
-            toggle={() => setAlert(null)}
-          >
-            {alert.text}
-          </Alert>
-        </Grid>
+        <div className="factorial-row">
+          <div className="factorial-col-full">
+            <div className={`factorial-alert factorial-alert-${alert.type}`}>
+              <span>{alert.text}</span>
+              <button
+                className="factorial-alert-close"
+                onClick={() => setAlert(null)}
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
       )}
-      <Grid container className="text-center">
-        <Grid item xs={12}>
+      <div className="factorial-row text-center">
+        <div className="factorial-col-full">
           <Input fact={fact} setResult={setResult} disabled={disabled} />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
       {parseInt(input) >= 0 && (
-        <Grid container className="text-center mt-4 mb-4">
-          <Grid item xs={2}>
+        <div className="factorial-row text-center factorial-computation">
+          <div className="factorial-col-2">
             <Element
               highlight={true}
               data={{ value: `${input}!` }}
               type="array"
             />
-          </Grid>
-          <Grid item xs={2}>
+          </div>
+          <div className="factorial-col-2 factorial-icon">
             <FaEquals style={{ margin: "auto 5px" }} />
-          </Grid>
-          <Grid item xs={3}>
+          </div>
+          <div className="factorial-col-3">
             <Element data={{ value: processed }} type="array" />
-          </Grid>
-          <Grid item xs={2}>
+          </div>
+          <div className="factorial-col-2 factorial-icon">
             <FaTimes style={{ margin: "auto 5px" }} />
-          </Grid>
-          <Grid item xs={3}>
+          </div>
+          <div className="factorial-col-3">
             <Element data={{ value: `${rest}!` }} type="array" />
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       )}
       {parseInt(result) >= 0 && (
-        <Grid container className="text-center mt-4 mb-4">
-          <Grid item xs={12}>
+        <div className="factorial-row text-center factorial-result">
+          <div className="factorial-col-full">
             <Element
               highlight={true}
               data={{ value: `${result}` }}
               type="array"
             />
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       )}
-    </Grid>
+    </div>
   )
 }
 

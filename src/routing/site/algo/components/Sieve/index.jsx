@@ -1,6 +1,5 @@
 import React, { lazy, useCallback, useState, Suspense, useEffect } from "react"
-import { Grid } from "@material-ui/core"
-import { Alert } from "reactstrap"
+import { Alert, Row, Col } from "reactstrap"
 import Range from "./Range"
 import { FixedSizeList as List } from "react-window"
 import useWindowDimensions from "common/helpers/dimensions"
@@ -63,18 +62,18 @@ const Sieve = () => {
           {alert.text}
         </Alert>
       )}
-      <Grid container>
-        <Grid container className="text-center">
-          <Grid item xs={12}>
+      <div className="container">
+        <Row className="text-center">
+          <Col xs={12}>
             <Range handleRangeSubmit={handleRangeSubmit} />
-          </Grid>
-        </Grid>
-        <Grid container className="mt-4 mb-4 text-center">
+          </Col>
+        </Row>
+        <Row className="mt-4 mb-4 text-center">
           <Suspense fallback={<div>Loading...</div>}>
             <LazyList start={start} end={end} sieve={sieve} />
           </Suspense>
-        </Grid>
-      </Grid>
+        </Row>
+      </div>
     </>
   )
 }
@@ -101,13 +100,13 @@ const LazyList = ({ start, end, sieve }) => {
       direction="horizontal"
     >
       {({ index, style }) => (
-        <Grid item xs={12} style={style}>
+        <Col xs={12} style={style}>
           <LazyElement
             highlight={isPrime[index]}
             data={{ value: numbers[index], index }}
             type="array"
           />
-        </Grid>
+        </Col>
       )}
     </List>
   )

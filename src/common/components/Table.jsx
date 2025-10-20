@@ -1,34 +1,12 @@
-import React, { useCallback, useState, useEffect, lazy } from "react"
+import React, { useCallback, useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import clsx from "clsx"
-import { lighten, makeStyles } from "@material-ui/core/styles"
 import {
-  FormControl,
-  Switch,
-  FormControlLabel,
-  Tooltip,
-  IconButton,
-  Checkbox,
-  Paper,
-  Typography,
-  Toolbar,
-  Table,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
-import SearchIcon from "@material-ui/icons/Search"
-import NotInterestedIcon from "@material-ui/icons/NotInterested"
-import { DynamicLoader } from "routing/base/Router"
-
-const TableBody = lazy(() => import(`@material-ui/core/TableBody`))
-const TableContainer = lazy(() => import(`@material-ui/core/TableContainer`))
-const TablePagination = lazy(() => import(`@material-ui/core/TablePagination`))
+  AiOutlineDelete,
+  AiOutlineSearch,
+  AiOutlineClose,
+} from "react-icons/ai"
+import { BsArrowDown, BsArrowUp } from "react-icons/bs"
+import "./Table.css"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -58,7 +36,6 @@ function stableSort(array, comparator) {
 
 function EnhancedTableHead(props) {
   const {
-    classes,
     numSelected,
     order,
     orderBy,
@@ -68,50 +45,45 @@ function EnhancedTableHead(props) {
     headCells,
   } = props
 
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property)
+  const createSortHandler = (property) => () => {
+    onRequestSort(property)
   }
 
   return (
-    <TableHead className={classes.tableHead}>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
+    <thead className="table-head">
+      <tr>
+        <th className="table-checkbox">
+          <input
+            type="checkbox"
+            className="form-check-input"
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all entries" }}
+            aria-label="select all entries"
           />
-        </TableCell>
+        </th>
         {headCells.map((headCell) => (
-          <TableCell
-            className={classes.headCell}
+          <th
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "default"}
-            sortDirection={orderBy === headCell.id ? order : false}
+            className={headCell.numeric ? "text-end" : "text-start"}
+            onClick={createSortHandler(headCell.id)}
+            style={{ cursor: "pointer" }}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
+            <div className="d-flex align-items-center">
               {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+              {orderBy === headCell.id && (
+                <span className="ms-2">
+                  {order === "desc" ? <BsArrowDown /> : <BsArrowUp />}
                 </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
+              )}
+            </div>
+          </th>
         ))}
-      </TableRow>
-    </TableHead>
+      </tr>
+    </thead>
   )
 }
 
 EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -120,39 +92,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
   headCells: PropTypes.array.isRequired,
 }
-
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    flexDirection: "column",
-  },
-  highlight:
-    theme.palette.type === "light"
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-          flexDirection: "row",
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-          flexDirection: "row",
-        },
-  title: {
-    flex: "1 1 100%",
-    margin: theme.spacing(1),
-  },
-  searchField: {
-    margin: theme.spacing(2),
-    width: "80%",
-  },
-  searchColumns: {
-    margin: theme.spacing(1),
-    flexDirection: "row",
-  },
-}))
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -165,118 +104,90 @@ const EnhancedTableToolbar = ({
   performSearch,
   headCells,
 }) => {
-  const classes = useToolbarStyles()
   const searchText = searchState?.searchText || ""
   const selectedIds = searchState?.searchIds || new Set()
 
   return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
+    <div className={`table-toolbar ${numSelected > 0 ? "highlight" : ""}`}>
       {numSelected > 0 ? (
-        <Typography
-          className={classes.title}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <>
-          <FormControl className={classes.searchField} variant="outlined">
-            <InputLabel htmlFor="outlined-search-table">
-              Search In Table
-            </InputLabel>
-            <OutlinedInput
-              autoComplete="off"
-              id="outlined-search-table"
-              type={"text"}
-              value={searchText}
-              onChange={({ target: { value } }) => {
-                setSearchState({
-                  searchText: value || "",
-                  searchIds: selectedIds,
-                })
-              }}
-              endAdornment={
-                <Tooltip title="Filter table">
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="perform-search"
-                      onClick={() => {
-                        performSearch(searchState)
-                      }}
-                      onMouseDown={(e) => {
-                        e.preventDefault()
-                      }}
-                      disabled={!searchText}
-                      edge="end"
-                    >
-                      {searchText ? <SearchIcon /> : <NotInterestedIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                </Tooltip>
-              }
-              labelWidth={120}
-            />
-          </FormControl>
-          {searchText && (
-            <FormControl className={classes.searchColumns}>
-              {headCells.map((cell) => {
-                const { id, label } = cell
-                return (
-                  <FormControlLabel
-                    key={id}
-                    control={
-                      <Checkbox
-                        checked={selectedIds.has(id)}
-                        onChange={({ target: { checked } }) => {
-                          checked
-                            ? selectedIds.add(id)
-                            : selectedIds.size > 1 && selectedIds.delete(id)
-                          setSearchState({
-                            searchText: searchText,
-                            searchIds: selectedIds,
-                          })
-                        }}
-                        inputProps={{ "aria-label": "select all entries" }}
-                      />
-                    }
-                    label={label}
-                  />
-                )
-              })}
-            </FormControl>
-          )}
-        </>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton
-            aria-label="delete"
+        <div className="d-flex justify-content-between align-items-center w-100">
+          <h6 className="mb-0">{numSelected} selected</h6>
+          <button
+            className="btn btn-outline-danger"
             onClick={() => {
               deleteHandler(selected)
               setSelected([])
             }}
+            title="Delete"
           >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+            <AiOutlineDelete />
+          </button>
+        </div>
       ) : (
-        <Typography
-          className={classes.title}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          {title}
-        </Typography>
+        <>
+          <div className="search-field">
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search In Table"
+                value={searchText}
+                onChange={(e) => {
+                  setSearchState({
+                    searchText: e.target.value || "",
+                    searchIds: selectedIds,
+                  })
+                }}
+                autoComplete="off"
+              />
+              <button
+                className="btn btn-outline-secondary"
+                onClick={() => performSearch(searchState)}
+                disabled={!searchText}
+                title="Filter table"
+              >
+                {searchText ? <AiOutlineSearch /> : <AiOutlineClose />}
+              </button>
+            </div>
+          </div>
+          {searchText && (
+            <div className="search-columns">
+              {headCells.map((cell) => {
+                const { id, label } = cell
+                return (
+                  <div key={id} className="form-check form-check-inline">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id={`checkbox-${id}`}
+                      checked={selectedIds.has(id)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          selectedIds.add(id)
+                        } else if (selectedIds.size > 1) {
+                          selectedIds.delete(id)
+                        }
+                        setSearchState({
+                          searchText: searchText,
+                          searchIds: selectedIds,
+                        })
+                      }}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`checkbox-${id}`}
+                    >
+                      {label}
+                    </label>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+          <h5 className="table-title">{title}</h5>
+        </>
       )}
-    </Toolbar>
+    </div>
   )
 }
 
@@ -287,43 +198,6 @@ EnhancedTableToolbar.propTypes = {
   performSearch: PropTypes.func.isRequired,
   setSearchState: PropTypes.func.isRequired,
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    width: "100vw",
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: "rect(0 0 0 0)",
-    height: 1,
-    margin: -1,
-    overflow: "hidden",
-    padding: 0,
-    position: "absolute",
-    top: 20,
-    width: 1,
-  },
-  tableHead: {
-    background: "#A2DDFF",
-  },
-  headCell: {
-    fontWeight: "bolder",
-  },
-  tableNote: {
-    textAlign: "center",
-    fontSize: 16,
-    fontWeight: "lighter",
-    padding: "15px 0px",
-    fontStyle: "italic",
-  },
-}))
 
 export default function EnhancedTable({
   allRows,
@@ -339,7 +213,6 @@ export default function EnhancedTable({
       headCells.length > 0 &&
       headCells[0].id) ||
     ""
-  const classes = useStyles()
   const [order, setOrder] = useState("asc")
   const [orderBy, setOrderBy] = useState(primaryCellKey)
   const [selected, setSelected] = useState([])
@@ -370,7 +243,7 @@ export default function EnhancedTable({
     handlePerformSearch()
   }, [handlePerformSearch])
 
-  const handleRequestSort = (event, property) => {
+  const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
     setOrderBy(property)
@@ -385,7 +258,7 @@ export default function EnhancedTable({
     setSelected([])
   }
 
-  const handleClick = (event, name) => {
+  const handleClick = (name) => {
     const selectedIndex = selected.indexOf(name)
     let newSelected = []
 
@@ -404,129 +277,148 @@ export default function EnhancedTable({
     setSelected(newSelected)
   }
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage)
-  }
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked)
-  }
-
   const isSelected = (name) => selected.indexOf(name) !== -1
 
   const emptyRows = rows.length === 0
 
+  const displayedRows = stableSort(rows, getComparator(order, orderBy)).slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  )
+
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    <div className="enhanced-table-root">
+      <div className="card">
         <EnhancedTableToolbar
           title={title}
           numSelected={selected.length}
           selected={selected}
           searchState={searchState}
           headCells={headCells}
-          performSearch={() => {
-            handlePerformSearch()
-          }}
+          performSearch={() => handlePerformSearch()}
           deleteHandler={deleteHandler}
           setSelected={setSelected}
           setSearchState={setSearchState}
         />
-        {DynamicLoader(TableContainer, {
-          children: (
-            <>
-              <Table
-                className={classes.table}
-                aria-labelledby="tableTitle"
-                size={dense ? "small" : "medium"}
-                aria-label="enhanced table"
-              >
-                <EnhancedTableHead
-                  classes={classes}
-                  numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onSelectAllClick={handleSelectAllClick}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                  headCells={headCells}
-                />
-                {DynamicLoader(TableBody, {
-                  children: stableSort(rows, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      const isItemSelected = isSelected(row[primaryCellKey])
-                      const labelId = `enhanced-table-checkbox-${index}`
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+              headCells={headCells}
+            />
+            <tbody>
+              {displayedRows.map((row, index) => {
+                const isItemSelected = isSelected(row[primaryCellKey])
+                const labelId = `enhanced-table-checkbox-${index}`
 
-                      return (
-                        <TableRow
-                          hover
-                          onClick={(event) =>
-                            handleClick(event, row[primaryCellKey])
-                          }
-                          role="checkbox"
-                          aria-checked={isItemSelected}
-                          tabIndex={-1}
-                          key={row[primaryCellKey]}
-                          selected={isItemSelected}
-                        >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              checked={isItemSelected}
-                              inputProps={{ "aria-labelledby": labelId }}
-                            />
-                          </TableCell>
-                          {headCells.map((cell, index) => {
-                            return index === 0 ? (
-                              <TableCell
-                                key={cell.id}
-                                component="th"
-                                id={labelId}
-                                scope="row"
-                                padding="none"
-                              >
-                                {row[cell.id]}
-                              </TableCell>
-                            ) : (
-                              <TableCell key={cell.id} align="left">
-                                {row[cell.id]}
-                              </TableCell>
-                            )
-                          })}
-                        </TableRow>
+                return (
+                  <tr
+                    key={row[primaryCellKey]}
+                    onClick={() => handleClick(row[primaryCellKey])}
+                    className={isItemSelected ? "table-active" : ""}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <td className="table-checkbox">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={isItemSelected}
+                        onChange={() => {}}
+                        aria-labelledby={labelId}
+                      />
+                    </td>
+                    {headCells.map((cell, idx) => (
+                      <td
+                        key={cell.id}
+                        className={idx === 0 ? "fw-bold" : ""}
+                        id={idx === 0 ? labelId : undefined}
+                      >
+                        {row[cell.id]}
+                      </td>
+                    ))}
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+          {emptyRows && (
+            <div className="table-note">
+              {searchState.searchText
+                ? `No search results found :( `
+                : `No data found. Please add some entries using + button`}
+            </div>
+          )}
+        </div>
+        <div className="table-pagination">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="densePadding"
+                checked={dense}
+                onChange={(e) => setDense(e.target.checked)}
+              />
+              <label className="form-check-label" htmlFor="densePadding">
+                Dense padding
+              </label>
+            </div>
+            <div className="d-flex align-items-center gap-3">
+              <div>
+                <label htmlFor="rowsPerPage" className="me-2">
+                  Rows per page:
+                </label>
+                <select
+                  id="rowsPerPage"
+                  className="form-select form-select-sm d-inline-block w-auto"
+                  value={rowsPerPage}
+                  onChange={(e) => {
+                    setRowsPerPage(parseInt(e.target.value, 10))
+                    setPage(0)
+                  }}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                </select>
+              </div>
+              <div>
+                {page * rowsPerPage + 1}-
+                {Math.min((page + 1) * rowsPerPage, rows.length)} of{" "}
+                {rows.length}
+              </div>
+              <div className="btn-group">
+                <button
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() => setPage(Math.max(0, page - 1))}
+                  disabled={page === 0}
+                >
+                  Previous
+                </button>
+                <button
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() =>
+                    setPage(
+                      Math.min(
+                        Math.ceil(rows.length / rowsPerPage) - 1,
+                        page + 1
                       )
-                    }),
-                })}
-              </Table>
-              {emptyRows && (
-                <Typography className={classes.tableNote}>
-                  {searchState.searchText
-                    ? `No search results found :( `
-                    : `No data found. Please add some entries using + button`}
-                </Typography>
-              )}
-            </>
-          ),
-        })}
-        {DynamicLoader(TablePagination, {
-          rowsPerPageOptions: [5, 10, 25],
-          component: "div",
-          count: rows.length,
-          rowsPerPage: rowsPerPage,
-          page: page,
-          onChangePage: handleChangePage,
-          onChangeRowsPerPage: handleChangeRowsPerPage,
-        })}
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+                    )
+                  }
+                  disabled={page >= Math.ceil(rows.length / rowsPerPage) - 1}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react"
 import Element from "common/components/Element"
-import { Grid } from "@material-ui/core"
 import Insert from "./Insert"
 import Delete from "./Delete"
 import Update from "./Update"
@@ -17,36 +16,36 @@ const Array = () => {
   }, [])
 
   return (
-    <Grid container>
-      <Grid container>
-        <Grid item xs={12} className="mt-2">
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-12 mt-2">
           <Insert array={state.array} updateState={updateState} alertId={1} />
-        </Grid>
-        <Grid item xs={12} className="mt-2">
+        </div>
+        <div className="col-12 mt-2">
           <Delete array={state.array} updateState={updateState} alertId={2} />
-        </Grid>
-        <Grid item xs={12} className="mt-2">
+        </div>
+        <div className="col-12 mt-2">
           <Update array={state.array} updateState={updateState} alertId={3} />
-        </Grid>
-        <Grid item xs={12} className="mt-2">
+        </div>
+        <div className="col-12 mt-2">
           <Search array={state.array} updateState={updateState} alertId={4} />
-        </Grid>
-      </Grid>
-      <Grid container className="mt-4 mb-4">
+        </div>
+      </div>
+      <div className="row mt-4 mb-4">
         {state.array.map((value, index) => {
           const highlight = state.highlights.includes(index)
           return (
-            <Grid item sm={3} key={`${value}-${index}`}>
+            <div className="col-sm-3" key={`${value}-${index}`}>
               <Element
                 highlight={highlight}
                 data={{ value, index }}
                 type="array"
               />
-            </Grid>
+            </div>
           )
         })}
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 

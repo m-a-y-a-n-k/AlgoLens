@@ -2,6 +2,7 @@ import React, { lazy } from "react"
 import { siteSuggestions } from "routing/base/routes"
 import { DynamicLoader } from "routing/base/Router"
 import constants from "common/helpers/constants"
+import { AiFillHome } from "react-icons/ai"
 import "./Header.css"
 
 const Search = lazy(() => import(`common/components/SearchSuggestions`))
@@ -31,7 +32,7 @@ export default function PrimarySearchAppBar() {
                 : ""
             }`}
           >
-            {DynamicLoader(lazy(() => import(`@material-ui/icons/Home`)))}
+            <AiFillHome />
           </a>
         </div>
       </nav>

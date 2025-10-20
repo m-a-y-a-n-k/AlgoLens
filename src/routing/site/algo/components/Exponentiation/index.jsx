@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, lazy } from "react"
-import Grid from "@material-ui/core/Grid"
+import { Row, Col } from "reactstrap"
 import { FaEquals, FaTimes } from "react-icons/fa"
 import Input from "./Input"
 
@@ -65,12 +65,12 @@ const Exponent = () => {
   const { result, base, power, disabled, ans } = state
 
   return (
-    <Grid container>
-      <Grid item xs={12} sm={6} className="text-center m-4">
+    <Row>
+      <Col xs={12} sm={6} className="text-center m-4">
         <Input disabled={disabled} expo={expo} />
-      </Grid>
+      </Col>
       {(disabled || ans !== null) && (
-        <Grid item xs={12} sm={4} className="text-center m-4">
+        <Col xs={12} sm={4} className="text-center m-4">
           {base !== null && power !== null && (
             <>
               <Element
@@ -102,9 +102,9 @@ const Exponent = () => {
               type="array"
             />
           )}
-        </Grid>
+        </Col>
       )}
-    </Grid>
+    </Row>
   )
 }
 

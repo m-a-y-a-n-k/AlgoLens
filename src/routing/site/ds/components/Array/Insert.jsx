@@ -8,13 +8,7 @@ import {
   DropdownItem,
   Alert,
 } from "reactstrap"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-} from "@material-ui/core"
+import { MdExpandMore } from "react-icons/md"
 
 const Insert = ({ array, updateState, alertId }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -45,54 +39,72 @@ const Insert = ({ array, updateState, alertId }) => {
   }, [array, data, where, updateState])
 
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        Insert Element
-      </AccordionSummary>
-      <AccordionDetails style={{ flexDirection: "column" }}>
-        {alert && alert.alertId === alertId && (
-          <Alert
-            color={alert.type}
-            isOpen={!!alert.text}
-            toggle={() => {
-              setAlert(null)
-            }}
+    <div className="accordion" id={`accordion-insert-${alertId}`}>
+      <div className="accordion-item">
+        <h2 className="accordion-header">
+          <button
+            className="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target={`#collapse-insert-${alertId}`}
           >
-            {alert.text}
-          </Alert>
-        )}
-        <InputGroup>
-          <Input
-            onChange={(event) => setData(event.target.value)}
-            value={data ?? ""}
-          />
-          <InputGroupButtonDropdown
-            addonType="append"
-            isOpen={dropdownOpen}
-            toggle={toggleDropDown}
-          >
-            <DropdownToggle caret>{where}</DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem onClick={() => setWhere("Start")}>
-                Start
-              </DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem onClick={() => setWhere("End")}>End</DropdownItem>
-            </DropdownMenu>
-          </InputGroupButtonDropdown>
-        </InputGroup>
-        <Button
-          className="mt-4"
-          style={{ backgroundColor: "#403d4a", color: "white" }}
-          onClick={() => {
-            insert()
-            setData(null)
-          }}
+            Insert Element
+            <MdExpandMore className="ms-2" />
+          </button>
+        </h2>
+        <div
+          id={`collapse-insert-${alertId}`}
+          className="accordion-collapse collapse"
+          data-bs-parent={`#accordion-insert-${alertId}`}
         >
-          Submit
-        </Button>
-      </AccordionDetails>
-    </Accordion>
+          <div className="accordion-body">
+            {alert && alert.alertId === alertId && (
+              <Alert
+                color={alert.type}
+                isOpen={!!alert.text}
+                toggle={() => {
+                  setAlert(null)
+                }}
+              >
+                {alert.text}
+              </Alert>
+            )}
+            <InputGroup>
+              <Input
+                onChange={(event) => setData(event.target.value)}
+                value={data ?? ""}
+              />
+              <InputGroupButtonDropdown
+                addonType="append"
+                isOpen={dropdownOpen}
+                toggle={toggleDropDown}
+              >
+                <DropdownToggle caret>{where}</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => setWhere("Start")}>
+                    Start
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => setWhere("End")}>
+                    End
+                  </DropdownItem>
+                </DropdownMenu>
+              </InputGroupButtonDropdown>
+            </InputGroup>
+            <button
+              className="btn mt-4"
+              style={{ backgroundColor: "#403d4a", color: "white" }}
+              onClick={() => {
+                insert()
+                setData(null)
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

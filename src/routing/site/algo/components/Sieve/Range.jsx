@@ -2,10 +2,12 @@ import React, { useState } from "react"
 import {
   Button,
   Card,
-  CardContent,
+  CardBody,
   CardHeader,
-  TextField,
-} from "@material-ui/core"
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap"
 
 const Range = React.memo(({ handleRangeSubmit }) => {
   const [start, setStart] = useState(null)
@@ -19,34 +21,31 @@ const Range = React.memo(({ handleRangeSubmit }) => {
 
   return (
     <Card>
-      <CardHeader
-        title={"Primes in Range"}
-        titleTypographyProps={{
-          variant: "h5",
-          color: "primary",
-        }}
-        subheader="Find primes from start to end number in range"
-        subheaderTypographyProps={{
-          variant: "subtitle1",
-          color: "secondary",
-        }}
-      />
-      <CardContent style={{ display: "flex", flexDirection: "column" }}>
-        <TextField
-          type="number"
-          label="Start of Range"
-          color="secondary"
-          onChange={(event) => setStart(event.target.value)}
-          value={start ?? ""}
-        />
-        <TextField
-          type="number"
-          label="End of Range"
-          color="secondary"
-          className="mt-2"
-          onChange={(event) => setEnd(event.target.value)}
-          value={end ?? ""}
-        />
+      <CardHeader>
+        <h5 className="text-primary mb-1">Primes in Range</h5>
+        <p className="text-secondary mb-0">
+          Find primes from start to end number in range
+        </p>
+      </CardHeader>
+      <CardBody style={{ display: "flex", flexDirection: "column" }}>
+        <FormGroup>
+          <Label for="startRange">Start of Range</Label>
+          <Input
+            type="number"
+            id="startRange"
+            onChange={(event) => setStart(event.target.value)}
+            value={start ?? ""}
+          />
+        </FormGroup>
+        <FormGroup className="mt-2">
+          <Label for="endRange">End of Range</Label>
+          <Input
+            type="number"
+            id="endRange"
+            onChange={(event) => setEnd(event.target.value)}
+            value={end ?? ""}
+          />
+        </FormGroup>
         <Button
           style={{
             marginTop: 12,
@@ -58,7 +57,7 @@ const Range = React.memo(({ handleRangeSubmit }) => {
         >
           Submit
         </Button>
-      </CardContent>
+      </CardBody>
     </Card>
   )
 })

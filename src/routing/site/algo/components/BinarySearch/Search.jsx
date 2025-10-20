@@ -5,15 +5,14 @@ import {
   InputGroupAddon,
   InputGroupText,
   Alert,
+  Button,
 } from "reactstrap"
-import Accordion from "@material-ui/core/Accordion"
-import AccordionSummary from "@material-ui/core/AccordionSummary"
-import AccordionDetails from "@material-ui/core/AccordionDetails"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import Button from "@material-ui/core/Button"
+import { MdExpandMore } from "react-icons/md"
+import "./BinarySearch.css"
 
 const Search = React.memo(({ parent, alertId }) => {
   const [data, setData] = useState(null)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const handleInputChange = (event) => {
     setData(event.target.value)
@@ -24,43 +23,52 @@ const Search = React.memo(({ parent, alertId }) => {
     setData(null)
   }
 
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded)
+  }
+
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        Search a Value
-      </AccordionSummary>
-      <AccordionDetails style={{ flexDirection: "column" }}>
-        {parent.alert && parent.alert.alertId === alertId && (
-          <Alert
-            color={parent.alert.type}
-            isOpen={!!parent.alert.text}
-            toggle={() => {
-              parent.setAlert(null)
-            }}
+    <div className="accordion-container">
+      <div className="accordion-summary" onClick={toggleExpanded}>
+        <span>Search a Value</span>
+        <MdExpandMore
+          className={`expand-icon ${isExpanded ? "expanded" : ""}`}
+        />
+      </div>
+      {isExpanded && (
+        <div className="accordion-details">
+          {parent.alert && parent.alert.alertId === alertId && (
+            <Alert
+              color={parent.alert.type}
+              isOpen={!!parent.alert.text}
+              toggle={() => {
+                parent.setAlert(null)
+              }}
+            >
+              {parent.alert.text}
+            </Alert>
+          )}
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>Value</InputGroupText>
+            </InputGroupAddon>
+            <Input
+              type="number"
+              placeholder="Value"
+              onChange={handleInputChange}
+              value={data ?? ""}
+            />
+          </InputGroup>
+          <Button
+            className="mt-4"
+            style={{ backgroundColor: "#403d4a", color: "white" }}
+            onClick={handleSubmit}
           >
-            {parent.alert.text}
-          </Alert>
-        )}
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Value</InputGroupText>
-          </InputGroupAddon>
-          <Input
-            type="number"
-            placeholder="Value"
-            onChange={handleInputChange}
-            value={data ?? ""}
-          />
-        </InputGroup>
-        <Button
-          className="mt-4"
-          style={{ backgroundColor: "#403d4a", color: "white" }}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      </AccordionDetails>
-    </Accordion>
+            Submit
+          </Button>
+        </div>
+      )}
+    </div>
   )
 })
 

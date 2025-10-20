@@ -6,11 +6,7 @@ import {
   InputGroupText,
   Alert,
 } from "reactstrap"
-import Accordion from "@material-ui/core/Accordion"
-import AccordionSummary from "@material-ui/core/AccordionSummary"
-import AccordionDetails from "@material-ui/core/AccordionDetails"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import Button from "@material-ui/core/Button"
+import { MdExpandMore } from "react-icons/md"
 
 const Delete = React.memo(({ parent, alertId }) => {
   const [data, setData] = useState(null)
@@ -33,55 +29,71 @@ const Delete = React.memo(({ parent, alertId }) => {
   }
 
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        Delete based on Position or Value
-      </AccordionSummary>
-      <AccordionDetails style={{ flexDirection: "column" }}>
-        {parent.alert && parent.alert.alertId === alertId && (
-          <Alert
-            color={parent.alert.type}
-            isOpen={!!parent.alert.text}
-            toggle={() => {
-              parent.setAlert(null)
-            }}
+    <div className="accordion" id={`accordion-delete-${alertId}`}>
+      <div className="accordion-item">
+        <h2 className="accordion-header">
+          <button
+            className="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target={`#collapse-delete-${alertId}`}
           >
-            {parent.alert.text}
-          </Alert>
-        )}
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Position</InputGroupText>
-          </InputGroupAddon>
-          <Input
-            type="number"
-            placeholder="Position (0-based)"
-            onChange={handlePositionChange}
-            disabled={data}
-            value={position ?? ""}
-          />
-        </InputGroup>
-        <InputGroup className="mt-3">
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Value</InputGroupText>
-          </InputGroupAddon>
-          <Input
-            type="number"
-            placeholder="Value"
-            onChange={handleDataChange}
-            disabled={position}
-            value={data ?? ""}
-          />
-        </InputGroup>
-        <Button
-          className="mt-4"
-          style={{ backgroundColor: "#403d4a", color: "white" }}
-          onClick={handleSubmit}
+            Delete based on Position or Value
+            <MdExpandMore className="ms-2" />
+          </button>
+        </h2>
+        <div
+          id={`collapse-delete-${alertId}`}
+          className="accordion-collapse collapse"
+          data-bs-parent={`#accordion-delete-${alertId}`}
         >
-          Submit
-        </Button>
-      </AccordionDetails>
-    </Accordion>
+          <div className="accordion-body">
+            {parent.alert && parent.alert.alertId === alertId && (
+              <Alert
+                color={parent.alert.type}
+                isOpen={!!parent.alert.text}
+                toggle={() => {
+                  parent.setAlert(null)
+                }}
+              >
+                {parent.alert.text}
+              </Alert>
+            )}
+            <InputGroup>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>Position</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                type="number"
+                placeholder="Position (0-based)"
+                onChange={handlePositionChange}
+                disabled={data}
+                value={position ?? ""}
+              />
+            </InputGroup>
+            <InputGroup className="mt-3">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>Value</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                type="number"
+                placeholder="Value"
+                onChange={handleDataChange}
+                disabled={position}
+                value={data ?? ""}
+              />
+            </InputGroup>
+            <button
+              className="btn mt-4"
+              style={{ backgroundColor: "#403d4a", color: "white" }}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 })
 

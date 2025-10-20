@@ -1,7 +1,6 @@
 import React, { useState, lazy, useCallback, useMemo } from "react"
 import { FaEquals, FaCircle } from "react-icons/fa"
-import { Grid } from "@material-ui/core"
-import { Alert } from "reactstrap"
+import { Alert, Row, Col } from "reactstrap"
 import { FixedSizeList as List } from "react-window"
 import Input from "./Input"
 import useWindowDimensions from "common/helpers/dimensions"
@@ -59,42 +58,44 @@ const Factorize = () => {
   }, [])
 
   return (
-    <Grid container>
+    <div className="container">
       {alert && (
-        <Grid item xs={12}>
-          <Alert
-            color={alert.type}
-            isOpen={!!alert.text}
-            toggle={() => setAlert(null)}
-          >
-            {alert.text}
-          </Alert>
-        </Grid>
+        <Row>
+          <Col xs={12}>
+            <Alert
+              color={alert.type}
+              isOpen={!!alert.text}
+              toggle={() => setAlert(null)}
+            >
+              {alert.text}
+            </Alert>
+          </Col>
+        </Row>
       )}
-      <Grid container className="text-center">
-        <Grid item xs={12}>
+      <Row className="text-center">
+        <Col xs={12}>
           <Input setData={setInput} disabled={disabled} />
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
 
       {parseInt(input) >= 0 && (
-        <Grid container className="text-center mt-4 mb-4 align-items-center">
-          <Grid item xs={4}>
+        <Row className="text-center mt-4 mb-4 align-items-center">
+          <Col xs={4}>
             <LazyElement
               highlight={true}
               data={{ value: `Factors(${input})` }}
               type="array"
             />
-          </Grid>
-          <Grid item xs={2}>
+          </Col>
+          <Col xs={2}>
             <FaEquals style={{ margin: "auto 5px" }} />
-          </Grid>
-          <Grid item xs={6}>
+          </Col>
+          <Col xs={6}>
             <LazyList factorize={factorize} input={input} />
-          </Grid>
-        </Grid>
+          </Col>
+        </Row>
       )}
-    </Grid>
+    </div>
   )
 }
 
@@ -111,19 +112,19 @@ const LazyList = ({ input, factorize }) => {
       direction="horizontal"
     >
       {({ index, style }) => (
-        <Grid container style={style} className="align-items-center">
-          <Grid item xs={6}>
+        <Row style={style} className="align-items-center">
+          <Col xs={6}>
             <LazyElement
               data={{ value: factors[index], index: index + 1 }}
               type="array"
             />
-          </Grid>
+          </Col>
           {index < factors.length - 1 && (
-            <Grid item xs={6}>
+            <Col xs={6}>
               <FaCircle style={{ margin: "auto 5px", alignSelf: "center" }} />
-            </Grid>
+            </Col>
           )}
-        </Grid>
+        </Row>
       )}
     </List>
   )

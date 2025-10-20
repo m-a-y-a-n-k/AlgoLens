@@ -9,9 +9,6 @@
   "homepage": "/AlgoLens/#",
   "proxy": "http://localhost:3000",
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
     "@react-three/drei": "^9.106.0",
     "@react-three/fiber": "^8.16.7",
     "autosuggest-highlight": "^3.1.1",
@@ -20,7 +17,6 @@
     "chess.js": "^1.4.0",
     "cross-env": "^7.0.3",
     "js-sorted-set": "^0.7.0",
-    "material-ui-image": "^3.3.1",
     "mathjs": "^13.0.0",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",

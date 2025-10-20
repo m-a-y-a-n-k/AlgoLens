@@ -1,73 +1,18 @@
 import React, { useState } from "react"
-import { makeStyles, fade } from "@material-ui/core/styles"
-import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
-import { FormControl } from "@material-ui/core"
-
-//Card component styling
-const useStyles = makeStyles({
-  root: {
-    minWidth: 180,
-  },
-})
-
-//text input field styling
-const useStylesReddit = makeStyles((theme) => ({
-  root: {
-    border: "1px solid #e2e2e1",
-    overflow: "hidden",
-    borderRadius: 4,
-    backgroundColor: "#fcfcfb",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    "&:hover": {
-      backgroundColor: "#fff",
-    },
-    "&$focused": {
-      backgroundColor: "#fff",
-      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-  focused: {},
-}))
-function RedditTextField(props) {
-  const classes = useStylesReddit()
-
-  return (
-    <TextField InputProps={{ classes, disableUnderline: true }} {...props} />
-  )
-}
-
-const formStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    margin: theme.spacing(1),
-  },
-}))
-
-const textStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-  },
-}))
-
-const buttonStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-  },
-}))
 
 const Input = React.memo(({ disabled, setData }) => {
-  const [input, setInput] = useState(null)
-  const classes = useStyles()
-  const inputStyle = textStyles()
-  const buttonStyle = buttonStyles()
-  const formStyle = formStyles()
+  const [input, setInput] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (input && !isNaN(input)) {
+      setData(Number(input))
+      setInput("")
+    }
+  }
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <div style={styles.card}>
       <h2 className="bg-success text-white p-2">
         Compute factors of a whole number N = p x q x r ..... x z
       </h2>
@@ -75,38 +20,95 @@ const Input = React.memo(({ disabled, setData }) => {
         Finds numbers between 1 to N that completely divides N leaving remainder
         0
       </h4>
-      <CardActions>
-        <FormControl className={`pb-3 pr-0 pl-2 pt-1 ${formStyle.root}`}>
-          <RedditTextField
-            label="Number"
-            className={inputStyle.root}
-            variant="filled"
-            id="reddit-input-base"
-            onChange={(event) => {
-              setInput(event.target.value)
+      <div style={styles.cardActions}>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.inputWrapper}>
+            <label htmlFor="factorize-input" style={styles.label}>
+              Number
+            </label>
+            <input
+              id="factorize-input"
+              type="number"
+              style={styles.input}
+              onChange={(event) => {
+                setInput(event.target.value)
+              }}
+              value={input}
+              disabled={disabled}
+              placeholder="Enter a number"
+            />
+          </div>
+          <button
+            type="submit"
+            style={{
+              ...styles.button,
+              ...(disabled ? styles.buttonDisabled : {}),
             }}
-            value={input ? input : ""}
             disabled={disabled}
-          />
-          <Button
-            className={buttonStyle.root}
-            disabled={disabled}
-            onClick={() => {
-              setData(Number(input))
-              setInput(null)
-            }}
-            variant="contained"
-            color="primary"
-            size="small"
           >
             Submit
-          </Button>
-        </FormControl>
-      </CardActions>
-    </Card>
+          </button>
+        </form>
+      </div>
+    </div>
   )
 })
 
-Input.displayName = "Factorial.Input"
+const styles = {
+  card: {
+    minWidth: "180px",
+    border: "1px solid #e0e0e0",
+    borderRadius: "4px",
+    backgroundColor: "#fff",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+  },
+  cardActions: {
+    padding: "16px",
+  },
+  form: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
+  inputWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "4px",
+  },
+  label: {
+    fontSize: "12px",
+    color: "#666",
+    fontWeight: "500",
+  },
+  input: {
+    border: "1px solid #e2e2e1",
+    borderRadius: "4px",
+    backgroundColor: "#fcfcfb",
+    padding: "10px 12px",
+    fontSize: "14px",
+    transition: "all 0.2s",
+    outline: "none",
+  },
+  button: {
+    padding: "8px 16px",
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    fontSize: "14px",
+    fontWeight: "500",
+    cursor: "pointer",
+    transition: "background-color 0.2s",
+    alignSelf: "flex-start",
+    marginTop: "8px",
+  },
+  buttonDisabled: {
+    backgroundColor: "#ccc",
+    cursor: "not-allowed",
+  },
+}
+
+Input.displayName = "Factorize.Input"
 
 export default Input

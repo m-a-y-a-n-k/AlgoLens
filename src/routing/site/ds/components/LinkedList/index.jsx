@@ -1,99 +1,12 @@
 import React, { useState, Fragment } from "react"
-
 import Element from "common/components/Element"
-
 import Insert from "./Insert"
 import Delete from "./Delete"
 import Update from "./Update"
 import Search from "./Search"
-import { Grid } from "@material-ui/core"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import Paper from "@material-ui/core/Paper"
-import clsx from "clsx"
-import { makeStyles } from "@material-ui/core/styles"
-import Radio from "@material-ui/core/Radio"
-import RadioGroup from "@material-ui/core/RadioGroup"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import FormControl from "@material-ui/core/FormControl"
-import FormLabel from "@material-ui/core/FormLabel"
-
-const gridStyle = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    width: "100%",
-    padding: theme.spacing(2),
-    color: theme.palette.text.secondary,
-    margin: theme.spacing(2),
-  },
-  control: {
-    padding: theme.spacing(2),
-  },
-}))
-
-const useStyles = makeStyles({
-  root: {
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-  },
-  icon: {
-    borderRadius: "50%",
-    width: 16,
-    height: 16,
-    boxShadow:
-      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
-    backgroundColor: "#f5f8fa",
-    backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
-    "$root.Mui-focusVisible &": {
-      outline: "2px auto rgba(19,124,189,.6)",
-      outlineOffset: 2,
-    },
-    "input:hover ~ &": {
-      backgroundColor: "#ebf1f5",
-    },
-    "input:disabled ~ &": {
-      boxShadow: "none",
-      background: "rgba(206,217,224,.5)",
-    },
-  },
-  checkedIcon: {
-    backgroundColor: "#137cbd",
-    backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
-    "&:before": {
-      display: "block",
-      width: 16,
-      height: 16,
-      backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
-      content: '""',
-    },
-    "input:hover ~ &": {
-      backgroundColor: "#106ba3",
-    },
-  },
-})
-
-function StyledRadio(props) {
-  const classes = useStyles()
-
-  return (
-    <Radio
-      className={classes.root}
-      disableRipple
-      color="default"
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-      icon={<span className={classes.icon} />}
-      {...props}
-    />
-  )
-}
+import "./LinkedList.css"
 
 export default function LinkedList() {
-  const gridClass = gridStyle()
   let [head, setHead] = useState(null)
   let [list, setList] = useState(null)
   let [rendered, setRendered] = useState(false)
@@ -280,80 +193,103 @@ export default function LinkedList() {
   })
 
   return (
-    <div className={gridClass.root}>
-      <Grid container direction="row" justify="left" alignItems="center">
-        <Grid item container xs={12}>
-          <Paper className={gridClass.paper}>
-            <Grid item xs={12} spacing={3} alignItems="center">
-              <Card>
+    <div className="linked-list-root">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <div className="linked-list-paper">
+              <div className="card">
                 <h6 className="bg-primary text-center text-white p-3">
                   Operations
                 </h6>
-                <CardContent className="pl-0 pr-0 pt-0 text-left">
-                  <FormControl className="pl-3" component="fieldset">
-                    <FormLabel component="legend"></FormLabel>
-                    <RadioGroup aria-label="gender" name="customized-radios">
-                      <FormControlLabel
+                <div className="card-body">
+                  <div className="form-group">
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="operation"
+                        id="insertRadio"
                         value="Insert"
                         onChange={showOperation}
-                        control={<StyledRadio />}
-                        label="Insert"
                       />
-                      <FormControlLabel
+                      <label className="form-check-label" htmlFor="insertRadio">
+                        Insert
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="operation"
+                        id="deleteRadio"
                         value="Delete"
                         onChange={showOperation}
-                        control={<StyledRadio />}
-                        label="Delete"
                       />
-                      <FormControlLabel
+                      <label className="form-check-label" htmlFor="deleteRadio">
+                        Delete
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="operation"
+                        id="updateRadio"
                         value="Update"
                         onChange={showOperation}
-                        control={<StyledRadio />}
-                        label="Update"
                       />
-                      <FormControlLabel
+                      <label className="form-check-label" htmlFor="updateRadio">
+                        Update
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="operation"
+                        id="searchRadio"
                         value="Search"
                         onChange={showOperation}
-                        control={<StyledRadio />}
-                        label="Search"
                       />
-                    </RadioGroup>
-                  </FormControl>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid className="mt-3" item spacing={4} xs={12}>
-              <Insert
-                open={radioVal === "Insert"}
-                insert={(data, where) => {
-                  insert(data, where)
-                }}
-              />
-              <Search
-                open={radioVal === "Search"}
-                search={(data) => {
-                  search(data)
-                }}
-              />
-              <Delete
-                open={radioVal === "Delete"}
-                del={(data, where, position) => {
-                  del(data, where, position)
-                }}
-              />
-              <Update
-                open={radioVal === "Update"}
-                update={(position, value) => {
-                  update(position, value)
-                }}
-              />
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid item container xs={12}>
-          {list}
-        </Grid>
-      </Grid>
+                      <label className="form-check-label" htmlFor="searchRadio">
+                        Search
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3">
+                <Insert
+                  open={radioVal === "Insert"}
+                  insert={(data, where) => {
+                    insert(data, where)
+                  }}
+                />
+                <Search
+                  open={radioVal === "Search"}
+                  search={(data) => {
+                    search(data)
+                  }}
+                />
+                <Delete
+                  open={radioVal === "Delete"}
+                  del={(data, where, position) => {
+                    del(data, where, position)
+                  }}
+                />
+                <Update
+                  open={radioVal === "Update"}
+                  update={(position, value) => {
+                    update(position, value)
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-12">{list}</div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import React, { lazy, useState, Suspense } from "react"
-import Grid from "@material-ui/core/Grid"
 import Insert from "routing/site/algo/components/BinarySearch/Insert"
 import Update from "routing/site/algo/components/BinarySearch/Update"
 import Delete from "routing/site/algo/components/BinarySearch/Delete"
@@ -129,30 +128,28 @@ const BinarySearch = () => {
   }
 
   return (
-    <Grid container>
-      <Grid container>
-        <Grid item xs={12} className="mt-2">
+    <div>
+      <div>
+        <div className="mt-2">
           <Insert parent={{ insert, alert, setAlert }} alertId={1} />
-        </Grid>
-        <Grid item xs={12} className="mt-2">
+        </div>
+        <div className="mt-2">
           <Delete parent={{ deleteItem, alert, setAlert }} alertId={2} />
-        </Grid>
-        <Grid item xs={12} className="mt-2">
+        </div>
+        <div className="mt-2">
           <Update parent={{ update, alert, setAlert }} alertId={3} />
-        </Grid>
-        <Grid item xs={12} className="mt-2">
+        </div>
+        <div className="mt-2">
           <Search parent={{ search, alert, setAlert }} alertId={4} />
-        </Grid>
-      </Grid>
-      <Grid container className="mt-4 mb-4">
+        </div>
+      </div>
+      <div className="mt-4 mb-4">
         <Suspense fallback={<div>Loading...</div>}>
           <LazyList data={array} highlights={highlights} />
         </Suspense>
-      </Grid>
-      <Grid item xs={12} className="mt-4 mb-4">
-        Steps : {iter}
-      </Grid>
-    </Grid>
+      </div>
+      <div className="mt-4 mb-4">Steps : {iter}</div>
+    </div>
   )
 }
 
@@ -168,13 +165,13 @@ const LazyList = ({ data, highlights }) => {
     >
       {({ index, style }) => {
         return (
-          <Grid item xs={12} style={style}>
+          <div style={style}>
             <LazyElement
               highlight={index >= highlights.start && index <= highlights.end}
               data={{ value: data[index], index }}
               type="array"
             />
-          </Grid>
+          </div>
         )
       }}
     </List>

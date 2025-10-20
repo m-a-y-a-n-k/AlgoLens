@@ -1,6 +1,5 @@
 import React, { useState, lazy, useEffect } from "react"
-import { Grid } from "@material-ui/core"
-import { Alert } from "reactstrap"
+import { Alert, Row, Col } from "reactstrap"
 import { FixedSizeList as List } from "react-window"
 import Input from "./Input"
 import useWindowDimensions from "common/helpers/dimensions"
@@ -52,30 +51,32 @@ const Fibonacci = () => {
   }, [sequence.length, input])
 
   return (
-    <Grid container>
+    <div className="container">
       {alert && (
-        <Grid item xs={12}>
-          <Alert
-            color={alert.type}
-            isOpen={!!alert.text}
-            toggle={() => setAlert(null)}
-          >
-            {alert.text}
-          </Alert>
-        </Grid>
+        <Row>
+          <Col xs={12}>
+            <Alert
+              color={alert.type}
+              isOpen={!!alert.text}
+              toggle={() => setAlert(null)}
+            >
+              {alert.text}
+            </Alert>
+          </Col>
+        </Row>
       )}
-      <Grid container className="text-center">
-        <Grid item xs={12}>
+      <Row className="text-center">
+        <Col xs={12}>
           <Input generateSequence={generateSequence} disabled={disabled} />
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
 
       {parseInt(input) >= 2 && sequence.length > 0 && (
-        <Grid container className="text-center mt-4 mb-4">
+        <Row className="text-center mt-4 mb-4">
           <LazyList sequence={sequence} />
-        </Grid>
+        </Row>
       )}
-    </Grid>
+    </div>
   )
 }
 
@@ -91,13 +92,13 @@ const LazyList = ({ sequence }) => {
       direction="horizontal"
     >
       {({ index, style }) => (
-        <Grid item xs={12} style={style} className="align-items-center">
+        <Col xs={12} style={style} className="align-items-center">
           <LazyElement
             data={{ value: sequence[index], index }}
             highlight={index === sequence.length - 1}
             type="array"
           />
-        </Grid>
+        </Col>
       )}
     </List>
   )
