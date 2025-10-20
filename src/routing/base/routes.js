@@ -122,6 +122,10 @@ const pages = [
         label: "Queues 📚",
       },
       {
+        topic: "RedBlackTree",
+        label: "Red-Black Tree 🔴⚫",
+      },
+      {
         topic: "Graph",
         label: "Randomized Graph 📈",
       },
