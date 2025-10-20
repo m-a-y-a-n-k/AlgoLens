@@ -4,6 +4,10 @@ const pages = [
     label: "Algorithms 🧠",
     pages: [
       {
+        topic: "AStarPathfinding",
+        label: "A* Pathfinding 🎯",
+      },
+      {
         topic: "BFSGraph",
         label: "Breadth First Search 🌐",
       },
@@ -44,6 +48,10 @@ const pages = [
         label: "Flood Fill 🌊",
       },
       {
+        topic: "HuffmanCoding",
+        label: "Huffman Coding 🗜️",
+      },
+      {
         topic: "JumpSearch",
         label: "🏃‍♂️ Jump Search",
       },
@@ -62,6 +70,10 @@ const pages = [
       {
         topic: "Peak",
         label: "Peak ⛰️",
+      },
+      {
+        topic: "PrimsMST",
+        label: "Prim's MST 🌳",
       },
       {
         topic: "Primes",

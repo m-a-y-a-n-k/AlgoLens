@@ -1,0 +1,367 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legendBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+.legendVisited {
+  background: #10b981; /* green */
+}
+
+.legendCurrent {
+  background: #f59e0b; /* amber */
+}
+
+.legendMstEdge {
+  background: #8b5cf6; /* purple */
+}
+
+.legendConsidering {
+  background: #3b82f6; /* blue */
+}
+
+/* Info Panel */
+.infoPanel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.infoLabel {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.infoValue {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1.2rem;
+  background: #f3f4f6;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.completeMessage {
+  background: #10b981;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.btnPrimary {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btnPrimary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Graph Visualization */
+.graphContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.svg {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Edges */
+.edge {
+  stroke: #d1d5db;
+  transition: all 0.4s ease;
+}
+
+.mstEdge {
+  stroke: #8b5cf6;
+  animation: edgePulse 0.5s ease;
+}
+
+.consideringEdge {
+  stroke: #3b82f6;
+  animation: edgeBlink 0.6s ease;
+}
+
+@keyframes edgePulse {
+  0% {
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+  50% {
+    stroke-width: 6;
+    opacity: 1;
+  }
+  100% {
+    stroke-width: 4;
+    opacity: 1;
+  }
+}
+
+@keyframes edgeBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Edge Weights */
+.edgeWeight {
+  font-size: 0.85rem;
+  font-weight: 700;
+  fill: #4b5563;
+  background: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.mstWeight {
+  fill: #8b5cf6;
+  font-size: 0.95rem;
+}
+
+/* Nodes */
+.node {
+  fill: #f3f4f6;
+  stroke: #6b7280;
+  stroke-width: 2.5px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.node:hover {
+  fill: #e5e7eb;
+}
+
+.visitedNode {
+  fill: #10b981;
+  stroke: #065f46;
+  stroke-width: 3px;
+  animation: nodeAppear 0.5s ease;
+}
+
+.currentNode {
+  fill: #f59e0b;
+  stroke: #92400e;
+  stroke-width: 3.5px;
+  animation: nodePulse 1s ease-in-out infinite;
+}
+
+@keyframes nodeAppear {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.nodeLabel {
+  font-size: 1.1rem;
+  font-weight: 700;
+  fill: #111827;
+  pointer-events: none;
+  user-select: none;
+}
+
+.visitedNode + .nodeLabel,
+.currentNode + .nodeLabel {
+  fill: #ffffff;
+}
+
+/* Algorithm Explanation */
+.explanation {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.explanation h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #111827;
+  font-size: 1.3rem;
+}
+
+.explanation ol {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.8rem;
+  color: #4b5563;
+  line-height: 1.8;
+}
+
+.explanation li {
+  margin-bottom: 0.6rem;
+}
+
+.complexity {
+  margin: 0;
+  padding: 1rem;
+  background: #ffffff;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.complexity strong {
+  color: #8b5cf6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .legend {
+    gap: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .legendBox {
+    width: 16px;
+    height: 16px;
+  }
+
+  .infoPanel {
+    gap: 1rem;
+  }
+
+  .infoLabel {
+    font-size: 0.85rem;
+  }
+
+  .infoValue {
+    font-size: 1rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .explanation {
+    padding: 1rem;
+  }
+
+  .explanation h3 {
+    font-size: 1.1rem;
+  }
+
+  .explanation ol {
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+  }
+}
