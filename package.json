@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "1.0.0",
+  "name": "AlgoLens",
+  "version": "2.0.0",
   "private": true,
   "engines": {
     "node": "16.16.0",
