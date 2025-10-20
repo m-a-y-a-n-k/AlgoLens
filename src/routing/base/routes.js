@@ -126,6 +126,10 @@ const pages = [
         label: "Randomized Graph 📈",
       },
       {
+        topic: "Heap",
+        label: "Heap (Min/Max) 🏔️",
+      },
+      {
         topic: "Sets",
         label: "Sets 🎰",
       },

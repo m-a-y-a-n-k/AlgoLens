@@ -1,0 +1,495 @@
+.container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+/* Toggle Section */
+.toggleSection {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.toggleButton {
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+}
+
+.toggleButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.heapDescription {
+  margin-top: 0.8rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input {
+  padding: 0.6rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  width: 150px;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Buttons */
+.btnPrimary,
+.btnSecondary,
+.btnDanger {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnPrimary {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.btnPrimary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btnSecondary {
+  background: #6b7280;
+  color: white;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
+}
+
+.btnSecondary:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
+}
+
+.btnDanger {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.btnDanger:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Operation Display */
+.operation {
+  text-align: center;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legendBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #333;
+}
+
+.legendRoot {
+  background: #f59e0b;
+}
+
+.legendNormal {
+  background: #3b82f6;
+}
+
+.legendComparing {
+  background: #8b5cf6;
+}
+
+.legendAnimating {
+  background: #10b981;
+}
+
+/* Section */
+.section {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.section h3 {
+  margin: 0 0 1.5rem 0;
+  color: #111827;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 0.5rem;
+}
+
+.emptyMessage {
+  text-align: center;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* Array Visualization */
+.arrayContainer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+
+.arrayCell {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #3b82f6;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.arrayCell.rootCell {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.arrayCell.comparing {
+  border-color: #8b5cf6;
+  background: #ede9fe;
+  animation: pulse 0.6s ease-in-out;
+}
+
+.arrayCell.animating {
+  border-color: #10b981;
+  background: #d1fae5;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.arrayIndex {
+  font-size: 0.7rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.arrayValue {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.arrayFormulas {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  text-align: center;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.arrayFormulas strong {
+  color: #111827;
+}
+
+/* Tree Visualization */
+.treeContainer {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+
+.treeSvg {
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.treeLine {
+  stroke: #9ca3af;
+  stroke-width: 2;
+}
+
+.heapNode {
+  fill: #3b82f6;
+  stroke: #1e40af;
+  stroke-width: 3;
+  transition: all 0.3s;
+}
+
+.heapNode.rootNode {
+  fill: #f59e0b;
+  stroke: #d97706;
+}
+
+.heapNode.comparing {
+  fill: #8b5cf6;
+  stroke: #6d28d9;
+  animation: nodePulse 0.6s ease-in-out;
+}
+
+.heapNode.animating {
+  fill: #10b981;
+  stroke: #059669;
+  animation: nodeSwap 0.6s ease;
+}
+
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes nodeSwap {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+}
+
+.nodeText {
+  fill: white;
+  font-weight: 700;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.indexText {
+  fill: #6b7280;
+  font-size: 0.7rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* Properties Grid */
+.propertiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.propertyCard {
+  padding: 1.2rem;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.propertyCard:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.propertyCard h4 {
+  margin: 0 0 0.8rem 0;
+  color: #3b82f6;
+  font-size: 1.1rem;
+}
+
+.propertyCard p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+/* Explanation */
+.explanation {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.explanation h3 {
+  margin: 0 0 1rem 0;
+  color: #111827;
+  font-size: 1.3rem;
+}
+
+.explanation ul {
+  margin: 0;
+  padding-left: 1.8rem;
+  color: #4b5563;
+  line-height: 1.9;
+}
+
+.explanation li {
+  margin-bottom: 0.8rem;
+}
+
+.explanation strong {
+  color: #111827;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .controls {
+    gap: 0.5rem;
+  }
+
+  .inputGroup {
+    width: 100%;
+  }
+
+  .input {
+    flex: 1;
+  }
+
+  .legend {
+    gap: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .legendBox {
+    width: 16px;
+    height: 16px;
+  }
+
+  .arrayCell {
+    width: 60px;
+    height: 60px;
+  }
+
+  .arrayValue {
+    font-size: 1.1rem;
+  }
+
+  .treeSvg {
+    width: 100%;
+    height: auto;
+  }
+
+  .propertiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .explanation {
+    padding: 1rem;
+  }
+}
+
