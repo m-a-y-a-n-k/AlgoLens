@@ -110,6 +110,18 @@ const pages = [
         label: "Binary Tree 🌳",
       },
       {
+        topic: "BPlusTree",
+        label: "B+ Tree 🌲➕",
+      },
+      {
+        topic: "BTree",
+        label: "B-Tree 🌲",
+      },
+      {
+        topic: "DisjointSetUnion",
+        label: "Disjoint Set Union 🔗",
+      },
+      {
         topic: "LinkedList",
         label: "Linked List 🔗",
       },
