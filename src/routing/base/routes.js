@@ -8,6 +8,10 @@ const pages = [
         label: "A* Pathfinding 🎯",
       },
       {
+        topic: "BellmanFord",
+        label: "Bellman-Ford Algorithm 🚦",
+      },
+      {
         topic: "BFSGraph",
         label: "Breadth First Search 🌐",
       },
@@ -48,6 +52,10 @@ const pages = [
         label: "Flood Fill 🌊",
       },
       {
+        topic: "FloydWarshall",
+        label: "Floyd–Warshall Algorithm 🛣️",
+      },
+      {
         topic: "HuffmanCoding",
         label: "Huffman Coding 🗜️",
       },
@@ -58,6 +66,10 @@ const pages = [
       {
         topic: "KnuthShuffle",
         label: "Knuth Shuffle 🃏",
+      },
+      {
+        topic: "KruskalMST",
+        label: "Kruskal's MST Algorithm 🪢",
       },
       {
         topic: "NQueens",
