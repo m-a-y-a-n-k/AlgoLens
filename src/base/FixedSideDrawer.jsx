@@ -9,6 +9,7 @@ import {
   FaCalculator,
   FaGamepad,
   FaChevronRight,
+  FaDesktop,
 } from "react-icons/fa"
 import "./SideDrawer.css"
 
@@ -18,6 +19,7 @@ const iconMap = {
   physics: <FaAtom />,
   math: <FaCalculator />,
   games: <FaGamepad />,
+  os: <FaDesktop />,
 }
 
 const cleanLabel = (label) => {

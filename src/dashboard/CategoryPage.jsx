@@ -10,6 +10,7 @@ import {
   FaGamepad,
   FaArrowLeft,
   FaExternalLinkAlt,
+  FaDesktop,
 } from "react-icons/fa"
 import "./Dashboard.css"
 
@@ -19,6 +20,7 @@ const iconMap = {
   physics: <FaAtom />,
   math: <FaCalculator />,
   games: <FaGamepad />,
+  os: <FaDesktop />,
 }
 
 const containerVariants = {

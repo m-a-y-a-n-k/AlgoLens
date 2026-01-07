@@ -107,7 +107,7 @@ const BugReportForm = ({ onSubmit, onCancel }) => {
         </button>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .bug-icon-wrapper {
           width: 60px;
           height: 60px;

@@ -269,6 +269,36 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "os",
+    label: "Operating Systems 💻",
+    pages: [
+      {
+        topic: "CPUScheduling",
+        label: "CPU Scheduling ⏱️",
+      },
+      {
+        topic: "PageReplacement",
+        label: "Page Replacement Algorithms 📁",
+      },
+      {
+        topic: "DiskScheduling",
+        label: "Disk Scheduling Algorithms 💿",
+      },
+      {
+        topic: "BankersAlgorithm",
+        label: "Banker's Algorithm 🏦",
+      },
+      {
+        topic: "DiningPhilosophers",
+        label: "Dining Philosophers 🍝",
+      },
+      {
+        topic: "MemoryAllocation",
+        label: "Memory Allocation 🧠",
+      },
+    ],
+  },
 ]
 const dynamicRoute = (categoryTopic, subjectTopic) => {
   return `${categoryTopic}/${subjectTopic}`
