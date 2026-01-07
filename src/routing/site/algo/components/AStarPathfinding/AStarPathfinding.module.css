@@ -228,7 +228,8 @@
 
 /* Animations */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -319,4 +320,3 @@
     font-size: 0.8rem;
   }
 }
-

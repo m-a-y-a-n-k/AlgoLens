@@ -1,50 +1,49 @@
 .app-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #3f51b5;
-    z-index: 1100;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70px;
-    padding: 0 16px;
-  }
-  
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #3f51b5;
+  z-index: 1100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 16px;
+}
+
+.menu-sec {
+  width: 5vw;
+}
+
+@media (max-width: 600px) {
   .menu-sec {
-    width: 5vw;
+    width: 10vw;
   }
-  
-  @media (max-width: 600px) {
-    .menu-sec {
-      width: 10vw;
-    }
-  }
-  
-  .search-sec {
-    width: 85vw;
-  }
-  
-  .icon-sec {
-    padding-left: 30px;
-  }
-  
-  .home-button {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .home-button:hover {
-    color: white;
-  }
-  
-  .home-button.disabled {
-    pointer-events: none;
-    opacity: 0.6;
-  }
-  
+}
+
+.search-sec {
+  width: 85vw;
+}
+
+.icon-sec {
+  padding-left: 30px;
+}
+
+.home-button {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.home-button:hover {
+  color: white;
+}
+
+.home-button.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

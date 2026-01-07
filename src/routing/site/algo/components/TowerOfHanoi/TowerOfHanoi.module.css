@@ -25,13 +25,27 @@
   color: white;
   font-weight: bold;
   transition: all 0.5s ease;
-  background: linear-gradient(145deg, #ff7f50, #ff6347); /* gradient for depth */
+  background: linear-gradient(
+    145deg,
+    #ff7f50,
+    #ff6347
+  ); /* gradient for depth */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* shadow for floating effect */
 }
 
 /* Optional: Different color for each disk dynamically */
-.disk:nth-child(1) { background: linear-gradient(145deg, #ff7f50, #ff6347); }
-.disk:nth-child(2) { background: linear-gradient(145deg, #1e90ff, #4169e1); }
-.disk:nth-child(3) { background: linear-gradient(145deg, #32cd32, #228b22); }
-.disk:nth-child(4) { background: linear-gradient(145deg, #ffd700, #ffa500); }
-.disk:nth-child(5) { background: linear-gradient(145deg, #ff69b4, #ff1493); }
+.disk:nth-child(1) {
+  background: linear-gradient(145deg, #ff7f50, #ff6347);
+}
+.disk:nth-child(2) {
+  background: linear-gradient(145deg, #1e90ff, #4169e1);
+}
+.disk:nth-child(3) {
+  background: linear-gradient(145deg, #32cd32, #228b22);
+}
+.disk:nth-child(4) {
+  background: linear-gradient(145deg, #ffd700, #ffa500);
+}
+.disk:nth-child(5) {
+  background: linear-gradient(145deg, #ff69b4, #ff1493);
+}

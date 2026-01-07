@@ -252,7 +252,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -261,7 +262,8 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -340,7 +342,8 @@
 }
 
 @keyframes nodePulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -349,7 +352,8 @@
 }
 
 @keyframes nodeSwap {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) rotate(0deg);
   }
   50% {
@@ -492,4 +496,3 @@
     padding: 1rem;
   }
 }
-

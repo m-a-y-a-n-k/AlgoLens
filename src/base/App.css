@@ -5,7 +5,7 @@
   --primary-contrastText: #fff;
 
   --secondary-light: #ff7961;
-  --secondary-main: #0D681C;
+  --secondary-main: #0d681c;
   --secondary-dark: #ba000d;
   --secondary-contrastText: #000;
 }
@@ -21,7 +21,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
 
 .link-label {
   margin: 0 auto;
