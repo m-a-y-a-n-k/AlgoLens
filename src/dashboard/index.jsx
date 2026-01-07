@@ -101,10 +101,7 @@ export default function Dashboard() {
         >
           {pages.map((category) => (
             <motion.div key={category.topic} variants={itemVariants}>
-              <Link
-                to={`/${category.topic}/${category.pages[0].topic}`}
-                className="feature-card"
-              >
+              <Link to={`/${category.topic}`} className="feature-card">
                 <div className="feature-icon-wrapper">
                   {iconMap[category.topic] || <FaCode />}
                 </div>

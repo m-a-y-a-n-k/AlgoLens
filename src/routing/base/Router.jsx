@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom"
 import { siteSuggestions } from "./routes"
 
 const Dashboard = lazy(() => import(`dashboard/index`))
+const CategoryPage = lazy(() => import(`dashboard/CategoryPage`))
 const NotFound = lazy(() => import(`./NotFound`))
 
 export function DynamicLoader(LazyComponent, props) {
@@ -33,6 +34,11 @@ function RouteSection() {
     <main className="content">
       <Switch>
         <Route exact path={`/`} render={() => DynamicLoader(Dashboard)} />
+        <Route
+          exact
+          path={`/:category`}
+          render={() => DynamicLoader(CategoryPage)}
+        />
         {siteSuggestions.map((site, index) => {
           const { route, path } = site
           const Component = lazy(() => import(`../${path}/index.jsx`))
