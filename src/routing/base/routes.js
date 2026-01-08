@@ -203,6 +203,14 @@ const pages = [
         topic: "SimplePendulum",
         label: "Simple Pendulum ⏱️",
       },
+      {
+        topic: "ElasticCollisions",
+        label: "Elastic Collisions 🎱",
+      },
+      {
+        topic: "FluidRipple",
+        label: "Fluid Ripple Simulation 🌊",
+      },
     ],
   },
   {
@@ -232,6 +240,18 @@ const pages = [
       {
         topic: "PythagorasTheorem",
         label: "Pythagoras Theorem 📐",
+      },
+      {
+        topic: "BezierCurves",
+        label: "Bezier Curves ➰",
+      },
+      {
+        topic: "FourierSeries",
+        label: "Fourier Series 📉",
+      },
+      {
+        topic: "FractalTrees",
+        label: "Fractal Trees 🌳",
       },
     ],
   },
