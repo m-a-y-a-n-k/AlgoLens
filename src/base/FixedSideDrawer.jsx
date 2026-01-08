@@ -10,6 +10,7 @@ import {
   FaGamepad,
   FaChevronRight,
   FaDesktop,
+  FaNetworkWired,
 } from "react-icons/fa"
 import "./SideDrawer.css"
 
@@ -20,6 +21,7 @@ const iconMap = {
   math: <FaCalculator />,
   games: <FaGamepad />,
   os: <FaDesktop />,
+  networking: <FaNetworkWired />,
 }
 
 const cleanLabel = (label) => {

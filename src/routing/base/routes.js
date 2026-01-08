@@ -299,6 +299,28 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "networking",
+    label: "Computer Networking 🌐",
+    pages: [
+      {
+        topic: "OSIModel",
+        label: "OSI Model Explorer  camadas",
+      },
+      {
+        topic: "TCPHandshake",
+        label: "TCP 3-Way Handshake 🤝",
+      },
+      {
+        topic: "DNSLookup",
+        label: "DNS Lookup Visualization 🔍",
+      },
+      {
+        topic: "IPv4Subnetting",
+        label: "IPv4 Subnetting 🔢",
+      },
+    ],
+  },
 ]
 const dynamicRoute = (categoryTopic, subjectTopic) => {
   return `${categoryTopic}/${subjectTopic}`
