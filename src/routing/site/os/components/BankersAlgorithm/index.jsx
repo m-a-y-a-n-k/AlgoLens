@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "./BankersAlgorithm.css"
 
 const BankersAlgorithm = () => {
-  const [allocation, setAllocation] = useState([
+  const [allocation] = useState([
     [0, 1, 0],
     [2, 0, 0],
     [3, 0, 2],
@@ -10,7 +10,7 @@ const BankersAlgorithm = () => {
     [0, 0, 2],
   ])
 
-  const [max, setMax] = useState([
+  const [max] = useState([
     [7, 5, 3],
     [3, 2, 2],
     [9, 0, 2],
@@ -18,7 +18,7 @@ const BankersAlgorithm = () => {
     [4, 3, 3],
   ])
 
-  const [available, setAvailable] = useState([3, 3, 2])
+  const [available] = useState([3, 3, 2])
   const [result, setResult] = useState(null)
   const [steps, setSteps] = useState([])
 
@@ -78,7 +78,9 @@ const BankersAlgorithm = () => {
   return (
     <div className="os-visualizer container py-4">
       <div className="text-center mb-5">
-        <h2 className="display-6 fw-bold text-primary">Banker's Algorithm</h2>
+        <h2 className="display-6 fw-bold text-primary">
+          Banker&apos;s Algorithm
+        </h2>
         <p className="text-muted">
           A deadlock avoidance algorithm that simulates resource allocation to
           ensure system safety.

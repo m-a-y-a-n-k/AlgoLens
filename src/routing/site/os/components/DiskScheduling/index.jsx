@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import "./DiskScheduling.css"
 
 const DiskScheduling = () => {
@@ -6,7 +6,7 @@ const DiskScheduling = () => {
     "98, 183, 37, 122, 14, 124, 65, 67"
   )
   const [initialHead, setInitialHead] = useState(53)
-  const [diskSize, setDiskSize] = useState(200)
+  const [diskSize] = useState(200)
   const [results, setResults] = useState([])
   const [totalMovement, setTotalMovement] = useState(0)
 

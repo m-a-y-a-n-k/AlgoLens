@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import "./MemoryAllocation.css"
 
 const MemoryAllocation = () => {
-  const [initialBlocks, setInitialBlocks] = useState([
+  const [initialBlocks] = useState([
     { id: 1, size: 100, originalSize: 100, process: null },
     { id: 2, size: 500, originalSize: 500, process: null },
     { id: 3, size: 200, originalSize: 200, process: null },
@@ -12,21 +12,20 @@ const MemoryAllocation = () => {
   ])
 
   const [memoryBlocks, setMemoryBlocks] = useState([...initialBlocks])
-  const [processes, setProcesses] = useState([
+  const [processes] = useState([
     { id: "A", size: 212 },
     { id: "B", size: 417 },
     { id: "C", size: 112 },
     { id: "D", size: 426 },
   ])
 
-  const [allocationResults, setAllocationResults] = useState([])
   const [logs, setLogs] = useState([])
 
   const reset = () => {
     setMemoryBlocks(
       initialBlocks.map((b) => ({ ...b, process: null, size: b.originalSize }))
     )
-    setAllocationResults([])
+
     setLogs(["System reset. Ready for allocation."])
   }
 
@@ -65,7 +64,7 @@ const MemoryAllocation = () => {
     })
 
     setMemoryBlocks(currentBlocks)
-    setAllocationResults(results)
+
     setLogs(newLogs)
   }
 
@@ -110,7 +109,7 @@ const MemoryAllocation = () => {
     })
 
     setMemoryBlocks(currentBlocks)
-    setAllocationResults(results)
+
     setLogs(newLogs)
   }
 

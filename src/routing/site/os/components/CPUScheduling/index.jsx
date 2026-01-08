@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./CPUScheduling.css"
 
 const CPUScheduling = () => {
-  const [processes, setProcesses] = useState([
+  const [processes] = useState([
     { id: 1, arrival: 0, burst: 4, color: "#FF6B6B" },
     { id: 2, arrival: 1, burst: 3, color: "#4ECDC4" },
     { id: 3, arrival: 2, burst: 1, color: "#45B7D1" },
