@@ -188,6 +188,14 @@ const pages = [
         label: "Planetary Motion : Solar System 🌍",
       },
       {
+        topic: "DoublePendulum",
+        label: "Double Pendulum (Chaos) 🪀",
+      },
+      {
+        topic: "WaveInterference",
+        label: "Wave Interference Pattern 🌈",
+      },
+      {
         topic: "Projectile",
         label: "Projectile Motion 💥",
       },
