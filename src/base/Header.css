@@ -31,19 +31,75 @@
 
 .icon-sec {
   padding-left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.home-button {
-  color: inherit;
+.home-button,
+.profile-button {
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
-  transition: color 0.2s ease-in-out;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: transparent;
 }
 
-.home-button:hover {
+.home-button:hover,
+.profile-button:hover {
   color: white;
+  transform: scale(1.15);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.home-button:active,
+.profile-button:active {
+  transform: scale(1.05);
 }
 
 .home-button.disabled {
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.profile-button {
+  position: relative;
+}
+
+.favorites-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.favorites-badge svg {
+  font-size: 0.6rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }

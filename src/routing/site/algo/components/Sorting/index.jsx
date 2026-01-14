@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react"
 import { FaCode } from "react-icons/fa"
 import CustomizedDialogs from "common/components/LightBox"
 import PseudocodeViewer from "common/components/PseudocodeViewer"
+import FavoriteButton from "common/components/FavoriteButton"
+import useTrackView from "common/hooks/useTrackView"
 import "./SortingVisualizer.css"
 
 const SortingVisualizer = () => {
@@ -10,6 +12,14 @@ const SortingVisualizer = () => {
   const [isSorting, setIsSorting] = useState(false)
   const [speed, setSpeed] = useState(50)
   const [showPseudocode, setShowPseudocode] = useState(false)
+
+  // Track this view in user's history
+  useTrackView({
+    id: "algo-sorting",
+    label: "Sorting Algorithms",
+    category: "Algorithms",
+    route: "/algo/Sorting",
+  })
 
   const pseudocode = [
     { text: "// BUBBLE SORT", indent: 0 },
@@ -165,6 +175,14 @@ const SortingVisualizer = () => {
         >
           <FaCode /> Pseudocode
         </button>
+        <FavoriteButton
+          topic={{
+            id: "algo-sorting",
+            label: "Sorting Algorithms",
+            category: "Algorithms",
+            route: "/algo/Sorting",
+          }}
+        />
         <button
           onClick={() => generateRandomArray(arraySize)}
           disabled={isSorting}

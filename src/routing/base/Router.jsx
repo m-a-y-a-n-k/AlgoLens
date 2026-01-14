@@ -4,6 +4,7 @@ import { siteSuggestions } from "./routes"
 
 const Dashboard = lazy(() => import(`dashboard/index`))
 const CategoryPage = lazy(() => import(`dashboard/CategoryPage`))
+const ProfilePage = lazy(() => import(`dashboard/ProfilePage`))
 const NotFound = lazy(() => import(`./NotFound`))
 
 export function DynamicLoader(LazyComponent, props) {
@@ -34,6 +35,11 @@ function RouteSection() {
     <main className="content">
       <Switch>
         <Route exact path={`/`} render={() => DynamicLoader(Dashboard)} />
+        <Route
+          exact
+          path={`/profile`}
+          render={() => DynamicLoader(ProfilePage)}
+        />
         <Route
           exact
           path={`/:category`}

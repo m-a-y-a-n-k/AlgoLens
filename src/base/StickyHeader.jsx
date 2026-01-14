@@ -1,14 +1,17 @@
 import React, { lazy } from "react"
 import { siteSuggestions } from "routing/base/routes"
 import { DynamicLoader } from "routing/base/Router"
-import constants from "common/helpers/constants"
+import { useUser } from "common/context/UserContext"
 import { AiFillHome } from "react-icons/ai"
+import { FaUser, FaStar } from "react-icons/fa"
 import "./Header.css"
 
 const Search = lazy(() => import(`common/components/SearchSuggestions`))
 const FixedSideDrawer = lazy(() => import(`base/FixedSideDrawer`))
 
 export default function PrimarySearchAppBar() {
+  const { favorites } = useUser()
+
   return (
     <header className="app-bar">
       <nav className="toolbar">
@@ -25,14 +28,29 @@ export default function PrimarySearchAppBar() {
         <div className="icon-sec">
           <a
             aria-label="home page"
-            href={`/${constants.BRAND_NAME}`}
+            href="#/"
             className={`home-button ${
-              window.location.pathname === `/${constants.BRAND_NAME}`
+              window.location.hash === "#/" || window.location.hash === ""
                 ? "disabled"
                 : ""
             }`}
+            title="Home"
           >
             <AiFillHome />
+          </a>
+          <a
+            aria-label="profile page"
+            href="#/profile"
+            className="profile-button"
+            title="My Profile"
+          >
+            <FaUser />
+            {favorites.length > 0 && (
+              <span className="favorites-badge">
+                <FaStar />
+                {favorites.length}
+              </span>
+            )}
           </a>
         </div>
       </nav>

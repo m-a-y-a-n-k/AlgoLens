@@ -2,6 +2,7 @@ import React from "react"
 import SiteFooter from "./StickyFooter"
 import SiteHeader from "./StickyHeader"
 import Router from "routing/base/Router"
+import { UserProvider } from "common/context/UserContext"
 import "./App.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import ErrorBoundary from "common/components/ErrorBoundary"
@@ -26,29 +27,31 @@ const theme = {
 function App() {
   return (
     <ErrorBoundary>
-      <div
-        className="App"
-        style={{
-          "--primary-light": theme.palette.primary.light,
-          "--primary-main": theme.palette.primary.main,
-          "--primary-dark": theme.palette.primary.dark,
-          "--primary-contrastText": theme.palette.primary.contrastText,
-          "--secondary-light": theme.palette.secondary.light,
-          "--secondary-main": theme.palette.secondary.main,
-          "--secondary-dark": theme.palette.secondary.dark,
-          "--secondary-contrastText": theme.palette.secondary.contrastText,
-        }}
-      >
-        <SiteHeader />
+      <UserProvider>
         <div
+          className="App"
           style={{
-            marginTop: 70,
+            "--primary-light": theme.palette.primary.light,
+            "--primary-main": theme.palette.primary.main,
+            "--primary-dark": theme.palette.primary.dark,
+            "--primary-contrastText": theme.palette.primary.contrastText,
+            "--secondary-light": theme.palette.secondary.light,
+            "--secondary-main": theme.palette.secondary.main,
+            "--secondary-dark": theme.palette.secondary.dark,
+            "--secondary-contrastText": theme.palette.secondary.contrastText,
           }}
         >
-          <Router />
+          <SiteHeader />
+          <div
+            style={{
+              marginTop: 70,
+            }}
+          >
+            <Router />
+          </div>
+          <SiteFooter />
         </div>
-        <SiteFooter />
-      </div>
+      </UserProvider>
     </ErrorBoundary>
   )
 }
