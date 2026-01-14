@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+import { FaCode } from "react-icons/fa"
+import CustomizedDialogs from "common/components/LightBox"
+import PseudocodeViewer from "common/components/PseudocodeViewer"
 import "./LinearRegression.css"
 
 const LinearRegression = () => {
@@ -10,9 +13,55 @@ const LinearRegression = () => {
   const [intercept, setIntercept] = useState(0)
   const [learningRate, setLearningRate] = useState(0.01)
   const [loss, setLoss] = useState(0)
+  const [showPseudocode, setShowPseudocode] = useState(false)
 
   const canvasWidth = 600
   const canvasHeight = 400
+
+  const pseudocode = [
+    { text: "// Linear Regression using Gradient Descent", indent: 0 },
+    {
+      text: "function linearRegression(points, learningRate, epochs):",
+      indent: 0,
+    },
+    { text: "// Initialize parameters", indent: 1 },
+    { text: "m = 0  // slope", indent: 1 },
+    { text: "b = 0  // intercept", indent: 1 },
+    { text: "n = length(points)", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "for epoch from 1 to epochs:", indent: 1 },
+    { text: "mGradient = 0", indent: 2 },
+    { text: "bGradient = 0", indent: 2 },
+    { text: "loss = 0", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "// Calculate gradients for all points", indent: 2 },
+    { text: "for each point in points:", indent: 2 },
+    { text: "prediction = m * point.x + b", indent: 3 },
+    { text: "error = prediction - point.y", indent: 3 },
+    { text: "mGradient += (2/n) * error * point.x", indent: 3 },
+    { text: "bGradient += (2/n) * error", indent: 3 },
+    { text: "loss += error²", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "// Update parameters", indent: 2 },
+    { text: "m = m - learningRate * mGradient", indent: 2 },
+    { text: "b = b - learningRate * bGradient", indent: 2 },
+    { text: "loss = loss / n", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "return (m, b)", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Closed Form Solution (Normal Equation)", indent: 0 },
+    { text: "function linearRegressionClosedForm(points):", indent: 0 },
+    { text: "n = length(points)", indent: 1 },
+    { text: "sumX = sum of all x values", indent: 1 },
+    { text: "sumY = sum of all y values", indent: 1 },
+    { text: "sumXY = sum of (x * y) for all points", indent: 1 },
+    { text: "sumX2 = sum of (x²) for all points", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX²)", indent: 1 },
+    { text: "b = (sumY - m * sumX) / n", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "return (m, b)", indent: 1 },
+  ]
 
   const handleCanvasClick = (e) => {
     if (isTraining) return
@@ -112,6 +161,13 @@ const LinearRegression = () => {
       <div className="lr-header">
         <h1>Linear Regression Visualization 📈</h1>
         <p>Click on the canvas to add points, then train the model!</p>
+        <button
+          className="pseudocode-button"
+          onClick={() => setShowPseudocode(true)}
+          title="View Pseudocode"
+        >
+          <FaCode /> View Pseudocode
+        </button>
       </div>
 
       <div className="lr-content">
@@ -289,6 +345,22 @@ const LinearRegression = () => {
           </li>
         </ul>
       </div>
+
+      <CustomizedDialogs
+        dialogConfig={{
+          open: showPseudocode,
+          title: "Linear Regression - Pseudocode",
+          contentJSX: (
+            <PseudocodeViewer
+              pseudocode={pseudocode}
+              title="Linear Regression Algorithm"
+            />
+          ),
+          close: {
+            callback: () => setShowPseudocode(false),
+          },
+        }}
+      />
     </div>
   )
 }

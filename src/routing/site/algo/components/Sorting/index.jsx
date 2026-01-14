@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react"
+import { FaCode } from "react-icons/fa"
+import CustomizedDialogs from "common/components/LightBox"
+import PseudocodeViewer from "common/components/PseudocodeViewer"
 import "./SortingVisualizer.css"
 
 const SortingVisualizer = () => {
@@ -6,6 +9,55 @@ const SortingVisualizer = () => {
   const [arraySize, setArraySize] = useState(50)
   const [isSorting, setIsSorting] = useState(false)
   const [speed, setSpeed] = useState(50)
+  const [showPseudocode, setShowPseudocode] = useState(false)
+
+  const pseudocode = [
+    { text: "// BUBBLE SORT", indent: 0 },
+    { text: "function bubbleSort(array):", indent: 0 },
+    { text: "n = length(array)", indent: 1 },
+    { text: "for i from 0 to n-1:", indent: 1 },
+    { text: "for j from 0 to n-i-2:", indent: 2 },
+    { text: "if array[j] > array[j+1]:", indent: 3 },
+    { text: "swap(array[j], array[j+1])", indent: 4 },
+    { text: "", indent: 0 },
+    { text: "// QUICK SORT", indent: 0 },
+    { text: "function quickSort(array, low, high):", indent: 0 },
+    { text: "if low < high:", indent: 1 },
+    { text: "pi = partition(array, low, high)", indent: 2 },
+    { text: "quickSort(array, low, pi-1)", indent: 2 },
+    { text: "quickSort(array, pi+1, high)", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "function partition(array, low, high):", indent: 0 },
+    { text: "pivot = array[high]", indent: 1 },
+    { text: "i = low - 1", indent: 1 },
+    { text: "for j from low to high-1:", indent: 1 },
+    { text: "if array[j] < pivot:", indent: 2 },
+    { text: "i++", indent: 3 },
+    { text: "swap(array[i], array[j])", indent: 3 },
+    { text: "swap(array[i+1], array[high])", indent: 1 },
+    { text: "return i+1", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// MERGE SORT", indent: 0 },
+    { text: "function mergeSort(array):", indent: 0 },
+    { text: "if length(array) <= 1:", indent: 1 },
+    { text: "return array", indent: 2 },
+    { text: "mid = length(array) / 2", indent: 1 },
+    { text: "left = mergeSort(array[0:mid])", indent: 1 },
+    { text: "right = mergeSort(array[mid:end])", indent: 1 },
+    { text: "return merge(left, right)", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "function merge(left, right):", indent: 0 },
+    { text: "result = []", indent: 1 },
+    { text: "while left not empty AND right not empty:", indent: 1 },
+    { text: "if left[0] < right[0]:", indent: 2 },
+    { text: "result.append(left[0])", indent: 3 },
+    { text: "remove left[0]", indent: 3 },
+    { text: "else:", indent: 2 },
+    { text: "result.append(right[0])", indent: 3 },
+    { text: "remove right[0]", indent: 3 },
+    { text: "result.append(remaining of left and right)", indent: 1 },
+    { text: "return result", indent: 1 },
+  ]
 
   const isSorted = useMemo(() => {
     for (let i = 1; i < array.length; ++i) {
@@ -107,6 +159,13 @@ const SortingVisualizer = () => {
     <div className="sorting-visualizer">
       <div className="controls">
         <button
+          className="pseudocode-btn"
+          onClick={() => setShowPseudocode(true)}
+          title="View Pseudocode"
+        >
+          <FaCode /> Pseudocode
+        </button>
+        <button
           onClick={() => generateRandomArray(arraySize)}
           disabled={isSorting}
         >
@@ -167,6 +226,22 @@ const SortingVisualizer = () => {
           ></div>
         ))}
       </div>
+
+      <CustomizedDialogs
+        dialogConfig={{
+          open: showPseudocode,
+          title: "Sorting Algorithms - Pseudocode",
+          contentJSX: (
+            <PseudocodeViewer
+              pseudocode={pseudocode}
+              title="Sorting Algorithms (Bubble, Quick, Merge)"
+            />
+          ),
+          close: {
+            callback: () => setShowPseudocode(false),
+          },
+        }}
+      />
     </div>
   )
 }

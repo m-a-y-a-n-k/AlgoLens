@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
+import { FaCode } from "react-icons/fa"
+import CustomizedDialogs from "common/components/LightBox"
+import PseudocodeViewer from "common/components/PseudocodeViewer"
 import "./NeuralNetwork.css"
 
 const NeuralNetwork = () => {
@@ -9,9 +12,70 @@ const NeuralNetwork = () => {
   const [isAnimating, setIsAnimating] = useState(false)
   const [animationSpeed, setAnimationSpeed] = useState(500)
   const [inputValues, setInputValues] = useState([0.5, 0.8, 0.3])
+  const [showPseudocode, setShowPseudocode] = useState(false)
 
   const canvasWidth = 800
   const canvasHeight = 500
+
+  const pseudocode = [
+    { text: "// Neural Network Forward Propagation", indent: 0 },
+    { text: "function forwardPropagation(network, input):", indent: 0 },
+    { text: "// Initialize activations for each layer", indent: 1 },
+    { text: "activations = []", indent: 1 },
+    { text: "activations[0] = input  // Input layer", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Propagate through each layer", indent: 1 },
+    { text: "for layer from 0 to numberOfLayers-2:", indent: 1 },
+    { text: "currentLayer = activations[layer]", indent: 2 },
+    { text: "nextLayerSize = network.layers[layer+1].size", indent: 2 },
+    { text: "nextLayer = []", indent: 2 },
+    { text: "", indent: 0 },
+    {
+      text: "// Calculate activation for each neuron in next layer",
+      indent: 2,
+    },
+    { text: "for neuron from 0 to nextLayerSize-1:", indent: 2 },
+    { text: "sum = 0", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "// Weighted sum of inputs", indent: 3 },
+    { text: "for prevNeuron from 0 to currentLayer.size-1:", indent: 3 },
+    { text: "weight = network.weights[layer][prevNeuron][neuron]", indent: 4 },
+    { text: "sum += currentLayer[prevNeuron] * weight", indent: 4 },
+    { text: "", indent: 0 },
+    { text: "// Apply activation function (sigmoid)", indent: 3 },
+    { text: "nextLayer[neuron] = sigmoid(sum)", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "activations[layer+1] = nextLayer", indent: 2 },
+    { text: "", indent: 0 },
+    {
+      text: "return activations[numberOfLayers-1]  // Output layer",
+      indent: 1,
+    },
+    { text: "", indent: 0 },
+    { text: "// Sigmoid activation function", indent: 0 },
+    { text: "function sigmoid(x):", indent: 0 },
+    { text: "return 1 / (1 + e^(-x))", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Initialize weights randomly", indent: 0 },
+    { text: "function initializeWeights(layers):", indent: 0 },
+    { text: "weights = []", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "for layer from 0 to numberOfLayers-2:", indent: 1 },
+    { text: "layerWeights = []", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "for neuron from 0 to layers[layer].size-1:", indent: 2 },
+    { text: "neuronWeights = []", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "for nextNeuron from 0 to layers[layer+1].size-1:", indent: 3 },
+    { text: "// Random weight between -1 and 1", indent: 4 },
+    { text: "neuronWeights.push(random(-1, 1))", indent: 4 },
+    { text: "", indent: 0 },
+    { text: "layerWeights.push(neuronWeights)", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "weights.push(layerWeights)", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "return weights", indent: 1 },
+  ]
 
   useEffect(() => {
     initializeNetwork()
@@ -218,6 +282,13 @@ const NeuralNetwork = () => {
         <p>
           Customize the architecture and watch forward propagation in action!
         </p>
+        <button
+          className="pseudocode-button"
+          onClick={() => setShowPseudocode(true)}
+          title="View Pseudocode"
+        >
+          <FaCode /> View Pseudocode
+        </button>
       </div>
 
       <div className="nn-content">
@@ -381,6 +452,22 @@ const NeuralNetwork = () => {
           weights.
         </p>
       </div>
+
+      <CustomizedDialogs
+        dialogConfig={{
+          open: showPseudocode,
+          title: "Neural Network - Pseudocode",
+          contentJSX: (
+            <PseudocodeViewer
+              pseudocode={pseudocode}
+              title="Neural Network Forward Propagation"
+            />
+          ),
+          close: {
+            callback: () => setShowPseudocode(false),
+          },
+        }}
+      />
     </div>
   )
 }

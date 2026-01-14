@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
+import { FaCode } from "react-icons/fa"
+import CustomizedDialogs from "common/components/LightBox"
+import PseudocodeViewer from "common/components/PseudocodeViewer"
 import "./GradientDescent.css"
 
 const GradientDescent = () => {
@@ -11,10 +14,61 @@ const GradientDescent = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [iteration, setIteration] = useState(0)
   const [converged, setConverged] = useState(false)
+  const [showPseudocode, setShowPseudocode] = useState(false)
 
   const canvasWidth = 700
   const canvasHeight = 500
   const padding = 50
+
+  const pseudocode = [
+    { text: "// Gradient Descent Optimization Algorithm", indent: 0 },
+    {
+      text: "function gradientDescent(f, df, x0, learningRate, maxIter):",
+      indent: 0,
+    },
+    { text: "// f: objective function to minimize", indent: 1 },
+    { text: "// df: derivative (gradient) of f", indent: 1 },
+    { text: "// x0: initial starting point", indent: 1 },
+    { text: "// learningRate: step size (alpha)", indent: 1 },
+    { text: "// maxIter: maximum iterations", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "x = x0  // Current position", indent: 1 },
+    { text: "iteration = 0", indent: 1 },
+    { text: "converged = false", indent: 1 },
+    { text: "convergenceThreshold = 0.001", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "while iteration < maxIter AND not converged:", indent: 1 },
+    { text: "// Step 1: Calculate gradient at current point", indent: 2 },
+    { text: "gradient = df(x)", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "// Step 2: Check for convergence", indent: 2 },
+    { text: "if abs(gradient) < convergenceThreshold:", indent: 2 },
+    { text: "converged = true", indent: 3 },
+    { text: "break", indent: 3 },
+    { text: "", indent: 0 },
+    {
+      text: "// Step 3: Update position (move opposite to gradient)",
+      indent: 2,
+    },
+    { text: "x = x - learningRate * gradient", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "// Step 4: Increment iteration counter", indent: 2 },
+    { text: "iteration++", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "// Return optimized value and function value", indent: 1 },
+    { text: "return x, f(x)", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Key Concepts:", indent: 0 },
+    { text: "// - Gradient points uphill (steepest ascent)", indent: 0 },
+    { text: "// - We move opposite (-gradient) to go downhill", indent: 0 },
+    { text: "// - Learning rate controls step size", indent: 0 },
+    { text: "//   * Too small: slow convergence", indent: 0 },
+    { text: "//   * Too large: overshooting, divergence", indent: 0 },
+    {
+      text: "// - Algorithm stops when gradient ≈ 0 (local minimum)",
+      indent: 0,
+    },
+  ]
 
   useEffect(() => {
     drawFunction()
@@ -264,6 +318,13 @@ const GradientDescent = () => {
       <div className="gd-header">
         <h1>Gradient Descent Visualization 📉</h1>
         <p>Watch how gradient descent finds the minimum of a function!</p>
+        <button
+          className="pseudocode-button"
+          onClick={() => setShowPseudocode(true)}
+          title="View Pseudocode"
+        >
+          <FaCode /> View Pseudocode
+        </button>
       </div>
 
       <div className="gd-content">
@@ -406,6 +467,22 @@ const GradientDescent = () => {
           position!
         </p>
       </div>
+
+      <CustomizedDialogs
+        dialogConfig={{
+          open: showPseudocode,
+          title: "Gradient Descent - Pseudocode",
+          contentJSX: (
+            <PseudocodeViewer
+              pseudocode={pseudocode}
+              title="Gradient Descent Algorithm"
+            />
+          ),
+          close: {
+            callback: () => setShowPseudocode(false),
+          },
+        }}
+      />
     </div>
   )
 }

@@ -15,8 +15,11 @@ export default function CustomizedDialogs({ dialogConfig }) {
   }
 
   const dialogueJSX = dialogConfig && (
-    <div className={`dialog-backdrop ${dialogConfig.open ? "open" : ""}`}>
-      <div className="dialog">
+    <div
+      className={`dialog-backdrop ${dialogConfig.open ? "open" : ""}`}
+      onClick={handleClose}
+    >
+      <div className="dialog" onClick={(e) => e.stopPropagation()}>
         <div className="dialog-header">
           <h6 className="dialog-title">{dialogConfig.title}</h6>
           {dialogConfig.close && (
@@ -30,40 +33,42 @@ export default function CustomizedDialogs({ dialogConfig }) {
           )}
         </div>
         <div className="dialog-content">{dialogConfig.contentJSX}</div>
-        <div className="dialog-actions">
-          {dialogConfig.accept && (
-            <button
-              className="dialog-button accept"
-              onClick={() => {
-                if (dialogConfig.accept.callback) {
-                  dialogConfig.accept.callback(() => {
+        {(dialogConfig.accept || dialogConfig.reject) && (
+          <div className="dialog-actions">
+            {dialogConfig.accept && (
+              <button
+                className="dialog-button accept"
+                onClick={() => {
+                  if (dialogConfig.accept.callback) {
+                    dialogConfig.accept.callback(() => {
+                      handleClose()
+                    })
+                  } else {
                     handleClose()
-                  })
-                } else {
-                  handleClose()
-                }
-              }}
-            >
-              {dialogConfig.accept.text}
-            </button>
-          )}
-          {dialogConfig.reject && (
-            <button
-              className="dialog-button reject"
-              onClick={() => {
-                if (dialogConfig.reject.callback) {
-                  dialogConfig.reject.callback(() => {
+                  }
+                }}
+              >
+                {dialogConfig.accept.text}
+              </button>
+            )}
+            {dialogConfig.reject && (
+              <button
+                className="dialog-button reject"
+                onClick={() => {
+                  if (dialogConfig.reject.callback) {
+                    dialogConfig.reject.callback(() => {
+                      handleClose()
+                    })
+                  } else {
                     handleClose()
-                  })
-                } else {
-                  handleClose()
-                }
-              }}
-            >
-              {dialogConfig.reject.text}
-            </button>
-          )}
-        </div>
+                  }
+                }}
+              >
+                {dialogConfig.reject.text}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

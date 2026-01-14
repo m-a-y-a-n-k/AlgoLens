@@ -54,3 +54,19 @@
 .array-bar:hover {
   background-color: #007acc;
 }
+
+.pseudocode-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+}
+
+.pseudocode-btn:hover {
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4) !important;
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}

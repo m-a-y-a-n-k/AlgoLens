@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+import { FaCode } from "react-icons/fa"
+import CustomizedDialogs from "common/components/LightBox"
+import PseudocodeViewer from "common/components/PseudocodeViewer"
 import "./KMeansClustering.css"
 
 const KMeansClustering = () => {
@@ -9,9 +12,67 @@ const KMeansClustering = () => {
   const [iteration, setIteration] = useState(0)
   const [converged, setConverged] = useState(false)
   const [speed, setSpeed] = useState(500)
+  const [showPseudocode, setShowPseudocode] = useState(false)
 
   const canvasWidth = 600
   const canvasHeight = 400
+
+  const pseudocode = [
+    { text: "// K-Means Clustering Algorithm", indent: 0 },
+    { text: "function kMeans(points, K, maxIterations):", indent: 0 },
+    { text: "// Step 1: Initialize centroids randomly", indent: 1 },
+    { text: "centroids = selectRandomPoints(points, K)", indent: 1 },
+    { text: "iteration = 0", indent: 1 },
+    { text: "hasConverged = false", indent: 1 },
+    { text: "", indent: 0 },
+    {
+      text: "while iteration < maxIterations AND not hasConverged:",
+      indent: 1,
+    },
+    {
+      text: "// Step 2: Assignment - Assign each point to nearest centroid",
+      indent: 2,
+    },
+    { text: "for each point in points:", indent: 2 },
+    { text: "minDistance = infinity", indent: 3 },
+    { text: "closestCentroid = 0", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "for i from 0 to K-1:", indent: 3 },
+    { text: "dist = euclideanDistance(point, centroids[i])", indent: 4 },
+    { text: "if dist < minDistance:", indent: 4 },
+    { text: "minDistance = dist", indent: 5 },
+    { text: "closestCentroid = i", indent: 5 },
+    { text: "", indent: 0 },
+    { text: "point.cluster = closestCentroid", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "// Step 3: Update - Recalculate centroid positions", indent: 2 },
+    { text: "oldCentroids = copy(centroids)", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "for i from 0 to K-1:", indent: 2 },
+    { text: "clusterPoints = points where cluster == i", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "if clusterPoints is not empty:", indent: 3 },
+    { text: "centroids[i].x = mean(clusterPoints.x)", indent: 4 },
+    { text: "centroids[i].y = mean(clusterPoints.y)", indent: 4 },
+    { text: "", indent: 0 },
+    { text: "// Step 4: Check convergence", indent: 2 },
+    { text: "hasConverged = true", indent: 2 },
+    { text: "for i from 0 to K-1:", indent: 2 },
+    {
+      text: "if distance(centroids[i], oldCentroids[i]) > threshold:",
+      indent: 3,
+    },
+    { text: "hasConverged = false", indent: 4 },
+    { text: "break", indent: 4 },
+    { text: "", indent: 0 },
+    { text: "iteration++", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "return centroids, point assignments", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Helper function", indent: 0 },
+    { text: "function euclideanDistance(p1, p2):", indent: 0 },
+    { text: "return sqrt((p1.x - p2.x)² + (p1.y - p2.y)²)", indent: 1 },
+  ]
 
   const colors = [
     "#FF6B6B",
@@ -187,6 +248,13 @@ const KMeansClustering = () => {
       <div className="kmeans-header">
         <h1>K-Means Clustering Visualization 🎯</h1>
         <p>Click to add points or generate random clusters!</p>
+        <button
+          className="pseudocode-button"
+          onClick={() => setShowPseudocode(true)}
+          title="View Pseudocode"
+        >
+          <FaCode /> View Pseudocode
+        </button>
       </div>
 
       <div className="kmeans-content">
@@ -396,6 +464,22 @@ const KMeansClustering = () => {
           longer move significantly between iterations.
         </p>
       </div>
+
+      <CustomizedDialogs
+        dialogConfig={{
+          open: showPseudocode,
+          title: "K-Means Clustering - Pseudocode",
+          contentJSX: (
+            <PseudocodeViewer
+              pseudocode={pseudocode}
+              title="K-Means Clustering Algorithm"
+            />
+          ),
+          close: {
+            callback: () => setShowPseudocode(false),
+          },
+        }}
+      />
     </div>
   )
 }

@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+import { FaCode } from "react-icons/fa"
+import CustomizedDialogs from "common/components/LightBox"
+import PseudocodeViewer from "common/components/PseudocodeViewer"
 import "./KNearestNeighbors.css"
 
 const KNearestNeighbors = () => {
@@ -9,9 +12,65 @@ const KNearestNeighbors = () => {
   const [showVoronoi, setShowVoronoi] = useState(false)
   const [prediction, setPrediction] = useState(null)
   const [neighbors, setNeighbors] = useState([])
+  const [showPseudocode, setShowPseudocode] = useState(false)
 
   const canvasWidth = 600
   const canvasHeight = 400
+
+  const pseudocode = [
+    { text: "// K-Nearest Neighbors Classification Algorithm", indent: 0 },
+    { text: "function knnClassify(trainingData, testPoint, K):", indent: 0 },
+    { text: "// trainingData: array of labeled points", indent: 1 },
+    { text: "// testPoint: point to classify", indent: 1 },
+    { text: "// K: number of neighbors to consider", indent: 1 },
+    { text: "", indent: 0 },
+    {
+      text: "// Step 1: Calculate distances to all training points",
+      indent: 1,
+    },
+    { text: "distances = []", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "for each point in trainingData:", indent: 1 },
+    { text: "dist = euclideanDistance(testPoint, point)", indent: 2 },
+    { text: "distances.push({", indent: 2 },
+    { text: "point: point,", indent: 3 },
+    { text: "distance: dist,", indent: 3 },
+    { text: "class: point.class", indent: 3 },
+    { text: "})", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "// Step 2: Sort by distance (ascending)", indent: 1 },
+    { text: "sortedDistances = sort(distances, by: distance)", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Step 3: Select K nearest neighbors", indent: 1 },
+    { text: "kNearest = sortedDistances[0:K]", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Step 4: Count votes for each class", indent: 1 },
+    { text: "votes = {}  // Dictionary to count class votes", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "for each neighbor in kNearest:", indent: 1 },
+    { text: "classLabel = neighbor.class", indent: 2 },
+    { text: "if classLabel not in votes:", indent: 2 },
+    { text: "votes[classLabel] = 0", indent: 3 },
+    { text: "votes[classLabel]++", indent: 2 },
+    { text: "", indent: 0 },
+    { text: "// Step 5: Find class with maximum votes", indent: 1 },
+    { text: "maxVotes = 0", indent: 1 },
+    { text: "predictedClass = null", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "for each (class, count) in votes:", indent: 1 },
+    { text: "if count > maxVotes:", indent: 2 },
+    { text: "maxVotes = count", indent: 3 },
+    { text: "predictedClass = class", indent: 3 },
+    { text: "", indent: 0 },
+    { text: "return predictedClass", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Helper: Calculate Euclidean Distance", indent: 0 },
+    { text: "function euclideanDistance(p1, p2):", indent: 0 },
+    { text: "return sqrt((p1.x - p2.x)² + (p1.y - p2.y)²)", indent: 1 },
+    { text: "", indent: 0 },
+    { text: "// Note: For multi-dimensional data,", indent: 0 },
+    { text: "// sum over all dimensions: sqrt(Σ(p1[i] - p2[i])²)", indent: 0 },
+  ]
 
   const classes = [
     { id: 0, name: "Class A", color: "#FF6B6B" },
@@ -168,6 +227,13 @@ const KNearestNeighbors = () => {
         <p>
           Click to add training points. Shift+Click to classify a test point!
         </p>
+        <button
+          className="pseudocode-button"
+          onClick={() => setShowPseudocode(true)}
+          title="View Pseudocode"
+        >
+          <FaCode /> View Pseudocode
+        </button>
       </div>
 
       <div className="knn-content">
@@ -434,6 +500,22 @@ const KNearestNeighbors = () => {
           </li>
         </ul>
       </div>
+
+      <CustomizedDialogs
+        dialogConfig={{
+          open: showPseudocode,
+          title: "K-Nearest Neighbors - Pseudocode",
+          contentJSX: (
+            <PseudocodeViewer
+              pseudocode={pseudocode}
+              title="K-Nearest Neighbors Algorithm"
+            />
+          ),
+          close: {
+            callback: () => setShowPseudocode(false),
+          },
+        }}
+      />
     </div>
   )
 }
