@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkAlgoLens=self.webpackChunkAlgoLens||[]).push([[6856],{6856:(t,e,a)=>{a.d(e,{Yc6:()=>n});var s=a(9983);function n(t){return(0,s.w_)({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"}}]})(t)}}}]);
-//# sourceMappingURL=6856.52e7d386.chunk.js.map
