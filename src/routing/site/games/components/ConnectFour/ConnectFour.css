@@ -1,8 +1,8 @@
 .connect-four-container {
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: #e0e0e0;
+  background: radial-gradient(circle at 20% 10%, #0b1020 0%, #05060b 55%, #000 100%);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .connect-four-header {
@@ -30,12 +30,21 @@
 }
 
 .connect-four-content {
-  max-width: 800px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
 .game-controls {
   margin-bottom: 2rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
 }
 
 .mode-selector {
@@ -47,9 +56,9 @@
 
 .mode-btn {
   padding: 0.75rem 2rem;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
@@ -58,16 +67,17 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  backdrop-filter: blur(8px);
 }
 
 .mode-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
 }
 
 .mode-btn.active {
-  background: white;
-  color: #f5576c;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0b1020;
 }
 
 .scores {
@@ -78,21 +88,21 @@
 }
 
 .score-box {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.25);
   padding: 1rem 2rem;
   border-radius: 12px;
   text-align: center;
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .score-box.player {
-  border-color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.55);
+  background: rgba(255, 107, 107, 0.12);
 }
 
 .score-box.ai {
-  border-color: #ffd93d;
-  background: rgba(255, 217, 61, 0.2);
+  border-color: rgba(255, 217, 61, 0.6);
+  background: rgba(255, 217, 61, 0.12);
 }
 
 .score-box.ties {
@@ -159,8 +169,8 @@
 .reset-btn {
   width: 100%;
   padding: 1rem;
-  background: white;
-  color: #f5576c;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0b1020;
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
@@ -185,28 +195,83 @@
   margin-bottom: 2rem;
 }
 
+.connect-four-board-wrap {
+  width: min(92vw, 620px);
+}
+
+.column-select {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.col-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.col-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+}
+
+.preview-disc {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.25),
+    0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.preview-disc.player {
+  background: radial-gradient(circle at 30% 30%, #ff9aa0, #ff5a5f);
+}
+
+.preview-disc.ai {
+  background: radial-gradient(circle at 30% 30%, #fff1b8, #ffd23f);
+}
+
+.preview-disc.disabled {
+  filter: grayscale(0.35);
+}
+
 .connect-four-board {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
   gap: 10px;
-  background: #1a1a2e;
+  background: radial-gradient(circle at 30% 10%, #1b2a4a, #0b1020);
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
   aspect-ratio: 7/6;
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 .cell {
   aspect-ratio: 1;
-  background: #0f3460;
+  background: radial-gradient(circle at 30% 30%, #0c2b52, #071a33);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 3px solid #16213e;
+  border: 2px solid rgba(255, 255, 255, 0.10);
 }
 
 .cell.clickable {
@@ -215,9 +280,9 @@
 }
 
 .cell.clickable:hover {
-  background: #16468a;
+  background: radial-gradient(circle at 30% 30%, #123a6f, #0a2344);
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(78, 204, 163, 0.5);
+  box-shadow: 0 0 18px rgba(127, 231, 255, 0.25);
 }
 
 .disc {
@@ -245,11 +310,11 @@
 }
 
 .disc.player {
-  background: radial-gradient(circle at 30% 30%, #ff8787, #ff6b6b);
+  background: radial-gradient(circle at 30% 30%, #ff9aa0, #ff5a5f);
 }
 
 .disc.ai {
-  background: radial-gradient(circle at 30% 30%, #ffeb99, #ffd93d);
+  background: radial-gradient(circle at 30% 30%, #fff1b8, #ffd23f);
 }
 
 .disc.winning {
@@ -269,10 +334,10 @@
 }
 
 .instructions {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
   padding: 2rem;
   border-radius: 12px;
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .instructions h3 {
@@ -327,5 +392,13 @@
   .connect-four-board {
     padding: 10px;
     gap: 5px;
+  }
+
+  .column-select {
+    gap: 5px;
+  }
+
+  .col-btn {
+    padding: 8px 0;
   }
 }

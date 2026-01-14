@@ -60,6 +60,7 @@ const Slider = styled.input`
 
 const FractalTrees = () => {
   const canvasRef = useRef(null)
+  const sizeRef = useRef({ w: 0, h: 0, dpr: 1 })
   const [depth, setDepth] = useState(10)
   const [angle, setAngle] = useState(25)
   const [lengthRatio, setLengthRatio] = useState(0.75)
@@ -100,28 +101,43 @@ const FractalTrees = () => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    const { w, h } = sizeRef.current
+    if (!w || !h) return
+
+    // Clear in CSS pixels (we set transform in resize)
+    ctx.clearRect(0, 0, w, h)
     ctx.strokeStyle = "#4b2c20"
     ctx.lineCap = "round"
 
     ctx.save()
-    ctx.translate(canvas.width / 2, canvas.height - 20)
-    drawBranch(ctx, baseLength, depth * 0.8, angle)
+    ctx.translate(w / 2, h - 20)
+    // Keep tree visible across different canvas sizes
+    const scaledBase = Math.min(baseLength, h * 0.42)
+    drawBranch(ctx, scaledBase, depth * 0.8, angle)
     ctx.restore()
   }, [depth, angle, lengthRatio, baseLength, drawBranch])
 
   useEffect(() => {
     const canvas = canvasRef.current
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio
+    if (!canvas) return
+
+    const ro = new ResizeObserver(() => {
+      const rect = canvas.getBoundingClientRect()
+      const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2))
+
+      sizeRef.current = { w: rect.width, h: rect.height, dpr }
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr))
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr))
+
       const ctx = canvas.getContext("2d")
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+      // Reset transform (prevents cumulative scaling on resize)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       draw()
-    }
-    resize()
-    window.addEventListener("resize", resize)
-    return () => window.removeEventListener("resize", resize)
+    })
+
+    ro.observe(canvas)
+    return () => ro.disconnect()
   }, [draw])
 
   return (

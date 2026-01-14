@@ -234,6 +234,14 @@ const pages = [
         label: "3-D Equation Plotter 📈",
       },
       {
+        topic: "MonteCarloPi",
+        label: "Monte Carlo π Estimator 🎯",
+      },
+      {
+        topic: "TaylorSeries",
+        label: "Taylor Series Explorer ∑",
+      },
+      {
         topic: "AdvancedCalculator",
         label: "Advanced Calculator 🔬",
       },

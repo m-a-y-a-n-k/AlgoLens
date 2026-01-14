@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { FaRedo, FaUser, FaRobot } from "react-icons/fa"
 import FavoriteButton from "common/components/FavoriteButton"
@@ -11,18 +11,34 @@ const EMPTY = 0
 const PLAYER = 1
 const AI = 2
 
+const getEmptyBoard = () =>
+  Array(ROWS)
+    .fill()
+    .map(() => Array(COLS).fill(EMPTY))
+
+const getDropRow = (board, col) => {
+  for (let row = ROWS - 1; row >= 0; row--) {
+    if (board[row][col] === EMPTY) return row
+  }
+  return -1
+}
+
 const ConnectFour = () => {
-  const [board, setBoard] = useState(
-    Array(ROWS)
-      .fill()
-      .map(() => Array(COLS).fill(EMPTY))
-  )
+  const [board, setBoard] = useState(getEmptyBoard)
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER)
   const [winner, setWinner] = useState(null)
   const [winningCells, setWinningCells] = useState([])
   const [gameMode, setGameMode] = useState("ai") // 'ai' or '2player'
   const [scores, setScores] = useState({ player: 0, ai: 0, ties: 0 })
   const [isAIThinking, setIsAIThinking] = useState(false)
+  const [hoverCol, setHoverCol] = useState(null)
+
+  const boardRef = useRef(board)
+  const aiTimeoutRef = useRef(null)
+
+  useEffect(() => {
+    boardRef.current = board
+  }, [board])
 
   useTrackView({
     id: "games-connect-four",
@@ -32,14 +48,29 @@ const ConnectFour = () => {
   })
 
   useEffect(() => {
-    if (currentPlayer === AI && gameMode === "ai" && !winner && !isAIThinking) {
-      setIsAIThinking(true)
-      setTimeout(() => {
-        makeAIMove()
-        setIsAIThinking(false)
-      }, 500)
+    // Prevent double-scheduling in React 18 StrictMode and ensure latest board is used.
+    if (aiTimeoutRef.current) {
+      clearTimeout(aiTimeoutRef.current)
+      aiTimeoutRef.current = null
     }
-  }, [currentPlayer, gameMode, winner])
+
+    if (gameMode !== "ai" || winner || currentPlayer !== AI) return
+    if (isAIThinking) return
+
+    setIsAIThinking(true)
+    aiTimeoutRef.current = setTimeout(() => {
+      makeAIMove(boardRef.current)
+      setIsAIThinking(false)
+      aiTimeoutRef.current = null
+    }, 450)
+
+    return () => {
+      if (aiTimeoutRef.current) {
+        clearTimeout(aiTimeoutRef.current)
+        aiTimeoutRef.current = null
+      }
+    }
+  }, [currentPlayer, gameMode, winner, isAIThinking])
 
   const checkWinner = (board) => {
     // Check horizontal
@@ -138,43 +169,50 @@ const ConnectFour = () => {
     return null
   }
 
-  const dropDisc = (col, player) => {
-    for (let row = ROWS - 1; row >= 0; row--) {
-      if (board[row][col] === EMPTY) {
-        const newBoard = board.map((r) => [...r])
-        newBoard[row][col] = player
-        setBoard(newBoard)
+  const applyMove = (col, player) => {
+    const current = boardRef.current
+    const row = getDropRow(current, col)
+    if (row === -1) return false
 
-        const result = checkWinner(newBoard)
-        if (result) {
-          setWinner(result.winner)
-          setWinningCells(result.cells)
+    const next = current.map((r) => [...r])
+    next[row][col] = player
+    setBoard(next)
 
-          if (result.winner === PLAYER) {
-            setScores((s) => ({ ...s, player: s.player + 1 }))
-          } else if (result.winner === AI) {
-            setScores((s) => ({ ...s, ai: s.ai + 1 }))
-          } else if (result.winner === "tie") {
-            setScores((s) => ({ ...s, ties: s.ties + 1 }))
-          }
-        } else {
-          setCurrentPlayer(player === PLAYER ? AI : PLAYER)
-        }
-        return true
+    const result = checkWinner(next)
+    if (result) {
+      setWinner(result.winner)
+      setWinningCells(result.cells)
+
+      if (result.winner === PLAYER) {
+        setScores((s) => ({ ...s, player: s.player + 1 }))
+      } else if (result.winner === AI) {
+        setScores((s) => ({ ...s, ai: s.ai + 1 }))
+      } else if (result.winner === "tie") {
+        setScores((s) => ({ ...s, ties: s.ties + 1 }))
       }
+    } else {
+      setCurrentPlayer(player === PLAYER ? AI : PLAYER)
     }
-    return false
+
+    return true
   }
+
+  const canInteract = useMemo(() => {
+    if (winner) return false
+    if (gameMode === "ai" && currentPlayer === AI) return false
+    if (isAIThinking) return false
+    return true
+  }, [winner, gameMode, currentPlayer, isAIThinking])
 
   const handleColumnClick = (col) => {
-    if (winner || currentPlayer === AI || isAIThinking) return
-    dropDisc(col, currentPlayer)
+    if (!canInteract) return
+    applyMove(col, currentPlayer)
   }
 
-  const makeAIMove = () => {
+  const makeAIMove = (boardState) => {
     const validColumns = []
     for (let col = 0; col < COLS; col++) {
-      if (board[0][col] === EMPTY) {
+      if (boardState[0][col] === EMPTY) {
         validColumns.push(col)
       }
     }
@@ -186,7 +224,7 @@ const ConnectFour = () => {
 
     // Check if AI can win
     for (const col of validColumns) {
-      const testBoard = board.map((r) => [...r])
+      const testBoard = boardState.map((r) => [...r])
       for (let row = ROWS - 1; row >= 0; row--) {
         if (testBoard[row][col] === EMPTY) {
           testBoard[row][col] = AI
@@ -202,7 +240,7 @@ const ConnectFour = () => {
     // Check if need to block player
     if (bestCol === null) {
       for (const col of validColumns) {
-        const testBoard = board.map((r) => [...r])
+        const testBoard = boardState.map((r) => [...r])
         for (let row = ROWS - 1; row >= 0; row--) {
           if (testBoard[row][col] === EMPTY) {
             testBoard[row][col] = PLAYER
@@ -226,19 +264,20 @@ const ConnectFour = () => {
       }
     }
 
-    dropDisc(bestCol, AI)
+    applyMove(bestCol, AI)
   }
 
   const resetGame = () => {
-    setBoard(
-      Array(ROWS)
-        .fill()
-        .map(() => Array(COLS).fill(EMPTY))
-    )
+    setBoard(getEmptyBoard())
     setCurrentPlayer(PLAYER)
     setWinner(null)
     setWinningCells([])
     setIsAIThinking(false)
+    setHoverCol(null)
+    if (aiTimeoutRef.current) {
+      clearTimeout(aiTimeoutRef.current)
+      aiTimeoutRef.current = null
+    }
   }
 
   const isWinningCell = (row, col) => {
@@ -335,31 +374,73 @@ const ConnectFour = () => {
         </div>
 
         <div className="board-container">
-          <div className="connect-four-board">
-            {board.map((row, rowIndex) =>
-              row.map((cell, colIndex) => (
-                <div
-                  key={`${rowIndex}-${colIndex}`}
-                  className={`cell ${cell === EMPTY ? "clickable" : ""}`}
-                  onClick={() => handleColumnClick(colIndex)}
-                >
-                  {cell !== EMPTY && (
-                    <motion.div
-                      className={`disc ${cell === PLAYER ? "player" : "ai"} ${
-                        isWinningCell(rowIndex, colIndex) ? "winning" : ""
-                      }`}
-                      initial={{ y: -500, scale: 0 }}
-                      animate={{ y: 0, scale: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
+          <div className="connect-four-board-wrap">
+            <div
+              className="column-select"
+              role="group"
+              aria-label="Choose column"
+            >
+              {Array.from({ length: COLS }).map((_, col) => {
+                const full = getDropRow(board, col) === -1
+                const disabled = full || !canInteract
+                const isActive = hoverCol === col
+
+                return (
+                  <button
+                    key={col}
+                    className={`col-btn ${isActive ? "active" : ""}`}
+                    disabled={disabled}
+                    onMouseEnter={() => setHoverCol(col)}
+                    onMouseLeave={() => setHoverCol(null)}
+                    onFocus={() => setHoverCol(col)}
+                    onBlur={() => setHoverCol(null)}
+                    onClick={() => handleColumnClick(col)}
+                    aria-label={`Drop in column ${col + 1}`}
+                  >
+                    <span
+                      className={`preview-disc ${
+                        currentPlayer === PLAYER ? "player" : "ai"
+                      } ${disabled ? "disabled" : ""}`}
                     />
-                  )}
-                </div>
-              ))
-            )}
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="connect-four-board">
+              {board.map((row, rowIndex) =>
+                row.map((cell, colIndex) => (
+                  <div
+                    key={`${rowIndex}-${colIndex}`}
+                    className={`cell ${
+                      canInteract && getDropRow(board, colIndex) !== -1
+                        ? "clickable"
+                        : ""
+                    }`}
+                    onClick={() => handleColumnClick(colIndex)}
+                    onMouseEnter={() => setHoverCol(colIndex)}
+                    onMouseLeave={() => setHoverCol(null)}
+                    role="button"
+                    tabIndex={-1}
+                  >
+                    {cell !== EMPTY && (
+                      <motion.div
+                        className={`disc ${cell === PLAYER ? "player" : "ai"} ${
+                          isWinningCell(rowIndex, colIndex) ? "winning" : ""
+                        }`}
+                        initial={{ y: -220, scale: 0.9 }}
+                        animate={{ y: 0, scale: 1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 420,
+                          damping: 24,
+                        }}
+                      />
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
 
