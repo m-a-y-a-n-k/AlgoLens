@@ -341,6 +341,32 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "ml",
+    label: "Machine Learning 🤖",
+    pages: [
+      {
+        topic: "LinearRegression",
+        label: "Linear Regression 📈",
+      },
+      {
+        topic: "KMeansClustering",
+        label: "K-Means Clustering 🎯",
+      },
+      {
+        topic: "NeuralNetwork",
+        label: "Neural Network 🧠",
+      },
+      {
+        topic: "GradientDescent",
+        label: "Gradient Descent 📉",
+      },
+      {
+        topic: "KNearestNeighbors",
+        label: "K-Nearest Neighbors 🎯",
+      },
+    ],
+  },
 ]
 const dynamicRoute = (categoryTopic, subjectTopic) => {
   return `${categoryTopic}/${subjectTopic}`

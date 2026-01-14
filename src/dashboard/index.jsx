@@ -10,6 +10,9 @@ import {
   FaCalculator,
   FaGamepad,
   FaArrowRight,
+  FaBrain,
+  FaLaptop,
+  FaNetworkWired,
 } from "react-icons/fa"
 import "./Dashboard.css"
 
@@ -19,6 +22,9 @@ const iconMap = {
   physics: <FaAtom />,
   math: <FaCalculator />,
   games: <FaGamepad />,
+  os: <FaLaptop />,
+  networking: <FaNetworkWired />,
+  ml: <FaBrain />,
 }
 
 const descriptions = {
@@ -32,6 +38,12 @@ const descriptions = {
     "Interactive tools for plotting equations, number systems, and geometric theorems.",
   games:
     "Play and analyze classic games and puzzles backed by Game Theory concepts.",
+  os:
+    "Understand operating system concepts like CPU Scheduling, Memory Allocation, and process synchronization.",
+  networking:
+    "Explore network protocols, TCP/IP stack, DNS resolution, and network communication fundamentals.",
+  ml:
+    "Visualize ML algorithms and neural networks including Linear Regression, K-Means, Neural Networks, and more.",
 }
 
 const containerVariants = {
@@ -80,8 +92,8 @@ export default function Dashboard() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            An interactive platform to visualize and master Algorithms, Data
-            Structures, Physics simulations, and Mathematics through immersive
+            An interactive platform to visualize and master Science, Technology,
+            Engineering, and Mathematics and more through immersive
             demonstrations.
           </motion.p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

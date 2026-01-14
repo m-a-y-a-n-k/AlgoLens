@@ -11,6 +11,7 @@ import {
   FaChevronRight,
   FaDesktop,
   FaNetworkWired,
+  FaBrain,
 } from "react-icons/fa"
 import "./SideDrawer.css"
 
@@ -22,6 +23,7 @@ const iconMap = {
   games: <FaGamepad />,
   os: <FaDesktop />,
   networking: <FaNetworkWired />,
+  ml: <FaBrain />,
 }
 
 const cleanLabel = (label) => {
