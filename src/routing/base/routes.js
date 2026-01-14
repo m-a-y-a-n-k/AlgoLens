@@ -287,6 +287,38 @@ const pages = [
         topic: "MatchTiles",
         label: "Match Tiles 🧩",
       },
+      {
+        topic: "Game2048",
+        label: "2048 Game 🔢",
+      },
+      {
+        topic: "SnakeGame",
+        label: "Snake Game 🐍",
+      },
+      {
+        topic: "Minesweeper",
+        label: "Minesweeper 💣",
+      },
+      {
+        topic: "ConnectFour",
+        label: "Connect Four 🔴🟡",
+      },
+      {
+        topic: "MemoryCards",
+        label: "Memory Cards 🃏",
+      },
+      {
+        topic: "MazeGame",
+        label: "Maze Generator & Solver 🌀",
+      },
+      {
+        topic: "LightsOut",
+        label: "Lights Out 💡",
+      },
+      {
+        topic: "Puzzle15",
+        label: "15-Puzzle Slider 🧩",
+      },
     ],
   },
   {
