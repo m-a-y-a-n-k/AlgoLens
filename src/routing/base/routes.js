@@ -441,6 +441,32 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "logic",
+    label: "Digital Logic 🔌",
+    pages: [
+      {
+        topic: "LogicGates",
+        label: "Basic Logic Gates ⚡",
+      },
+      {
+        topic: "SRLatch",
+        label: "SR Latch (Memory) 💾",
+      },
+      {
+        topic: "Multiplexer",
+        label: "Multiplexer (MUX) 🔀",
+      },
+      {
+        topic: "SevenSegment",
+        label: "7-Segment Display 🔟",
+      },
+      {
+        topic: "BinaryAdder",
+        label: "Full Adder Circuit ➕",
+      },
+    ],
+  },
 ]
 
 const dynamicRoute = (categoryTopic, subjectTopic) => {

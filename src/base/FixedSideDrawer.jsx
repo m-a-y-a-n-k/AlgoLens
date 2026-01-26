@@ -13,6 +13,7 @@ import {
   FaNetworkWired,
   FaBrain,
   FaShieldAlt,
+  FaMicrochip,
 } from "react-icons/fa"
 import "./SideDrawer.css"
 
@@ -26,6 +27,7 @@ const iconMap = {
   networking: <FaNetworkWired />,
   ml: <FaBrain />,
   security: <FaShieldAlt />,
+  logic: <FaMicrochip />,
 }
 
 const cleanLabel = (label) => {

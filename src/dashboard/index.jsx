@@ -14,6 +14,7 @@ import {
   FaLaptop,
   FaNetworkWired,
   FaShieldAlt,
+  FaMicrochip,
 } from "react-icons/fa"
 import "./Dashboard.css"
 
@@ -27,6 +28,7 @@ const iconMap = {
   networking: <FaNetworkWired />,
   ml: <FaBrain />,
   security: <FaShieldAlt />,
+  logic: <FaMicrochip />,
 }
 
 const descriptions = {
@@ -48,6 +50,8 @@ const descriptions = {
     "Visualize ML algorithms and neural networks including Linear Regression, K-Means, Neural Networks, and more.",
   security:
     "Explore cybersecurity fundamentals including Encryption, Hashing, and secure communication protocols.",
+  logic:
+    "Understand the hardware foundations of computing through Logic Gates, Digital Displays, and Arithmetic Circuits.",
 }
 
 const containerVariants = {
