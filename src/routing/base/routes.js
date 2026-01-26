@@ -179,10 +179,18 @@ const pages = [
         topic: "CircularMotion",
         label: "Circular Motion and Angular Momentum 🔄",
       },
-      // {
-      //   topic: "Optics",
-      //   label: "Optics and Light Behavior 🔦",
-      // },
+      {
+        topic: "Optics",
+        label: "Optics and Light Behavior 🔦",
+      },
+      {
+        topic: "Thermodynamics",
+        label: "Ideal Gas Law 🌡️",
+      },
+      {
+        topic: "MagneticField",
+        label: "Lorentz Force : Magnetic Field 🧲",
+      },
       {
         topic: "SolarSystem",
         label: "Planetary Motion : Solar System 🌍",
