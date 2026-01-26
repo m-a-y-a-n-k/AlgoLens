@@ -13,6 +13,7 @@ import {
   FaBrain,
   FaLaptop,
   FaNetworkWired,
+  FaShieldAlt,
 } from "react-icons/fa"
 import "./Dashboard.css"
 
@@ -25,6 +26,7 @@ const iconMap = {
   os: <FaLaptop />,
   networking: <FaNetworkWired />,
   ml: <FaBrain />,
+  security: <FaShieldAlt />,
 }
 
 const descriptions = {
@@ -44,6 +46,8 @@ const descriptions = {
     "Explore network protocols, TCP/IP stack, DNS resolution, and network communication fundamentals.",
   ml:
     "Visualize ML algorithms and neural networks including Linear Regression, K-Means, Neural Networks, and more.",
+  security:
+    "Explore cybersecurity fundamentals including Encryption, Hashing, and secure communication protocols.",
 }
 
 const containerVariants = {

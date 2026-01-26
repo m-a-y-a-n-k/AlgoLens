@@ -1,7 +1,12 @@
 .connect-four-container {
   min-height: 100vh;
   padding: 2rem;
-  background: radial-gradient(circle at 20% 10%, #0b1020 0%, #05060b 55%, #000 100%);
+  background: radial-gradient(
+    circle at 20% 10%,
+    #0b1020 0%,
+    #05060b 55%,
+    #000 100%
+  );
   color: rgba(255, 255, 255, 0.92);
 }
 
@@ -212,7 +217,8 @@
   border-radius: 12px;
   padding: 10px 0;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,7 +226,7 @@
 
 .col-btn:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.22);
 }
 
@@ -260,7 +266,7 @@
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   aspect-ratio: 7/6;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cell {
@@ -271,7 +277,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.10);
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .cell.clickable {

@@ -12,6 +12,7 @@ import {
   FaDesktop,
   FaNetworkWired,
   FaBrain,
+  FaShieldAlt,
 } from "react-icons/fa"
 import "./SideDrawer.css"
 
@@ -24,6 +25,7 @@ const iconMap = {
   os: <FaDesktop />,
   networking: <FaNetworkWired />,
   ml: <FaBrain />,
+  security: <FaShieldAlt />,
 }
 
 const cleanLabel = (label) => {

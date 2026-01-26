@@ -415,7 +415,26 @@ const pages = [
       },
     ],
   },
+  {
+    topic: "security",
+    label: "Cyber Security 🛡️",
+    pages: [
+      {
+        topic: "CaesarCipher",
+        label: "Caesar Cipher 🔓",
+      },
+      {
+        topic: "RSAEncryption",
+        label: "RSA Encryption 🔐",
+      },
+      {
+        topic: "HashingVisualizer",
+        label: "Hashing Visualizer 🔑",
+      },
+    ],
+  },
 ]
+
 const dynamicRoute = (categoryTopic, subjectTopic) => {
   return `${categoryTopic}/${subjectTopic}`
 }

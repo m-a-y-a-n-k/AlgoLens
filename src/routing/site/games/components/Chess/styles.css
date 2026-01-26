@@ -82,7 +82,7 @@ h2 {
 
 .selected {
   background-color: #f7e7b4 !important;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .dark.selected {
@@ -100,13 +100,13 @@ h2 {
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .reset-button:hover {
   background-color: #444;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .reset-button:active {
@@ -126,12 +126,12 @@ h2 {
 
 .piece.white {
   color: #fff;
-  text-shadow: 0 0 2px rgba(0,0,0,0.8);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 .piece.black {
   color: #222;
-  text-shadow: 0 0 1px rgba(255,255,255,0.5);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .status {
@@ -142,7 +142,7 @@ h2 {
   width: 100%;
   max-width: 400px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -193,7 +193,7 @@ h2 {
   .container {
     padding: 10px;
   }
-  
+
   .board {
     border-width: 2px;
   }
